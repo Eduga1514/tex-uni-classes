@@ -53,7 +53,7 @@
     Por otro lado, como $\{x\} \in \Tau$ para todo $x \in X$, entonces por el segundo inciso de \ref{defn:1.1.1} tenemos que $S \in \Tau$. Como $S$ es un subconjunto arbitrario de $X$, entonces $\Tau$ es la topología discreta.
 \end{proof}
 
-\begin{ejer}
+\begin{ejer}\label{ejer:1.1.1}
     Sea $(X, \Tau)$ un espacio topológico. Verificar que la intersección finita de miembros de $\Tau$ es un miembro de $\Tau$.
 \end{ejer}
 
@@ -176,4 +176,90 @@
     \]
     
     Y esto implica que $S \in \Tau$, y para todo subconjunto $S$ finito y no-vacío contenido en $X$. Así, $\Tau$ está conformado por todos los conjuntos finitos e infinitos de $X$, entonces $\Tau$ es la topología discreta.
+\end{proof}
+
+\subsection{Conjuntos abiertos, Conjuntos cerrados, Conjuntos clopen}
+
+\begin{defn}
+    Sea $(X, \Tau)$ un espacio topológico cualquier. Entonces los miembros de $\Tau$ se dice que son \ul{conjuntos abiertos}.
+\end{defn}
+
+\begin{pro}
+    Si $(X, \Tau)$ es cualquier espacio topológico, entonces
+    
+    \begin{enumerate}
+        \item $X$ y $\emptyset$ son conjuntos abiertos.
+        \item La unión arbitraria (finita o infinita) de cualquier número de abiertos es abiertos.
+        \item La intersección de cualquier número finito de abiertos es abiertos.
+    \end{enumerate}
+\end{pro}
+
+\begin{proof}
+    La demostración a esta proposición se desprende de la definición \ref{defn:1.1.1} y el ejercicio \ref{ejer:1.1.1}.
+\end{proof}
+
+\begin{ejem}
+    Sea $\N$ el conjunto de los enteros positivos y sea $\Tau$ formado por $\emptyset$ y todo subconjunto $S \subseteq \N$ tal que el complemento de $S$, $\N - S$ es un conjunto finito. Se verifica fácilmente por \ref{defn:1.1.1} que $\Tau$ es una topología sobre $\N$. Ahora, para cada número natural $n$, definamos el conjunto $S_n$ como sigue:
+    
+    \[
+    S_n = \{1\} \cup \{n+1\} \cup \dots = \{1\} \cup \bigcup_{m = n+1}^{\infty} \{m\}
+    \]
+    
+    Como el complemento de cada $S_n$ es finito, entonces $S_n$ es abierto en la topología $\Tau$. Sin embargo
+    
+    \[
+    \bigcap_{n = 1}^{\infty} S_n = \{1\}
+    \]
+    
+    Y como el complemento de $\{1\}$ no es ni $\N$ ni un conjunto finito, entonces $\{1\}$ no es abierto. De esta manera, vemos que la intersección infinita de conjuntos abiertos $S_n$ no es abierta.
+\end{ejem}
+
+\begin{defn}\label{defn:1.1.5}
+    Sea $(X, \Tau)$ un espacio topológico. Un subconjunto $S \subseteq X$ se dice que es un \ul{conjunto cerrado} en $(X, \Tau)$ si su complemento en $X$, $X - S$, es abierto en $(X, \Tau)$.
+\end{defn}
+
+\begin{pro}
+    Si $(X, \Tau)$ es cualquier espacio topológico, entonces
+    
+    \begin{enumerate}
+        \item $\emptyset$ y $X$ son conjuntos cerrados.
+        \item La intersección arbitraria (finita o infinita) de conjuntos cerrados, es cerrada.
+        \item La unión de cualquier número finito de conjuntos cerrados es cerrada.
+    \end{enumerate}
+\end{pro}
+
+\begin{proof}
+    Para demostrar esta proposición, usaremos la definición \ref{defn:1.1.1}:
+    
+    \begin{enumerate}
+        \item El complemento de $X$ es $\emptyset$ y viceversa, por lo que ambos son abiertos por definición.
+        \item Consideremos la siguiente familia arbitraria de conjuntos cerrados:
+        
+        \[
+        \F = \{B_j \in \Tau_1 : j \in J\}, \quad \text{con $J$ una familia de subíndices cualquiera}
+        \]
+        
+        Entonces para cada elemento $B_j$ de dicha familia, $X - B_j \in \Tau$ (con $j \in J$), por la definición \ref{defn:1.1.5}. Por lo tanto, por la definición \ref{defn:1.1.1}
+        
+        \[
+        \bigcup_{\substack{j \in J \\ B_j \in \Tau}} (X - B_j) \in \Tau
+        \]
+        
+        Pero por las leyes de De Morgan, nos queda que
+        
+        \[
+        \bigcup_{\substack{j \in J \\ B_j \in \Tau}} (X - B_j) = X - \bigcap_{\substack{j \in J \\ B_j \in \Tau}} B_j
+        \]
+        
+        Como esta es una intersección arbitraria de conjuntos cerrados, entonces queda demostrado.
+        \item Sean $S_1, \dots, S_n$ conjuntos cerrados. Queremos probar que $S_1 \cup \dots \cup S_n$ es un conjunto cerrado. Por la definición \ref{defn:1.1.5}, basta probar que $X - (S_1 \cup \dots \cup S_n)$ es abierto.
+        
+        Como $S_1, \dots, S_n$ son conjuntos cerrados, sus complementos $X - S_1$, \dots, $X - S_n$ son abiertos, pero por De Morgan, tenemos que
+        
+        \[
+        X - (S_1 \cup \dots \cup S_n) = (X - S_1) \cap \dots \cap (X - S_n)
+        \]
+        
+        Esta es una intersección finita de conjuntos abiertos, por lo tanto es un conjunto abierto. De esta forma, $S_1 \cup \dots \cup S_n$ es un conjunto cerrado, y queda demostrado el inciso.
+    \end{enumerate}
 \end{proof}
