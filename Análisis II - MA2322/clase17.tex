@@ -1,0 +1,144 @@
+\subsection{Funciones continuas en compactos. Homeomorfismos}
+
+A continuación estudiaremos funciones continuas definidas sobre compactos. Empezaremos con el siguiente teorema:
+
+\begin{teo}
+    Sea $f: K \rightarrow \R$, con $K \subseteq \R^n$ compacto. Si $f$ es continua, entonces $f(K)$ es compacto. Es decir, que la imagen a través de una función continua de un conjunto compacto, es compacto.
+\end{teo}
+
+\begin{proof}
+    Primero, sea $F = \{A_{\alpha}\}_{\alpha \in I}$ una familia de conjuntos abiertos que cubren a $f(K)$. Si esta familia es finita, no hay nada que demostrar. Asumamos entonces que $F$ es infinita y además no numerable.
+    
+    Luego, $f(K) \subseteq \bigcup_{\alpha \in I}A_{\alpha}$. Queremos encontrar una cantidad finita de conjuntos pertenecientes a esta unión tal que su unión siga cubriendo a $f(K)$.
+    
+    Como $f$ es continua, entonces $f^{-1}(A_{\alpha})$ es abierto para todo $\alpha \in I$. Ahora, por lo que dijimos anteriormente,
+    
+    \begin{gather*}
+        f(K) \subseteq \bigcup_{\alpha \in I}A_{\alpha} \\
+        \implies K \subseteq f^{-1}\left( f(K) \right) \subseteq f^{-1} \left( \bigcup_{\alpha \in I} A_{\alpha} \right) = \bigcup_{\alpha \in I} f^{-1}(A_{\alpha})
+    \end{gather*}
+    
+    Por lo tanto $K \subseteq \bigcup_{\alpha \in I} f^{-1}(A_{\alpha})$ y tenemos que $\bigcup_{\alpha \in I} f^{-1}(A_{\alpha})$ es un cubrimiento por abiertos de $K$. Pero $K$ es compacto, entonces hay un $N_0 \in \N$ tal que
+    
+    \[
+    K \subseteq \bigcup_{j=1}^{N_0} f^{-1} (A_j)
+    \]
+    
+    Luego,
+    
+    \begin{align*}
+        f(K) &\subseteq f\left( \bigcup_{j=1}^{N_0} f^{-1} (A_j) \right) \\
+        &= \bigcup_{j=1}^{N_0} f\left(f^{-1} (A_j)\right) \\
+        &= \bigcup_{j=1}^{N_0} A_j
+    \end{align*}
+    
+    Por lo tanto $\bigcup_{j=1}^{N_0} A_j$ es un subcubrimiento finito de $f(K)$. De esta forma $f(K)$ es compacto.
+\end{proof}
+
+\begin{nota}
+    El argumento anterior es aplicable si $f: K \rightarrow \R^m$ con $m \geq 2$.
+\end{nota}
+
+De este teorema podemos deducir un par de corolarios relevantes:
+
+\begin{cor}
+    Si $f: K \rightarrow \R$ con $f$ continua y $K$ compacto, entonces podemos concluir que $f(K)$ es cerrado y acotado.
+\end{cor}
+
+\begin{proof}
+    Aplicar el teorema anterior y utilizar la caracterización entre conjuntos compactos y conjuntos cerrados y acotados.
+\end{proof}
+
+\begin{cor}
+    Sea $f: K \rightarrow \R$ continua con $K$ compacto. Entonces existen al menos dos valores $x_1, x_2 \in K$ tales que
+    
+    \[
+    f(x_1) = \inf_{x \in K} f(x) \qquad f(x_2) = \sup_{x \in K} f(x)
+    \]
+\end{cor}
+
+\begin{proof}
+    Primero, tenemos que $f(K)$ es cerrado y acotado. Si tomamos
+    
+    \[
+    \alpha = \inf f(K) \qquad \beta = \sup f(K)
+    \]
+    
+    Entonces $\alpha \in \left[ f(K) \right]'$ y $\beta \in \left[ f(K) \right]'$. Luego, como $f(K)$ es un conjunto cerrado, contiene a todos sus puntos de acumulación, de esta manera $\alpha \in f(K)$ y $\beta \in f(K)$.
+    
+    De esta forma, existen al menos dos valores $x_1, x_2 \in K$ tales que
+    
+    \[
+    f(x_1) = \alpha \quad \text{y} \quad f(x_2) = \beta
+    \]
+    
+    Y queda demostrado este corolario.
+\end{proof}
+
+\begin{teo}
+    Sea $f: K \rightarrow \R$ inyectiva. Si $K \subseteq \R^n$ es compacto y $f$ es continua, entonces $f^{-1}$ es continua en $f(K)$.
+\end{teo}
+
+\begin{proof}
+    Tenemos que $f$ es continua sii $f^{-1}(B)$ es cerrado para todo $B$ cerrado. Equivalentemente, $f^{-1}$ es continua sii $f(B)$ es cerrado para todo $B$ cerrado. Veamos entonces que $f(B)$ es cerrado.
+    
+    Ahora, sea $B$ cerrado. Como $B \subseteq K$ con $K$ compacto, entonces $B$ es compacto (ya que todo subconjunto cerrado de un compacto es compacto). Como $f$ es continua, entonces $f(B)$ es compacto, lo que implica que $f(B)$ es cerrado. Por lo que $f^{-1}$ es continua. De esta forma, queda demostrado.
+\end{proof}
+
+Ahora vamos a estudiar la continuidad para la composición de funciones.
+
+\begin{teo}
+    Sean $f: U \rightarrow V$ y $g: f(V) \rightarrow W$. Sea $h: U \rightarrow W$ definida por $h(x) = g(f(x))$, para todo $x \in U$. Si $f$ es continua en $x = a$ y $g$ es continua en $y = f(a)$, entonces $h$ es continua en $x = a$.
+\end{teo}
+
+\begin{proof}
+    Sea $b = f(a)$ y escojamos $\varepsilon > 0$ fijo y arbitrario. Entonces por la continuidad de $g$, existe un $\delta_1 > 0$ tal que
+    
+    \[
+    \text{si $\normaeuc{y-b} < \delta_1$} \implies \normaeuc{g(y) - g(b)} < \varepsilon
+    \]
+    
+    Pero como $f$ es también continua, dado $\delta_1$ podemos hallar otro $\delta_2 > 0$ tal que
+    
+    \[
+    \text{si $\normaeuc{x-a} < \delta_2$} \implies \normaeuc{f(x) - f(a)} < \delta_1
+    \]
+    
+    Ahora denotando $y = f(x)$, como $b = f(a)$, se obtiene que para algún $\varepsilon > 0$, hay un $\delta_2 > 0$ que satisface
+    
+    \[
+    \text{si $\normaeuc{x-a} < \delta_2$} \implies \normaeuc{g(f(x)) - g(f(a))} < \varepsilon
+    \]
+    
+    Por lo tanto, $\lim_{x \to a} g(f(x)) = a$. En conclusión, $g(f(x))$ es continua en $x=a$.
+\end{proof}
+
+\begin{defn}
+    Una función $f: X \rightarrow Y$ es \ul{abierta} sii $\forall A \subset X$ abierto se tiene que $f(A)$ es abierto.
+\end{defn}
+
+\begin{ejem}
+    Un ejemplo de función abierta es la función identidad $f(x) = x$ porque $f = f^{-1}$.
+\end{ejem}
+
+\begin{defn}
+    Una función $f: X \rightarrow Y$ es \ul{cerrada} sii $\forall K \subset X$ cerrado se tiene que $f(K)$ es cerrado.
+\end{defn}
+
+\begin{ejem}
+    Nuevamente, un ejemplo de función cerrada es la función identidad.
+\end{ejem}
+
+\begin{defn}
+    Si $f: S \rightarrow T$ inyectiva, con $f$ y $f^{-1}$ continuas, entonces decimos que $f$ es un \ul{homeomorfismo}.
+\end{defn}
+
+\begin{teo}
+    Sea $f: X \rightarrow Y$ biyectiva. Son equivalentes:
+    
+    \begin{enumerate}
+        \item $f$ es un homeomorfismo.
+        \item $f$ es continua y abierta.
+        \item $f$ es continua y cerrada.
+    \end{enumerate}
+\end{teo}

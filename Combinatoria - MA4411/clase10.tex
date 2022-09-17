@@ -1,0 +1,47 @@
+\section{Digrafos, flujos y redes}
+
+\subsection{Digrafos}
+
+\begin{defn}
+    Un \ul{digrafo (grafo dirigido)} es un grafo consistente de un conjunto de vértices $V$, y un subconjuto $A$ de $V \times V$, cuyos miembros se llaman \ul{arcos}. Utilizaremos la notación $D = (V,A)$ para denotar el digrafo $D$. La diferencia entre digrafos y grafos, es que los arcos son un par ordenado $(u,w)$, mientras que los lados son un par no ordenado $\{u,w\}$.
+\end{defn}
+
+Formalmente, un digrafo es simplemente otra forma de descirbir una relación entre los miembros de un mismo conjunto. En lugar de decir que $u$ está relacionado con $w$ por la relación $R$, simplemente pordemos decir que $(u,w)$ es un arco del digrafo cuyo conjunto de arcos es $R$.
+
+\begin{marginfigure}
+    \centering
+    \begin{tikzpicture}
+        \SetGraphUnit{2}
+        \Vertex{a}
+        \EA(a){b}
+        \NO(b){c}
+        \SO(a){d}
+        \SetUpEdge[style={->,bend right}]
+        \Edge(a)(b)
+        \Edge(b)(c)
+        \Edge(c)(a)
+        \Edge(d)(a)
+        \Edge(d)(b)
+    \end{tikzpicture}
+    \caption{Ejemplo de un digrafo con $4$ vértices y $5$ arcos.}
+\end{marginfigure}
+
+\begin{defn}
+    Un \ul{paseo dirigido} en un digrafo $D = (V,A)$ es una secuencia de vpertices $v_1, \dots, v_k$ con la propiedad de que $(v_i, v_i+1)$ está en $A$, para $1 \leq i \leq k-1$. Un paseo dirigido es un \ul{camino dirigido} si todos sus vértices son distintos, y es un \ul{ciclo dirigido} si todos los vértices son distintos excepto $v_1, v_k$.
+\end{defn}
+
+\begin{defn}
+    Una ilustración de estas ideas ocurre al analizar un torneo \textit{round-robin}. En esta competición, todos los competidores se enfrentan una vez, sin empate. Si $x$ le gana a $y$, tendremos el arco $(x,y)$, en caso contrario tendremos el arco $(y,x)$. Este digrafo tiene como base un grafo completo. Este tipo de digrafos se conoce como \ul{torneo}.
+\end{defn}
+
+\begin{teo}
+    En cualquier torneo existe un camino dirigido que contiene todos los vértices.
+\end{teo}
+
+\begin{proof}
+    La estragegia para demostrar este teorema será extender cualquier camino dirigido $y_1, \dots, y_l$ que no contiene todos los vértices. Empecemos con el arco $(y_1, y_2)$, y extendamos el camino hasta tener un camino dirigido que tenga todos los vértices.
+    
+    Si $l = |V|$, entonces el camino tiene todos los vértices. Supongamos que $l < |V|$ y sea $z$ cualquier vértice que no esté en el camino dirigido $y_1, \dots, y_l$. Si $(z, y_1)$ es un arco, entonces $z, y_1 \dots, y_l$ es una extensión del camino inicial. Si $(z, y_1)$ no es un arco, entonces como tenemos un torneo necesariamente existirá el arco $(y_1, z)$. Sea $r$ el entero más grande para el cual $(y_1, z), (y_2, z), \dots, (y_r, z)$ son arcos. Si $r=l$, entonces $y_1, \dots, y_l, z$ es una extendión del camino inicial. Si $r<l$ entonces $(y_r, z)$ y $(z, y_{r+1})$ son arcos, y $y_1, \dots, y_r, z, y_{r+1}, \dots y_l$ es una extensión del camino inicial.
+    
+    En cualquier caso, hemos encontrado una extensión al camino inicial. Por lo que podemos construir de forma inductiva un camino que contenga a todos los vértices
+\end{proof}

@@ -1,0 +1,120 @@
+\documentclass{tufte-handout}
+\usepackage[utf8]{inputenc}
+\usepackage{parskip} % Varios paquetes para símbolos y fuentes
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{fdsymbol}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{decorations.pathreplacing, calligraphy, arrows.meta}
+\usepackage{titling} % Para estilizar el título
+\usepackage{scrextend} % Añade márgenes para hacer bloques de texto
+\usepackage{enumitem} % Para enumerar sin sangría
+\usepackage{graphicx} % Maneja las imágenes
+\usepackage{float}
+\usepackage{wrapfig, subcaption}
+\usepackage{lastpage}
+\usepackage{fancyhdr} % Para hacer encabezados y pie de página más estilizados
+\usepackage{color} % Para usar colores en el texto
+\usepackage{soul} % Para subrayar con colores
+\usepackage{soulutf8}
+\usepackage{cancel} % Para tachar expresiones
+\usepackage{titling} % Cambia los parámetros del título
+
+\newcounter{fakecnt}[section]
+\def\thefakecnt{\arabic{section}}
+
+\theoremstyle{plain}
+\newtheorem{teo}{Teorema}
+\newtheorem{cor}[teo]{Corolario}
+\newtheorem{lem}[teo]{Lema}
+\newtheorem{pro}[teo]{Proposición}
+\newtheorem{pre}{Pregunta}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definición}
+\newtheorem{ejem}{Ejemplo}
+\newtheorem{ejer}{Ejercicio}
+\newtheorem{nota}{Notación}
+\newtheorem{aco}{Acotación}
+
+\counterwithin{teo}{fakecnt}
+\counterwithin{pre}{fakecnt}
+\counterwithin{defn}{fakecnt}
+\counterwithin{ejem}{fakecnt}
+\counterwithin{ejer}{fakecnt}
+\counterwithin{nota}{fakecnt}
+\counterwithin{aco}{fakecnt}
+
+\renewcommand{\contentsname}{Contenido}
+\renewcommand*{\proofname}{Demostración}
+\renewcommand{\figurename}{Fig.}
+\newcommand{\marginfootnote}[1]{\footnotemark\footnotetext{#1}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Tau}{\mathcal{T}}
+
+% Establece el directorio para las imagenes
+\graphicspath{ {img/} }
+
+% Establecemos cómo será el encabezado y el pie de página
+\fancyhf{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Notas de Topología}
+\fancyhead[C]{Eduardo José Gavazut Pinto}
+\fancyhead[R]{13-10524}
+\fancyfoot[L]{}
+\fancyfoot[R]{}
+\fancyfoot[C]{\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{2pt} 
+\renewcommand{\footrulewidth}{2pt}
+
+\geometry{
+	left=13mm, % left margin
+	textwidth=130mm, % main text block
+	marginparsep=8mm, % gutter between main text block and margin notes
+	marginparwidth=55mm % width of margin notes
+}
+
+% Establece el subrayado de color rojo
+\definecolor{ferrari}{rgb}{1,0.17,0}
+\setulcolor{ferrari}
+
+% Reduce el espacio entre el título y el header
+\setlength{\droptitle}{-5.5em}
+\renewcommand\maketitlehookc{\vspace{-3ex}}
+
+% Define el espaciado entre párrafos
+\setlength{\parskip}{1.5em}
+
+% Definimos nuestro título
+\pretitle{\begin{flushleft}\LARGE\sffamily}
+\title{
+Notas de Topología
+}
+\posttitle{\par\end{flushleft}\vskip 0.5em}
+\preauthor{\begin{flushleft}\large\scshape}
+\author{
+Eduardo Gavazut \\
+Carnet: 13-10524}
+\postauthor{\par\end{flushleft}}
+\predate{\begin{flushleft}\large\scshape}
+\date{}
+\postdate{\par\end{flushleft}}
+
+% Aquí empieza el documento
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\tableofcontents
+\break
+\input{capitulo1}
+
+\end{document}

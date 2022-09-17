@@ -1,0 +1,164 @@
+\section{Frentes, barreras y familias uniformes}
+
+\subsection{Conceptos preliminares y ejemplos}
+
+En un momento se comentó que el Axioma de Elección implica que
+
+\[
+\omega \nrightarrow (\omega)^{\omega} \quad \footnotemark
+\]\footnotetext{Es decir, que existen particiones en dos pedazos de $\N^{[\infty]}$ que no admiten homogéneos de tamaño $\omega$.}
+
+Bajo este contexto, estamos motivados a establecer la siguiente definición:
+
+\begin{defn}
+    $\X \subseteq \N^{[\infty]}$ es \ul{Ramsey} si existe $A \in \N^{[\infty]}$ tal que ocurre una de las siguientes cosas:
+    
+    \begin{enumerate}
+        \item $A^{[\infty]} \subseteq \X$.
+        \item $A^{[\infty]} \cap \X = \emptyset$.
+    \end{enumerate}
+\end{defn}
+
+Si estamos trabajando bajo el Axioma de Elección, tiene sentido preguntarse cuáles conjunto son Ramsey y cuáles no.
+
+\begin{ejem}
+    Si $s \in \N^{\UnFi}$ entonces $[s]$ es Ramsey: Basta considerar un conjunto $A \subseteq \N^{\UnFi}$ tal que $\min(A) > \max(s)$. Si consideramos un conjunto $B \in A^{[\infty]}$, es imposible que $B$ empiece con algún elemento de $s$, debido a que todo elemento de $A$ es mayor que todo elemento de $s$, por lo tanto todo elemento de $B$ es mayor que todo elemento de $s$. Luego $A^{[\infty]} \cap s = \emptyset$.
+\end{ejem}
+
+\begin{ejem}
+    La unión finita de abiertos básicos en $\N^{[\infty]}$ es Ramsey: Esto es fácil de ver siguiendo una construcción inductiva que parte de lo hecho en el ejemplo anterior.
+\end{ejem}
+
+\begin{teo}
+    $\X$ es Ramsey si y sólo si $\N^{[\infty]} - \X$ es Ramsey.
+\end{teo}
+
+\begin{proof}
+    Basta con aplicar las leyes de Morgan en la definición de conjuntos Ramsey.
+\end{proof}
+
+\begin{pro}
+    Sea $\X$ Ramsey, y $\mathcal{Y}$ no Ramsey. Entonces $\X \cup \mathcal{Y}$ es Ramsey.
+\end{pro}
+
+\begin{proof}
+    Como $\X$ es Ramsey, entonces existe un $A^{[\infty]} \in \N$ tal que $A^{[\infty]} \subseteq \X$. Entonces $A^{[\infty]} \subseteq \X \cup \mathcal{Y}$. Por lo tanto, la unión es Ramsey y queda demostrado.\marginfootnote{Esto en caso de que tengamos $A^{[\infty]} \subseteq \X$. El otro caso también se puede demostrar, pero este resultado sólo se propuso como un ejemplo, a continuación demostraremos un resultado más general.}
+\end{proof}
+
+Ahora, consideremos el siguiente resultado: Sea una familia $\F \subseteq \N^{[\infty]}$ tal que es una anticadena (con respecto a $\sqsubseteq$). Entonces $\X = \bigcup_{s \in \F} [s]$.
+
+Si existe $B \in \N^{[\infty]}$ tal que $\F \rest B = \emptyset$\marginfootnote{Introducimos la siguiente notación
+
+\begin{notn}
+    $\F \rest B = \{s \in \F : s \subset B\}$
+\end{notn}}, entonces $\X$ es Ramsey.
+
+Si existe $B \in \N^{[\infty]}$ tal que cada $A \in B^{[\infty]}$ tiene un segmento inicial en $\F$, entonces $\X$ es Ramsey.
+
+\begin{defn}
+    Una familia $\F \subseteq \N^{[\infty]}$ es una \ul{barrera} en $B$ si
+    
+    \begin{enumerate}
+        \item $\F$ es una anticadena (con respecto a $\sqsubseteq$).
+        \item $\left| \bigcup \F \right| = \infty$ y cada $A \in B^{[\infty]}$ tiene un segmento inicial en $\F$.
+    \end{enumerate}
+\end{defn}
+
+\subsection{Forcing Combinatorio}
+
+Esta es una técnica que se deriva de la teoría de conjuntos. En un principio establezcamos la siguiente definición:
+
+\begin{defn}
+    Fijemos $\F \subseteq \N^{\UnFi}$. Para $A$ y $s$ decimos
+    
+    \begin{itemize}
+        \item $A$ \ul{acepta} $s$ si cada $B \in [s,A]$\marginfootnote{Recordemos: $B \subset s \cup A$ y $s \sqsubseteq B$.} tiene un segmento inicial en $\F$.
+        \item $A$ \ul{rechaza} $s$ si para cada $B \in [s,A]$, $B$ no acepta $s$.
+        \item $A$ \ul{decide} $s$ si $A$ acepta $s$ o $A$ rechaza $s$.
+    \end{itemize}
+\end{defn}
+
+\begin{teo}
+    Las siguientes propedades son análogas a las del forcing en teoría de conjuntos:
+    
+    \begin{itemize}
+        \item Supongamos $B \in A^{[\infty]}$. Si $A$ acepta $s$ entonces $B$ acepta $s$ y si $A$ rechaza $s$ entonces $B$ rechaza $s$.
+        \item Dados $A$ y $s$, existe $B \in A^{[\infty]}$ que decide $s$.
+        \item Supongamos que $A$ rechaza $s$. Entonces $\{n \in A/s : A \text{ acepta } s \cup \{n\}\}$\marginfootnote{Donde $A/s$ está definido como $A/n = \{a \in A : a > n\}$, con $s \in \N$. Si $s$ es un segmento finito, entonces $A/s = \{A/\max(s)\}$.} es finito.
+    \end{itemize}
+\end{teo}
+
+\begin{proof}
+    Pasemos a demostrar las 3 propiedades:
+    
+    \begin{itemize}
+        \item Sea $C \in [s, B]$. Como $B \in A^{[\infty]}$ entonces $[s,B] \subseteq [s,A]$ y esto implica que $C \in [s,A]$. De esta forma, $C$ es un conjunto infinito que comienza con $s$ y continua con $A$. Como $A$ acepta $s$, $C$ tiene un segmento inicial en $\F$. Como $C \in [s,B]$, entonces $B$ acepta $s$. Para $B$ rechaza a $s$ la demostración es análoga.
+        \item Si $A$ rechaza $s$, entonces lo decide, entonces $A=B$. Si $A$ no rechaza $s$, entonces existe un $C \in [s,A]$ que acepta $s$, entonces $C$ lo decide, luego $B = C$.
+        \item Si el conjunto $B$ de todos los $n \in A/s$ tales que $A$ acepta $s \cup \{n\}$ es infinito. Entonces $B$ acepta $s$, lo que contradice la hipótesis.
+    \end{itemize}
+\end{proof}
+
+\begin{pro}\label{pro:decide}
+    Existe $B \in \N^{[\infty]}$ que decide sus subconjuntos finitos.
+\end{pro}
+
+\begin{proof}
+    Apliquemos la segunda propiedad a $\N$ y a $\emptyset$ para obtener $A_1 \in \N^{[\infty]}$ que decide $\emptyset$ y definimos $n_1 = \max(A_1)$.
+        
+    Nuevamente aplicamos la propiedad con $A_1$ y $\{n_1\}$ para obtener $A_2 \in A_1^{[\infty]}$ que decide $\{n_1\}$ y definimos $n_2 =\min(A_2)$. Aplicamos la segunda propiedad las veces que sean necesarias para encontrar $A_3 \in A_2^{[\infty]}$ que decide a $\{n_1\}$, $\{n_2\}$, $\{n_1, n_2\}$. Y definimos $n_3 = \min(A_3)$.
+        
+    De esta forma se obtiene una cadena decreciente $\N \supseteq A_1 \supseteq A_2 \supseteq \dots$ y $n_1 < n_2 < \dots$ tales que $n_m \in A_M$ y $A_m$ decide cada subconjunto de $\{n_1, \dots, n_m\}$.
+    
+    Sea $B = \{n_1, n_2, \dots\}$, $s \in B^{\UnFi}$. Definimos $n_m = \max(s)$. Entonces $A_{m+1}$ decide a $s$ y por ende $B$ decide $s$.
+\end{proof}
+
+\subsection{Teorema de Galvin}
+
+\begin{teo}[Galvin]\label{teo:Galvin}
+    Sea $\F \subseteq \N^{\UnFi}$ entonces se cumple una de las siguientes
+    
+    \begin{itemize}
+        \item Existe $B \in \N^{[\infty]}$ tal que $\F \rest B = \emptyset$.
+        \item Existe $B \in \N^{[\infty]}$ tal que $\F \rest B$ contiene una barrera.
+    \end{itemize}
+\end{teo}
+
+\begin{teo}
+    Sea $B$ como en \ref{pro:decide}, entonces
+    
+    \begin{itemize}
+        \item Si $B$ acepta $\emptyset$ entonces todo $[\emptyset, A] = A \in B^{[\infty]}$ tiene un segmento inicial en $\F$. Por lo tanto, $\F$ contiene una barrera en $B$ (segunda parte del teorema).
+        \item Si $B$ rechaza a $\emptyset$ entonces hay una cantidad finita de $n \in B$ tales que $B$ acepta a $\emptyset \cup \{n\} = \{n\}$ por la tercera propiedad del forcing.
+    \end{itemize}
+\end{teo}
+
+\begin{proof}
+    Sea $n_1$ el primero tal que $B$ rechaza cada $n \geq n_1$. Apliquemos nuevamente la tercera propiedad del forcing a $\{n_1\}$ y $B$, luego existe $n_2 \geq n_1$ tal que $B$ rechaza $\{n_1\}$ y $\{n_1, n\}$ para cada $n \geq n_2$.
+        
+    De esta forma obtenemos $n_1 < n_2 < \dots$ tales que $B$ rechaza $s \cup \{n\}$ para $s \subseteq \{n_1, n_2, \dots, n_{m-1}\}$ y $n \geq n_m$.
+        
+    Definimos ahora $B' = \{n_1, n_2, \dots\}$. Entonces $B'$ rechaza todos sus subconjuntos finitos. Si $s \in \F$ entonces $s \nsubseteq B'$ ya que si así fuese, cada $\C \in [s, B']$ tendría un segmento inicial en $\F$, es decir que $B'$ aceptaría $s$.
+        
+    De esta forma, $\F \rest B' = \emptyset$ (primera parte del teorema).
+\end{proof}
+
+\subsection{Los abiertos son Ramsey}
+
+\begin{teo}[Galvin-Prikry]
+    Todo abierto en $\N^{[\infty]}$ es Ramsey.
+\end{teo}
+
+\begin{proof}
+    Sea $\X = \bigcup_{s \in \F} [s]$ con $\F$ anticadena. Apliquemos el teorema de Galvin:
+    
+    \begin{itemize}
+        \item Si existe $B \in \N^{[\infty]}$ tal que $\F \rest B = \emptyset$ entonces existe $B$ tal que $B^{[\infty]} \cap \X = \emptyset$.
+        \item Si existe $B \in \N^{[\infty]}$ tal que $\F \rest B$ contiene una barrera entonces existe $B$ tal que $B^{[\infty]} \subseteq \X$.
+    \end{itemize}
+\end{proof}
+
+\begin{nota}
+    Otra consecuencia del Teorema de Galvin es la siguiente: Sea $\N^{[n]} = K_1 \cup K_2$ una partición. Si existe $B \in \N^{[\infty]}$ tal que $K_1 \rest B = \emptyset$ entonces $B^{[n]} \subseteq K_2$. Si existe $B \in \N^{[\infty]}$ tal que $K_1 \rest B$ contiene una barrera entonces $B^{[n]} \subseteq K_1$.
+    
+    De esta forma, tenemos que el teorema de Galvin implica \TR.
+\end{nota}

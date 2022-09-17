@@ -1,0 +1,118 @@
+\section{Introducción}
+
+Utilizaremos el libro "Combinatoria: Un panorama de la teoría de Ramsey" del profesor Di Prisco. La teoría de Ramsey surge a partir de los resultados de un problema de lógica de naturaleza combinatoria que consiguió Frank Ramsey. Este resultado al plantearlo en el contexto infinito, conduce a resultados topólogicos interesante. Esto hace que la Teoría de Ramsey toque con áreas muy diversas dentro de las matemáticas.
+
+\begin{itemize}
+    \item Lógica.
+    \item Combinatoria.
+    \item Conjuntos.
+    \item Topología.
+\end{itemize}
+
+El primer paso para estudiar este tema, es revisar el principio del casillero.
+
+\section{Teoría de Particiones, teoremas de Ramsey y Schur}
+
+\subsection{Principio del casillero}
+
+\begin{notn} \marginnote{Es importante destacar que la notación que se utilizará en este curso se desprende de la teoría de conjuntos.}
+
+    Para el curso, tomaremos en cuenta lo siguiente:
+    
+    \begin{enumerate}
+        \item El conjunto de los números naturales es $\N = \{ 0, 1, 2, \dots \}$, y usaremos $\Nastk$ para denotar el conjunto de los enteros positivos.
+        
+        \item Como se hace en teoría de conjuntos, denotaremos a cada número natural $n$ como el conjunto de sus predecesores $n = \{0, 1, 2, \dots, n-1\}$, y de esta forma $n$ es un conjunto de $n$ elementos.
+    \end{enumerate}
+\end{notn}
+
+\begin{defn}
+    \ul{Partir} el conjunto equivale a definir una función
+    
+    \[
+    f: \N \rightarrow r \quad \text{donde} \quad r \in \Nastk
+    \]
+    
+    \noindent y a esta partición se le conoce como \ul{$r$-partición} o \ul{$r$-coloración}.
+\end{defn}
+
+\begin{teo}[Principio del casillero]\label{teo:casillero}\marginfootnote{Esto es para el caso infinito. En el curso de matemáticas discretas se ve solamente el caso finito.}
+    Si se parte el conjunto $\N$ de los naturales, en un número finito de partes, necesariamente al menos una de ellas es infinita, y esto vale para cualquier conjunto infinito numerable.
+    
+    En términos de coloraciones, podemos decir que existe un subconjunto $H \subseteq \N$ tal que $\exists i \in \{ 0, 1, 2, \dots, r-1 \}$ tal que $c^{-1}\{i\}$ es infinito. En este caso, se dice que el conjunto $H$ es \ul{homogéneo} para esa partición.
+\end{teo}
+
+\begin{ejem}
+    En teoría de grafos se ve un resultado que ilustra este resultado (obviamente, para el caso finito). Si tomamos el grafo completo $K_6$, y pintamos el conjunto de sus lados utilizando dos colores:
+    
+    \[
+    f: L(K_6) \rightarrow \{0, 1\}
+    \]
+    
+    \noindent entonces siempre encontraremos un subgrafo $K_3$, con $L(K_3)$ monocromático, es decir $K_3$ homogéneo.
+\end{ejem}
+
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \SetGraphUnit{2}
+        \Vertices{circle}{a,b,c,d,e,f}
+        \Edges[color=blue](a,d,b,e,c,f,a,b)
+        \tikzset{
+            EdgeStyle/.append style = {red}
+        }
+        \Edges[color=red](a,c,d,e,f,b,f,d,e,a,c,b)
+    \end{tikzpicture}
+    \caption{Un ejemplo de la situación descrita. Vemos que el triángulo formado por los vértices $a, b, d$ es monocromático.}
+\end{figure}
+
+Llegados a esta punto, es conveniente establecer una nueva notación:
+
+\begin{notn}
+    Sea $A$ un conjunto de $n$ elementos, con $n \in \Nastk$, entonces
+    
+    \[
+    A^{[n]} = \{ B \subset A : |B| = n \}
+    \]
+    
+    \noindent es decir, $A^{[n]}$ es el conjunto de todos los subconjutos de $A$ que tienen $n$ elementos.
+\end{notn}
+
+Entonces, con esta nueva notación, el resultado del ejemplo anterior se traduce a:
+
+\begin{pro}
+    Sea un conjunto $V$, con $|V| = 6$, entonces $\forall f: V^{[2]} \rightarrow \{0,1\}$, $\exists H \subset V$ con $|H| = 3$ tal que $H^{[2]}$ es monocromático para $f$.
+\end{pro}
+
+\begin{notn}
+    Estableceremos $|\N| = \aleph_0 = \omega$.
+\end{notn}
+
+Habiendo estudiado el principio del casillero, y establecido todos esos resultados, hemos de centrarnos en lo siguiente:
+
+\begin{pre}\label{pre:monocromatico}
+    Sean $n, r \in \Nastk$, entonces $\forall f: \N^{[n]} \rightarrow r$, ¿existirá un $H \subset \N$, con $|H| = \omega$ tal que $H^{[n]}$ es monocromático para $f$?
+\end{pre}
+
+\begin{notn}\label{notn:notn1}
+    Sean cardinales $\alpha, \beta, \gamma$ y $n \in \Nastk$, y sea un conjunto $A$ con $|A| = \alpha$, entonces para toda coloración $f: A^{[n]} \rightarrow \gamma$, existe $B \subset A$ con $|B| = \beta$ tal que $B^{[n]}$ es monocromático para $f$. Esta afirmación la podemos escribir de forma compacta de la siguiente manera:
+    
+    \[
+    \alpha \rightarrow (\beta)_{\gamma}^n
+    \]
+    
+    \noindent en caso de no ser cierta, escribimos
+    
+    \[
+    \alpha \nrightarrow (\beta)_{\gamma}^n
+    \]
+\end{notn}
+
+Con esta notación, el contenido de la pregunta \ref{pre:monocromatico} puede escribirse de forma aún más compacta de la siguiente manera:
+    
+\[
+\omega \rightarrow (\omega)_r^n
+\]
+
+Afirmar que esto efectivamente se cumple, será nuestro próximo objetivo.

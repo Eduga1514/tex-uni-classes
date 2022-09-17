@@ -1,0 +1,171 @@
+\section{Fórmulas generadoras}
+
+Hemos visto ya que los problemas de conteo pueden resolverse utilizando unas fórmulas muy sencillas. Por ejemplo, la cantidad de maneras de distribuir $n$ objetos indistinguibles en $m$ casillas distinguibles es
+
+\[
+\binom{m}{n}
+\]
+
+Este número está relacionado con un objeto algebráico: es el coeficiente de $x^n$ en el desarrollo de $(x+1)^m$. En este sentido podría decirse que $(x+1)^m$ \textit{genera} los números
+
+\[
+\binom{m}{0}, \quad \binom{m}{1}, \quad \dots, \quad \binom{m}{m}
+\]
+
+Esta idea sirve para estudiar muchísimos problemas de conteo y, más generalmente, para facilitar el cálculo de los términos de algunas sucesiones definidas recursivamente, por ejemplo, la sucesión de Fibonacci.
+
+Revisemos el siguiente problema:
+
+\begin{ejer}
+    El profesor Severo diseñó el examen final de Matemáticas I de la siguiente manera: Una larga lista de preguntas está dividida en tres grupos según el tema. Los estudiantes deben responder 7 preguntas: no más de dos preguntas del grupo 1, al menos dos del grupo 2 y al menos tres preguntas del grupo 3. ¿De cuántas maneras se pueden elegir las siente preguntas?
+\end{ejer}
+
+\begin{proof}[Respuesta]
+    Podemos hacer una tabla con todas las posibilidades ya que los números son pequeños:
+    
+    \begin{center}
+        \begin{tabular}{ccc}
+            \text{Grupo 1} & \text{Grupo 2} & \text{Grupo 3} \\ \toprule
+            $0$ & $2$ & $5$ \\
+            $0$ & $3$ & $4$ \\
+            $0$ & $4$ & $3$ \\
+            $1$ & $2$ & $4$ \\
+            $1$ & $3$ & $3$ \\
+            $2$ & $2$ & $3$
+        \end{tabular}
+    \end{center}
+    
+    ¿Qué se puede apreciar en esta tabla?: En cada fila hay tres números que suman 7. Es decir, soluciones de $m_1 + m_2 + m_3 = 7$, pero sujetas a las condiciones $0 \leq m_1 \leq 2$, $2 \leq m_2 \leq 4$ y $3 \leq m_3 \leq 5$. Analicemos el producto
+    
+    \[
+    p(x) = (1 + x + x^2)(x^2 + x^3 + x^4)(x^3 + x^4 + x^5)
+    \]
+    
+    Al desarrollar el coeficiente de este prodcuto, el coeficiente de $x^7$ es la solución buscada.
+\end{proof}
+
+\subsection{Sumas formales infinitas}
+
+Si en lugar de utilizar polinomios, consideramos \textit{sumas formales infinitas}, podemos aprovechar algunas características algebráicas, por ejemplo, sabemos de los curso de cálculo y análisis que la serie geométrica congerve a $1/1-x$ cuando $a = 1$ y $r = x$, entonces
+
+\[
+\frac{1}{1-x} = 1 + x^2 + x^3 + x^4 + \dots \implies 1 = (1-x)(1 + x^2 + x^3 + x^4 + \dots)
+\]
+
+Si consideramos $A(x) = (1 + x^2 + x^3 + x^4 + \dots)$ entonces $1-x$ sería un inverso multiplicativo de $A(x)$. En este contexto, diremos que $(1-x)^{-1}$ \textit{genera} la sucesión $1, 1, 1, 1, \dots$ de los coeficientes de $A(x)$. En general,
+
+\begin{defn}
+    Una \ul{suma formal infinita} en la indeterminada $x$ tiene la forma
+    
+    \[
+    \sumtoinfty{n=0}{a_nx^n}
+    \]
+    
+    \noindent donde $\{a_n\}_{n=0}^{\infty}$ es una sucesión de números reales o complejos.
+    
+    Sean $\displaystyle \sumtoinfty{n=0}{a_nx^n}$, $\displaystyle \sumtoinfty{n=0}{b_nx^n}$ y $\alpha \in \R$ ó $\alpha \in \C$. Se define
+    
+    \begin{itemize}
+        \item $\displaystyle \sumtoinfty{n=0}{a_nx^n} + \sumtoinfty{n=0}{b_nx^n} = \sumtoinfty{n=0}{(a_n + b_n)x^n}$.
+        \item $\displaystyle \alpha \left( \sumtoinfty{n=0}{a_nx^n} \right) = \sumtoinfty{n=0}{\alpha_nx^n}$.
+        \item $\displaystyle \left( \sumtoinfty{n=0}{a_nx^n} \right)\left( \sumtoinfty{n=0}{b_nx^n} \right) = \left( \sumtoinfty{n=0}{c_nx^n} \right)$.
+    \end{itemize}
+    
+    \noindent donde $\displaystyle c_n = \left( \sum_{i+j=n} a_ib_j \right)$.
+    
+    También diremos que dos sumas formales infinitas son iguales sii sus coeficientes son iguales.
+\end{defn}
+
+Con la multiplicación y la adición definidas de esa forma, el conjunto de las sumas formales infinitas es un anillo conmutativo con identidad y lo denotaremos por $\mathbb{F}[[x]]$, donde $\mathbb{F}$ es un campo (puede ser $\R$ ó $\C$).
+
+\begin{teo}
+    Sea $\mathbb{F}$ un campo. Entonces la suma
+    
+    \[
+    \sumtoinfty{n=0}{a_nx^n}
+    \]
+    
+    \noindent tiene inverso multiplicativo en $\mathbb{F}[[x]]$ sii $a_0 \neq 0$.
+\end{teo}
+
+\begin{proof}
+    Si la serie es invertible, entonces hay otra serie perteneciente a $\mathbb{F}[[x]]$ tal que es su inverso, entonces
+    
+    \begin{gather*}
+        \left(\sumtoinfty{n=0}{a_nx^n}\right)\left(\sumtoinfty{n=0}{b_nx^n}\right) = 1 \\
+        (a_0 + a_1x + a_2x^2 + \dots)(b_0 + b_1x + b_2x^2) = 1
+    \end{gather*}
+    
+    Igualando los coeficientes, vemos que $a_i = b_i = 0$ para $i = 1, \dots$. Luego $a_0b_0 = 1$, entonces $a_0 = 1 \neq 0$.
+    
+    Ahora, supongamos que $a_0 \neq 0$. Para hallar el inverso de la suma, consideremos las expresiones que se obtienen al revisar sus coeficientes,
+    
+    \begin{gather*}
+        a_0b_0 = 1 \\
+        a_0b_1 + a_1b_0 = 0 \\
+        a_0b_2 + a_1b_1 + a_2b_0 = 0 \\
+        \vdots
+    \end{gather*}
+    
+    Como $a_0 \neq 0$, entonces existe $a_0^{-1}$ y podemos determinar los $b_i$ de forma recursiva, luego
+    
+    \begin{gather*}
+        b_0 = a_0^{-1} \\
+        b_1 = a_0^{-1}(-a_1b_0) \\
+        b_2 = a_0^{-1}(-a_1b_1 - a_2b_0) \\
+        \vdots
+    \end{gather*}
+    
+    De esta forma, cada $b_i$ está unequívocamente determinado por $b_0^{-1}$ y luego la suma formal infinita es invertible.
+\end{proof}
+
+\begin{ejem}
+    \begin{itemize}
+        \item $\displaystyle \frac{1}{1+x} = 1 - x + x^2 - x^3 + \dots$.
+        \item $\displaystyle \frac{1}{1-\alpha x} = 1 - \alpha x + \alpha^2x^2 - \alpha^3x^3 + \dots$.
+    \end{itemize}
+\end{ejem}
+
+Vemos que dado $m \in \N$, si definimos $(1-x)^{-m}$ como la $m$-ésima potencia de $(1-x)^{-1}$, nos queda
+
+\[
+(1-x)^{-m} = (1+x+x^2+\dots)\dots(1+x+x^2+\dots)
+\]
+
+\begin{pre}
+    ¿Cuál es el coeficiente de $x^n$ en el desarrollo de este producto? Como vimos en el ejercicio planteado al principío del capítulo, es la cantidad de maneras de distribuir $n$ objetos indistinguibles en $m$ casillasm lo cual equivale a la cantidad de $n$-selecciones no ordenadas con repetición de un conjunto de $m$ objetos, es decir
+    
+    \[
+    \binom{m+n-1}{n}
+    \]
+    
+    En conclusión
+    
+    \[
+    (1-x)^{-m} = \sumtoinfty{n=0}{\binom{m+n-1}{n}x^n}
+    \]
+    
+    Por lo que
+    
+    \[
+    (1+x)^{-m} = \sumtoinfty{n=0}{(-1)^n\binom{m+n-1}{n}x^n}
+    \]
+\end{pre}
+
+Ahora, si definimos para $\alpha \in \R$ y $n \in \N$ el \textit{coeficiente binomial generalizado}
+
+\[
+\binom{\alpha}{n} = \frac{\alpha(\alpha - 1)(\alpha - 2)\dots(\alpha - n + 1)}{n!}
+\]
+
+\noindent entonces para $m > 0$ tendremos
+
+\[
+\binom{-m}{n} = \frac{-m(m-1)(-m-2)\dots(-m-n+1)}{n!} = (-1)^n\frac{m(m+1)(m+2)\dots(m+n-1)}{n!} = (-1)^n\binom{m+n-1}{n}
+\]
+
+Si además definimos $\displaystyle \binom{\alpha}{0} = 1$ nos queda
+
+\[
+(1+x)^k = \sumtoinfty{n=0}{\binom{k}{n}x^n} \quad \text{para todo $k \in \Z$}
+\]

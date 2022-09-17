@@ -1,0 +1,81 @@
+\subsection{Más conjuntos Ramsey}
+
+\begin{defn}
+    Un conjunto $\X$ en $\N^{[\infty]}$ es \ul{completamente Ramsey} si dados $a \in \N^{[\infty]}$ y $A \in \N^{[\infty]}$ existe $B \in A$ tal que
+    
+    \begin{enumerate}
+        \item $[a, B] \subset \X$ ó
+        \item $[a, B] \cap \X = \emptyset$.
+    \end{enumerate}
+\end{defn}
+
+\begin{nota}
+    Obsérvese que todo conjunto completamente Ramsey es Ramsey. Esto se logra tomando $a = \emptyset$.
+\end{nota}
+
+El teorema \ref{teo:Galvin} puede \textit{relativizarse} a un conjunto infinito $A$ de la siguiente forma:
+
+\begin{teo}
+    Sean $\F \subseteq \N^{[\infty]}$ y $A \in \N^{[\infty]}$ entonces
+    
+    \begin{enumerate}
+        \item Existe $B \in A^{[\infty]}$ tal que $\F \rest B = \emptyset$ ó
+        \item Existe $B \in A^{[\infty]}$ tal que $\F \rest B$ contiene una barrera.
+    \end{enumerate}
+\end{teo}
+
+\begin{teo}[Galvin-Pikry]
+    Todo abierto métrico en $\N^{[\infty]}$ es completamente Ramsey.
+\end{teo}
+
+\begin{proof}
+    Sean $\X = \bigcup_{s \in \F} [s]$, $a \in \N^{[\infty]}$ y $A \in \N^{[\infty]}$. Si algún segmento inicial de $a$ está en $\F$, entonces $[a] \subset \X$. Como $[a, A] \subset [a]$ entonces $[a,A] \subset \X$. Por el contrario, si no se tiene algún $a \in \F$ definamos entonces
+    
+    \[
+    \F' = \{t \backslash a : t \in \F\} \quad \text{y} \quad \mathcal{Y} = \cup_{s \in \F'} [s]
+    \]
+    
+    Aplicamos \ref{teo:Galvin} a $\F'$ y $a$ y nos queda:
+    
+    \begin{enumerate}
+        \item Si ocurre (1) entonces $[a,B] \cap \X = \emptyset$.
+        \item Si ocurre (2) entonces $[a,B] \subset \X$.
+    \end{enumerate}
+    
+    De esta forma queda demostrado.
+\end{proof}
+
+\subsection{Uniones}
+
+\begin{teo}
+    La unión de una familia numerable de conjuntos completamente Ramsey es completamente Ramsey.
+\end{teo}
+
+\begin{proof}
+    Sea $\X = \bigcup_{n \in \N} A_n$ con $A_j$ completamente Ramsey para cada $j$ y fijemos $p \in \N^{\UnFi}$ y $M \in \N^{[\infty]}$.
+    
+    Como $A_0$ es completamente Ramsey, entonces existe un $N_0 \in M^{[\infty]}$ tal que $[p, N_0] \subset A_0$ ó $[p, N_0] \cap A_0 = \emptyset$. Definamos $a_0 = \min(N_0/p)$\marginfootnote{Este es el primer elemento de $N_0$ que está por encima de $p$.}. Como $A_1$ es completamente Ramsey, entonces existe un $N_1 \in N_0^{[\infty]}$ tal que $[p \cup \{a_0\}, N_1] \subset A_1$ ó $[p \cup \{a_0\}, N_1] \cap A_1 = \emptyset$. Definamos $a_1 = \min(N_1/a_0)$.
+    
+    De esta manera, podemos definir $N_0, N_1 \dots, N_n$ y $a_0, a_1, \dots a_n$ con $a_j \in \N$ con $a_j \in N_j$ y $a_j < a_{j+1}$ y para cada $q \subset \{a_0, a_1, \dots, a_j\}$ vale que $[p \cup q, N_j] = \subset A_j$ ó $[p \cup q, N_j] \cap A_j = \emptyset$.
+    
+    Aplicando esto de forma iterada, ya que $A_{n+1}$ es completamente Ramsey, existe un $N_{n+1} \in N_n^{[\infty]}$ tal que para cada $q \subset \{a_1, \dots, a_n\}$ vale $[p \cup q, N_{n+1}] \subset A_{n+1}$ ó $[p \cup q, N_n] \cap A_{n+1} = \emptyset$. Definimos $a_{n+1} = \min(N_{n+1}/a_n)$ y de esta manera hemos construído inductivamente el conjunto $N = \{a_0, a_1, a_2, \dots\}$.
+    
+    Observemos ahora que ocurren dos cosas:
+    
+    \begin{gather*}
+        A_0 \cap [p,N] = [p,N] \quad \text{ó} \quad A_0 \cap [p,N] = \emptyset \\
+        A_j \cap [p, N] = [p, N] \cap \left\{ \bigcup [p \cup q] : q \subset \{a_0, \dots, a_{j-1}\}, [p \cup q, N_j] \subset A_j \right\} \quad \text{para $j \geq 1$}
+    \end{gather*}
+    
+    Como $\left\{ \bigcup [p \cup q] : q \subset \{a_0, \dots, a_{j-1}\}, [p \cup q, N_j] \subset A_j \right\}$ es la unión de abiertos básicos, tenemos que cada $A_n$ es abierto en $[p, N]$. Por lo tanto, existe un abierto $B$ tal que $\X \cap [p, N] = B \cap [p, N]$. Por el teorema anterior, existe $R \in \N^{[\infty]}$ tal que $[p, R] \subset B$ ó $[p, R] \cap B = \emptyset$.
+    
+    Por lo tanto, $[p, R] \subset \X$ ó $[p, R] \cap \X = \emptyset$. De esta forma, vemos que la unión es completamente Ramsey.
+\end{proof}
+
+Ahora, los conjuntos borelianos de un espacio métrico son aquellos que pertenecen a la menor $\sigma$-álgebra de subconjuntos del espacio que contiene a los conjuntos abiertos. Es decir, los borelianos constituyen la clausura de la colección de los conjuntos abiertos bajo las operaciones de tomar complementos y uniones numerables.
+
+Los resultados presentados hasta ahora en esta sección nos dan el siguiente teorema:
+
+\begin{teo}
+    Todo subconjunto boreliano de $\N^{[\infty]}$ es completamente Ramsey.
+\end{teo}

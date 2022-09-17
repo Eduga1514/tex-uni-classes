@@ -1,0 +1,179 @@
+\section{Introducción}
+
+\begin{aco}
+    Estas notas son hechas por mi persona solamente como apoyo para leer el libro \textit{Topology Without Tears} de Sydney Morris, y no como apoyo para algún curso en particular, es por eso que el carácter de estas notas es \ul{enteramente personal}. El libro mencionado hace un excelente trabajo autoreferenciandose, pero obviamente las cosas se olvidan y a veces resulta menos laborioso revisar las cosas más relevantes directamente desde un documento, además transcribir las definiciones, teoremas y ejercicios relevantes es un excelente método para fijar ideas (al menos para mí).
+\end{aco}
+
+\section{Capítulo 1: Espacios topológicos}
+\setcounter{section}{1}
+
+\subsection{Primeras definiciones}
+
+\begin{defn}\label{defn:1.1.1}
+    Sea $X$ un conjunto no-vacío. Un conjunto $\Tau$ de subconjuntos de $X$ se dice que es una \ul{topología sobre $X$} si:
+    
+    \begin{enumerate}
+        \item $X$ y $\emptyset$ pertenecen a $\Tau$.
+        \item La unión de cualquier número (finito o infinito) de conjuntos de $\Tau$ pertenece a $\Tau$.
+        \item La intersección de dos conjuntos de $\Tau$ pertenece a $\Tau$.
+    \end{enumerate}
+    
+    El par $(X, \Tau)$ se llama un \ul{espacio topológico}.
+\end{defn}
+
+\begin{ejem}
+    Sea $\N$ el conjunto de los números naturales (enteros positivos), y sea $\Tau$ tal que $\N \in \Tau$, $\emptyset \in \Tau$ y además todos los subconjuntos finitos de $\N$ pertenecen a $\Tau$. Entonces $\Tau$ \textbf{no} es una topología sobre $\N$ ya que la unión infinita
+    
+    \[
+    \{2\} \cup \{3\} \cup \dots \cup \{n\} \cup \dots = \{2, 3, \dots, n, \dots\}
+    \]
+    
+    \noindent no están en $\Tau$, es decir que $\Tau$ no cumple la propiedad 2 de \ref{defn:1.1.1}.
+\end{ejem}
+
+\begin{defn}
+    Sea $X$ un subconjunto no-vacío y $\Tau$ la familia de \textbf{todos} los subconjuntos de $X$. Entonces $\Tau$ es la \ul{topología discreta} sobre $X$. El espacio $(X, \Tau)$ se denomina \ul{espacio discreto}.
+\end{defn}
+
+\begin{defn}
+    Sea $X$ un conjunto no-vacío y $\Tau = \{X, \emptyset\}$. Entonces $\Tau$ se denomina la \ul{topología indiscreta} y $(X, \Tau)$ se denomina \ul{espacio indiscreto}.
+\end{defn}
+
+\begin{pro}
+    Si $(X, \Tau)$ es un espacio topológico tal que para cada $x \in X$, el conjunto $\{x\}$ está en $\Tau$, entonces $\Tau$ es la topología discreta.
+\end{pro}
+
+\begin{proof}
+    Primero, todo conjunto es la unión de todos sus subconjuntos "singletons"; entonces si $S$ es un subconjunto cualquiera de $X$ tenemos que
+    
+    \[
+    S = \bigcup_{x \in S} \{x\}
+    \]
+    
+    Por otro lado, como $\{x\} \in \Tau$ para todo $x \in X$, entonces por el segundo inciso de \ref{defn:1.1.1} tenemos que $S \in \Tau$. Como $S$ es un subconjunto arbitrario de $X$, entonces $\Tau$ es la topología discreta.
+\end{proof}
+
+\begin{ejer}
+    Sea $(X, \Tau)$ un espacio topológico. Verificar que la intersección finita de miembros de $\Tau$ es un miembro de $\Tau$.
+\end{ejer}
+
+\begin{proof}[Solución]
+    Consideremos la intersección finita
+    
+    \[
+    I = \bigcap_{i = 1}^n U_i, \quad \text{con $U_i \in \Tau$ para $i = 1, \dots, n$}
+    \]
+    
+    Si $n=1$, por \ref{defn:1.1.1} tenemos que $I \in \Tau$. Supongamos ahora que $I \in \Tau$ para $n = k$. Si $n = k+1$, tenemos que
+    
+    \[
+    I = \bigcap_{i = 1}^{k+1} U_i = \left( \bigcap_{i=1}^k U_i \right) \cap U_{k+1}
+    \]
+    
+    Como $I \in \Tau$ si $n=k$, entonces $\bigcap_{i=1}^k U_i \in \Tau$. También tenemos que $U_{k+1} \in \Tau$. Entonces por \ref{defn:1.1.1} tenemos que
+    
+    \[
+    I = \left( \bigcap_{i=1}^k U_i \right) \cap U_{k+1} \in \Tau
+    \]
+    
+    Y queda demostrado.
+\end{proof}
+
+\begin{ejer}
+    Sea $\N$ el conjunto de todos los enteros positivos. Demostrar que cada una de las siguientes colecciones sobre $\N$ es una topología:
+    
+    \begin{enumerate}
+        \item $T_1$ está formado por $\N$, $\emptyset$ y todo conjunto de la forma $\{1, 2, \dots, n\}$ para cualquier $n$ positivo (esta se llama la \ul{topología de segmento inicial}).
+        
+        \item $T_2$ está formado por $\N$, $\emptyset$ y todo conjunto de la forma $\{n, n+1, \dots\}$ para cualquier $n$ positivo (esta se llama la \ul{topología de segmento final}).
+    \end{enumerate}
+\end{ejer}
+
+\begin{proof}[Solución]
+
+    Tanto para $\Tau_1$ como para $\Tau_2$, la primera condición se cumple, entonces queda verificar que se cumplen la segunda y tercera.
+    
+    \begin{enumerate}
+        \item Consideremos la familia
+        
+        \[
+        \F = \{B_j \in \Tau_1 : j \in J\}, \quad \text{con $J$ una familia de subíndices cualquiera}
+        \]
+        
+        Entonces, como cada $B_j \in \Tau_1$, tenemos que para cada $j \in J$
+        
+        \[
+        B_j = \{1, 2, \dots, n_j\}
+        \]
+        
+        Como $n_j \in \N$, entonces podemos escoger el más grande de todos ellos. Sea entonces $n = \max_{j \in J} (n_j)$. Luego
+        
+        \[
+        \bigcup \F = \bigcup_{\substack{j \in J \\ B_j \in \Tau_1}} B_j = \{1, 2, \dots, n_{j_1}\} \cup \{1, 2, \dots, n_{j_2}\} \cup \dots = \{1, 2, \dots, n\}
+        \]
+        
+        Luego, $\{1, 2, \dots, n\} \in \Tau_1$ y queda demostrado que la unión arbitraria está en $\Tau_1$.
+        
+        De forma análoga, sean $B_1, B_2 \in \Tau_1$. Supongamos que $n = \min (n_1, n_2)$. Entonces
+        
+        \[
+        B_1 \cap B_2 = \{1, 2, \dots, n_1\} \cap \{1, 2, \dots, n_2\} = \{1, 2, \dots, n\}
+        \]
+        
+        Luego, $\{1, 2, \dots, n\} \in \Tau_1$, y queda demostrado que la intersección de dos elementos de $\Tau_1$ está en $\Tau_1$.
+        
+        Por lo tanto, $\Tau_1$ es una topología.
+        
+        \item Consideremos la familia
+        
+        \[
+        \F = \{B_j \in \Tau_2 : j \in J\}, \quad \text{con $J$ una familia de subíndices cualquiera}
+        \]
+        
+        Entonces, como cada $B_j \in \Tau_2$, tenemos que para cada $j \in J$
+        
+        \[
+        B_j = \{n_{j}, n_{j}+1, \dots \}
+        \]
+        
+        Como $n_j \in \N$, entonces podemos escoger el más pequeño de todos ellos. Sea entonces $n = \min_{j \in J} (n_j)$. Luego
+        
+        \[
+        \bigcup \F = \bigcup_{\substack{j \in J \\ B_j \in \Tau_2}} B_j = \{n_{j_1}, n_{j_1}+1, \dots \} \cup \{n_{j_2}, n_{j_2}+1, \dots \} \cup \dots = \{n, n+1, \dots\}
+        \]
+        
+        Luego, $\{n, n+1, \dots\} \in \Tau_2$ y queda demostrado que la unión arbitraria está en $\Tau_2$.
+        
+        De forma análoga, sean $B_1, B_2 \in \Tau_2$. Supongamos que $n = \max (n_1, n_2)$. Entonces
+        
+        \[
+        B_1 \cap B_2 = \{n_{1}, n_{1}+1, \dots \} \cap \{n_{2}, n_{2}+1, \dots \} = \{n, n+1, \dots\}
+        \]
+        
+        Luego, $\{n, n+1, \dots\} \in \Tau_2$, y queda demostrado que la intersección de dos elementos de $\Tau_2$ está en $\Tau_2$.
+        
+        Por lo tanto, $\Tau_2$ es una topología.
+    \end{enumerate}
+    
+    Así, queda demostrado.
+\end{proof}
+
+\begin{ejer}
+    Sea $X$ un conjunto infinito y $\Tau$ una topología sobre $X$. Si todo conjunto infinito de $X$ está en $\Tau$, demostrar que $\Tau$ es la topología discreta.
+\end{ejer}
+
+\begin{proof}[Solución]
+    Primero, $\Tau$ es una topología, entonces toda intersección finita de conjuntos de $\Tau$ está en $\Tau$. También tenemos que todo subconjunto infinito de $X$ está en $\Tau$. Luego la familia
+    
+    \[
+    \F = \{A \subset X : S < \infty, S \subset A, |A| = \infty\}
+    \]
+    
+    Está contenida en $\Tau$. Luego podemos escoger $A_1, A_2 \in \F$ tales que
+    
+    \[
+    A_1 \cap A_2 = S
+    \]
+    
+    Y esto implica que $S \in \Tau$, y para todo subconjunto $S$ finito y no-vacío contenido en $X$. Así, $\Tau$ está conformado por todos los conjuntos finitos e infinitos de $X$, entonces $\Tau$ es la topología discreta.
+\end{proof}

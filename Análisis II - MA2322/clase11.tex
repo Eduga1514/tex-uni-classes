@@ -1,0 +1,272 @@
+\subsection{Convergencia uniforme para series de potencias}
+
+\begin{teo}
+    Sea $\sumtoinfty{n=0}{a_nx^n}$ con radio de convergencia $R > 0$. Sea $K \subset (-R,R)$ compacto. Entonces la serie c.u en $K$.
+\end{teo}
+
+\begin{proof}
+    Primero, sea $x_0 \in K$ fijo, y como $K \subset (-R, R)$ entonces $|x_0|<R$. Sea $y \in K$ tal que $|y|<|x_0|$, en ese caso la serie $\sumtoinfty{n=0}{a_ny^n}$ converge absolutamente por \ref{lem:pot1}.
+    
+    Ahora, para cada $n \geq 0$ tenemos que
+    
+    \[
+    |a_n||y|^n < |a_n||x_0|^n \coloneqq \beta_n \in \R \quad \text{con $\beta_n$ fijos}
+    \]
+    
+    Esto implica que
+    
+    \[
+    \sumtoinfty{n=0}{|a_n||y|^n} \leq \LaTeXunderbrace{\sumtoinfty{n=0}{\beta_n}}_{\text{convergente}}
+    \]
+    
+    Luego por \ref{teo:wei} la serie $\sumtoinfty{n=0}{a_ny^n}$ c.u para todo $y \in K$ tal que $|y| < |x_0|$. Recordemos que $x_0$ es fijo, pero el mismo argumento lo podemos repetir para todo $x \in K$, entonces $\sumtoinfty{n=0}{a_ny^n}$ c.u para todo $y \in K$.
+\end{proof}
+
+\begin{teo}
+    Sea $\sumtoinfty{n=0}{a_nx^n}$ con radio de convergencia $R>0$. Sea $f(x) = \sumtoinfty{n=0}{a_nx^n}$ para cada $x$ tal que $|x|<R$. Entonces $f$ es continua.
+\end{teo}
+
+\begin{proof}
+    Sean $\varepsilon>0$ y $x,y \in (-R,R)$. Luego
+    
+    \[
+    f(x) = \sumtoinfty{n=0}{a_nx^n} \quad \text{y} \quad f(y) = \sumtoinfty{n=0}{a_ny^n}
+    \]
+    
+    Y también tenemos que
+    
+    \[
+    \limtoinfty{N}{|S_N(x) - f(x)|} = 0 \quad \text{y} \quad \limtoinfty{N}{|S_N(y) - f(y)|} = 0 \quad \text{puntualmente}
+    \]
+    
+    Luego existen $N_1, N_2 \in \N$ tales que si $n \geq \max(N_1, N_2)$
+    
+    \[
+    |S_N(y) - f(y)| < \varepsilon/3 \quad \text{y} \quad |S_N(x) - f(x)| < \varepsilon/3
+    \]
+    
+    Por otro lado, si $N \geq \max(N_1,N_2)$
+    
+    \[
+    |S_N(x) - S_N(y)| \leq \sum_{k=0}^N |a_k||x^k-y^k|
+    \]
+    
+    Y como
+    
+    \[
+    |x^k-y^k| = |x-y||x^{k-1}+ x^{k-2}y + \dots + xy^{k-2} + y^{k-1}| \leq |x-y|\left|\sum_{j=0}^{k-1} x^j y^{k-j}\right| \leq |x-y|\sum_{j=0}^{k-1}|x|^j|y|^{k-j}
+    \]
+    
+    De esta forma,
+    
+    \[
+    |S_N(x) - S_N(y)| \leq |x-y| \sum_{k=0}^n |a_k| \left(\sum_{j=0}^{k-1}|x|^j|y|^{k-j}\right)
+    \]
+    
+    Como $|x|<R$, $|y|<R$ nos queda que
+    
+    \[
+    |x-y| \sum_{k=0}^n |a_k| \left(\sum_{j=0}^{k-1}|x|^j|y|^{k-j}\right) \leq |x-y|\left(\sum_{k=0}^N kR^k|a_k|\right)
+    \]
+    
+    De esta forma, $\displaystyle |S_N(x) - S_N(y)| \leq |x-y|\left(\sum_{k=0}^N kR^k|a_k|\right)$
+    
+    Fijemos entonces $\displaystyle \delta = \dfrac{\varepsilon}{\displaystyle 3\left(\sum_{k=1}^N kR^k|a_k|\right)}$. Luego si $|x-y| < \delta$
+    
+    \begin{align*}
+        |f(x) - f(y)| &= |f(x) - f(y) + S_N(x) - S_N(x) + S_N(y) - S_N(y)| \\
+        &\leq |f(x) - S_N(x)| + |f(y) - S_N(y)| + |S_N(x) - S_N(y)| \\
+        &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \dfrac{\displaystyle\varepsilon\left(\sum_{k=1}^N kR^k|a_k|\right)}{\displaystyle 3\left(\sum_{k=1}^N kR^k|a_k|\right)} = \varepsilon
+    \end{align*}
+    
+    \noindent con $n \geq \max(N_1,N_2)$.
+    
+    Así, queda demostrada la continuidad de la función $f(x)$.
+\end{proof}
+
+\begin{teo}
+    Sea $\sumtoinfty{n=0}{a_nx^n}$ con radio de convergencia $R$. Entonces $\sumtoinfty{n=1}{na_nx^{n-1}}$ tiene radio de convergencia $R$.
+\end{teo}
+
+\begin{proof}
+    Antes de empezar la demostración como tal, necesitamos hacer una observación previa: Sean entonces
+    
+    \begin{gather*}
+        \sumtoinfty{n=0}{a_nx^n} \quad \text{con radio $R_1$} \\
+        \sumtoinfty{n=0}{na_nx^{n-1}} \quad \text{con radio $R_2$}
+    \end{gather*}
+    
+    La desigualdad $|a_n| \leq n|a_n|$ para todo $n \in \N$ implica que $R_2 \leq R_1$: No puede ocurrir que $\sumtoinfty{n=0}{na_nx^{n-1}}$ converja y $R_2 > R_1$, ya que entonces podríamos tomar $x_1$ tal que $R_1 < |x_1| < R_2$ en cuyo caso puede ocurrir
+    
+    \begin{itemize}
+        \item $\sumtoinfty{n=0}{a_nx_1^n}$ diverge pues $|x_1|>R_1$.
+        \item $\sumtoinfty{n=0}{a_nx_1^n}$ converge por el criterio de comparación, pues $|a_n| \leq n|a_n|$ y $|x_1|<R_2$.
+    \end{itemize}
+    
+    Pero esto es un absurdo ya que la serie converge y diverge al mismo tiempo, cosa que no puede pasar. En consecuencia, $R_2 \leq R_1$.
+    
+    Ahora, ¿por qué podemos decir que los radios son iguales? Evaluemos ambas series por el criterio de la razón:
+    
+    \[
+    \limtoinfty{n}{\left|\frac{(n+1)a_{n+1}x^n}{na_nx^{n-1}}\right|} = |x|\limtoinfty{n}{\left(\frac{n+1}{n}\right)\left|\frac{a_{n+1}}{a_n}\right|}
+    \]
+    
+    Como el radio de convergencia de la serie es $R$, entonces como vimos en \ref{teo:critCauchy} nos queda que
+    
+    \[
+    \limtoinfty{n}{\left|\frac{a_{n+1}}{a_n}\right|} = L = 1/R
+    \]
+    
+    En consecuencia
+    
+    \[
+    \limtoinfty{n}{\left|\frac{(n+1)a_{n+1}x^n}{na_nx^{n-1}}\right|} = |x|L < 1 \iff |x| < \frac{1}{L} = R_1
+    \]
+    
+    En conclusión, la serie $\sumtoinfty{n=1}{na_nx^{n-1}}$ tiene radio de convergencia $R$.
+\end{proof}
+
+De este resultado se desprende el siguiente corolario bastante importante.
+
+\begin{cor}
+    Si $f(x) = \sumtoinfty{n=0}{a_nx^n}$ para $x \in [-a,a] \subset (-R,R)$ con $R$ el radio de convergencia de la serie. Entonces
+    
+    \[
+    f'(x) = \sumtoinfty{n=1}{na_nx^{n-1}}
+    \]
+    
+    para todo $x \in [-a,a] \subset (-R,R)$.
+    
+    Es decir, podemos intercambiar series con derivadas.
+\end{cor}
+
+Y esto nos va a permitir resolver problemas muy propios de cursos de cálculo como el siguiente:
+
+\begin{ejem}
+    Demostrar que
+    
+    \[
+    \sumtoinfty{n=1}{nx^n} = \frac{x}{(1-x)^2} \quad \text{si $|x|<a<1$}
+    \]
+\end{ejem}
+
+\begin{proof}[Solución]
+    Partimos de lo siguiente
+    
+    \[
+    \sumtoinfty{n=1}{nx^n} = x\left[ \sumtoinfty{n=0}{xn^{n-1}} \right] = x\left[\sumtoinfty{n=0}{x^n}\right]'
+    \]
+    
+    Como hemos visto anteriormente, $\sumtoinfty{n=0}{x^n} = \frac{1}{1-x}$ ya que $|x|<a<1$. Entonces
+    
+    \[
+    x\left[\sumtoinfty{n=0}{x^n}\right]' = x\left[\frac{1}{1-x}\right]' = \frac{x}{(1-x)^2}
+    \]
+    
+    De esta forma, queda demostrado.
+\end{proof}
+
+\subsection{Álgebra de series de potencias}
+
+\begin{teo}\label{teo:alge1}
+    Sean las series $f(x) = \sumtoinfty{n=0}{a_nx^n}$, $g(x) = \sumtoinfty{n=0}{b_nx^n}$ con radio de convergencia común $R > 0$. Entonces
+    
+    \[
+    \sumtoinfty{n=0}{a_nx^n} + \sumtoinfty{n=0}{b_nx^n} = \sumtoinfty{n=0}{(a_n+b_n)x^n} = f(x) + g(x)
+    \]
+\end{teo}
+
+\marginnote{La demostración del teorema \ref{teo:alge1} queda como ejercicio.}
+
+\begin{teo}
+    Sean las series $f(x) = \sumtoinfty{n=0}{a_nx^n}$, $g(x) = \sumtoinfty{n=0}{b_nx^n}$ con radios de convergencia $R_1$, $R_2 > 0$ respectivamente. Entonces
+    
+    \[
+    \left(\sumtoinfty{n=0}{a_nx^n}\right)\left(\sumtoinfty{n=0}{b_nx^n}\right) = \left(\sumtoinfty{n=0}{c_nx^n}\right)
+    \]
+    
+    \noindent donde $c_n = \sum_{k=0}^n a_kb_n-k$, con $n = 0,1,\dots$, y radio de convergencia $R < min(R_1,R_2)$.
+\end{teo}
+
+\begin{proof}
+    Consideremos $N \in \N$. Luego sean
+    
+    \[
+    S_N^a(x) = \sum_{n=0}^N a_nx^n, \quad S_N^b(x) = \sum_{n=0}^N b_nx^n, \quad S_N^c(x) = \sum_{n=0}^N c_nx^n
+    \]
+    
+    Definamos también
+    
+    \[
+    d_N(x) = g(x) - S_N^b(x) \quad \text{para cada $x$ tal que $|x|<R$}
+    \]
+    
+    \noindent y 
+    
+    \[
+    e_N = \sum_{n=0}^{N}a_nx^nd_{N-n}
+    \]
+    
+    Ahora, para cada $M \in \N$ se tiene que
+    
+    \[
+    S_M^c(x) = \sum_{n=0}^M \left(\sum_{k=0}^na_kb_{n-k}\right)x^n = \sum_{n=0}^M \left(\sum_{k=0}^n \LaTeXunderbrace{a_kb_{n-k}x^{n-k}}_{=f_n(k)} \right) = \sum_{n=0}^M \left(\sum_{k=0}^M f_n(k)\right)
+    \]
+    
+    \noindent donde
+    
+    \[
+    f_n(x) = \begin{cases}
+                 a_kx^kb_{n-k}x^{n-k} \quad n \geq k \\
+                 0, \quad n < k
+             \end{cases}
+    \]
+    
+    Luego tenemos que las sumas parciales quedan como
+    
+    \[
+    S_M^c(x) = \sum_{k=0}^M \sum_{n=0}^M f_n(x) = \sum_{k=0}^n \sum_{n=k}^M a_kx^kb_{n-k}x^{n-k} = \left( \sum_{k=0}^M a_kx^k \right)\left(\sum_{j=0}^{M-k} b_jx^j\right)
+    \]
+    
+    De esta manera, nos queda que
+    
+    \[
+    S_M^c = \sum_{k=0}^M a_kx^kS_{M-k}^b = \left(\sum_{k=0}^M a_kx^k (g-d_{M-k})\right) = gS_M^a - e_M
+    \]
+    
+    Falta ver que $\limtoinfty{M}{e_M} = 0$. Entonces primero consideremos lo siguiente
+    
+    \[
+    \limtoinfty{M}{d_M} = \limtoinfty{M}{g-S_M^b} = g - g = 0 \quad \text{para todo $x$ tal que $|x|<R$}
+    \]
+    
+    Entonces dado $\varepsilon > 0$, existe $N_1 \in \N$ tal que si $n \geq N_1$,
+    
+    \[
+    |d_n| < \frac{\varepsilon}{2k} \quad \text{con $k = \sumtoinfty{n}{|a_n||x^n|}$}
+    \]
+    
+    \noindent como estamos trabajando para $|x|<R$ entonces las series $f(x)$, $g(x)$ convergen absolutamente, por lo que $k$ es una cantidad finita.
+    
+    Por otro lado, bajo la misma hipótesis de que las series convergen absolutamente, existe un $N_2 \in \N$ tal que si $n \geq N_2$,
+    
+    \[
+    \sumtoinfty{n=N_2+1}{|a_nx^n|} < \frac{\varepsilon}{2\alpha}
+    \]
+    
+    \noindent donde $\alpha > 0$ es tal que $|d_M| \leq \alpha$ para todo $M$. Esto se puede asegurar porque la sucesión $|d_M|$ converge a cero, entonces es acotada.
+    
+    Sea ahora $N_0 = \max(N_1, N_2)$. Si $M > 2N_0$ entonces
+    
+    \[
+    |e_M| \leq \sum_{k=0}^N |b_k x^k \cancelto{\frac{\varepsilon}{2k}}{d_{M-k}}| + \sum_{k=N+1}^M |a_k x^k d_{M-k}| \leq \frac{\varepsilon}{2k}\left(\sumtoinfty{k=0}{|a_k x^k|}\right) + \alpha \left(\sumtoinfty{k=N+1}{|a_kx^k|}\right) \leq \varepsilon/2 + \varepsilon/2 = \varepsilon
+    \]
+    
+    De esta forma, $\limtoinfty{M}{e_M} = 0$. Por lo tanto
+    
+    \[
+    \limtoinfty{M}{S_M^c} = \limtoinfty{M}{gS_M^a - e_M} = fg \quad \text{si $|x|<R$}
+    \]
+    
+    De esta forma, queda demostrado.
+\end{proof}

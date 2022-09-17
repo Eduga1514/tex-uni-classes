@@ -1,0 +1,211 @@
+\subsection{Caminos críticos}
+
+Abrimos este tema con el siguiente problema:
+
+En la siguiente tabla se muestran los días que se requieren para terminar las actividades $\alpha_1, \dots, \alpha_n$ necesarias para la elaboración de un proyecto. Algunas actividades tienen como requisito la culminación de otras. Esto también se muestra en la tabla. ¿Cuál es la mínima cantidad de días que se requieren para completar todas las actividades del proyecto?
+
+\begin{center}
+    \begin{tabular}{c|cccccccc}
+        \text{Actividad}         & $\alpha_1$ & $\alpha_2$ & $\alpha_3$ & $\alpha_4$ & $\alpha_5$ & $\alpha_6$ & $\alpha_7$ & $\alpha_8$ \\
+        \text{Tiempo necesitado} & $4$ & $3$ & $7$ & $4$ & $6$ & $5$ & $2$ & $5$ \\
+        \text{Prerequisito}      & $-$ & $-$ & $\alpha_1$ & $\alpha_1$ & $\alpha_2$ & $\alpha_4, \alpha_5$ & $\alpha_3, \alpha_6$ & $\alpha_4, \alpha_5$
+    \end{tabular}
+\end{center}
+
+\begin{proof}
+    Esta situación puede ser modelada con un digrafo ponderado en el cual los lados son las actividades, el vértice $s$ es el inicio del proyecto, $t$ el final y el resto como en la siguiente tabla:
+    
+    \begin{center}
+        \begin{tabular}{c|cccccccc}
+            \text{Actividad} & $\alpha_1$ & $\alpha_2$ & $\alpha_3$ & $\alpha_4$ & $\alpha_5$ & $\alpha_6$ & $\alpha_7$ & $\alpha_8$ \\
+            \text{Arco} & $(s,r)$ & $(s,p)$ & $(r,z)$ & $(r,q)$ & $(p,q)$ & $(q,z)$ & $(z,t)$ & $(q,t)$
+        \end{tabular}
+    \end{center}
+    
+    Luego tenemos el siguiente digrafo:
+    
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{2}
+            \Vertex{s}
+            \NOEA(s){r}
+            \SOEA(s){p}
+            \EA(r){z}
+            \EA(p){q}
+            \NOEA(q){t}
+            \SetUpEdge[style={->}]
+            \tikzset{LabelStyle/.style = {fill=white}}
+            \Edge[label=$4$](s)(r)
+            \Edge[label=$7$](r)(z)
+            \Edge[label=$4$](r)(q)
+            \Edge[label=$2$](z)(t)
+            \Edge[label=$3$](s)(p)
+            \Edge[label=$6$](p)(q)
+            \Edge[label=$5$](q)(z)
+            \Edge[label=$5$](q)(t)
+        \end{tikzpicture}
+        \caption{Modelado del problema.}
+    \end{figure}
+    
+    El vértice $s$ es la cola de los lados correspondientes a $\alpha_1$ y $\alpha_2$. A partir de allí, la cola de cada actividad es la cabeza de las actividades requisitos. Ahora, hagamos lo siguiente:
+    
+    \begin{itemize}
+        \item Definamos $T(s) = 0$.
+        \item Para cada vértice $v$, definimos $T(v)$ como el tiempo necesario para completar todas las actividades en un camino de $s$ a $v$.
+    \end{itemize}
+    
+    Los valores para $T$ están en la siguiente tabla:
+    
+    \begin{center}
+        \begin{tabular}{c|cccccc}
+        $v$    & $s$ & $p$ & $q$ & $r$ & $z$  & $t$ \\
+        $T(v)$ & $0$ & $3$ & $9$ & $4$ & $14$ & $16$
+        \end{tabular}
+    \end{center}
+    
+    De esta forma, $16$ es el mínimo de días para completar todas las actividades del proyecto.
+\end{proof}
+
+Lo que vimos anteriormente es un ejemplo de \ul{búsqueda del camino más largo} en una red modelada con un digrafo ponderado (con peso $p$). La búsqueda es en anchura (BEA) y comenzamos por calcular recursivamente la función $T$ dada por:
+
+\[
+T(s) = 0 \quad \text{y} \quad T(v) = \max\left\{T(v) + p((u,v)): u \rightarrow v\right\}
+\]
+
+Y definimos una función $L(v)$ como el tiempo límite para el que todas las actividades con cola $v$ deben empezarse para que el proyecto se complete a tiempo. Esta función se calcula de manera recursiva, esta vez hacia atrás:
+
+\[
+L(t) = T(t) \quad \text{y} \quad L(v) = \min\left\{L(x) - p((v,x)) : v \rightarrow x\right\}
+\]
+
+Fijémonos en que para una actividad dada por el lado $(y,z)$,
+
+\begin{itemize}
+    \item No puede comenzar a realizarse antes de $T(y)$.
+    \item Se completa antes de $L(z)$.
+    \item Utiliza un tiempo $p(y,z)$.
+\end{itemize}
+
+Ahora definamos una función \ul{tiempo flotante} como
+
+\[
+F = F((y,z)) = L(x) - T(y) - p((y,z))
+\]
+
+\noindent entonces la actividad dada por $(y,z)$ puede comenzar a partir de $T(y)$ y antes de $F((y,z))$ sin retrasar el proyecto. Si la actividad $(y,z)$ tiene tiempo flotante cero (es decir el proyecto se completa a tiempo) se dice que es \ul{crítica}. Un camino cuyos lados corresponden sólo a actividades críticas se llama \ul{camino crítico}.
+
+\subsection{Flujos en redes}
+
+A partir de ahora vamos a considerar los arcos de una \ul{red} como "tuberías" por las cuales fluye algún servicio (sea agua, electricidad, gas, etc.). Los pesos asginados a cada uno de ellos serán las capacidades, y estas otorgan límites a las cantidades que pueden fluir en los arcos. Adicionalmente siempre tendremos un vértice $s$ con la propiedad que todo arco que contiene a $s$ tiene a $s$ como cola, y otro vértice $t$ con la propiedad de que todo arco que contiene a $t$ tiene a $t$ como cabeza. A ellos les llamaremos \ul{fuente} y \ul{sumidero}, respectivamente. En resumen, las redes que estudiaremos comprenden
+
+\begin{itemize}
+    \item Un digrafo $D=(V,A)$.
+    \item Una función de capacidad $c: A \rightarrow \N$.
+    \item Una fuente $s$ y un sumidero $t$.
+\end{itemize}
+
+Otra cosa que se toma en consideración es que para cada vértice, la cantidad de suministro que \textit{entra} es igual a la cantidad que \textit{sale}. ENtonces si $f(x,y)$ es la cantidad de suministro que fluye a través del lado $(x,y)$, definimos
+
+\[
+\ent(v) = \sum_{(x,v) \in A} f(x,v) \quad \text{y} \quad \sal(v) = \sum_{(v,y) \in A} f(x,y)
+\]
+
+\noindent y se pide que ambas cantidades sean iguales excepto para $s$ y $t$. Esta es la \ul{regla de conservación} para flujos en redes.
+
+Adicionalmente, también tenemos la \ul{regla de factibilidad}, en la que $f(x,y) \leq c(x,y)$. Con todo esto podemos pasar a definir un flujo.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \SetGraphUnit{3}
+        \Vertex{s}
+        \NOEA(s){a}
+        \EA(s){b}
+        \SOEA(s){c}
+        \EA(b){d}
+        \EA(d){t}
+        \SetUpEdge[style={->}]
+        \tikzset{LabelStyle/.style = {fill=white}}
+        \Edge[label=$5$](s)(a)
+        \Edge[label=$4$](s)(b)
+        \Edge[label=$3$](s)(c)
+        \Edge[label=$2$](b)(d)
+        \Edge[label=$6$](a)(d)
+        \Edge[label=$7$](c)(d)
+        \Edge[label=$4$](d)(t)
+        \Edge[label=$3$](a)(t)
+        \Edge[label=$5$](c)(t)
+    \end{tikzpicture}
+    \caption{Ejemplo de una red.}
+    \label{fig:red}
+\end{figure}
+
+\begin{defn}
+    Sea una red con el digrafo asociado $D=(V,A)$, función de capacidad $c: A \rightarrow \N$ y fuente $s$ y sumidero $t$. Un \ul{flujo} desde la fuente $s$ al sumidero $t$ en una red es una función que asigna un número no negativo $f(x,y)$ a cada arco $(x,y)$, el cual cumple con lo siguiente:
+    
+    \begin{itemize}
+        \item Conservación: $\ent(v) = \sal(v)$, con $v \neq s,t$.
+        \item Factibilidad: $f(x,y) \leq c(x,y)$ para todo $(x,y) \in A$.
+    \end{itemize}
+\end{defn}
+
+\begin{ejem}
+    En la siguiente tabla se presenta un flujo para la red presentada en \ref{fig:red}.
+    
+    \begin{tabular}{c|ccccccccc}
+        $(x,y)$  & $(s,a)$ & $(s,b)$ & $(s,c)$ & $(a,d)$ & $(b,d)$ & $(c,d)$ & $(a,t)$ & $(c,t)$ & $(d,t)$ \\
+        $f(x,y)$ & $3$ & $2$ & $3$ & $1$ & $2$ & $1$ & $2$ & $2$ & $4$
+    \end{tabular}
+\end{ejem}
+
+Se observa en el ejemplo que $\ent(t) = \sal(t)$. El valor común de estas dos cantidades mide la cantidad total que fluye en la red, y se llama el \ul{valor} del flujo, escrito como $\val(f)$. Para el ejemplo dado tenemos
+
+\begin{gather*}
+    \sal(s) = f(s,a) + f(s,b) + f(s,c) = 8 \\
+    \ent(t) = f(a,t) + f(d,t) + f(c,t) = 8
+\end{gather*}
+
+\noindent entonces $\val(f) = 8$.
+
+\begin{pre}
+    Ahora nos preguntamos: ¿Cuál es el máximo valor de un flujo para una red dada?
+\end{pre}
+
+\begin{proof}[Respuesta]
+    Para contestar la pregunta, primero consigamos una cota superior para este valor en términos de las capacidades. En \ref{fig:red} tenemos que la capacidad total de los arcos que salen de $s$ es 12, así que es claro que ningún flujo puede tener un valor mayor a 12. Más aún, si tenemos una partición en dos partes de $V$ tal que una parte $S$ contiene a $s$ y otra $T$ contiene a $t$. Entonces el flujo neto de $S$ a $T$ es por la regla de conservación el mismo que hay de $s$ a $t$, que coincide con el valor de $f$. Es decir
+    
+    \[
+    \val(f) = \sum_{\substack{x\in S \\ y \in T}} f(x,y) - \sum_{\substack{u\in T \\ v \in S}} f(u,v)
+    \]
+    
+    La primera suma mide el flujo total de $S$ a $T$, y la segunda en sentido contrario. Como solamente tenemos términos positivos,
+    
+    \[
+    \val(f) \leq \sum_{\substack{x\in S \\ y \in T}} f(x,y)
+    \]
+    
+    Más aún, $f(x,y) \leq c(x,y)$ para todos los arcos, y concluimos que
+    
+    \[
+    \val(f) \leq \sum_{\substack{x\in S \\ y \in T}} c(x,y) = c(S,T)
+    \]
+\end{proof}
+
+\begin{defn}
+    Formalmente, definimos $(S,T)$ como un \ul{corte} (que separa a $s$ y $t$) si $S \cup T$ es una partición de $V$ tal que $s \in S$ y $t \in T$. La \ul{capacidad} del corte es
+    
+    \[
+    c(S,T) = \sum_{\substack{x\in S \\ y \in T}} c(x,y)
+    \]
+\end{defn}
+
+De forma más concisa, hemos demostrado el siguiente resultado:
+
+\begin{teo}\label{teo:cotavalor}
+    Sean $s$, $t$ la fuente y sumidero de una red. Si $f$ es cualquier flujo de $s$ a $t$ y $(S,T)$ es un corte, entonces
+    
+    \[
+    \val(f) \leq c(S,T)
+    \]
+\end{teo}

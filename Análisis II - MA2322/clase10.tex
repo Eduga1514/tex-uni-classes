@@ -1,0 +1,251 @@
+\subsection{Series de potencia. Región y radio de convergencia}
+
+\begin{defn}
+    Una \ul{serie de potencias} es una serie de funciones donde consideramos polinomios. Es decir que nos dedicaremos a estudiar expresiones de este tipo:
+
+    \[
+    \sumtoinfty{n=0}{a_n(x-a)^n}
+    \]
+    
+    \noindent donde $\{a_n\}_{n=0}^{\infty} \subset \R$ es una sucesión de números reales. Al valor $a$ le llamamos \ul{centro}, y es el lugar alrededor del cual estamos desarrollando la serie de potencias.
+\end{defn}
+
+\begin{teo}
+    Dada $\sumtoinfty{n=0}{a_nx^n}$ entonces solo una de las siguientes afirmaciones es cierta:
+    
+    \begin{itemize}
+        \item $\sumtoinfty{n=0}{a_nx^n} < \infty$, $\forall x \in \R$.
+        \item $\sumtoinfty{n=0}{a_nx^n} < \infty$ unicamente en $x=0$.
+        \item Existe $R > 0$ tal que $\sumtoinfty{n=0}{a_nx^n} < \infty$ en $(-R, R)$.
+    \end{itemize}
+    
+    Al valor $R$ se le conoce como el \ul{radio de convergencia}.
+\end{teo}
+
+Antes de demostrar este teorema, necesitaremos el siguiente lema:
+
+\begin{lem}\label{lem:pot1}
+    Si una serie de potencias $\sumtoinfty{n=0}{a_nx^n}$ converge en $x = x_0$ (con $x_0 \neq 0$) entonces la serie converge absolutamente\marginfootnote{Recordemos: Una serie $\sumtoinfty{n=0}{\beta_n}$ \ul{converge absolutamente} sii $\sumtoinfty{n=0}{|\beta_n|} < \infty$.} para cada $y$ tal que $|y| < |x_0|$.
+\end{lem}
+
+\begin{proof}
+    Sabemos que la serie numérica $\sumtoinfty{n=0}{a_nx_0^n}$ converge, entonces
+    
+    \[
+    \limtoinfty{n}{a_nx^n} = 0
+    \]
+    
+    Luego existe $M > 0$ tal que
+    
+    \[
+    |a_nx_0^n| < M \quad \forall n \in \N
+    \]
+    
+    Ahora, si $|y| < |x_0|$ entonces
+    
+    \[
+    |a_ny^n| = |a_nx_0^n|\left|\frac{y}{x_0}\right|^n \leq M\left|\frac{y}{x_0}\right|^n
+    \]
+    
+    \noindent como esto se cumple para todo $n \in \N$, y además $\left|\frac{y}{x_0}\right| < 1$ por hipótesis, esto implica que
+    
+    \[
+    \sumtoinfty{n=0}{|a_ny^n|} \leq M\sumtoinfty{n=0}{\left|\frac{y}{x_0}\right|^n} < \infty
+    \]
+    
+    La serie converge para cada valor de $y$ porque tenemos una serie geométrica $\sumtoinfty{n=0}{r^n}$ con $0 < r < 1$\marginfootnote{Si $|y| > |x_0|$, la serie diverge.}, y es bien sabido que este tipo de series es convergente. Así, queda demostrado.
+\end{proof}
+
+\begin{proof}[Demostración del teorema]
+    Si la serie converge en $x=0$, es trivial. Igualmente si la serie converge $\forall x \in \R$.
+    
+    Demostremos el tercer inciso. Queremos ver que $\sumtoinfty{n=0}{a_nx^n}$ converge para algún $R > 0$ si $|x| < R$ y diverge si $|x| > R$. Sean $x_0, x_1 \in \R$ (con $x_0 \neq 0$) tales que $\sumtoinfty{n=0}{a_nx_0^n} < \infty$ y $\sumtoinfty{n=0}{|a_nx_1^n|}$ diverge. Consideremos ahora un conjunto $S$ tal que
+    
+    \[
+    S = \left\{ x \in \R : x > 0 \wedge \sumtoinfty{n=0}{a_nx^n} < \infty \right\}
+    \]
+    
+    Vemos que $S \subseteq \R$ y además $S \neq \emptyset$ puesto que $x_0 \in S$. Y $S$ es acotado por lo siguiente: Supongamos que no es acotado. Entonces existe $x_2 \in \R$ tal que $x_2 > |x_1|$ con
+    
+    \[
+    \sumtoinfty{n=0}{a_nx_2^n} < \infty
+    \]
+    
+    Pero esto es contradicción por el lema \ref{lem:pot1} ya que estamos encontrando un valor más grande que $x_1$ para el cual la serie converge. Por lo tanto, $S$ es acotado.
+    
+    Por el axioma de completitud, $S$ tiene un supremo. Sea $R = \sup S$. Ahora, si $|x| < R$, existe $y \in S$ tal que
+    
+    \[
+    |x| < y < R \quad \text{tal que} \quad \sumtoinfty{n=0}{a_ny^n} < \infty \implies \sumtoinfty{n=0}{|a_nx^n|} < \infty
+    \]
+    
+    \noindent esto por el lema \ref{lem:pot1}.
+    
+    En conclusión, para todo $x \in (-R, R)$ la serie de potencias converge. Análogamente, si $|x| > R$ y al mismo tiempo que la serie converge, esto contradice el hecho de que $R$ es el supremo de $S$, por lo que tenemos una contradicción. Luego si $|x| > R$ la serie de potencias diverge.
+    
+    Así, queda demostrado el teorema.
+\end{proof}
+
+\begin{defn}
+    El conjunto $S$ definido como en el teorema anterior se conoce como \ul{dominio de convergencia}.
+\end{defn}
+
+\subsection{Criterios de convergencia}
+
+A continuación, veremos una serie de criterios para determinar la convergencia o divergencia de estas series. Estos criterios descansan fuertemente en los criterios vistos para series numéricas.
+
+\begin{teo}[Criterio de Cauchy]\label{teo:critCauchy}
+    Sean
+    
+    \[
+    \sumtoinfty{n=0}{a_nx^n} \quad \text{y} \quad L = \limtoinfty{n}{\left|\frac{a_{n+1}}{a_n}\right|}
+    \]
+    
+    Entonces
+    
+    \begin{enumerate}
+        \item Si $L = \infty$ entonces la serie converge sólo en $x=0$.
+        \item Si $L = 0$ entonces la serie converge $\forall x \in \R$.
+        \item Si $0 < L < \infty$ entonces la serie converge absolutamente $\forall x$ tal que $|x| < R$ con $R = 1/L$.
+    \end{enumerate}
+\end{teo}
+
+\begin{proof}
+    Utilicemos el criterio del cociente para series numéricas, entonces
+    
+    \[
+    \limtoinfty{n}{\left|\frac{a_{n+1}x^{n+1}}{a_nx^n}\right|} = |x| \limtoinfty{n}{\left|\frac{a_{n+1}}{a_n}\right|} = |x|L
+    \]
+    
+    Si $|x|L < 1$ entonces la serie converge, y si $|x|L > 1$ entonces la serie diverge. Luego
+    
+    \[
+    |x|L < 1 \iff |x| < 1/L \quad \text{y} \quad |x|L > 1 \iff |x| > 1/L
+    \]
+    
+    \noindent en consecuencia la serie converge si $|x| < 1/L$ y diverge si $|x| > 1/L$. Cuando tenemos $|x| = 1/L$ el criterio no decide.
+\end{proof}
+
+\begin{ejem}
+    Consideremos la serie
+    
+    \[
+    \sumtoinfty{n=1}{(-1)^{n+1} \left(\frac{2}{3}\right) \frac{x^n}{n}}
+    \]
+    
+    Entonces, el límite queda como
+    
+    \[
+    \limtoinfty{n}{\left|\frac{a_{n+1}x^{n+1}}{a_nx^n}\right|} = \limtoinfty{n}{\left| \left(\frac{2}{3}\right)^{n+1}\left(\frac{n}{n+1}\right)\left(\frac{3}{2}\right)^n \right||x|} = \frac{2}{3}|x|\limtoinfty{n}{\cancelto{1}{\frac{n}{n+1}}} = \frac{2|x|}{3}
+    \]
+    
+    Luego, $\frac{2}{3}|x| < 1$ sii $|x| < 3/2$. Por lo tanto, el radio de convergencia es $3/2$.
+    
+    ¿Qué pasa en los extremos?:
+    
+    \begin{itemize}
+        \item Si $x = -3/2$, entonces la serie queda como
+        
+        \[
+        \sumtoinfty{n=1}{(-1)^{2n+1} \left(\frac{2}{3}\right) \left(\frac{3}{2}\right)^n \frac{1}{n}} = -\sumtoinfty{n=1}{\frac{1}{n}}
+        \]
+        
+        Y esta es la serie armónica, la cual diverge.
+        
+        \item Si $x = 3/2$, entonces la serie queda como
+        
+        \[
+        \sumtoinfty{n=1}{(-1)^{n+1} \left(\frac{2}{3}\right) \left(\frac{3}{2}\right)^n \frac{1}{n}} = \sumtoinfty{n=1}{\frac{(-1)^{n+1}}{n}}
+        \]
+        
+        Y esta es la serie alternada, la cual converge condicionalmente gracias al criterio de Leibniz\marginfootnote{Recordar de análisis 1 y cálculo 1.}.
+    \end{itemize}
+    
+    De esta forma, la región de convergencia es $I = (-3/2, 3/2]$.
+\end{ejem}
+
+\begin{teo}[Criterio de la Raíz]\label{teo:raiz}
+    Sea una serie de potencias $\sumtoinfty{n=0}{a_nx^n}$ y $L = \limtoinfty{n}{\sqrt[n]{|a_n|}}$. Entonces
+    
+    \begin{itemize}
+        \item Si $L = \infty$ entonces la serie converge solo en $x=0$.
+        \item Si $L=0$ entonces la serie converge $\forall x \in \R$.
+        \item Si $0 < L < \infty$ la serie converge si $|x|<R$ con $R=1/L$.
+    \end{itemize}
+\end{teo}
+
+\begin{proof}
+    Primero, por propiedades de la potenciación, tenemos que
+    
+    \[
+    \limtoinfty{n}{\sqrt[n]{|a_nx^n|}} = |x|\limtoinfty{n}{|a_n|} = |x|L
+    \]
+    
+    Ahora, aplicando el criterio de la raíz para series númericas, la serie converge si $|x|L < 1$ y diverge si $|x|L>1$. Entonces, el radio de convergencia será de la forma $R=1/L$.
+\end{proof}
+
+\begin{ejem}
+    Sea la serie
+    
+    \[
+    \sumtoinfty{n=1}{\left(\frac{n+1}{n}\right)^{n^2}x^n}
+    \]
+    
+    Entonces aplicando el criterio de la raíz,
+    
+    \[
+    \limtoinfty{n}{\sqrt[n]{ \left| \left(\frac{n+1}{n}\right)^{n^2}x^n\right|}} = |x|\limtoinfty{n}{\left(1 + \frac{1}{n}\right)^n} = |x|e
+    \]
+    
+    \noindent este último resultado porque tenemos un límite notable.
+    
+    Entonces, la serie converge para $|x| < 1/e$ y diverge en el complemento. Falta estudiar qué pasa en los extremos:
+    
+    \begin{itemize}
+        \item Sea $x = 1/e$: Al sustituir, queda
+        
+        \[
+        \sumtoinfty{n=1}{\left(\frac{n+1}{n}\right)^{n^2}\left(\frac{1}{e}\right)^n}
+        \]
+        
+        Utilicemos el criterio de comparación. Sabemos que $e$ está acotado de la siguiente manera:
+        
+        \[
+        \left(\frac{n+1}{n}\right)^n < e < \left(\frac{n+1}{n}\right)^{n+1} \quad \footnotemark
+        \]\footnotetext{Esto se ve en el curso de análisis 1.}
+        
+        \noindent y esto para cada $n\geq1$. Luego, esto implica que
+        
+        \[
+        \left(\frac{n}{n+1}\right)^n > 1/e > \left(\frac{n}{n+1}\right)^{n+1} \implies \left(\frac{n}{n+1}\right)^{n^2} > 1/e^n > \left(\frac{n}{n+1}\right)^{n^2+n}
+        \]
+        
+        Multipliquemos lo anterior por el factor $\left(\frac{n+1}{n}\right)^{n^2}$ y nos queda
+        
+        \[
+        1 > \left(\frac{n+1}{n}\right)^{n^2} 1/e^n > \left(\frac{n}{n+1}\right)^n \implies \sumtoinfty{n=1}{\left(\frac{n+1}{n}\right)^{n^2} 1/e^n} > \sumtoinfty{n=1}{\left(\frac{n}{n+1}\right)^n}
+        \]
+        
+        Por otro lado
+        
+        \[
+        \limtoinfty{n}{\left(\frac{n}{n+1}\right)^n} = \limtoinfty{n}{e^{\displaystyle n\ln\left(\frac{n}{n+1}\right)}} = e^{\displaystyle \limtoinfty{n}{n\ln\left(\frac{n}{n+1}\right)}} = 1/e
+        \]
+        
+        \noindent este resultado es fácilmente verificable por L'Hopital.
+        
+        Como $\limtoinfty{n}{\left(\frac{n}{n+1}\right)^n} \neq 0$, el término general de la serie numérica no tiende a cero y por lo tanto la serie diverge.
+        
+        En conclusión la serie $\sumtoinfty{n=1}{\left(\frac{n+1}{n}\right)^{n^2}\left(\frac{1}{e}\right)^n}$ diverge.
+        
+        \item Sea $x = -1/e$. Estamos mirando ahora la siguiente serie
+        
+        \[
+        \sumtoinfty{n=1}{(-1)^n\left(\frac{n+1}{n}\right)^{n^2}\left(\frac{1}{e}\right)^n}
+        \]
+        
+        La cual es una serie alternada, pero como el factor $\left(\frac{n+1}{n}\right)^{n^2}\left(\frac{1}{e}\right)^n$ no tiende a cero por el mismo análisis que realizamos anteriormente. Luego los términos oscilan y nuevamente la serie diverge.
+    \end{itemize}
+    
+    En conclusión, el radio de convergencia es $R=1/e$ y la región de convergencia es $(-1/e, 1/e)$.
+\end{ejem}

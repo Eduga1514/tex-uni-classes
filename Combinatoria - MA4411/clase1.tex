@@ -1,0 +1,300 @@
+\section{Contenido del curso}
+
+\begin{enumerate}
+    \item \ul{Algoritmos:} Teoría de la eficiencia. Analizar y estimar la eficiencia de un algoritmo.
+    \item \ul{Grafos:} Conceptos básicos, árboles, aplicaciones, flujo en redes.
+    \item \ul{Recurrencia lineal:} Calcular algunos valores combinatorios.
+    \item \ul{Particiones de un entero positivo:} Funciones generatrices.
+\end{enumerate}
+
+En adición, para este curso estaremos usando el libro \textit{Matématicas discretas} de Norman Biggs, y los vídeos de la lista de reproducción "Combinatoria" del canal de Youtube del profesor Nieto.
+
+Las evaluaciones consistirán de 5 pruebas cortas en las semanas 3, 5, 7, 9 y 11.
+
+\section{Algortimos}
+
+El objetivo de este curso no será dar una definición formal de lo que es un algoritmo, por lo que nos vamos a quedar con una idea intuitiva que vamos a caracterizar. La idea general es que trata de una sucesión finita de pasos para resolver un problema (sea de matemáticas o computación).
+
+Para efectos de este curso, consideraremos algoritmos aquellos que cumplen con las siguientes características:
+
+\begin{enumerate}
+    \item Debe ser \textbf{finito}, y debe poder terminar en un número finito de pasos o ejecuciones.
+    \item Debe estar \textbf{bien definido}, no puede existir ambiguedad en el mismo. Para ello usaremos lenguajes de programación o en su defecto pseudocódigo (para este curso, usaremos Python en el caso de usar un lenguaje de programación).
+    \item Debe tener \textbf{datos de entrada} (aunque puede prescindir de ellos) y tener \textbf{datos de salida} (al menos uno).
+\end{enumerate}
+
+\begin{ejem}
+    El algoritmo de Euclides: Este algoritmo toma dos números enteros no negativos\marginfootnote{En este contexto, al hablar de número no negativos, lo denotaremos con $\Nastk$, el cual es el conjunto $\N \setminus \{0\}$. Esta notación también se usa en el curso de teoría de Ramsey.} $a$ y $b$ y halla su máximo común divisor. Este se denotará por $\operatorname{MCD}(a, b)$. Su ejecución consiste en tres pasos que presentados de forma intuitiva son
+
+    \begin{enumerate}
+        \item Dividir $a$ por $b$, con $r$ el residuo de esta división.\marginnote{Se entiende por esta serie de pasos, que el máximo común divisor se define como el mayor número entero que divide a $a$ y a $b$ sin dejar residuo alguno.}
+        \item Si $r = 0$ entonces $\operatorname{MCD}(a, b) = b$, y termina el algoritmo.
+        \item Si $r \neq 0$, entonces
+        
+            \begin{itemize}
+                \item Cambiar $a$ por $b$.
+                \item Cambiar $b$ por $r$.
+                \item Volver al paso 2.
+            \end{itemize}
+    \end{enumerate}
+    
+    Este algoritmo lo podemos escribir como pseudocódigo:
+    
+    \begin{algoritmo}[hbt!]
+    \caption{MCD con el algoritmo de Euclides}\label{alg:euc}
+        \KwData{$a,b \in \Nastk$}
+        \KwResult{$\operatorname{MCD}(a,b)$}
+        
+        $r \gets$ resto de dividir $a$ por $b$\;
+        \While{$r \neq 0$}{
+            $a \gets b$\;
+            $b \gets r$\;
+            $r \gets$ resto de dividir $a$ por $b$\;
+        }
+        \Return $b$
+    \end{algoritmo}
+    
+    Veamos este algoritmo en acción con $a$ menor que $b$:
+    
+    \begin{center}
+            \begin{tabular}{c|c|c}
+                $a$ & $b$ & $c$ \\ \toprule
+                119 & 544 & 119 \\
+                544 & 119 & 68  \\
+                119 & 68  & 51  \\
+                68  & 51  & 17  \\
+                51  & 17  & 0
+            \end{tabular}
+    \end{center}
+    
+    Notamos cierta simetría en la tabla, como de rayos de lluvia. Esto se debe a que hay un intercambio de valores.
+\end{ejem}
+
+Antes de verificar que efectivamente el algoritmo anterior cumple con nuestras características (y que calcula el máximo común divisor), veamos un ejemplo de una secuencia de instrucciones que no es un algoritmo.
+
+\begin{ejem}
+    Analice el siguiente candidato a algoritmo:
+    
+    \begin{algoritmo}
+        \caption{¿Será un algoritmo?}\label{alg:f}
+        \KwData{$n \in \Nastk$}
+        \KwResult{$f(n)$}
+        
+        \While{$n > 1$}{
+        \eIf{$n \textup{ es par}$}{
+        $n \gets 2$}{
+        $n \gets 5n + 1$}
+        }
+        
+        \Return{$f(n) \gets n$}
+    \end{algoritmo}
+    
+    Probemos con algunos valores, por ejemplo $f(3)$:
+    
+    \begin{center}
+        \begin{tabular}{c|c}
+            Iteración & Resultado \\ \toprule
+            1 & 16 \\
+            2 & 8  \\
+            3 & 4  \\
+            4 & 2  \\
+            5 & 1 
+        \end{tabular}
+    \end{center}
+    
+    \noindent de esta forma, $f(3) = 1$. Veamos ahora para $f(5)$:
+    
+    \begin{center}
+        \begin{tabular}{c|c}
+            Iteración & Resultado \\ \toprule
+            1  & 26  \\
+            2  & 13  \\
+            3  & 66  \\
+            4  & 33  \\
+            5  & 166 \\
+            6  & 83  \\
+            7  & 416 \\
+            8  & 208 \\
+            9  & 104 \\
+            10 & 52  \\
+            11 & 26
+        \end{tabular}
+    \end{center}
+    
+    \noindent vemos entonces que luego de 10 pasos, el algoritmo posee valores cíclicos, por lo tanto se seguiría ejecutando infinitamente. Luego, por la definición de algoritmo, no lo podemos considerar como tal\marginfootnote{Esto, según la definición dada, no es un algoritmo \textbf{correcto}, pero si se puede considerar un algoritmo. Definir exactamente qué es un algoritmo se sale del enfoque del curso, y es por eso que hemos tratado la definición con tanta informalidad.}.
+\end{ejem}
+
+\begin{proof}[Verificación del Algoritmo de Euclides]
+    Primero, debemos asegurar que el algoritmo funciona. En primer lugar, hay que asegurarse que no se ejecute infinitamente. Para ello, tomamos dos naturales $a$ y $b$, luego existen $q_1$ y $r_1$ enteros no negativos tales que
+    
+    \[
+    a = bq_1 + r_1, \quad 0 \leq r_1 < b
+    \]
+    
+    \noindent y esto es así por el teorema de la división\marginfootnote{Si $a$ y $b$ son números enteros con $b>0$, entonces existen dos enteros, $q$ y $r$, únicos, tales que $a=bq+r$, con $0 \leq r < b$. A los números $a,b,q$ y $r$ se les suele llamar, respectivamente, dividendo, divisor, cociente y resto.}. Ahora supongamos que $r_1 \neq 0$\marginfootnote{De lo contrario, el algoritmo termina siempre en el paso 2 y el algoritmo no es infinito. Trivial.}. Entonces existen $q_2$, $r_2$ tales que
+    
+    \[
+    b = r_1q_2 + r_2, \quad 0 \leq r_2 < r_1
+    \]
+    
+    \noindent y así sucesivametne. Supongamos que podemos repetir este proceso una cantidad $n$ de veces hasta hallar un residuo nulo. Es decir, hallamos $r_1, r_2, \dots, r_{n-3}, r_{n-2}, r_{n-1}$ tales que
+    
+    \begin{gather*}
+        a = bq_1 + r_1, \ 0 \leq r_1 < b \\
+        b = r_1q_2 + r_2, \ 0 \leq r_2 < r_1 \\
+        \vdots \\
+        r_{n-3} = r_{n-2}q_{n-1} + r_{n-1}, 0 \leq r_{n-1} < r_n \\
+        r_{n-2} = r_{n-1}q_n + 0
+    \end{gather*}
+    
+    \noindent como $r_{n-1}$ es el último resto no nulo, este sería el resultado arrojado por el algoritmo de Euclides. Podemos asegurar que siempre existe tal $n$ pues $b > r_1 > r_2 > \dots > r_{n-1} > 0$\marginfootnote{Esto lo asegura el algoritmo de la división.}. Es decir, los sucesivos residuos forman una sucesión estrictamente decreciente de enteros positivos. Si supones que este proceso es infinito, llegamos a una contradicción, pues a lo sumo existen $b-1$ números comprendidos entre $0$ y $b$\marginfootnote{Claramente, estos números son $0, 1, 2, 3, \dots, b-2, b-1$.}. Esto también puede verse por el P.B.O de los número naturales\marginfootnote{Este nos dice que si $S \subseteq \N$ y $S \neq \emptyset$, entonces $S$ posee un elemento minimal respecto a la relación "menor que". En particular, el conjunto $R$ de los residuos no es vacío, por lo que siempre existe un residuo minimal. Suponer que la sucesión de restos obtenida por el algoritmo de Euclides es infinita viola este postulado.}.
+    
+    Ya verificamos que el algoritmo de Euclides llega a su fin en un número finito de pasos. Verifiquemos ahora que el número obtenido en efecto es el máximo común divisor de $a$ y $b$. Para ello usemos el siguiente criterio de su definición:
+    
+    \begin{enumerate}
+        \item Si $d = \operatorname{MCD}(a,b)$, entonces $d|a$ y $d|b$.
+        \item Si $k|a$ y $k|b$, entonces $k|d$.
+    \end{enumerate}
+    
+    Para la primera condición, consideremos la última igualdad:
+    
+    \[
+    r_{n-2} = r_{n-1}q_n + 0
+    \]
+    
+    \noindent de donde $r_{n-1}|r_{n-2}$. Ahora, la penúltima igualdad nos dice que
+    
+    \[
+    r_{n-3} = r_{n-2}q_{n-1} + r_{n-1}
+    \]
+    
+    \noindent como $r_{n-3}$ es una combinación lineal de dos múltiplos de $r_{n-1}$, concluímos que $r_{n-1}|r_{n-3}$. Procediendo de forma iterativa, tenemos que $r_{n-1}|a$. Por lo tanto $r_{n-1}$ cumple con la primera condición del MCD.
+    
+    Veamos la segunda condición. Sea $k$ un divisor común de $a$ y $b$, entonces por la primera igualdad
+    
+    \[
+    a = bq_1 + r_1 \implies r_1 = a - bq_1
+    \]
+    
+    \noindent por lo que $r_1$ es una combinación lineal de múltiplos de $k$. Luego $k|r_1$. Procediendo de la misma manera,
+    
+    \[
+    r_2 = b - r_1q_2
+    \]
+    
+    \noindent por lo que $k|r_2$. Así es fácil ver que $k$ divide a todos los residuos sucesivos: en particular $k|r_{n-1}$. Por esto, podemos concluir que $r_{n-1}$ es en efecto el máximo común divisor de $a$ y $b$.
+\end{proof}
+
+\subsection{Más ejemplos de algoritmos}
+
+\begin{ejem}
+    Veamos primero el siguiente algoritmo:
+    
+    \begin{algoritmo}[hbt!]
+    \caption{Algoritmo por analizar}\label{alg:poranalizar}
+    \KwData{$n, m \in \Nastk$}
+    \KwResult{$S(n,m)$}
+    \While{$m > 0$}{
+    $m \leftarrow n + 1$ \\
+    $m \leftarrow n - 1$
+    }
+    \Return{$S(n, m) \rightarrow n$}
+    \end{algoritmo}
+    
+    Realicemos unos casos prueba. Hallemos $S(3,2)$. Ejecutando el algoritmo, se tiene
+    
+    \begin{center}
+        \begin{tabular}{c|c}
+            $n$ & $m$ \\ \toprule
+            3   & 2   \\
+            4   & 1   \\
+            5   & 0
+        \end{tabular}
+    \end{center}
+    
+    \noindent esto muestra que $S(3,2) = 5$. Probemos ahora $S(4,4)$
+    
+    \begin{center}
+        \begin{tabular}{c|c}
+            $n$ & $m$ \\ \toprule
+            4   &  4  \\
+            5   &  3  \\
+            6   &  2  \\
+            7   &  1  \\
+            8   &  0
+        \end{tabular}
+    \end{center}
+    
+    \noindent se puede hacer la conjetura de que este algoritmo sirve para hallar la suma de dos números naturales no nulos. Es fácil ver que el algoritmo no se ejecuta de manera infinita\marginfootnote{Siempre que $m$ sea positivo, eventualmente $m$ va a llegar a 0 en una serie finita de pasos ya que una secuencia como esta no puede ser infinita en los naturales}.
+    
+    Ahora, en efecto el algoritmo nos permite hallar la suma, pues al tomar $n, m \in \Nastk$ arbitrarios tenemos que
+    
+    \begin{center}
+        \begin{tabular}{c|c}
+            $n$    &  $m$   \\ \toprule
+            $n+1$  &  $m-1$ \\
+            $n+2$  &  $m-2$ \\
+            \vdots & \vdots \\
+            $n + (m-1)$ & 1 \\
+            $n+m$  &  $0$
+        \end{tabular}
+    \end{center}
+\end{ejem}
+
+Al haber visto ya un par de ejemplos, podemos establecer como objetivo buscar la mayor eficiencia, es decir, la menor cantidad de ejecuciones de un algoritmo para resolver un problema. Esto para ahorrar tiempo de cálculo (lo que puede ser costoso económicamente en problemas lo suficientemente complejos)\marginnote{Para ver este tema más a profundidad, es recomendado el libro de Thomas Cormen, \textit{Introduction to algorithms}.}.
+
+Se exponen ahora un par de ejemplos más que también son interesantes:
+
+\begin{ejem}
+    Veamos este algoritmo para hallar la multiplicación
+    
+    \begin{algoritmo}
+    \caption{Multiplicación}\label{alg:mult}
+    \KwData{$n. m \in \Nastk$}
+    \KwResult{$P(n,m)$}
+    $z \leftarrow 0$ \\
+    \While{$n \neq 0$}{
+    $z \leftarrow z + m$ \\
+    $n \leftarrow n-1$
+    }
+    \Return{$P(n,m) \leftarrow z$}
+    \end{algoritmo}
+    
+    Como $n \in \Nastk$, entonces el contador $n \neq 0$ nos asegura que la ejecución del algoritmo es finita, ya que vamos restándole una unidad al valor de $n$.
+    
+    Ver que el algoritmo efectivamente arroja el producto es sencillo, pues
+    
+    \begin{center}
+        \begin{tabular}{c|c|c}
+              $m$  &  $n$   & $z$      \\ \toprule
+              $m$  &  $n$   & 0        \\
+              $m$  & $n-1$  & $m$      \\
+              $m$  & $n-2$  & $2m$     \\
+            \vdots & \vdots & \vdots   \\
+              $m$  &   1    & $(n-1)m$ \\ 
+              $m$  &   0    & $nm$
+        \end{tabular}
+    \end{center}
+\end{ejem}
+
+\begin{ejer}
+    Verificar que este algoritmo también arroja como resultado la multiplicación\marginfootnote{Este ejercicio se sacó del Biggs}:
+    
+    \begin{algoritmo}
+    \caption{Otro algoritmo para la multiplicación}\label{alg:otromult}
+    \KwData{$n, m \in \Nastk$}
+    \KwResult{$P(n,m)$}
+    $a \leftarrow 0$ \\
+    $b \leftarrow n$ \\
+    $c \leftarrow m$ \\
+    \While{$b \neq 0$}{
+        \While{$b$ es par}{
+        $b \rightarrow b/2$ \\
+        $c \rightarrow 2c$
+        }
+    $a \leftarrow a + c$ \\
+    $b \leftarrow b - 1$
+    }
+    \Return{$P(n,m) \leftarrow a$}
+    \end{algoritmo}
+\end{ejer}

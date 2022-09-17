@@ -1,0 +1,161 @@
+\section{Topología de la recta. Espacio de Baire}
+
+Recordemos la notación \ref{notn:notn1}. Entonces, el postulado
+
+\[
+\omega \rightarrow (\omega)^{[\omega]}_2
+\]
+
+\noindent es equivalente a: Dado $x \subset \N^{[\omega]}$, ¿existe un conjunto $A \subset \N$ infinito tal que $A^{[\omega]} \subset X$ o $A^{[\omega]} \cap X = \emptyset$?\marginfootnote{Es decir, que dado una de las partes (que vendría siendo $X$), hay un conjunto que está incluído completamente en una de las partes o en su complemento.}
+
+Resulta que bajo el Axioma de Elección, hay conjuntos $X$ que no cumplen esa propiedad, la cual se conoce como \textit{Propiedad de Ramsey}.
+
+Para hablar de estos resultados, hay que recordar algunos conceptos topológicos.
+
+\subsection{Repaso de topología}
+
+\begin{defn}
+    A continuación, una lista de definiciones, conceptos y propiedades que nos servirán más adelante:
+    
+    \begin{enumerate}
+        \item Un conjunto $A \subseteq \R$ se dice que es \ul{abierto}. Si $\forall x \in A$ existe un intervalo $(a, b) \subset A$ tal que $x \in (a, b)$.
+        \item Un conjunto $B \subset \R$ es \ul{cerrado} si $\R - B$ es abierto.
+        \item Dado un conjunto $X$, una \ul{topología en $X$} es un conjunto $\T$ de subconjuntos de $X$ con las siguientes propiedades:
+        
+        \begin{enumerate}
+            \item $X \in \T$ y $\emptyset \in \T$.
+            \item $\T$ es cerrado bajo intersecciones finitas.
+            \item $\T$ es abierto bajo uniones arbitrarias.
+        \end{enumerate}
+        
+        Se dice que $X$, $\T$ forman el \ul{espacio topológico} $(X, \T)$. Y si un conjunto $A \subset \T$, se dice que $A$ es \ul{abierto}.
+        \item $D \subset X$ es \ul{denso} si para todo $A \in \T$ no-vacío, $A \cap D \neq \emptyset$.
+        \item $X$ es \ul{separable} si existe un $D \subset X$ numberable tal que $D$ es denso.\footnotemark
+        \item Sea un conjunto $B \subset X$, $x \in X$ es un \ul{punto de acumulación} de $B$, entonces para todo $A \in \T$, $x \in A$ implica que $A \cap B - \{x\} \neq \emptyset$.\footnotetext{{Un ejemplo de un conjunto separable es el siguiente:
+        
+        \begin{ejem}
+            $\R$ contiene un subconjunto que es denso y es numerable: El conjunto de los números racionales. Este conjunto se puede demostrar que es numerable, y además en cada intervalo abierto hay al menos un número racional. De esta forma, $\R$ es separable.
+        \end{ejem}}}
+    \end{enumerate}
+\end{defn}
+
+\begin{defn}
+    Veamos ahora algunas propiedades y propiedades de la topología usual de la recta:
+
+    \begin{enumerate}
+        \item Se llama \ul{intervalo} a un conjunto de los números reales de la forma
+            
+        \[
+        (a, b) = \{x \in \R : a < x < b\}
+        \]
+            
+        Si $a < b$, $(a, b)$ es no-vacío. Más aún, su cardinalidad es $\big|(a,b)\big| = |\R|$.
+        \item El conjunto $[a,b] = \{x \in \R : a \leq x \leq b\}$ es el intervalo cerrado determinado por $a$ y $b$.
+        \item Un conjunto $A$ de números reales es abierto si para cada $x \in A$, existe un intervalo abierto $(a, b)$ tal que $x \in (a, b) \subseteq A$.
+        \item $C \subseteq \R$ es cerrado $\iff$ $C$ contiene todos sus puntos de acumulación.
+        \item $A \subset \R$ es \ul{acotado} si existe $(a,b)$ tal que $A \subset (a,b)$. En este caso, decimos que $a$ es una \ul{cota inferior} y $b$ una \ul{cota inferior}.
+        \item Todo conjunto en $\R$ acotado superiormente tiene \ul{mínima cota superior (supremo)}. Todo conjunto en $\R$ acotado inferiormente tiene \ul{mínima cota inferior (ínfimo)}. Como $\R$ cumple esta propiedad, se dice que es completo.
+    \end{enumerate}
+\end{defn}
+
+Un par de resultados muy conocidos en el estudio de la topología de los números reales son los siguientes:
+
+\begin{teo}
+    Toda colección de abiertos en $\R$ disjunta dos a dos es a lo sumo numerable.
+\end{teo}
+
+\begin{teo}
+    Si conjunto $(X, <)$ totalmente ordenado tiene las siguientes características:
+    
+    \begin{enumerate}
+        \item $X$ no tiene mínimo ni máximo.
+        \item $X$ es completo.
+        \item $X$ es separable.
+    \end{enumerate}
+    
+    Entonces $(X, <) \simeq \R$.
+\end{teo}
+
+\begin{defn}
+    Continuando con las definiciones,
+    
+    \begin{enumerate}
+        \item $\C \subset \partes{X}$ \ul{cubre} a $X$ si $\bigcup_{c \in \C} = X$.
+        \item $X$ es \ul{compacto} si todo cubrimiento $\C \subset \T$ de $X$, $X$ admite un subcubrimiento finito. En los reales, el concepto de compacidad equivale a que $K \subset \R$ sea cerrado y acotado.
+        \item Sea $Y \subset X$, y definamos una nueva topología de la siguiente forma
+        
+        \[
+        \T_Y = \{A \cap Y : A \in \T\}
+        \]
+        
+        \noindent entonces $(Y, \T_Y)$ es un espacio topológico, y a $\T_Y$ se le llama la toplogía relativa a $Y$. El concepto de compacidad se relativiza de la siguiente manera: Sea $K \subset X$ es compacto $\iff (K, \T_K)$ es compacto.
+    \end{enumerate}
+\end{defn}
+
+\begin{defn}
+    Una \ul{métrica} en un conjunto $X$ es una función
+    
+    \[
+    \rho: X \times X \rightarrow [0, \infty)
+    \]
+    
+    \noindent tal que
+    
+    \begin{enumerate}
+        \item $\met{x}{y} = 0 \iff x = y$.
+        \item $\met{x}{y} = \met{y}{x}$.
+        \item $\met{x}{y} \leq \met{x}{z} + \met{y}{z}$.
+    \end{enumerate}
+    
+    Teniendo una métrica, podemos deifnir una topología dada por esa métrica:
+    
+    \[
+    A \subset \T_{\rho} \iff \forall x \in A, \exists \varepsilon > 0 : B_{\varepsilon}(x) \subset A \quad \footnotemark
+    \]\footnotetext{Acá utilizamos la siguiente definición:
+    
+    \begin{defn}
+        La \ul{bola} de radio $\varepsilon$ centrada en $x$ está definida como
+        
+        \[
+        B_{\varepsilon}(x) = \{y \in X: \met{x}{y} < \varepsilon\}
+        \]
+    \end{defn}}
+    
+    De aquí, podemos formar a partir de $X$ y de $\rho$ un \ul{espacio métrico} $(X, \rho)$.
+\end{defn}
+
+\begin{pre}
+    De la definición anterior, podemos ver que todo espacio métrico es un espacio topológico. Pero, ¿todo espacio topológico es un espacio métrico?
+\end{pre}
+
+\begin{defn}
+    En líneas generales, la respuesta no es afirmativa. Pero si lo es, el espacio se dice que es un \ul{espacio metrizable}.
+\end{defn}
+
+Ahora, tendremos varias definiciones que nos llevarán a establecer la topología producto:
+
+\begin{defn}
+    Sea $X$ un conjunto, y $\mathcal{G} \subset \partes{X}$ una familia de conjuntos. La topología $\T_{\mathcal{G}}$ está formada por las uniones de intersecciones finitas de elementos de $\mathcal{G}$, y se dice que $\T_{\mathcal{G}}$ es la \ul{topología generada} por $\mathcal{G}$. De la misma manera, se dice que $\mathcal{G}$ es una \ul{sub-base} de $\T_{\mathcal{G}}$.
+\end{defn}
+
+\begin{defn}
+    Sean $(X, \T_X)$, $(Y, \T_Y)$. Sea $f: (X, \T_X) \rightarrow (Y, \T_Y)$, $f$ es \ul{continua} si para cada $u \in \T_Y$, entonces $f^{-1}(u) \in T_X$.
+    
+    Es decir, que para cada bola abierta en $X$, su preimagen bajo $f$ es una bola abierta en $Y$.
+\end{defn}
+
+\begin{defn}
+    Sea $I$ un conjunto de índices. Sea $X_i$ un conjunto para cada $i \in I$. El \ul{producto cartesiano} de los $X_i$ es la colección $\prod_{i \in I} X_i$ de todas las funciones $x: I \rightarrow \bigcup_{i \in I} X_i$ tales que $x(i) \in X_i$ para todo $i \in I$.
+    
+    Si cada $X_i$ forma un espacio topológico, la topología producto $\big(\prod_{i \in I} X_i, \T \big)$ es la topología generada por los productos de la forma
+    
+    \[
+    \left\{ x \in \prod_{i \in I} X_i : x(j) \in U_j \right\}
+    \]
+    
+    \noindent donde $j \in I$ está fijo y $U_j$ es un abierto en $X_j$.
+\end{defn}
+
+\begin{teo}[Tychonov]\label{teo:TT}
+    Si todos los $X_i$ son espacios compactos, entonces $\prod_{i \in I} X_i$ es compacto con la topología producto.\marginfootnote{El lema de Tychonov es equivalente al Lema de Zorn y al Axioma de Elección.}
+\end{teo}

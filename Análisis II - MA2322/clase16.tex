@@ -1,0 +1,274 @@
+\subsection{Álgebra de límites}
+
+\begin{teo}
+    Sean $A \subset \R^n$, $f, g : A \rightarrow \R$, $x_0 \in A'$. Supongamos que
+
+    \[
+    \lim_{x \to x_0} f(x) = L \quad \text{y} \quad \lim_{x \to x_0} g(x) = M
+    \]
+    
+    Entonces tendremos las siguientes propiedades:
+    
+    \begin{enumerate}
+        \item $\displaystyle \lim_{x \to x_0} \left( f(x) + g(x) \right) = L + M$.
+        \item $\displaystyle \lim_{x \to x_0} \lambda f(x) = \lambda L$ (con $\lambda \in \R$).
+        \item $\displaystyle \lim_{x \to x_0} f(x) + g(x) = LM$.
+        \item $\displaystyle \lim_{x \to x_0} \left| f(x) \right| = |L|$.
+    \end{enumerate}
+    
+    Adicionalmente, podemos considerar una última propiedad: Si $B(x_0, r) \subset A$ tal que $g(x) \neq 0$ para todo $x \in B(x_0, r)$ con $g(x_0) \neq 0$. Entonces
+    
+    \[
+    \lim_{x \to x_0} \frac{f(x)}{g(x)} = \frac{L}{M}
+    \]
+    
+    \noindent si $M \neq 0$.
+\end{teo}
+
+\begin{aco}
+    Las propiedades del teorema anterior son resultados se pueden establecer para $F, G: A \rightarrow \R^m$, con $m \geq 1$. Quedaría estonces de la siguiente forma:
+    
+    \begin{enumerate}
+        \item $\displaystyle \lim_{x \to x_0} \left[ F + G \right](x) = L + M$.
+        \item $\displaystyle \lim_{x \to x_0} F(x) + G(x) = LM$.
+        \item $\displaystyle \lim_{x \to x_0} \normaeuc{F(x)} = \normaeuc{L}$.
+    \end{enumerate}
+    
+    Pero no podemos hablar del cociente ya que la división de vectores no está definida.
+\end{aco}
+
+\begin{proof}
+    Pasemos a demostrar la multiplicación, y la suma se deja como ejercicio:
+    
+    \begin{itemize}
+        \item Sean $A \subset \R^n$, $x_0 \in A'$ y $F,G: A \rightarrow \R^m$ con $m \geq 1$. Observemos lo siguiente
+    
+        \begin{gather*}
+            F(x)G(x) - LM = \left(F(x) - L\right)\left(G(x) - M\right) + L\left(G(x) - M\right) + M\left(F(x) - L\right) \\
+            \left| F(x)G(x) - LM \right| \leq \left| \left(F(x) - L\right)\left(G(x) - M\right)\right| + \left| L\left(G(x) - M\right) \right| + \left| M\left(F(x) - L\right) \right|
+        \end{gather*}
+        
+        Luego, aplicando C-S lo anterior nos queda como
+        
+        \begin{equation}\label{eq:des1}
+            F(x)G(x) - LM \leq \normaeuc{F(x) - L}\normaeuc{G(x) - M} + \normaeuc{L}\normaeuc{G(x)-M} + \normaeuc{M}\normaeuc{F(x)-L}
+        \end{equation}
+        
+        Ahora sea $0 < \varepsilon < 1$. Por hipótesis, sabemos que existen $\delta_1, \delta_2$ tales que
+        
+        \begin{gather*}
+            \text{si $\normaeuc{x - x_0} < \delta_1$} \implies \normaeuc{F(x) - L} \leq \frac{\varepsilon}{3(\normaeuc{M}+1)} \\
+            \text{si $\normaeuc{x - x_0} < \delta_2$} \implies \normaeuc{G(x) - M} \leq \frac{\varepsilon}{3(\normaeuc{L}+1)}
+        \end{gather*}
+        
+        Definamos entonces $\delta = \min(\delta_1, \delta_2)$. Si $\normaeuc{x - x_0} < \delta$, por la desigualdad \ref{eq:des1} podemos establecer lo siguiente
+        
+        \[
+        \left| F(x)G(x) - LM \right| < \frac{\varepsilon^2}{9\left( \normaeuc{L} + 1 \right)\left( \normaeuc{M} + 1 \right)} + \frac{\varepsilon \normaeuc{M}}{3\left( \normaeuc{M} + 1 \right)} + \frac{\varepsilon \normaeuc{L}}{3 \left( \normaeuc{L} + 1 \right)}
+        \]
+        
+        Como tenemos $0 < \varepsilon^2 < \varepsilon < 1$ y $1/9 < 1/3$, entonces
+        
+        \[
+        \left| F(x)G(x) - LM \right| < \frac{3 \varepsilon}{3} = \varepsilon
+        \]
+        
+        De esta manera, $\lim_{x \to x_0} f(x)g(x) = LM$.
+    \end{itemize}
+    
+    Pasemos también a demostrar la tercera propiedad:
+    
+    \begin{itemize}
+        \item Primero notemos que
+        
+        \[
+        \left| \normaeuc{F(x)} - \normaeuc{L} \right| \leq \normaeuc{F(x) - L} \quad \footnotemark
+        \]\footnotetext{Esta es otra forma de la desigualdad triangular.}
+        
+        Como $\lim_{x \to x_0} F(x) = L$, entonces dado $\varepsilon > 0$, existe $\delta > 0$ tal que
+        
+        \[
+        \text{si $\normaeuc{x - x_0} < \delta$} \implies \normaeuc{F(x) - L} < \varepsilon
+        \]
+        
+        Pero $\left| \normaeuc{F(x)} - \normaeuc{L} \right| \leq \normaeuc{F(x) - L}$, entonces
+        
+        \[
+        \left| \normaeuc{F(x)} - \normaeuc{L} \right| < \varepsilon
+        \]
+        
+        Y esto equivale a decir que $\lim_{x \to x_0} \normaeuc{f(x)} = \normaeuc{L}$. Por lo que queda demostrado
+    \end{itemize}
+\end{proof}
+
+\begin{teo}
+    Sean $f: A \subset \R^n \rightarrow \R^m$ y $x_0 \in A'$. Entonces
+    
+    \[
+    \lim_{x \to x_0} f(x) = L \iff \lim_{x \to x_0} f_i(x) = L_i \quad \forall i = 1, \dots, m
+    \]
+\end{teo}
+
+\begin{proof}
+    Demostremos ambas implicaciones:
+    
+    \begin{enumerate}
+        \item[($\Rightarrow$)] Por hipótesis, dado cualquier $\varepsilon > 0$, existe $\delta > 0$ tal que
+        
+        \[
+        \text{si $\normaeuc{x - x_0} < \delta$} \implies \normaeuc{f(x) - L} < \varepsilon
+        \]
+        
+        Ahora, tenemos que
+        
+        \begin{align*}
+            \left| f_i(x) - L_i \right| &=  \left( \left| f_i(x) - L_i \right|^2 \right)^{1/2} \\
+            &\leq \left( \sum_{i=1}^m \left| f_i(x) - L_i \right|^2 \right)^{1/2} \\
+            &= \normaeuc{f(x) - L} < \varepsilon
+        \end{align*}
+        
+        Y esto ocurre si $\normaeuc{x-x_0} < \delta$, $\forall i = 1, \dots, m$. Así, queda demostrado.
+        
+        \item[($\Leftarrow$)] Ahora tenemos por hipótesis que
+        
+        \[
+        \lim_{x \to x_0} f_i(x) = L_i \quad \forall i = 1, \dots, m
+        \]
+        
+        Entonces dado $\varepsilon > 0$, existe $\delta_i > 0$ tal que
+        
+        \[
+        \text{si $\normaeuc{x - x_0} < \delta_i$} \implies \left| f_i(x) - L_i \right| < \varepsilon/m \quad \forall i=1,\dots,m
+        \]
+        
+        Definamos entonces $\delta = \min_{i=1,\dots,m} \delta_i$. Si $\normaeuc{x-x_0} < \delta$, entonces
+        
+        \begin{align*}
+            \normaeuc{f(x) - L} &= \left( \sum_{i=1}^m \left| f_i(x) - L_i \right|^2 \right)^{1/2} \\
+            &< \left(\sum_{i=1}^n \frac{\varepsilon^2}{m^2} \right)^{1/2} \\
+            &= \frac{\varepsilon}{m} < \varepsilon
+        \end{align*}
+        
+        Con esto, conluímos que $\lim_{x \to x_0} f(x) = L$, y queda demostrado el teorema.
+    \end{enumerate}
+\end{proof}
+
+\subsection{Continuidad}
+
+En esta sección trateremos con la noción de continuidad.
+
+\begin{defn}
+    Sea $f: A \rightarrow \R$, con $A \subset \R^n$. Diremos que $f$ es \ul{continua} en $x = x_0$ (con $x_0 \in A \subset \operatorname{dom}(f)$) sii
+    
+    \[
+    \lim_{x \to x_0} f(x) = f(x_0)
+    \]
+    
+    En térmimos $\varepsilon$-$\delta$, lo anterior equivale a decir que: dado $\varepsilon > 0$, existe $\delta > 0$ tal que
+    
+    \[
+    \text{si $\normaeuc{x - x_0} < \delta$} \implies |f(x) - f(x_0)| < \varepsilon
+    \]
+    
+    Esta definición se aplica para $f$ definida para valores escalares. Si $f$ está definida para valores escalares, la definición es análoga: dado $\varepsilon > 0$, existe $\delta > 0$ tal que
+    
+    \[
+    \text{si $\normaeuc{x - x_0} < \delta$} \implies \normaeuc{f(x) - f(x_0)} < \varepsilon
+    \]
+    
+    En términos conjuntistas, podemos decir que: dado $\varepsilon > 0$, existe $\delta > 0$ tal que
+    
+    \[
+    \text{si $x \in B_2(x_0, \delta)$} \implies f(x) \in B_2(f(x_0), \varepsilon)
+    \]
+    
+    Lo que equivale a
+    
+    \[
+    f\left( B_2(x_0, \delta) \right) \subseteq B_2\left( f(x_0), \varepsilon \right)
+    \]
+    
+    También la podemos definir en términos de sucesiones: $\lim_{x \to x_0} f(x) = f(x_0)$ si y solamente si
+    
+    \[
+    \forall (x_n) \subset A : \limtoinfty{n}{x_n} = x_0 \quad \text{se tiene que} \quad \limtoinfty{n}{f(x_n)} = f(x_0)
+    \]
+\end{defn}
+
+\begin{nota}
+    Sea $f: \R^n \rightarrow \R^m$ (con $n \geq 1$) inyectiva. Como es inyectiva, podemos garantizar que existe su inversa $f^{-1}$. Sean $U \subset \R^n$, $V \subset \R^m$, entonces denotaremos $f(U)$ y $f^{-1}(V)$ de la siguiente manera:
+    
+    \begin{gather*}
+        f(U) = \{ f(x) : x \in U \} \\
+        f^{-1}(V) = \{ x : f(x) \in V \}
+    \end{gather*}
+    
+    Luego, tenemos las siguientes contenciones
+    
+    \begin{gather*}
+        f\left( f^{-1}(V) \right) \subseteq V \\
+        U \subseteq f^{-1}\left( f(U) \right)
+    \end{gather*}
+    
+    \noindent esto último se verifica por la inyectividad de $f$.
+\end{nota}
+
+Ahora presentaremos una caracterización de la continuidad en términos de conjuntos abiertos y cerrados.
+
+\begin{teo}
+    Sea $f: \R^n \rightarrow \R$. Entonces $f$ es continua en $A \subset \R^n$ sii para todo $B \subset \R$ abierto, $f^{-1}(B)$ es abierto.
+\end{teo}
+
+\begin{proof}
+    Demostremos ambas implicaciones:
+    
+    \begin{enumerate}
+        \item[($\Rightarrow$)] Sea $f$ continua y $B$ un conjunto abierto. Consideremos $x_0 \in f^{-1}(B)$ y denotemos por $y_0 = f(x_0)$. Como $B$ es abierto, dado $\varepsilon > 0$ entonces la bola $B_2(y_0, \varepsilon)$ está contenida en $B$. Por continuidad de $f$, entonces existe un $\delta > 0$ tal que
+        
+        \[
+        f\left( B_2(x_0, \delta) \right) \subset B_2(f(x_0), \varepsilon) = B_2(y_0, \varepsilon)
+        \]
+        
+        Pero $B_2(y_0, \varepsilon) \subset B$. Luego
+        
+        \[
+        B_2(x_0, \delta) \subseteq f^{-1}\left( f(B_2(x_0, \delta)) \right) \subset f^{-1}(B)
+        \]
+        
+        Por lo tanto, $B_2(x_0, \delta) \subset f^{-1}(B)$ y esto se cumple para todo $x_0 \in f^{-1}(B)$. Por lo que queda demostrado.
+        
+        \item[($\Leftarrow$)] Consideremos $B = B_2(y_0, \varepsilon)$ abierto, donde $y_0 = f(x_0)$ para $x_0 \in f^{-1}(B)$. Por hipótesis, tenemos que $f^{-1}\left( B_2(y_0, \varepsilon) \right)$ es abierto. Ahora, si $x_0 \in f^{-1}\left( B_2(y_0, \varepsilon) \right)$, entonces existe $\delta > 0$ tal que
+        
+        \[
+        B_2(x_0, \delta) \subseteq f^{-1}\left( B_2(y_0, \varepsilon) \right)
+        \]
+        
+        Lo que implica que
+        
+        \[
+        f\left( B_2(x_0, \delta) \right) \subseteq B_2(y_0, \varepsilon) = B_2\left(f(x_0), \varepsilon \right)
+        \]
+        
+        Por lo tanto $f$ es continua en $x_0$.
+    \end{enumerate}
+    
+    De esta manera, queda demostrado.
+\end{proof}
+
+\begin{cor}
+    $f$ es continua sii $\forall B \subset \R$ cerrado, se tiene que $f^{-1}(B)$ es cerrado.
+\end{cor}
+
+\begin{proof}
+    Por definición sabemos que $f^{-1}(B)$ es cerrado sii $[f^{-1}(B)]^c$ es abierto. Luego basta observar que
+    
+    \[
+    [f^{-1}(B)]^c = f^{-1}(B^c)
+    \]
+    
+    \noindent y aplicando el teorema anterior, nos queda demostrado el corolario.
+\end{proof}
+
+\begin{aco}
+    Si $f$ es continua y $A$ abierto, no podemos garantizar que $f(A)$ es abierto.
+\end{aco}

@@ -1,0 +1,66 @@
+\subsection{Árboles y algoritmos de ordenamiento}
+
+\begin{defn}
+    Una aplicación muy frecuente del teorema \ref{teo:arbol1} es en el estudio de \ul{árboles de desición}, donde cada vértice interno representa una desición y los posibles resultados son representados por los lados. Los resultados finales los representan las hojas del árbol.
+\end{defn}
+
+Los algoritmos de ordenamiento revisados anteiormente resuelven el problema al comparar dos enteros y hacer la correspondiente transferencia de datos. Este procedimiento puede representarse como un árbol de desición donde cada vértice representa la comparación entre dos enteros $x$ e $y$, por lo que pueden haber dos resultados posibles, $x < y$ o $x > y$, dando como resultado un árbol binario.
+
+Vimos anteriormente que Bubble Sort \ref{alg:bubble} e Insertion Sort son $O(n^2)$. Ahora veremos un algoritmo llamado \textbf{heapsort}. Este algoritmo es $O(n \log n)$ y hace uso de los árboles para mejorar su eficiencia. Para utilizar este algoritmo, tendremos que representar a los elementos a ordenar como un árbol binario y esto puede hacerse de la siguiente manera:
+
+\begin{marginfigure}
+    \centering
+    \begin{forest}
+    for tree={circle, draw}
+    [$x_1$
+        [$x_2$
+            [$x_4$
+                [$x_8$][$x_9$]]
+            [$x_5$
+                [$x_{10}$]
+                [$x_{11}$]]]
+        [$x_3$
+            [$x_6$
+                [$x_{12}$]]
+            [$x_7$]]]
+    \end{forest}
+    \label{fig:pila1}
+    \caption{Ejemplo para $n=12$.}
+\end{marginfigure}
+
+\vspace{15pt}
+
+\begin{itemize}
+    \item Se asignan los miembros de la lista $\{x_1, x_2, \dots, x_n\}$ a ordenar así: Asignamos $x_1$ a la raíz, $x_2$ será el primer hijo de $x_1$ y $x_3$ el segundo, $x_4$ será el primer hijo de $x_2$ y $x_5$ el segundo. Y así sucesivamente.
+    \item Siguiendo de esta manera tendremos que el vértice $x_r$ es el padre de $x_{2r}$ y de $x_{2r+1}$. Cuando $n$ es par, el vértice $x_{n/2}$ tiene un único hijo: el vértice $x_n$. Así, hemos construído un árbol binario.
+\end{itemize}
+
+Ahora, heapsort tiene dos etapas: Primero, la lista sin ordenar se coloca en un \textit{pila}\marginfootnote{Pasemos a definir una pila:
+
+\begin{defn}
+    Una \ul{pila} es una estructura de datos cuya característica principal es que cada padre es menor que sus hijos, es decir que
+    
+    \[
+    x_{2r} < x_{2r} \quad \wedge \quad x_{2r} < x_{2r+1}
+    \]
+\end{defn}}, y luego dicha pila se transforma en la lista ordenada.
+
+Para la primera etapa, consideremos a los padres en orden inverso: Supongamos que al pararnos en $x_r$, ambos subárboles generados en $x_{2r}$ y $x_{2r+1}$ ya han sido convertidos en pilas. Si $x_r < x_{2r}$ y $x_r < x_{2r+1}$ no hay nada que hacer pues el subárbol que tenemos en $x_{2r}$ ya es una pila. De lo contrario, se intercambian los vértices y se vuelve a comparar e intercambiar para $x_r$ y $x_{4r}$, $x_{4r+1}$. Al llegar a una hoja, ya deberíamos encontrar un sitio donde $x_r$ quede fijo.
+
+Esta regla para formar una pila forma la base para un procedimiento \textbf{pila}$(k,n)$, el cual dado un vértice $x_k$ con la propiedad de que los subárboles con ráiz en $x_{2k}$ y $x_{2k+1}$ son pilas, y hace que el subárbol que parte en $x_k$ sea una pila.
+
+Ahora, en cualquier pila, la raíz siempre tendrá el menor valor, así que va en el primer luegar de la lista ordenada. Luego se sustituye dicho valor en la pila por el de $x_n$, por lo que tendremos un árbol fon $n-1$ vértices donde $x_2$ y $x_3$ son raíces de subárboles que son pilas, por lo que la llamada \textbf{pila}$(1,n-1)$ restaurará la propiedad de pila. Ahora la raíz tiene el menor valor y va en el segundo lugar de la lista ordenada. Y así sucesivamente.
+
+\begin{algoritmo}
+    \caption{heapsort}\label{alg:pila}
+    \KwData{$\{x_1, \dots, x_n\} \quad$ arreglo no ordenado}
+    \KwResult{$\{y_1, \dots, y_n\} \quad$ arreglo ordenado}
+    \For{$j \leftarrow 0$ \textup{to} $\lfloor n/2 \rfloor - 1$}{
+        \textbf{pila}$(\lfloor n/2 \rfloor - j, n)$
+    }
+    \For{$i \leftarrow 1$ \textup{to} $n-2$}{
+        $y_i \leftarrow x_1; \quad x_1 \leftarrow x_{n-i+1}$ \\
+        \textbf{pila}$(1, n-i)$
+    }
+    $y_{n-1} \leftarrow x_1; \quad y_n \leftarrow x_2$ 
+\end{algoritmo}

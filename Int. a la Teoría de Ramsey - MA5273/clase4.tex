@@ -1,0 +1,52 @@
+\subsection{Teorema de Schur}
+
+Este teorema está relacionado con el problema de determinar si existen o no soluciones enteras no triviales para una ecuación de la forma
+
+\[
+x^m + y^m = z^m
+\]
+
+Este es el último teorema de Fermat. Entonces, ¿existirán soluciones no triviales en $\Z_p$? (con $p$ primo). Desarrollando esta idea, lo que tenemos es que con $p$ primo, dado $m \in \Nastk$, definimos 
+
+\[
+H = \{x^m : x \in \Z_p^*\}
+\]
+
+\noindent es muy fácil ver que dado el grupo $Z_p^* = \{ 1, 2, \dots, p-1 \}$ entonces $H \leq \Z_p^*$. Además, $\operatorname{ind}_{\Z_p^*}(H) \leq m$, luego, particionar el conjunto $Z_p^*$ de esta manera corresponde a definir una coloración $f: \Z_p^* \rightarrow m$.
+
+Entonces, lo que queremos es que $x^m = a$, $y^m = b$ y $z^m = a + b$ esten en la misma clase de equivalencia. Es decir, que dada una coloración $f$ como la definimos anteriormente, queremos encontrar un conjunto $\{a, b, a+b\}$ monocromático para esa coloración.
+
+\begin{teo}[Schur finito]
+    Dados $m, N \in \Nastk$, para cada coloración $f: \{1, 2, \dots, N\} \rightarrow m$, existen $a, b \in \{1, 2, \dots, N\}$ tales que $\{a, b, a+b\}$ es monocromático para $f$.
+\end{teo}
+
+\begin{teo}[Schur]\label{teo:Schur}
+    Dado $m \in \Nastk$, para cada coloración $f: \Nastk \rightarrow m$ existen $a, b \in \Nastk$ tales que $\{a, b, a+b\}$ es monocromático para $f$.
+\end{teo}
+
+Aunque históricamente el teorema de Schur vino primero, ya que tenemos el  a la mano, vamos a usarlo.
+
+\begin{proof}
+    Sea $D$ un $\Delta$-conjunto\marginfootnote{Los $\Delta$-conjuntos están definidos así:
+    \begin{defn}
+        $A$ es un \ul{$\Delta$-conjunto} su existen $a_0 < a_1 < \dots$ números naturales tales que $a \in A \iff a = a_j - a_i$ para algún par $i, j$ tal que $j > i$.
+    \end{defn}}, y $f: D \rightarrow m$ una coloración. Sea $g: \N^{[2]} \rightarrow m$ definida de la siguiente manera:
+    
+    \[
+    g \big(\{i,j\}\big)_{i < j} = f(a_j - a_i)
+    \]
+    
+    Por el \TR, existe un conjunto $H \subset \N$ infinito y homogéneo para $g$. Sean $n, k, t \in H$ con $n < k < t$ entonces
+    
+    \[
+    \{a_k - a_n, a_t - a_n, a_t - a_k\} \quad \text{es monocromático para $f$}
+    \]
+    
+    Luego, si $a_k - a_n = a$, $a_t - a_k = b$, entonces
+    
+    \[
+    \{a, b, a+b\} \quad \text{es monocromático para $f$}
+    \]
+    
+    Esto demuestra entonces el teorema.
+\end{proof}

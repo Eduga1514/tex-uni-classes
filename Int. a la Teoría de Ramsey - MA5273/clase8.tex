@@ -1,0 +1,109 @@
+\begin{pre}
+    Ahora, sea $T$ un árbol sobre $\N$. Queremos ver qué propiedades cumple el cuerpo de $T$, $[T] \subseteq \baire$, bajo la topología del espacio de Baire.
+\end{pre}
+ 
+\begin{proof}
+    Supongamos que tenemos una suceción de ramas $\{ a_i \}_{i \in \N}$. Si esta sucesión converge, $\{ a_i \}_{i \in \N} \rightarrow a \in \baire$\marginfootnote{Es decir, que para todo entorno que contenga a $a$, a partir de cierto índice, todos los miembros de la sucesión están en ese entorno. Dicho de otra manera,
+ 
+    \[
+    \forall n, \exists k \quad \text{tal que} \quad i \geq k \implies a \rest n = a_i \rest n \in T
+    \]}, entonces $a \in [T]$. Por lo tanto $[T]$ es cerrado.
+     
+    Consideremos ahora $A \subseteq \baire$ cerrado, y su árbol generado $S_A$. Primero, es evidente que $A \subseteq [S_A]$ porque el cuerpo del árbol está formado por restricciones de elementos de $A$, por lo tanto si $a \in A$, entonces $a \rest n \in S_A$ para todo $n$.
+     
+    Por otro lado, si $x \in [S_A]$, entonces para todo $j \in \N$ existe un $x_j \in A$ tal que $x \rest j = x_j \rest j$. Esto da como resultado una sucesión $\{x_j\}_{j \in \N}$ de elementos de $A$ convergente a $x$, y como $A$ es cerrado entonces $x \in A$.
+     
+    De esta forma, tenemos también que $[S_A] = A$
+\end{proof}
+
+Así, hemos demostrado lo siguiente:
+
+\begin{teo}
+    Sea $T$ un árbol sobre $\N^{< \infty}$. Un subconjunto $A \subseteq \baire$ es cerrado si y sólo si $A = [T]$. Más aún, $A$ es cerrado si y sólo si $A = [S_A]$.
+\end{teo}
+
+\begin{defn}
+    Sea $T$ un árbol sobre X. Se dice que es \ul{a bifurcación finita} si cada nodo tiene a lo sumo una cantidad finita de sucesores inmediatos, es deicr, si para cada $s \in T$, el conjunto $\{ x : s \frown \langle x \rangle \in T \}$ es finito.
+\end{defn}
+
+\begin{teo}
+    Un conjunto cerrado $A \subseteq \baire$ es compacto si y sólo si $S_A$ es un árbol a bifurcación finita.
+\end{teo}
+
+\begin{proof}
+    Demostremos la doble implicación:
+    
+    \begin{itemize}
+        \item[($\Rightarrow$)] Supongamos que $S_A$ no es a bifurcación finita. Entonces existe un $s \in S_A$ que tiene infinitos sucesores inmediatos. Definamos
+        
+        \[
+        A_S = \{ a \in A : s \leftY a \} = U_S \cap A
+        \]
+        
+        Ahora, $U_S \cap A$ es cerrado, por lo que su complemento es abierto. Luego $\{ U_{S \frown \langle n \rangle} : n \in \N \} = B$ es un cubrimiento por abiertos de $A$ que no admite subcubrimientos finitos por el mismo argumento que hicimos en la nota \ref{note:cub1}. Si consideramos $B \cup (A - A_S)$, esto da un cubrimiento de $A$ que no es finito, por lo que $A$ no es compacto.
+        
+        De esta forma, si $A$ es compacto, entonces $S_A$ es a bifurcación finita.
+        
+        \item[($\Leftarrow$)] Supongamos que $A$ no es compacto. Entonces existe $\{ \mathcal{O}_i : i \in I \}$ un cubrimiento por abiertos de $A$ que no admite subcubrimientos finitos.
+        
+        Entonces existe $k_0 \in \N$ tal que $\langle k_0 \rangle \in S_A$, luego $A_{\langle k_0 \rangle} = \{ a \in A: a(0) = k_0 \}$ no se cubre por una cantidad finita de $\mathcal{O}_i$.
+        
+        De la misma manera, existe $k_1 \in \N$ tal que $\langle K_0, k_1 \rangle \in S_A$, luego
+        
+        \[
+        A_{\langle k_0, k_1 \rangle} = \{ a \in A : \langle k_0, k_1 \rangle \leftY a\}
+        \]
+        
+        \noindent no se cubre por finitos $\mathcal{O}_i$.
+        
+        De froma sucesiva, podemos obtener $\langle k_0, \dots, k_{n-1} \rangle \in S_A$, y existe un $k_n \in \N$ tal que $\langle k_0, \dots, k_n \rangle \in S_A$, luego
+        
+        \[
+        A_{\langle k_0, \dots, k_n \rangle} = \{ a \in A : \langle k_0, \dots, k_n \rangle \leftY a \}
+        \]
+        
+        \noindent no se cubre por finitos $\mathcal{O}_i$.
+        
+        De esta forma, hemos definido inductivamente una suceción infinita $d = \langle k_0, \dots, k_n \rangle \in [S_A]$ tal que
+        
+        \[
+        \{ a \in A : \forall n \quad a \rest n = d \rest n \}
+        \]
+        
+        \noindent no se puede cubrir con una cantidad finita de $\mathcal{O}_i$.
+        
+        Por otro lado, como $d \in A$ entonces $d \in \mathcal{O}_j$ porque ellos cubren a $A$. Como $\mathcal{O}_j$ es abierto, entonces existe un $n$ tal que $U_{d \rest n} \subseteq \mathcal{O}_j$. Así,
+        
+        \[
+        \{a \in A : a \rest n = d \rest n\} \subseteq U_{d \rest n} \subseteq \mathcal{O}_j
+        \]
+        
+        \noindent pero esto contradice lo que habíamos dicho previamente de que no se puede cubrir este conjunto con una cantidad finita de $\mathcal{O}_i$.
+        
+        Esta contradiccón partió de suponer que $A$ no es compacto. Por lo tanto, queda demostrada la otra implicación.
+    \end{itemize}
+    
+    Así, queda demostrado el teorema.
+\end{proof}
+
+\begin{teo}
+    El espacio $\baire$ no es $\sigma$-compacto.\marginfootnote{A continuación, la definición:
+    
+    \begin{defn}
+        Un espacio \ul{$\sigma$-compacto} es un espacio que es unión de una cantidad numerable de compactos.
+    \end{defn}}
+\end{teo}
+
+\begin{proof}
+    Supongamos ahora que tenemos una colección
+
+    \[
+    \left\{ [T_i] : i \in \N \right\}
+    \]
+    
+    \noindent donde cada $[T_i]$ es el cuerpo de un árbol sobre $\N$ a bifurcación finita $T_i$. Como $T_0$ es a bifurcación finita, entonces $\exists k_0 \in \N$ tal que $\langle k_0 \rangle \notin T_0$. Como $T_1$ es a bifurcación finita, entonces $\exists k_1 \in \N$ tal que $\langle k_0, k_1 \rangle \notin T_1$, y así sucesivamente.
+    
+    De esta manera, tendremos una sucesión finita $a = \langle k_0, \dots \rangle \in \baire$ y tiene la propiedad de que $\forall n \in \N$, $a \rest n \notin T_n$. Esto implica que $a \notin [T_n]$, $\forall n \in \N$. Es decir, hemos encontrado un elemento de $\baire$ que no puede ser cubierto con una cantidad de compactos numerables. Por lo tanto $\baire$ no es unión de una cantidad numerable de compactos.
+    
+    Así, queda demostrado.
+\end{proof}

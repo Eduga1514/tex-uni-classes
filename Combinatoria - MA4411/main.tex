@@ -1,0 +1,178 @@
+\documentclass{tufte-handout}
+\usepackage[utf8]{inputenc}
+\usepackage{parskip}
+\usepackage{amssymb, amsthm, amsmath, fdsymbol, mathtools, cancel, extarrows} % Varios paquetes para símbolos y fuentes
+\usepackage{tikz, pgfplots} % Para dibujar
+\usepackage{tkz-graph, tkz-berge} % Para dibujar grafos
+\usepackage[linguistics]{forest} % Para dibujar árboles
+\useforestlibrary{edges}
+\usepackage{algorithm2e} % Para escribir pseudocódigo
+\usepackage{titling} % Para estilizar el título
+\usepackage{scrextend} % Añade márgenes para hacer bloques de texto
+\usepackage{enumitem} % Para enumerar sin sangría
+\usepackage{graphicx, subcaption} % Para colocar figuras e imágenes
+\usepackage{lastpage}
+\usepackage{fancyhdr} % Para hacer encabezados y pie de página más estilizados
+\usepackage{color} % Para usar colores en el texto
+\usepackage{soul} % Para subrayar con colores
+\usepackage{soulutf8}
+\usepackage{titling} % Cambia los parámetros del título
+\usepackage{booktabs} % Para hacer tablas un poco más estilizadas
+\usepackage{multirow}
+
+% Cambia el tamaño de los captions
+\usepackage[font={footnotesize}]{caption}
+
+% Establece los enviroments para teoremas, ejemplos, definiciones, etc
+\newtheorem{teo}{Teorema}
+\newtheorem{cor}[teo]{Corolario}
+\newtheorem{lem}[teo]{Lema}
+\newtheorem{pro}[teo]{Proposición}
+\newtheorem{pre}{Pregunta}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definición}
+\newtheorem{ejem}{Ejemplo}
+\newtheorem{ejer}{Ejercicio}
+\newtheorem{notn}{Notación}
+\newtheorem{nota}{Nota}
+\newtheorem{prob}{Problema}
+
+% Comandos para símbolos
+\newcommand{\Nastk}{\mathbb{N}^*}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\prop}{\mathcal{P}}
+\newcommand{\con}{\sim_{c}}
+\newcommand{\ent}{\operatorname{entrada}}
+\newcommand{\sal}{\operatorname{salida}}
+\newcommand{\val}{\operatorname{val}}
+\newcommand{\sumtoinfty}[2]{\sum_{#1}^{\infty} #2}
+
+% Cambia el nombre de varios comandos
+\renewcommand{\contentsname}{Contenido}
+\renewcommand*{\proofname}{Demostración}
+\renewcommand{\figurename}{Fig.}
+
+% Establece las notas de margen
+\newcommand{\marginfootnote}[1]{\footnotemark\footnotetext{#1}}
+
+% Establecemos cómo será el encabezado y el pie de página
+\fancyhf{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MA-4411}
+\fancyhead[C]{Eduardo José Gavazut Pinto}
+\fancyhead[R]{13-10524}
+\fancyfoot[L]{Sección 1}
+\fancyfoot[R]{Profesor: Jesús Nieto}
+\fancyfoot[C]{\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{2pt} 
+\renewcommand{\footrulewidth}{2pt}
+
+% Establece los entornos para los bloques de pseudocódigo
+\RestyleAlgo{ruled}
+\newenvironment{algoritmo}[1][htb]
+  {\renewcommand{\algorithmcfname}{Algoritmo}% Update algorithm name
+   \begin{algorithm}[#1]%
+  }{\end{algorithm}}
+
+% Establece el entorno para hacer diagramas de Ferrers
+\newenvironment{ferrers}[1][4em]
+ {%
+  \leavevmode
+  \hbox\bgroup
+    \def\\{\unskip\cr\noalign{\hskip#1}}%
+    \valign\bgroup&##\cr
+ }
+ {%
+  \unskip\crcr\egroup
+  \egroup
+ }
+
+\newcommand{\row}[1]{%
+  \hbox{$\activatem\romannumeral\number\number#1 000 \unskip$}\vskip 0.5em plus 3em
+}
+\newcommand{\activatem}{%
+  \begingroup\lccode`~=`m \lowercase{\endgroup\def~}{\bullet\hskip1em}%
+  \mathcode`m="8000
+}
+
+% Define la geometría del margen
+\geometry{
+	left=13mm, % left margin
+	textwidth=130mm, % main text block
+	marginparsep=8mm, % gutter between main text block and margin notes
+	marginparwidth=55mm % width of margin notes
+}
+
+% Permite agregar etiquetas a los niveles de un árbol
+\forestset{%
+  label tree/.style={
+    for tree={tier/.option=level},
+    level label/.style={
+      before typesetting nodes={
+        for nodewalk={current,tempcounta/.option=level,group={root,tree breadth-first},ancestors}{if={>OR={level}{tempcounta}}{before drawing tree={label me=##1}}{}},
+      }
+    },
+    before drawing tree={
+      tikz+={\coordinate (a) at (current bounding box.east);},
+    },
+  },
+  label me/.style={tikz+={\node [anchor=base north] at (.parent |- a) {#1};}},
+}
+
+% Establece el subrayado de color rojo
+\definecolor{ferrari}{rgb}{1,0.17,0}
+\setulcolor{ferrari}
+
+% Reduce el espacio entre el título y el header
+\setlength{\droptitle}{-5.5em}
+\renewcommand\maketitlehookc{\vspace{-3ex}}
+
+% Define el espaciado entre párrafos
+\setlength{\parskip}{1.5em}
+
+% Definimos nuestro título
+\pretitle{\begin{flushleft}\LARGE\sffamily}
+\title{
+Notas de Combinatoria, Abril-Julio 2022 \\
+Universidad Simón Bolívar
+}
+\posttitle{\par\end{flushleft}\vskip 0.5em}
+\preauthor{\begin{flushleft}\large\scshape}
+\author{
+Eduardo Gavazut \\
+Carnet: 13-10524}
+\postauthor{\par\end{flushleft}}
+\predate{\begin{flushleft}\large\scshape}
+\date{Abril-Julio 2022}
+\postdate{\par\end{flushleft}}
+
+% Aquí empieza el documento
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\tableofcontents
+\break
+\input{clase1}
+\input{clase2}
+\input{clase3}
+\input{clase4}
+\input{clase5}
+\input{clase6}
+\input{clase7}
+\input{clase8}
+\input{clase9}
+\input{clase10}
+\input{clase11}
+\input{clase12}
+\input{clase13}
+\input{clase14}
+\input{clase15}
+
+\end{document}

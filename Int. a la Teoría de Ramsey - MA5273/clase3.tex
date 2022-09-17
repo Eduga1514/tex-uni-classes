@@ -1,0 +1,121 @@
+Lo que hemos hecho es probar un caso particular de un resultado que se le debe a F.P Ramsey. Enunciemos el teorema de Ramsey de la siguiente manera:
+
+\begin{teo}[Ramsey (TR)]\label{teo:TR}
+    Para todo $n \in \N$ y todo $k \in \N$
+    
+    \[
+    \omega \rightarrow (\omega)_r^n
+    \]
+\end{teo}
+
+\begin{proof}
+    Procedamos igual que en la demostración anterior con un argumento inductivo: El caso $r=1$ es trivial, así que pasemos a demostrar el caso $r=2$ con inducción sobre $n$.
+        
+    Si $n=1$, nuevamente es trivial; si $n=2$, ya hemos hecho la demostración en \ref{pre:ramsay1}. Supongamos entonces que el teorema vale para $n$ y probemos para $\omega \rightarrow (\omega)_2^{n+1}$. Como $\N$ es un conjunto infinito numerable, estudiar sus coloraciones vale para cualquier conjunto infinito numerable, así que por conveniencia nos quedaremos estudiando $\N$. Luego, tendremos $f: \N \rightarrow 2$, y nuestro objetivo será conseguir un conjunto homogéneo para $f$.
+    
+    \begin{marginfigure}
+        \centering
+        \begin{forest}
+            [$0$, for tree={grow=90}, red
+                [$1$, red
+                    [\vdots
+                        [$n-1$, red
+                            [$X_1$
+                                [$Y_3$
+                                    [\vdots]
+                                ]
+                                [$Y_2$
+                                    [\vdots]
+                                ]
+                            ]
+                            [$X_0$
+                                [$Y_1$
+                                    [\vdots]
+                                ]
+                                [$Y_0$
+                                    [\vdots]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        \end{forest}
+        \caption{Representación de la construcción del árbol construído en la demostración del teorema de Ramsey.}
+        \label{fig:ramseyfig1}
+    \end{marginfigure}
+    
+    Entonces, construyamos un árbol de la siguiente manera: Sabemos que los primero $n$ elementos tienen el mismo color, es decir $f(n-1) = i$, donde $i = 0$ o $i = 1$. Definamos entonces dos particiones de $\N$, $X_0$ y $X_1$ tales que
+    
+    \[
+    t \in X_i \iff f\left( n \cup \{t\} \right) = i, \quad i \in \{0,1\}
+    \]
+      
+    \noindent ahora, partiremos ambos conjuntos $X_0$ y $X_1$ de la siguiente manera: Sea $t_0 \in X_0$ el menor elemento de $X_0$ y consideremos $C_{t_0} = \pred(t_0) \cup \{t_0\}$, definiremos dos conjuntos $Y_0$ y $Y_1$ tales que
+    
+    \[
+    t \in Y_i \iff f\left( x \cup \{t\} \right) = i, \quad \forall x \in C_{t_0}^{[n]}
+    \]
+    
+    Supongamos que en este árbol que hemos estado construyendo, tenemos en el nivel $m$ a un elemento $s$, ¿cómo es la partición del conjunto al que pertenece?. Pues consideremos $C_{s} = \pred(t_0) \cup \{s\}$ y sean entonces $Z_0$, $Z_1$ dichas particiones definidas de esta manera:
+    
+    \[
+    t \in Z_i \iff f\left( x \cup \{t\} \right) = i, \quad \forall x \in C_{s}^{[n]}
+    \]
+    
+    Los sucesores inmediatos de $s$ son elegidos de tal forma que tomamos el menor de cada $Z_i$. Entonces cada elemento del nivel $m$ tiene a lo sumo $2^{\binom{m}{n}}$ sucesores inmediatos, ya que para cada elemento del nivel $m$, $\left| C_s^{[n]} \right| = \binom{m}{n}$ y tenemos 2 colores.
+    
+    Para cada uno de los pares de particiones que hemos construído, puede ocurrir que uno de ellos sea vacío, pero no que los dos sea vacío. Esto es así por la cardinalidad de $\N$.
+    
+    Como resultado, hemos construído inductivamente un árbol $T$ infinito donde cada nivel es finito, entonces por el teorema \ref{teo:arboles1}, existe una rama $R \subset T$ infinita. Ahora, sea $x \in R^{[n]}$, para todo $s > n$, $t > s$, por construcción tenemos que
+    
+    \[
+    f\left(x \cup \{s\}\right) = f\left(x \cup \{t\}\right)
+    \]
+    
+    Con esto, podemos definir una nueva partición $g: R^{[n]} \rightarrow 2$, donde
+    
+    \begin{gather*}
+        g(x) = 0, \quad \text{si} \quad f(x) = 0 \\
+        g(x) = 1, \quad \text{si} \quad f(x) = 1
+    \end{gather*}
+    
+    Luego, recordemos que por hipótesis inductiva, $\omega \rightarrow (\omega)_2^{n}$ y $g$ cumple las condiciones para la hipótesis inductiva. De esta manera, hay un $H \subset R$ infinito tal que $H^{[n]}$ es monocromático para $g$, y por lo tanto monocromático para $f$.
+    
+    De esta forma, hemos demostrado el caso $r=2$. Supongamos ahora que el teorema es válido para $r \leq k$, es decir que $\omega \rightarrow (\omega)_r^n$ es válido para todo $n$. Sea ahora $f: \N^{[n]} \rightarrow k+1$, podemos definir otra partición auxiliar $G: \N^{[n]} \rightarrow 2$ definida como
+    
+    \begin{gather*}
+        G(x) = 0, \quad \text{si} \quad f(x) = 0 \\
+        G(x) = 1, \quad \text{si} \quad f(x) = 1
+    \end{gather*}
+    
+    \noindent entonces, por hipótesis inductiva, $G$ tiene un conjunto homogéneo $H$ infinito. Si $G\left( H^{[n]} \right) = 0$, $H$ es homogéneo para $f$. Si $G\left( H^{[n]} \right) = 1$, entonces $f|H^{[n]}$ es una partición de $k$ partes, y por hipótesis inductiva existe un conjunto $H' \subseteq H$ tal que es infinito y homogéneo. Este conjunto $H'$ también es homogéneo para $f$.
+\end{proof}
+
+Con esto demostrado, podemos pasar a demostrar una consecuencia de carácter finita del teorema de Ramsey:
+
+\begin{teo}[Teorema de Ramsey finito (TFR)]\label{teo:TRF}
+    Dados números enteros positivos $n, r$ y $m$, existe un entero positivo $N$ tal que
+    
+    \[
+    N \rightarrow (m)_r^n
+    \]
+\end{teo}
+
+\marginnote{La versión que se usará durante el transcurso del curso es la verión infinita del \TR}.
+
+\begin{proof}
+    Supongamos que el teorema no se cumple, es decir que para cada $N \in \N$, existe una coloración $f_N: N^{[n]} \rightarrow k$ tal que $\forall x \in N^{[m]}$, $x^{[n]}$ \textbf{no} es homogéneo para $f_N$.
+    
+    Con esto, definamos una función $f: \N^{[n+1]} \rightarrow k$ tal que para cualquier sucesión de números naturales $\{a_0, a_1, \dots, a_n\}$ tenemos
+    
+    \[
+    f\left( \{a_0, a_1, \dots, a_n\} \right) = f_{a_n} \left( \{a_0, a_1, \dots, a_{n-1}\} \right)
+    \]
+    
+    \noindent es decir, $f$ asigna a una sucesión creciente de $n+1$ elementos, la coloración será la que le asigne $f_{a_n}$ a los primeros $n$ elementos de esa lista.
+    
+    Luego, el \hyperref[teo:TR]{TR} nos dice que existe un $H \subset \N$ infinito tal que $H$ es homogéneo para $f$, con $H = \{h_0, h_1, \dots \}$. De esta forma, un conjunto $h$ de $m$ elementos tal que $h \subset H$ es también homogéneo para $f_{h_m}$. Al hacer la restricción $f_N|f_{h_m}$, tenemos que $h$ es homogéneo. Esto es una contradicción, ya que habíamos supuesto que no hay homogéneos de tamaño $m$ para $f_N$.
+    
+    Por lo tanto, el teorema de Ramsey finito es cierto.
+\end{proof}

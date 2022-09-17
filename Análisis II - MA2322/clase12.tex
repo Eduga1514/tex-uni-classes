@@ -1,0 +1,256 @@
+Al trabajar con el producto, uno tiene casos particuales. Consideremos la serie
+
+\[
+\sumtoinfty{n=0}{a_nx^n} = f(x), \quad |x|<r
+\]
+
+\begin{pre}
+    ¿Cuál es el desarrollo de $f^2(x)$, y más aún con el desarrollo de $f^k(x)$? (con $k \geq 3$).
+\end{pre}
+
+\begin{proof}[Respuesta]
+    Esto lo podemos ver como un producto de series de potencias. Tenemos que
+    
+    \[
+    f^2(x) = \left(\sumtoinfty{n=0}{a_nx^n}\right)\left(\sumtoinfty{n=0}{a_nx^n}\right) = \sumtoinfty{n=0}{c_nx^n}
+    \]
+    
+    \noindent donde los $c_n$ son de la forma $c_n = \sum_{k=0}^n a_k a_{n-k}$ para cada $n \geq 0$. Desarrollando este factor explícitamente, tendremos que
+    
+    \[
+    c_n = \sumtoinfty{N_1 + N_2 = n}{a_{N_1}a_{N_2}}
+    \]
+    
+    Siguiendo la misma idea
+    
+    \[
+    f^k(x) = \left(\sumtoinfty{n=0}{a_nx^n}\right)^k = \sumtoinfty{n=0}{c_n(k)x^n} \quad \footnotemark
+    \]\footnotetext{La demostración formal de esta identidad se obtiene utilizando inducción.}
+    
+    \noindent donde $c_n(k) = \sum_{N_1 + \dots N_k = n} a_{N_1}a_{N_2} \dots a_{N_k}$.
+\end{proof}
+
+\begin{teo}[Sustitución]
+    Sean $f(x) = \sumtoinfty{n=0}{a_nx^n}$ y $g(x) = \sumtoinfty{n=0}{b_nx^n}$ con radio de convergencia $R$ (y con $|x|<R$). Si $\sumtoinfty{n=0}{|b_n||x^n|}<R$ entonces
+    
+    \[
+    f(g(x)) = \sumtoinfty{k=0}{c_kx^k}
+    \]
+    
+    \noindent donde 
+    
+    \[
+    [g(x)]^k - \left( \sumtoinfty{j=0}{b_jx^j} \right)^k = \sumtoinfty{j=0}{b_j(x)x^j}
+    \]
+    
+    \noindent por lo tanto
+    
+    \[
+    c_k = \sumtoinfty{j=0}{a_jb_j(k)} \quad \text{con $k = 0, 1, 2, \dots$}
+    \]
+\end{teo}
+
+Algebráicamente, lo que tenemos para el teorema es lo siguiente: Si tenemos las series $f(x) = \sumtoinfty{n=0}{a_nx^n}$, $g(x) = \sumtoinfty{j=0}{b_jx^j}$ entonces
+
+\[
+f(g(x)) = \sumtoinfty{n=0}{a_n(g(x))^n} = \sumtoinfty{n=0}{a_n\left[ \sumtoinfty{j=0}{b_jx^j} \right]^n}
+\]
+
+\begin{teo}
+    Sea $p(x) = \sumtoinfty{n=0}{p_nx^n}$ con radio de convergencia $h$, con $p(0) \neq 0$. Entonces, $\exists \delta > 0$ tal que
+    
+    \[
+    \frac{1}{p(x)} = \sumtoinfty{n=0}{q_nx^n} \quad \text{donde $\displaystyle q_0 = \frac{1}{p_0}$}
+    \]
+\end{teo}
+
+\begin{proof}[Bosquejo de la demostración]
+    Si $p(0) \neq 0$, sin pérdida de generalidad supongamos que $p(0) = 1$. Entonces
+    
+    \[
+    p(x) - 1 \quad \text{es continua}
+    \]
+    
+    Luego, dado $\varepsilon = 1$, $\exists \delta > 0$ tal que $|P(x) - 1| < 1$ si $|x| < \delta$.
+    
+    Ahora consideremos las funciones
+    
+    \begin{gather*}
+        f(x) = \frac{1}{1-x} = \sumtoinfty{n=0}{x^n} \\
+        g(x) = 1 - p(x) = \sumtoinfty{n=1}{p_nx^n}
+    \end{gather*}
+    
+    Aplicando el teorema de sustitución, queda demostrado.
+\end{proof}
+
+\begin{pre}
+    ¿En la práctica qué es lo que se hace?: Supongamos que tenemos la serie $\sumtoinfty{n=0}{a_nx^n}$ y queremos calcular su inversa.
+\end{pre}
+
+\begin{ejem}
+    Calculemos la inversa:
+    
+    \[
+    \frac{1}{\displaystyle \sumtoinfty{n=0}{\LaTeXunderbrace{a_nx^n}_{f(x)}}} = \sumtoinfty{n=0}{c_nx^n}
+    \]
+    
+    Esto lo podemos establecer bajo la hipótesis de que $a_0 \neq 0$. Pero esto implica que $f(x) \rightarrow f(0) \neq 0$.\marginnote{\textbf{Ojo:} Esto lo pedimos así porque estamos asumiendo que la serie está centrada en $0$, si estuviese centrada en $a$, manejaríamos la hipótesis de que $f(a) \neq 0$.} Resolvamos la expresión anterior: Queremos encontrar los factores $c_n$ que cumplan lo siguiente
+    
+    \[
+    \left(\sumtoinfty{n=0}{a_nx^n}\right)\left(\sumtoinfty{n=0}{c_nx^n}\right) = 1
+    \]
+    
+    Por la multiplicación de series,
+    
+    \[
+    \sumtoinfty{n=0}{d_nx^n} = \left(\sumtoinfty{n=0}{a_nx^n}\right)\left(\sumtoinfty{n=0}{c_nx^n}\right) = 1
+    \]
+    
+    \noindent donde $d_n = \sum_{k=0}^n a_nc_{n-k}$ con $n = 0, 1, 2, \dots$.
+    
+    Para hallar los $c_n$, realicemos el siguiente argumento: Sabemos que $d_0 = 1$ y $d_n = 0$. Entonces haciendo un procedimiento del tipo cascada
+    
+    \begin{gather*}
+        d_0 = c_0a_0 \implies c_0 = 1/a_0 \\
+        d_1 = a_0c_1 + a_1c_0 \implies c_1 = -a_1/a_0^2 \\
+        d_2 = c_2a_0 + c_1a_1 + c_0a_2 \implies c_2 =  a_1^2/a_0^3 - a_2/a_0^2 \\
+        \vdots
+    \end{gather*}
+    
+    De esta forma,
+    
+    \[
+    \left(\sumtoinfty{n=0}{a_nx^n}\right)^{-1} = \sumtoinfty{n=0}{c_nx^n}
+    \]
+\end{ejem}
+
+\subsection{Series de Taylor}
+
+Las series de Taylor son una forma de series de potencias que son muy útiles. Consideremos $f \in C^{\infty}(\R)$ una función "infinitamente derivable" en $x=a$. Entonces $f(x)$ podemos escribirla de la siguiente manera
+
+\[
+f(x) = \sumtoinfty{n=0}{\frac{f^{n'}(a)}{n!} (x-a)^n}
+\]
+
+Esta es una serie de potencias donde $a_n$ lo conocemos de forma explícita: $\frac{f^{n'}(a)}{n!}$.
+
+Para establecer estas ideas de una forma más formal, necesitamos el siguiente resultado
+
+\begin{teo}[Teorema del resto de Lagrange]
+    Sea $f: [a,b] \rightarrow \R$ con $f \in C^{n+1}[a,b]$ con $n \in \N$. Entonces para cada $x \in (a.b)$, $\exists s \in (a,b)$ (donde $s$ es un valor muy cercano a $x = a$) tal que
+    
+    \[
+    f(x) = f(a) + f'(a)(x-a) + f''(a) \frac{(x-a)^2}{2!} + \dots + \frac{f^{n'}}{n!}(x-a)^n + \frac{f^{n+1'}(s)}{(n+1)!}(x-a)^{n+1}
+    \]
+    
+    En otras palabras, podemos escribir la función como $f(x) = P_{f,a}^n (x) + R_{n+1}^{f,a,s} (x)$. Donde $P$ es un polinomio que depende de $f, a$ y $R$ es un resto que también está determinado por $f,a$ y además $s$.
+\end{teo}
+
+\begin{proof}
+    Supongamos que $x \in (a,b)$ y $a < x$. Sea
+    
+    \[
+    H(t) = G_{n+1}(t) - \left(\frac{x-t}{x-a}\right)^{n+1}G_{n+1}(a)
+    \]
+    
+    \noindent donde
+    
+    \[
+    G_{n+1}(t) = f(x) - \left[f(t) + f'(t)(x-t) + \dots + \frac{f^{n'}}{n!}(x-t)^n\right]
+    \]
+    
+    Observemos que:
+    
+    \begin{itemize}
+        \item $H(t)$ es continua en $[a,x]$ pues $f$ y $G$ lo son.
+        \item $H(t)$ es derivable para cada $t \in (a,x)$ pues $G$ y $f$ lo son.
+    \end{itemize}
+    
+    Por otro lado,
+    
+    \begin{gather*}
+        H(a) = G_{n+1}(a) -  \cancelto{1}{\left(\frac{x-a}{x-a}\right)^{n+1}} G_{n+1}(a) = 0 \\
+        H(x) = G_{n+1}(x) - \cancelto{0}{\left(\frac{x-x}{x-a} \right)^{n+1}}G_{n+1}(a) = f(x) - f(x) = 0    
+    \end{gather*}
+    
+    Ahora tenemos las condiciones para el teorema de Rolle ya que $H(a) = H(x) = 0$. Por el teorema de Rolle, existe un $s \in (a,x)$ tal que $H'(s) = 0$. Luego podemos ver que
+    
+    \[
+    H'(t) = G'_{n+1}(t) - \left[\left(\frac{x-t}{x-a}\right)^{n+1}\right]'G_{n+1}(a) = \frac{(n+1)(x-t)^n}{(x-a)^{n+1}}\left[G_{n+1}(a) - \frac{(x-a)^{n+1}}{(n+1)!}f^{n+1'}(t)\right]
+    \]
+    
+    Como $H'(s) = 0$ entonces
+    
+    \[
+    G_{n+1}(a) - \frac{(x-a)^{n+1}}{(n+1)!}f^{n+1'}(s) = 0
+    \]
+    
+    De esta forma
+    
+    \[
+    f(x) = f(a) + f'(a)(x-a) + \dots + \frac{f^{n'}(a)}{n!}(x-a)^n + R_{n+1}(x)
+    \]
+    
+    \noindent donde $\displaystyle R_{n+1}^{f,a,s}(x) = \frac{f^{n+1'}(s)(x-a)^{n+1}}{(x+1)!}$ con $s \in (a,x)$.
+\end{proof}
+
+Al escoger $c_1$ y $c_2$ apropiadamente, el resto queda como
+
+\[
+\left|R_{n+1}^{f,a,s}(x)\right| \leq \frac{c_1c_2}{(n+1)!} \xrightarrow[]{n \to \infty} 0
+\]
+
+\noindent para cada $x$ cercano al valor $a$. En este sentido se puede ver que el polinomio converge a la serie.
+
+\begin{teo}[Versión integral del teorema de Taylor]
+    Sea $h>0$. Si $f \in C^{n+1}(a,a+h$ entonces
+    
+    \[
+    f(x) = P_n^{f,a}(x) + R_{n+1}^{f,a}(x)
+    \]
+    
+    \noindent donde $\displaystyle R_{n+1}^{f,a}(x) = \frac{1}{n!} \int_a^x f^{n+1'}(t)(x-t)^ndt$ con $a < t < x < a+h$.
+\end{teo}
+
+\begin{proof}
+    Procedamos inductivamente:
+    
+    \begin{gather*}
+        R_1(x) = \int_a^x f'(t)(x-t)dt = f(x) - f(a) \\
+        R_2(x) - R_1(x) = \int_a^x f''(t)(x-t)dt - [f(x) - f(a)] = f'(t) (x-t)|_a^x + \int_a^x f'(t)dt - [f(x) - f(a)] = -f'(a)(x-a) \\
+        \vdots \\
+        R_{n+1}(x) - R_n(x) = \frac{-f^{n'}(a)}{n!}(x-a)^n
+    \end{gather*}
+    
+    Finalmente esto implica que
+    
+    \[
+    R_n(x) = R_{n+1}(x) + \frac{f^{n'}(a)}{n!}(x-a)^n
+    \]
+    
+    \noindent pues $\displaystyle \frac{1}{(n-1)!} \int_a^x \LaTeXunderbrace{f^{n'}(t)}_u \LaTeXunderbrace{(x-t)}_{dv}^{n-1}dt$.
+    
+    Luego,
+    
+    \[
+    R_{n+1}(x) = f(x) - f(a) - \dots - \frac{f^{n'}(a)}{n!}(x-a)^n
+    \]
+    
+    Por el teorema del valor medio para integrales,
+    
+    \[
+    R_{n+1}(x) = \frac{1}{n!} \int_a^x f^{n+1'}(t)(x-t)^ndt = \frac{1}{n!}f^{n+1'}(s) \int_0^x(x-t)^ndt
+    \]
+    
+    Evaluando entonces la integral,
+    
+    \[
+    R_{n+1}(x) = -\frac{1}{n!}f^{n+1'}(s)\frac{(x-t)^{n+1}}{(n+1)!} |_a^x
+    \]
+    
+    En conclusión
+    
+    \[
+    R_{n+1}(x) = \frac{f^{n+1'}(s)(x-a)^{n+1}}{(n+1)!}
+    \]
+\end{proof}

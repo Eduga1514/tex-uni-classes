@@ -1,0 +1,224 @@
+\noindent Y a continuación, demostraremos algunas propiedades que ya conocemos de los curso de cálculo.
+
+\begin{teo}\label{teo:intamasb}
+    Sean $f, g: [a,b] \rightarrow \R$ acotadas e integrables, entonces $f + g$ es integrable.\footnotemark
+\end{teo}
+
+\begin{proof}\footnotetext{De la demostración se deducirá la propiedad de linealidad:
+    
+\[
+\intab (f+g)(x)dx = \intab f(x)dx \intab g(x)dx
+\]}
+    Como $f,g \in \Rint$ entonces dado $\varepsilon > 0$, existen particiones $P_1, P_2$ (correspondientes a $f, g$ respectivamente) tales que
+    
+    \[
+    U(f,P_1) - L(f,P_1) < \frac{\varepsilon}{2} \quad U(f,P_2) - L(f,P_2) < \frac{\varepsilon}{2}
+    \]
+    
+    \noindent definamos $\Pe = P_1 \cup P_2$, entonces veamos cuánto resulta la diferencia $U(f+g, \Pe) - L(f+g, \Pe)$ . Sea entonces $\Pe = \{x_j\}_{j=1}^n$, con sus respectivos intervalos definidos como $(I_j)_{j=1}^n$. Sobre cada intervalo tendremos 
+    
+    \begin{gather}\label{eq:amasb}
+        M(f+g, I_j) \leq M(f, I_j) + M(g, I_j) \\
+        m(f+g, I_j) \geq m(f, I_j) + m(f, I_j) \nonumber
+    \end{gather}
+    
+    \marginnote{En la desigualdad \ref{eq:amasb} se utiliza la siguiente propiedad de los supremos e ínfimos
+    
+    \begin{teo}\label{teo:supamasb}
+    Sean $A, B$ acotadas, y sea el conjunto $A+B = \{a+b : a \in A, b \in B\}$, entonces
+    
+    \begin{gather*}
+    \sup(A+B) = \sup A + \sup B \\
+    \inf(A+B) = \inf A + \inf B
+    \end{gather*}
+    \end{teo}
+    
+    \begin{proof}
+        Demostremos cada desigualdad por separado:
+        
+        \begin{itemize}
+            \item[($\leq$)] Como $A, B$ están acotadas, podemos encontrar un supremo para cada conjunto, sean $\alpha, \beta$ estos supremos, respectivamente. Entonces
+            
+            \begin{gather*}
+                \alpha \geq a \quad \beta \geq b, \quad \forall a \in A, \forall b \in B \\
+                \implies \alpha + \beta \geq a + b, \forall a + b \in A + B
+            \end{gather*}
+            
+            \noindent pero por definición, tenemos que $\sup(A+B)$ es la menor cota superior para los elementos de $A+B$, incluyendo $\alpha + \beta$. De esta forma, $\sup(A+B) \geq \sup A + \sup B$.
+            
+            \item[($\geq$)] Sean $\alpha = \sup A$, $\beta = \sup B$. Supongamos que $\sup(A+B) < \alpha + \beta$. Entonces, sin pérdida de generalidad, podemos encontrar un $\varepsilon > 0$ tal que
+            
+            \[
+            \varepsilon = \alpha + \beta - \sup(A+B)
+            \]
+            
+            \noindent luego, sean $a \in A$, $b \in B$ tales que
+            
+            \[
+            a > \alpha - \varepsilon/2 \quad b > \beta - \varepsilon/2
+            \]
+            
+            Entonces, podemos establecer lo siguiente
+            
+            \begin{gather*}
+            a + b > \alpha + \beta - \varepsilon \\
+            = \alpha + \beta - \big( \alpha + \beta - \sup(A+B) \big) \\
+            \implies a + b > \sup(A+B)
+            \end{gather*}
+            
+            \noindent esto es un sinsentido, por lo que tenemos una contradicción. En conclusión, $\sup(A+B) \geq \alpha + \beta$.
+        \end{itemize}
+        
+    Esta demostración es análoga para el ínfimo.
+    \end{proof}}
+    
+    Luego, tendremos lo siguiente para la sumas superiores e inferiores
+    
+    \begin{gather*}
+        U(f+g, \Pe) - L(f+g, \Pe) < U(f+g, \Pe) - L(f+g, \Pe) \\
+        < U(f, P_1) + U(g, P_2) - (L(f, P_1) + L(g, P_2)) \\
+        = U(f, P_1) - L(f, P_2) + U(g, P_1) - L(g, P_2) \\
+        < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+    \end{gather*}
+    
+    \noindent y de esta forma, tenemos que esto implica que $U(f+g, \Pe) - L(f+g, \Pe) < \varepsilon$, por lo que se cumple la condición de Riemannn y $f+g$ es integrable. De esta forma, queda demostrado el teorema.
+\end{proof}
+
+\begin{teo}
+    Si $f$ es integrable entonces $-f$ es integrable.
+\end{teo}
+
+\begin{proof}
+    Por propiedades del supremo e ínfimo, tenemos lo siguiente
+    
+    \begin{equation}\label{eq:infmsup}
+    U(-f, P) = -L(f, P) \quad L(-f, P) = -U(f, P) \quad \footnotemark
+    \end{equation}
+    
+    Ahora, como $f \in \Rint$, dado $\varepsilon > 0$, existe $\Pe$:
+    
+    \[
+    U(f, \Pe) - L(f, \Pe) < \varepsilon
+    \]
+    
+    \noindent pero, tenemos que por \ref{eq:infmsup}, la desigualdad queda como\footnotetext{Acá se utiliza la siguiente propiedad:
+    
+    \begin{teo}
+    Para $A \subset \R$ acotado, $-\inf A = \sup -A$.
+    \end{teo}
+    
+    Demostrar esta propiedad aparece como uno de los ejercicios de la guía del curso.}
+    
+    \[
+    U(-f, P) - L(-f, P) < \varepsilon
+    \]
+    
+    De esta forma, se cumple la condición de Riemann para $-f$, por lo tanto $-f$ es Riemann integrable.
+\end{proof}
+
+\begin{teo}
+    Sea $f: [a,b] \rightarrow \R$ acotada. Sea $\alpha \in \R$ fijo. Entonces $\alpha f \in \Rint$ si $f$ es integrable.
+\end{teo}
+
+\begin{proof}
+    Esta demostración se puede dividir en dos casos, el caso $\alpha > 0$ y el caso $\alpha < 0$. Trabajaremos solamente $\alpha > 0$.
+    
+    Por propiedades del supremo e ínfimo, sabemos que
+    
+    \begin{equation}\label{eq:supinfc}
+    \sup (\alpha A) = \alpha \sup A \quad \inf (\alpha A) = \alpha \inf A \quad \footnotemark
+    \end{equation}\footnotetext{Esta propiedad se enuncia de la siguiente manera:
+    
+    \begin{teo}
+        Si $\alpha > 0$, entonces $\inf (\alpha A) = \alpha\inf A$ y $\sup (\alpha A) = \alpha\sup A$.
+    \end{teo}
+    
+    La demostración de este teorema también aparece en la guía como ejercicio.}
+    
+    \noindent entonces, dado $\varepsilon > 0$, podemos definir una partición $\Pe$ para la cual
+    
+    \[
+    U(f, \Pe) - L(f, \Pe) < \frac{\varepsilon}{\alpha}
+    \]
+    
+    \noindent y por \ref{eq:supinfc} nos queda
+    
+    \begin{gather*}
+        U(\alpha f, \Pe) - L(\alpha f, \Pe) = \alpha U(f, \Pe) - \alpha L(f, \Pe) < \epsilon \\
+        \implies U(\alpha f, \Pe) - L(\alpha f, \Pe) < \epsilon
+    \end{gather*}
+    
+    \noindent y así, queda demostrado.
+\end{proof}\marginnote{Hay que tomar en cuenta que para estas demostración no se desglosa el argumento para el supremo, y nos saltamos hablar de las sumas inferiores y superiores. Queda el caso $\alpha < 0$ como ejercicio.}
+
+\begin{teo}\label{teo:xcua}
+    Sea $f: [a,b] \rightarrow \R$ acotada, si $f \in \Rint$, entonces $f^2 \in \Rint$.
+\end{teo}
+
+Antes de demostrar este teorema, necesitaremos algunos resultados previos que estableceremos a continuación.
+
+\begin{lem}
+    Sea $P = \{x_j\}_{j=1}^n$ una partición del intervalo $[a,b]$, y consideremos los intervalos $I_j \in P$ (con $j = 1, \dots, n$). Supongamos que tenemos una función $f$ acotada, con $M(f, I_j), m(f, I_j)$ (para cada $j = 1, \dots, n$). Entonces
+    
+    \begin{itemize}
+        \item $M(f^2, I_j) \leq M^2(|f|, I_j)$.
+        \item $m(f^2, I_j) \geq m^2(|f|, I_j)$.
+    \end{itemize}
+\end{lem}\marginnote{Se deja la demostración del lema como ejercicio. La clave es tomar en cuenta la siguiente propiedad de los supremos:
+
+\[
+\sup_{x \in I_j} |f(x)|^2 \leq \left( \sup_{x \in I_j} |f(x)| \right)^2
+\]
+
+\noindent esta propiedad es análoga para los ínfimos:
+
+\[
+\inf_{x \in I_j} |f(x)|^2 \geq \left( \inf_{x \in I_j} |f(x)| \right)^2
+\]}
+
+\begin{proof}[Demostración del teorema \ref{teo:xcua}]
+    Tenemos por hipótesis que $f$ es integrable y acotada. Como es acotada, entonces sea $M$ tal que
+    
+    \[
+    M = \sup_{x \in [a,b]} |f(x)|
+    \]
+    
+    \noindent y como es integrable, satisface la condición de Riemann. Luego dado $\varepsilon > 0$, existe una partición $\Pe$ tal que
+    
+    \[
+    U(f, \Pe) - L(f, \Pe) < \frac{\varepsilon}{2M}
+    \]
+    
+    Por otro lado, tenemos gracias al lema anterior
+    
+    \begin{align}\label{eq:2m}
+        \begin{split}
+            U(f^2, &\Pe) - L(f^2, \Pe) = \sum_{j=1}^n \left(M(f^2, I_j) - m(f^2, I_j)\right)|I_j| \\
+            &\leq \sum_{j=1}^n \left( \left(M(|f|, I_j)\right)^2 - \left(m(|f|, I_j)\right)^2 \right)|I_j| \\
+            &\leq \sum_{j=1}^n \left( \left(M(|f|, I_j)\right) + \left(m(|f|, I_j)\right)\left(M(|f|, I_j)\right) - \left(m(|f|, I_j)\right) \right)|I_j| \\
+            &\leq 2M\left(U(|f|,\Pe) - L(|f|, \Pe)\right)
+        \end{split}
+    \end{align}
+    
+    Para dar el siguiente paso, tenemos que primero darnos cuenta de lo siguiente: La diferencia de las sumas superiores e inferiores lo que nos da como resultado es cuánto varía la gráfica de la función $f$ en el intervalo $I_j$, entonces
+    
+    \[
+    M(f, I_j) - m(f, I_j) = \sup_{x, y \in I_j} (f(x) - f(y))
+    \]
+    
+    esta última diferencia se conoce como \textbf{oscilación}\marginfootnote{En la sección 7.26 del Apostol se habla con más formalidad acerca de esta definición.} sobre el intervalo $I_j$. Tomando en cuenta esto y utilizando la desigualdad triangular\marginfootnote{$||f(x)| - |f(y)|| \leq |f(x) - f(y)|$}, tenemos que
+    
+    \begin{gather*}
+    M(|f|, I_j) - m(|f|, I_j) = \sup_{x, y \in I_j} (|f(x)| - |f(y)|) \\
+    \leq \sup_{x, y \in I_j} \left| |f(x)| - |f(y)| \right| \leq \sup_{x, y \in I_j} \left| f(x) - f(y) \right| \\
+    = |M(f, I_j) - m(f, I_j)|
+    \end{gather*}
+    
+    \noindent así, tenemos que $M(|f|, I_j) - m(|f|, I_j) \leq |M(f, I_j) - m(f, I_j)|$. Luego, continuando lo que dejamos en \ref{eq:2m}, nos queda
+    
+    \[
+    2M\left(U(|f|,\Pe) - L(|f|, \Pe)\right) \leq 2M\left(U(f,\Pe) - L(f, \Pe)\right) \leq \frac{2M\varepsilon}{2M} = \varepsilon
+    \]
+    
+    \noindent por lo tanto, podemos concluir que $U(f^2, \Pe) - L(f^2, \Pe) < \varepsilon$. Y así, queda demostrado que $f^2$ es Riemann-integrable.
+\end{proof}

@@ -1,0 +1,149 @@
+\subsection{Recurrencia lineal}
+
+Estudiemos el siguiente problema:
+
+\begin{pro}
+    Supongamos que la sucesión $\{a_n\}_{n=0}^{\infty}$ está definida por
+    
+    \[
+    a_0 = 0, \quad a_1 = 1, \quad a_{n+2} - 5a_{n+1} + 6a_n = 0
+    \]
+    
+    ¿Existirá una fórmula \textit{eficiente} para $\{a_n\}_{n=0}^{\infty}$? Es decir, una fórmula que depende únicamente de $n$.
+\end{pro}
+
+\begin{proof}[Solución]
+    Digamos que $f(x)$ es dicha fórmula. Entonces
+    
+    \begin{align*}
+        f(x) &= a_0 + a_1x + a_2x^2 + \dots \\
+             &= x + 5x^2 + (5a_2 - 6a_1)x^3 + \dots \\
+             &= x + 5(a_1x^2 + a_2x^3 + \dots) - 6(a_0x^2 + a_1x^3 + \dots)
+             &= x + 5xf(x) - 6x^2f(x)
+    \end{align*}
+    
+    Por lo que
+    
+    \begin{align*}
+        f(x) &= \frac{x}{1 - 5x + 6x^2} = \frac{1}{1-3x} - \frac{1}{1-2x} \\
+             &= \sumtoinfty{n=0}{3^nx^n} - \sumtoinfty{n=0}{2^nx^n}
+    \end{align*}
+    
+    De esta forma $a_n = 3^n - 2^n$. Y hemos encontrado una fórmula eficiente para una sucesión dada por una \textit{relación de recurrencia lineal} (RRL).
+\end{proof}
+
+\begin{defn}
+    Dado un entero positivo $k$, una \ul{relación de recurrencia lineal homogénea} (RRLH) es una sucesión $\{a_n\}_{n=0}^{\infty}$ definida en la forma
+    
+    \begin{gather*}
+        a_0 = c_0, \quad a_1 = c_1, \quad \dots \quad a_{k-1} = c_{k-1} \\
+        a_{n+k} + \alpha_1a_{n+k-1} + \dots + \alpha_ka_{n} = 0, \quad \text{donde $n \geq 0$}
+    \end{gather*}
+    
+    \noindent donde las $c_i$'s y las $\alpha_j$'s son constantes conocidas.
+\end{defn}
+
+A raíz del problema anterior, se sugiere analizar el producto
+
+\[
+(1 + \alpha_1 x + \alpha_2 x^2 + \dots + \alpha_n x^n)f(x)
+\]
+
+Lo que equivale a 
+
+\[
+(1 + \alpha_1 x + \alpha_2 x^2 + \dots + \alpha_n x^n)(a_0 + a_1x + a_2x^2 + \dots)
+\]
+
+Para $n \geq 0$, el coeficiente de $x^{n+k}$ viene siendo
+
+\[
+a_{n+k} + \alpha_1a_{n+k+1} + \dots + \alpha_ka_n = 0
+\]
+
+Es decir, que el producto que estamos estudiando es un polinomio de grado a lo sumo $k-1$, digamos $q(x)$. En particular
+
+\[
+q(x) = c_0 + (c_1 + \alpha_1c_0)x + \dots + (c_{k-1} + \alpha_1c_{k-2} + \dots + c_0\alpha_{k-1})x^{k-1}
+\]
+
+Por lo tanto, $f(x)$ nos queda como
+
+\begin{equation}\label{eq:f(x)}
+    f(x) = \frac{q(x)}{1 + \alpha_1x + \dots + \alpha_kx^k}
+\end{equation}
+
+\noindent y esto se puede descomponer como la suma de fracciones simples. De forma que para hallar una fórmula generadora de la sucesión dada, basta analizar las raíces del denominador.
+
+En la sección 12.2 del Biggs, se muestra que cuando $k = 2$, la forma que toma la solución de una RRLH depende de que sean distintas las raíces $\alpha$ y $\beta$ de la ecuación auxiliar
+
+\[
+t^2 + a_1 t + a_2 = 0
+\]
+
+Si $\alpha \neq \beta$. La solución tiene forma $u_n = A\alpha^n + B\beta^n$. Si $\alpha = \beta$, la solución tiene la forma $u_n = (Cn + D)\alpha^n$.
+
+Para el caso general, definamos la \textit{ecuación auxiliar} de una RRLH como
+
+\[
+t^k + a_1 t^{k-1} + \dots a_k = 0
+\]
+
+\noindent y la forma de su solución dependerá del comportamiento de sus raíces.
+
+Al trabajar en el campo de los complejos, la ecuación auxiliar tendrá $k$ raíces. Sin embargo, estas raíces no necesariamente han de ser distintas, y supondremos que los valores distintos son $\lambda_1, \dots, \lambda_s$, apareciendo con multiplicidad $m_1, \dots, m_s$ respectivamente. Es decir que la ecuación auxiliar la podemos reescribir como
+
+\[
+(t- \lambda_1)^{m_1}\dots(t- \lambda_s)^{m_s} = 0
+\]
+
+\noindent donde $m_1 + \dots + m_s = k$.
+
+El denominador de la ecuación \ref{eq:f(x)} se puede obtener dividiendo la ecuación auxiliar por $t^k$ y posteriormente sustituyendo $t$ por $1/x$. Entonces, la factorización de la ecuación auxiliar queda como
+
+\[
+\frac{(1- \lambda_1)^{m_1}\dots(1- \lambda_s)^{m_s}}{x^k} = 0 \implies (1- \lambda_1)^{m_1}\dots(1- \lambda_s)^{m_s} = 0
+\]
+
+De esta forma, tendremos que $f(x)$ es la suma de expresiones
+
+\[
+\frac{\gamma_{i1}}{1 - \lambda_ix} + \frac{\gamma_{i2}}{(1 - \lambda_ix)^2} + \dots + \frac{\gamma_{im_i}}{(1 - \lambda_ix)^{m_i}}
+\]
+
+\noindent con $i = 1, 2, \dots, s$.
+
+Para hallar el coeficiente de $x^n$ en el desarrollo de cada una de estas expresiones, utilizaremos la fórmula del binomio generalizado. Luego
+
+\[
+\left[ \gamma_{i1} \binom{1+n-1}{n} + \gamma_{i2} \binom{2+n-1}{n} + \dots + \gamma_{im_i} \binom{m+n-1}{n} \right]\lambda_i^n
+\]
+
+Lo que equivale a
+
+\[
+\left[ \gamma_{i1} \binom{n}{0} + \gamma_{i2} \binom{n+1}{1} + \dots + \gamma_{im_i} \binom{m_i + n - 1}{m_i - 1} \right] \lambda_i^n
+\]
+
+Este resultado se puede resumir en el siguiente teorema:
+
+\begin{teo}
+    Dada una RRLH, si $\lambda_1, \dots, \lambda_s$ son las raíces de la ecuación auxiliar con multiplicidades $m_1, \dots, m_s$, entonces
+    
+    \[
+    a_n = p_1(n)\lambda_1^n + p_2(n)\lambda_2^n + \dots + p_s(n)\lambda_s^n
+    \]
+    
+    \noindent donde cada $p_i(n)$ es un polinomio en $n$ con grado a lo sumo $m_i - 1$.
+\end{teo}
+
+\begin{defn}
+    Dado un entero positivo $k$, una \ul{relación de recurrencia lineal no homogénea} (RRLNH) es una sucesión $\{a_n\}_{n=0}^{\infty}$ definida de la forma
+    
+    \begin{gather*}
+        a_0 = c_0, a_1 = c_0, \dots, a_{k-1} = c_{k-1} \\
+        a_{n+k} + \alpha_1a_{n+k-1} + \dots + \alpha_ka_{n} = g(n), \quad \text{donde $n \geq 0$}
+    \end{gather*}
+    
+    \noindent donde las $c_i$'s y las $\alpha_j$'s son constantes conocidas y $g(x) \neq 0(x)$.
+\end{defn}

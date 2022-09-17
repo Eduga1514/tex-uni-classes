@@ -1,0 +1,150 @@
+\subsection{Teorema de Ramsey}
+
+En primer lugar, demostraremos la versión infinita del teorema de Ramsey para pares, pero antes necesitamos establecer un par de definiciones y un resultado importante.
+
+\begin{defn}
+    Un \ul{árbol} es un conjunto parcialmente ordenado tal que para cada elemento, el conjunto de predecesores está bien ordenado.
+\end{defn}
+
+\begin{defn}
+    Sea $T$ un árbol y $R \subset T$. $R$ es una \ul{rama} si
+        
+    \begin{itemize}
+        \item $R$ está totalmente ordenado.
+        \item $R$ es maximal (no se bifurca, porque en dado caso tendremos elementos que no son comparables).
+    \end{itemize}
+\end{defn}
+
+\begin{teo}[König]\label{teo:arboles1}
+    Un árbol infinito cuyos niveles son todos finitos tiene una rama infinita
+\end{teo}
+
+\begin{proof}
+    Como el primer nivel del árbol es finito por definición, debe haber un elemento $a_0$ con una colección infinita de sucesores. Entre los sucesores inmediatos de $a_0$ (que deben ser de una cantidad finita por hipótesis), debe haber al menos un elemento con infinitos sucesores. Sea $a_1$ este elemento. Continuando con este proceso, supongamos que hemos definido $a_0, a_1, \dots, a_k$, con $a_k$ con infinitos sucesores en el árbol. Como $a_k$ tiene una cantidad finita de sucesores inmediatos, podemos tomar uno de ellos. Sea este elemento $a_{k+1}$, como el árbol es infinito podemos continuar para obtener una sucesión infinita $a_0, a_1, \dots$. Dicha sucesión es una rama del árbol por construcción.
+    
+    De esta manera, queda demostrado el teorema.
+\end{proof}
+
+Ahora si podemos pasar a enunciar y demostrar este caso especial del teorema de Ramsey:
+
+\begin{teo}\label{teo:omega1}
+    Sea $A$ un conjunto con $|A| = \omega$ ($A$ es un conjunto infinito numerable), y sea una coloración $f: A \rightarrow 2$ entonces
+    
+    \[
+    \omega \rightarrow (\omega)_2^2
+    \]
+\end{teo}
+
+\begin{proof}
+    Como $A$ es un conjunto numerable, podemos elegir un primer elemento. Sea $a \in A$ el primer elemento del conjunto $A$. Ahora al conjunto $A$ le quitaremos $a$, y con este elemento tendremos la base de un árbol. Al resto del conjunto $A$ lo partimeros en dos: $A_0$ y $A_1$, tales que
+    
+    \[
+    b \in A_i \iff f\left(\{a,b\}\right) = i \qquad i = \{0,1\}
+    \]
+    
+    \noindent es posible que $A_1$ o $A_0$ sea vacío, pero no es posible que los dos sean vacíos a la vez.
+    
+    Ahora, tomemos el primer elemento de $A_0$ y el primer elemento de $A_1$, $a_0$ y $a_1$ respectivamente\marginfootnote{Recordemos que no estamos hablando de árboles en el sentido visto en matemáticas discretas. Aquí estamos utilizando una definición distinta.}: Ellos formarán parte del nivel 1 del árbol. Partamos en dos $A_0$ y $A_1$ de la misma manera que partimos $A$, entonces sean $A_{00}$ y $A_{01}$ tales que
+    
+    \[
+    b \in A_{ij} \iff f\left(\{a_i,b\}\right) = j \qquad j = \{0,1\}
+    \]
+    
+    Notemos que si tenemos algún elemento $b$ en el nivel 2, y lo únimos con $a$, tendremos que $f(\{a,b\}) = i$, porque $b \in A_i$. El mismo razonamiento aplica para todos los elementos que formen parte de niveles subsiguientes. De esta manera, iremos construyendo este árbol de forma iterativa.
+    
+    Entonces, el árbol que hemos construído tiene una cantidad finita de elementos en cada nivel, y como además $A$ es un conjunto infinito, por el teorema \ref{teo:arboles1}, debe existir una rama infinita. Sea $b_0, b_1, \dots, b_i, \dots$ dicha rama infinita. La propiedad que cumple esta rama es que $f(\{b_i,b_j\}) = f(\{b_i,b_k\})$ para $j > i$, $k > i$. Los elementos pueden ser de color 0 o de color 1, es decir, que tenemos una partición de tamaño 2 de un conjunto infinito, y \ref{teo:casillero} nos dice que hay un subconjunto infinito que es de tipo 1 o de tipo 0. Este conjunto es homogéneo para $f$. Esto demuestra que
+    
+    \[
+    \omega \rightarrow (\omega)_2^2
+    \]
+\end{proof}
+
+\begin{figure}
+    \centering
+    \begin{forest}
+    before drawing tree={
+    tikz+={\coordinate (a) at (current bounding box.east);},
+    for nodewalk={fake=r, L, ancestors}{
+      if={>O+t_+t={content}{\vdots}}{
+        tikz+={\node [anchor=base west] at (.base -| a) { };}
+      }{%
+        tikz+/.process={Ow+Pw}{level}{#1}{\node [anchor=base west] at (.base -| a) {Nivel #1};}
+        }
+      }
+    }
+        [$a$, for tree={grow=90}, color=red
+            [$a_0$, color=red
+                [$a_{00}$, color=red
+                    [$a_{000}$, color=red
+                    [\vdots]
+                    [\vdots]
+                    ]
+                    [$a_{001}$, color=blue
+                    [\vdots]
+                    [\vdots]
+                    ]
+                ]
+                [$a_{01}$, color=blue
+                    [$a_{010}$, color=red
+                    [\vdots]
+                    [\vdots]
+                    ]
+                    [$a_{011}$, color=blue
+                    [\vdots]
+                    [\vdots]
+                    ]
+                ]
+            ]
+            [$a_1$, color=blue
+                [$a_{10}$, color=red
+                    [$a_{100}$, color=red
+                    [\vdots]
+                    [\vdots]
+                    ]
+                    [$a_{101}$, color=blue
+                    [\vdots]
+                    [\vdots]
+                    ]
+                ]
+                [$a_{11}$, color=blue
+                    [$a_{110}$, color=red
+                    [\vdots]
+                    [\vdots]
+                    ]
+                    [$a_{111}$, color=blue
+                    [\vdots]
+                    [\vdots]
+                    ]
+                ]
+            ]
+        ]
+    \end{forest}
+    \caption{Representación gráfica del árbol construído en el teorema \ref{teo:omega1}}
+    \label{fig:omega1}
+\end{figure}
+
+\vspace{5mm}
+
+Con esto establecido, vale la pena hacernos la siguiente pregunta:
+
+\begin{pre}\label{pre:ramsay1}
+    Sea $r \in \Nastk$. ¿Podremos hacer inducción sobre $r$ para demostrar que $\omega \rightarrow (\omega)_r^2$?
+\end{pre}
+
+\begin{proof}[Respuesta]
+    Para $r=1$, es obvio por el principio del casillero. Para $r=2$, considerar el teorema que acabamos de ver. Supongamos ahora que vale para $k < r$. Demostremos que esto vale para $k = r$, es decir, queremos encontrar un conjunto homogéneo para $f: A^{[2]} \rightarrow r$. Para ello, definamos una función auxiliar $g: A^{[2]} \rightarrow 2$ de la siguiente manera:
+    
+    \[
+    g(x) =
+    \begin{cases}
+        0 \quad \text{si} \quad f(x) = r-1 \\
+        1 \quad \text{si} \quad f(x) \neq r-1
+    \end{cases}, \quad \forall x \in A^{[2]}
+    \]
+    
+    Esta función $g$ cumple con la hipótesis inductiva porque $r_g = 2$, por lo tanto hay un $B \subset A$ infinito numerable y homogéneo para $g$. Por lo tanto $g\left(B^{[2]}\right) = 0$ o $g\left(B^{[2]}\right) = 1$. Si $g\left(B^{[2]}\right) = 0$, como $r-1 < r$, es homogéneo para $f$. Y está completa la demostración.
+    
+    Si $g\left(B^{[2]}\right) = 1$, entonces $B^{[2]}$ bajo $f$ alcanza menos de $k-1$ valores. Ahora, si $h: B^{[2]} \rightarrow r-1$ es la coloración que envía cada elemento de $B^{[2]}$ a su correspondiente imagen bajo $f$, se verifica la hipótesis inductiva. Luego tenemos un conjunto $H \subset B \subset A$ para el cual es homogéneo para $h$, y por lo tanto homogéneo para $f$.
+    
+    De esta forma, queda demostrado por inducción.
+\end{proof}

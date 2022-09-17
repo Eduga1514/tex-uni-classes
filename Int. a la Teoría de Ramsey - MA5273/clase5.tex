@@ -1,0 +1,63 @@
+\subsection{Teorema de Schur generalizado}
+
+Ahora, veremos 3 generalizaciones del teorema de Schur.
+
+\begin{notn}
+
+    Antes de pasar a ver las generalizaciones debemos tener presente la siguiente notación:
+    
+    \begin{enumerate}
+        \item $A^{\UnFi} = \cup_{n \in \Nastk} A^{[n]}$.
+        \item $\FS(X) = $ conjunto de sumas finitas de $X$ (\textbf{sin repetición}).
+        \item $\FS_0(X) = \FS(X) \cup \{0\}$.
+        \item $X \subseteq A^{\UnFi} \implies \FU(X) = $ uniones de colecciones finitas de elementos de $X$.
+    \end{enumerate}
+\end{notn}
+
+\begin{teo}[Teorema de Folkman \textbf{(GS)}]\label{teo:GS}
+    Dados $k, r \in \Nastk$, para cada $f: \Nastk \rightarrow r$, existe $H = \{x_1, x_2, \dots, x_k\}$ tal que $\FS(H)$ es monocromático para $f$.
+\end{teo}
+
+\begin{nota}
+    Para $k = 2$, \GS $\iff$ \TS.
+\end{nota}
+
+\begin{teo}[Teorema de Folkman finitista \textbf{GS(fin)}]\label{teo:GSF}
+    Dados $k, r \in \Nastk$, existe $M = M(k,r) \in \Nastk$ tal que para cada $f: \{1, 2, \dots, M\} \rightarrow r$ existe $H = \{x_1, x_2, \dots, x_k\}$ tal que $\FS(H) \subseteq \{1, 2, \dots, M\}$ y $\FS(H)$ es monocromático para $f$.
+\end{teo}
+
+Pasemos a demostrar entonces el siguiente teorema:
+
+\begin{teo}
+    \GS $\implies$ \GSF.
+\end{teo}
+
+\begin{proof}
+    Supongamos que no se cumple \GSF. Entonces, para cada $n$, existe una coloración $f_n: \{1, 2, \dots, n\} \rightarrow r$ tal que no tiene un conjunto monocromático del tipo $\FS\big(\{x_1, x_2, \dots, x_k\}\big)$.
+    
+    Ahora, existe $c_1 < r$ tal que el conjunto $S_1 = \{n: f_n(1) = c_1\}$ es infinito (esto lo garantiza el principio del casillero), y definimos $f(1) = c_1$. Luego, también existe $c_2 < r$, $S_2 = \{n \in S_1 : f_n(2) = c_2\}$ infinito, definimos $f(2) = c_2$. Y así sucesivamente, y tendremos $f(1), f(2), \dots, f(j-1)$, con $S_1 \supseteq S_2 \supseteq \dots \supseteq S_{j-1}$, donde $f(i) = f_n(i) = c_i$ si $i \leq j-1$ y $n \in S_{j-1}$. También existe $c_j < r$, donde $S_j = \{n \in S_{j-1} : f_n(j) = c_j\}$ es infinito, definimos $f(j) = c_j$.
+    
+    De esta manera, hemos construído $f: \Nastk \rightarrow r$. Ahora, por \GS, existe $H = \{x_1, x_2, \dots, x_k\}$ tal que $\FS(H)$ es monocromático para $f$. Ahora, elegimos un $j$ tal que $\FS(H) \subseteq \{1, 2, \dots, j\}$ y elegimos un $n \in S_j$ mayor que $j$ (esto se puede hacer ya que $S_j$ es infinito). Nuevamente por \GS, existe $\FS(H)$ monocromático para $f_n$. Pero esto es una contradicción, ya que hemos supuesto que para cada $n$, existe una coloración $f_n: \{1, 2, \dots, n\} \rightarrow r$ tal que no tiene un conjunto monocromático del tipo $\FS\big(\{x_1, x_2, \dots, x_k\}\big)$.
+    
+    De esta forma, queda demostrado el teorema.
+\end{proof}
+
+\begin{teo}[\textbf{GS} conjuntista \textbf{GS(con)}]\label{teo:GSC}
+    Dados $k, r \in \Nastk$, para cada $f: \N^{\UnFi} \rightarrow r$, entonces existe $H = \{a_1, a_2, \dots, a_k\} \subset N^{\UnFi}$ tal que $a_i \cap a_j = \emptyset$ si $i \neq j$ y $\FU(H)$ es monocromático para $f$.
+\end{teo}
+
+\begin{teo}
+    \GSF $\implies$ \GSC.
+\end{teo}
+
+\begin{proof}
+    Primero, fijemos $f: \N^{\UnFi} \rightarrow r$. Por el \TR, existe $A_1$ infinito tal que $A_1^{[1]}$ es monocromático para $f$. Nuevamente, aplicando el \TR, existe $A_2 \subseteq A_1$ infinito tal que $A_2^{[2]}$ es monocromático para $f$. De fomar sucesiva podemos construir una sucesión decreciente de conjuntos infinitos de números naturales tales que $A_1 \supseteq A_2 \supseteq \dots \supseteq A_{i-1}$, tales que $A_j^{[j]}$ es monocromático para $f$. Finalmente, también existe $A_i \subseteq A_{i-1}$ infinito tal que $A_i^{[i]}$ es monocromático para $f$. De esta manera, inductivamente hemos definido una sucesión infinita tal que $A_i^{[i]}$ es monocromático para $f$, y esto vale para cualquier $i \in \Nastk$.
+    
+    Ahora aplicamos \GSF: Obtenemos $M = M(k,r)$. Luego definimos $g: \{1, 2, \dots, M\} \rightarrow r$, de manera que $g(i) = \text{ color de } A_i^{[i]} \text{ por } f$. Entonces existe $H = \{x_1, x_2, \dots, x_k\}$ con $\FS(H)$ monocromático para $g$.
+    
+    Como siguiente paso, elegimos $a_1, a_2, \dots, a_k$ subconjuntos de $A_M$ disjuntos dos a dos, tales que $|a_i| = x_i$: En este contexto, las uniones se traducen en sumas finitas y tendremos que $\FU\big(\{a_1, a_2, \dots, a_k\}\big)$ es monocromático para $f$ debido a que $\FS(H)$ es monocromático para $g$. Y de esta forma, queda demostrado el teorema.
+\end{proof}
+
+\begin{ejer}
+    Demostrar que \GSC $\implies$ \GS.
+\end{ejer}

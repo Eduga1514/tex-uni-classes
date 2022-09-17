@@ -1,0 +1,140 @@
+\subsection{El teorema de Van der Waerden}
+
+El teorema de Van der Waerden tiene cierta similitud con el teorema de Schur que vimos anteriormente en el curso.
+
+\begin{teo}[Van der Waerden (vdW)]
+    Dados $k, r \in \Nastk$, para cada $r$-coloración de $\N$, existe una progresión aritmética monocromática de tamaño $k$.
+\end{teo}
+
+Así como con el teorema de Schur, el teorema de Van der Waerden tiene una versión finitista (vdWfin), una afín (vdWaf) y una relacionada con \textit{sistemas dinámicos} (vdWdin).
+
+\begin{defn}
+    Un \ul{sistema dinámico} es una tupla $(X, T_1, T_2, \dots, T_k)$ en la que $X$ es un espacio métrico compacto, y las $T_j$'s son homeomorfismos sobre $X$ que conmutan entre sí. A veces basta con que los $T_j$'s sean continuos.
+\end{defn}
+
+\begin{defn}
+    Dado un sistema dinámico, un conjunto no-vacío $Y \subseteq X$ es \ul{invariante} si para cada $j$, vale $T_j^{-1}(Y) \subseteq Y$.
+    
+    Es de especial importancia los conjuntos invariantes, cerrados y minimales.
+\end{defn}
+
+\begin{teo}
+    Sea un conjunto invariante y cerrado. Entonces es minimal.
+\end{teo}
+
+\begin{proof}
+    Sea $X$ invariante y minimal. Si $\mathcal{C}$ es una cadena decreciente (con respecto a $\subseteq$) de conjuntos invariantes y cerrados, entonces la intersección de todos ellos es no-vacía, cerrada e invariante.
+    
+    Por el lema de Zorn, existe $Y \subseteq X$ tal que es cerrado, no-vacío, invariante y minimal.
+    
+    Más aún, por ser invariante dicho $Y$ satisface $T_j^{-1}(Y) = Y$ para cada $j$. Si así no fuera, entonces
+    
+    \[
+    T_k^{-1}( T_{k-1}^{-1} (\dots (T_1^{-1}(Y) ) ) ) \subset Y
+    \]
+    
+    \noindent lo que contradice que $Y$ es minimal.
+\end{proof}
+
+\begin{teo}[vdWdin]
+    Dados $k \in \Nastk$ y $\varepsilon > 0$. Si $(X, \rho)$ es un espacio métrico compacto y $T: X \rightarrow X$ es continua, existe $x \in X$ y $n \in \N$ tales que
+    
+    \[
+    j \in \{ 1, 2, \dots, k-1 \} \implies \rho(x, T^{jn}(x)) < \varepsilon
+    \]
+\end{teo}
+
+\begin{teo}
+    (vdW) es equivalente a (vdWdin).
+\end{teo}
+
+\begin{proof}
+    Demostremos ambas implicaciones:
+    
+    \begin{itemize}
+        \item[($\Rightarrow$)] Sean $(X, \rho)$ un espacio métrico compacto y $T: X \rightarrow X$ continua. Escojamos $k \in \N$ y $\varepsilon > 0$ como en la hipótesis de (vdWdin). Elegimos $r \geq 1/\varepsilon$, como $X$ es compacto entonces existe una coloración $c: X \rightarrow r$, tal que el diámetro\marginfootnote{Recordar que el diámetro de un conjunto $X$ es $\operatorname{diam}(x,y) = \sup(\rho(x,y) : x, y \in X)$.} de cada $c^{-1}\{j\}$ (con $j < r$) es menor que $\varepsilon$.
+        
+        Ahora consideremos $y \in X$. Definamos $f: \N \rightarrow X$ de la siguiente manera: $f(j) = i$ sii $c(T^j(y)) = i$. Entonces por (vdW), existe una progresión aritmética $a, a+n, a+2n, \dots, a+n(k-1)$ monocromática para $f$, de color $i$ (con $n \in \N$). Sea $x = T^a(y)$, entonces $x, T^n(x), T^{2n}(x), \dots, T^{n(k-1)}(x)$ son de color $i$ (para $c$).
+        
+        Como el diámetro de $c^{-1}\{i\}$ es menor que $\varepsilon$, entonces
+        
+        \[
+        \rho(x, T^{jn}(x)) < \varepsilon, \quad \text{con $1 \leq j < k$}
+        \]
+        
+        Así, queda demostrada esta primera parte.
+        
+        \item[($\Leftarrow$)] Consideremos $\Omega = \{1, \dots, r\}^{\N}$ el conjunto de las particiones de $\N$ en $r$ partes, dotado de la topología producto. Como $\{1, 2, \dots, r\}$ es un conjunto finito, y estamos tomando el producto cartesiano de la topología discreta en dicho conjunto finito, entonces por $\TT$, $\Omega$ es compacto. Además podemos definir una métrica para $\Omega$: $\rho(\gamma, \xi) < 1/n$ sii $\gamma(j) = \xi(j)$ para algún $j \in \{1, 2, \dots, n\}$. De esta manera, $\Omega$ es métrico compacto.
+        
+        Definamos ahora $T: \Omega \rightarrow \Omega$ por $T(\gamma(y)) = \gamma(n+1)$. Esto es una función continua (se puede verificar) que satisface $T^k(\gamma(n)) = T(\gamma(n+k))$. Ahora definamos el $X$ para nuestro sistema dinámico de la siguiente manera: Elejimos una coloración $\alpha \in \Omega$ y definimos $X = \overline{\{ T^m(\alpha) : m \in \N \}}$, la clausura de la órbita de $\alpha$. Óbservese que $T \rest X$ es una aplicación continua de $X$ en $X$ (también se puede verificar).
+        
+        Ahora gracias a (vdWdin) podemos considerar $x \in X$ y $n \in \N$ tales que $\rho(x, T^{jn}(x)) < 1$ para $j \in \{1, \dots, k-1\}$. Particularmente
+        
+        \[
+        x(1) = x(n+1) = x(2n+1) = \dots = x((k-1)n+1)
+        \]
+        
+        Por otro lado, como $x \in X$, existe un $m \in \N$ tal que $\rho < 1/(k-1)n+1$. De esto se sigue que
+        
+        
+        \[
+        x(1) = T^m\alpha(1) = T^m\alpha(n+1) = \dots = T^m\alpha((k-1)n+1) 
+        \]
+        
+        \noindent lo que equivale a
+        
+        \[
+        x(1) = \alpha(m+1) = \alpha(m+1+n) = \alpha(m+1+2n) = \dots = \alpha(m+1+(k-1)n)
+        \]
+        
+        De esta forma tenemos
+        
+        \[
+        (m+1), (m+1)+n, (m+1)+2n, \dots, (m+1)+(k-1)n
+        \]
+        
+        \noindent la cual es una progresión aritmética monocromática de longitud $k$ bajo $\alpha$.
+    \end{itemize}
+    
+    Así queda demostrada la equivalencia entre ambos teoremas.
+\end{proof}
+
+Ahora, para enunciar la versión afín del teorema, necesitaremos la siguiente definición:
+
+\begin{defn}
+    Dado un $F \in \N^{\UnFi}$, una \ul{imagen afín} de $F$ tiene la forma $a + dF = \{ a + df : f \in F \}$.
+\end{defn}
+
+\begin{teo}[vdWaf]
+    Dado un conjunto finito $F \subset \N$, para cada coloración finita de $\N$, hay una imagen afín de $F$ monocromática.
+\end{teo}
+
+\begin{teo}
+    (vdW) es equivalente a vdWaf.
+\end{teo}
+
+\begin{proof}
+    Demostremos ambas implicaciones:
+    
+    \begin{itemize}
+        \item[($\Rightarrow$)] Supongamos (vdW) y fijemos $F$ y una coloración finita de $\N$. Sea $k$ tal que $F \subseteq \{0, 1, 2, \dots, k\}$. Entonces por (vdW) obtenemos una progresión aritmética monocromática:
+        
+        \[
+        a, a+d, a+2f, \dots, a+(k-1)d
+        \]
+        
+        Entonces $a+dF$ es monocromático.
+        
+        \item[($\Leftarrow$)] Ahora supongamos (vdWaf), fijemos $k$ y una $r$-coloración de $\N$. Definamos entonces $F = \{0, 1, 2, \dots, k\}$. Aplicamos (vdWaf) a $F$ con la coloración dada y obtenemos $a+dF$ monocromático. Luego, $a + dF$ es una progresión aritmética monocromática de longitud $k$.
+    \end{itemize}
+    
+    Así, queda demostrado.
+\end{proof}
+
+Por último, también tenemos una versión finitista del teorema de van der Waerden.
+
+\begin{teo}[vdWfin]
+    Dados $r, k \in \Nastk$, existe $N = N(r,k)$ tal que para cada $r$-coloración de $\{ 1, 2, \dots, N \}$ hay una progresión artimética monocromática de longitud $k$.
+\end{teo}
+
+\marginnote{La versión finitista del teorema de van der Waerden es equivalente a las demás, y queda como ejercicio demostrar esto.}

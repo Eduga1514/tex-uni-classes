@@ -1,0 +1,91 @@
+\subsection{El Espacio de Baire}
+
+\begin{defn}
+    Consideremos el conjunto $\N^{\N}$ de las funciones de $\N$ en $\N$, o sucesiones infinitas de números naturales, dotado de la topología producto que resulta de dar $\N$ la topología discreta. Este espacio se llama \ul{el espacio de Baire} y será denotado por $\baire$.
+\end{defn}
+
+Esta topología tiene una base dada de esta forma: Si $S \in \N^{< \infty}$\marginfootnote{La diferencia entre $< \infty$ y $\UnFi$ es que en uno estamos considerando las sucesiones finitas de $\N$, y en el otro estamos considerando los subconjuntos finitos de $\N$.}, sea
+
+\[
+U_S = \{ x \in \baire : x(i) = S(i) \quad \text{para todo} \quad i \in \operatorname{dom}(S) \}
+\]
+
+\noindent es decir, $U_S$ está formado por las sucesiones que coinciden con $S$ para todo su dominio.
+
+Entonces los conjuntos de la forma $U_S$ constituyen una base\marginfootnote{Es decir, todo abierto en $\baire$ es unión de los elementos de $U_S$.} numerable de la topología de $\baire$.
+
+Por otro lado, el espacio de Baire es metrizable por la métrica dada por
+
+\[
+d(x,y) = \begin{cases}
+            0& \text{si} \quad x=y \\
+            \displaystyle \frac{1}{\min\{i : x(i) \neq y(i)\} + 1}& \text{si} \quad x \neq y
+        \end{cases}
+\]
+
+El espacio de Baire $(\baire, d)$ es completo\marginfootnote{Toda suceción de Cauchy converge con esta métrica.}.
+
+\begin{ejer}
+    Demostrar que el espacio de Baire es completo.
+\end{ejer}
+
+\marginnote{Sea $\{x_i\}_{i \in \N}$ una sucesión en $\baire$, decimos que esta converge a $x \in \baire$ si para cada $n$, existe un $k$ tal que
+
+\[
+i \geq k \implies x_i \rest n = x \rest n
+\]}
+
+Además, este espacio no es compacto, por ejemplo
+
+\[
+\{ U_{\langle n \rangle} : n \in \N \}
+\]
+
+\noindent es un cubrimiento que no admite ningún subcubrimiento finito.\marginfootnote{\label{note:cub1} Con más detalle: $U_{\langle 0 \rangle}$ son las sucesiones que empiezan en $0$, $U_{\langle 1 \rangle}$ son las que empiezan en $1$ y así sucesivamente. Entonces, una sucesión que empiece con $n+1$ no puede ser cubierta por la cantidad finita $n$ de abiertos.}
+
+Y $\baire$ es separable: Sea $\C$ tal que
+
+\[
+\C = \{ x \in \baire : \exists n \quad \text{tal que} \quad x(i) = x(j) \quad \text{si} \quad i,j \geq n \}
+\]
+
+\noindent este conjunto, formado por todas las sucesiones que son eventualmente constantes, es denso en $\baire$. Y además es numerable porque está dado por el conjunto de las sucesiones finitas de números naturales. Este conjunto es numerable.
+
+Recordemos ahora el \textit{espacio de Cantor}: Son todas aquellas sucesiones infinitas de $0$ y $1$, es decir el conjunto $2^{\N}$. Este conjunto obviamente está dentro de $\baire$. Como $2^{\N}$ está formado por la topología producto de $\{0,1\}$, los cuales son compactos, entonces
+por \TT, tenemos que $2^{\N}$ es compacto.
+
+Consideremos ahora el conjunto $\N^{[\infty]}$ de todos los subconjuntos infinitos de $\N$. Dotamos a este conjunto de la topología generada por los conjuntos de la forma
+
+\[
+[s] = \{ A \subseteq \N : s \sqsubset A \}
+\]
+
+\noindent donde $s \in \N^{\UnFi}$ y $s \sqsubset A$ quiere decir que $s$ es un segmento inicial de $M$ (y luego tienen cualquier cosa).
+
+El conjunto $2^{\N}$ se puede identificar con $\partes{\N}$, ya que cada función de $\N$ en 2 es la función característica de un subconjunto de $\N$. Esta topología que acabamos de definir en $\N^{[\infty]}$ coincide con la topología que hereda $2^{\N}$ vía la identificación con $\partes{\N}$. De esta forma, $\N^{[\infty]}$ es completamente metrizable y separable, y por esto esta topología se llama la \ul{topología métrica} en $\N^{[\infty]}$.
+
+\begin{pro}
+    El espacio de Baire es homomorfo a $\N^{[\infty]}$.
+\end{pro}
+
+\begin{proof}
+    La función definida como $x \mapsto \hat{x}$, donde $\hat{x}(n) = \sum_{i=0}^n x(i)$ para cada $n \in \N$ es un homomorfismo\marginfootnote{Esto no es difícil de comprobar bajo la definición de homomorfismo}. De esta forma, la función que asocia un subconjunto infinito de $\N$ con su enumeración creciente es un homomorfismo entre $\N^{[\infty]}$ y ese subespacio, y de esta forma queda demostrado.
+\end{proof}
+
+Ahora, veremos otra definición de árbol, distinta a la que vimos cuando establecimos el teorema \ref{teo:arboles1}.
+
+\begin{defn}
+    Sea $X$ un conjunto cualquiera, $S \subset X^{< \infty}$ es un \ul{árbol sobre $X$}, donde $S$ es un conjunto de suceciones finitas de elementos de $X$ parcialmente ordenado por la relación de extensiones de sucesiones\marginfootnote{Esta relación la denotaremos con $\leftY$.}, y tal que si $s \in S$ y $n$ es menor que la longitud de $s$, entonces $s \rest n \in S$.
+    
+    Una \ul{rama} de $S$ es una sucesión infinita $a \in X^{\N}$ tal que para todo $n$, $a \rest n \in S$. La colección de las ramas de $S$, lo llamaremos el \ul{cuerpo} de $S$ y se denota por $[S]$.
+    
+    El \ul{árbol completo} sobre $X$ es el conjunto $X^{< \infty}$ de todas las sucesiones finitas de elementos de $X$.
+\end{defn}
+
+\begin{ejem}
+    $N^{< \infty}$ es el conjunto de sucesiones finitas de números naturales, y $[\N^{< \infty}]$ es el espacio de Baire $\baire$. Todo subconjunto $A \subseteq \baire$ genera un árbol:
+    
+    \[
+    S_A = \{ a \rest n : a \in A, n \in \N \}
+    \]
+\end{ejem}

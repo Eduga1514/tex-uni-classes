@@ -1,0 +1,234 @@
+\section{Teorema Fundamental del Cálculo y sus aplicaciones}
+
+Ahora, desarrollaremos los resultados para establecer el Teorema Fundamental del Cálculo (TFC). Este teorema fue establecido por Leibniz y es el resultado que nos permite relacionar la teoría de derivadas con la teoría de integración. Este es el teorema central de la teoría de integración.
+
+\begin{lem}
+    Sea $f: [a,b] \rightarrow \R$ y $c \in (a,b)$. Si $f$ es integrable en $[a,c]$ y $[c,b]$ entonces $f$ es integrable en $[a,b]$.
+\end{lem}
+
+\begin{proof}
+    Como la función es integrable en $[a,c]$, dado $\varepsilon > 0$, entonces existe una partición $P_1$ tal que
+    
+    \[
+    U(f, P_1) - L(f, P_1) < \varepsilon/2
+    \]
+    
+    \noindent análogamente, como $f$ es integrable en $[c,b]$, dado $\varepsilon > 0$, existe una partición $P_2$ tal que
+    
+    \[
+    U(f, P_2) - L(f, P_2) < \varepsilon/2
+    \]
+    
+    Ahora, definamos una partición $\Pe = P_1 \cup P_2$, sabemos que esta partición abarca al intervalo $[a,b]$ en su totalidad. Ahora, por \ref{eq:supamasb}, tenemos que
+    
+    \begin{gather*}
+        U(f, \Pe) = U(f, P_1) + U(f, P_2) \\
+        L(f, \Pe) = L(f, P_1) + L(f, P_2)
+    \end{gather*}
+    
+    Así, tenemos que
+    
+    \[
+    U(f, \Pe) - L(f, \Pe) = U(f, P_1) - L(f, P_1) + U(f, P_2) - L(f, P_2) < \varepsilon
+    \]
+    
+    \noindent en consecuencia, la función $f$ será integrable en $[a,b]$.
+\end{proof}
+
+\begin{teo}
+    Sea $f: [a,b] \rightarrow \R$ tal que $f \in \Rint$ y continua en $[a,b]$. Si $F(x) = \int_a^x f(t)dt$ para cada $x \in [a,b]$, entonces $F$\marginfootnote{Establecer esta función nos lleva a la siguiente definición:
+    
+    \begin{defn}
+        Esta función $F$ definida de esta manera se conoce como la \ul{antiderivada} de $f$.
+    \end{defn}} es continua en $[a,b]$.
+\end{teo}
+
+\begin{proof}
+    Sea $\varepsilon > 0$, y los puntos $x_0, x$ en $[a,b]$ ($x > x_0$). Ahora, si queremos ver que $F$ es continua, para dicho $\varepsilon$ hemos de encontrar un $\delta$ tal que se satisfaga lo siguiente:
+    
+    \[
+    \text{si} \quad |x - x_0| < \delta, \qquad \text{entonces} \quad |F(x) - F(x_0)| < \varepsilon
+    \]
+    
+    Ahora, por el lema que acabamos de demostrar, y el teorema \ref{teo:riemod} tenemos
+    
+    \begin{align*}
+        |F(x) - F(x_0)| &= \left| \int_a^x f(t)dt - \int_a^{x_0} f(t)dt \right| = \left| \int_a^x f(t)dt - \int_a^{x_0} f(t)dt \right| \\
+        &= \left| \int_a^{x_0} f(t)dt + \int_{x_0}^x f(t)dt - \int_a^{x_0} f(t)dt \right| = \left| \int_{x_0}^x f(t)dt \right| \\
+        &\leq \int_{x_0} |f(t)|dt
+    \end{align*}
+    
+    \noindent como $f$ es continua y acotada en $[a,b]$, será acotada en $[x_0, x]$. Por lo tanto existe $M > 0$ tal que
+    
+    \[
+    |F(x) - F(x_0)| \leq M\int_{x_0}^xdt \quad \text{con} \quad \sup_{x\in[a,b]} |f(x)|
+    \]
+    
+    \noindent pero $M\int_{x_0}^xdt = M(x-x_0)$. Entonces, al escoger $\delta = \varepsilon/M$, tendremos que
+    
+    \[
+    |F(x) - F(x_0)| \leq M(x-x_0) \leq M\delta = \epsilon
+    \]
+    
+    De esta manera, queda demostrado.
+\end{proof}
+
+\begin{teo}[Primer Teorema Fundamental del Cálculo]\label{teo:1TFC}
+    Sea una función $f: [a,b] \rightarrow \R$ con $f \in \Rint$ y continua. Entonces
+    
+    \[
+    F(x) = \intab f(x)dx \quad \text{es derivable}
+    \]
+    
+    Mas aún, $F'(x) = f(x)$.
+\end{teo}
+
+\begin{proof}
+    En un principio, por definición,
+    
+    \[
+    F'(x) = \lim_{x \to x_0} \frac{F(x) - F(x_0)}{x_0}
+    \]
+    
+    \noindent es decir, que dado $\delta > 0$, queremos hallar un $\varepsilon > 0$ tal que
+    
+    \[
+    \text{si} \quad |x - x_0| < \delta \quad \text{entonces} \left| \frac{F(x) - F(x_0)}{x-x_0} - f(x_0) \right| < \varepsilon
+    \]
+    
+    \noindent entonces, estimemos cuánto da este último factor
+    
+    \[
+    \left| \frac{F(x) - F(x_0)}{x-x_0} - f(x_0) \right| = \left| \frac{F(x) - F(x_0) - f(x_0)(x-x_0)}{x-x_0} \right|
+    \]
+    
+    Por la definición de $F$, y el lema que acabamos de demostrar, tenemos
+    
+    \[
+    \left|\dfrac{F(x) - F(x_0) - f(x_0)(x-x_0)}{x-x_0}\right| = \dfrac{\left| \int_{x_0}^x f(t)dt - \int_{x_0}^x f(x_0)dt  \right|}{|x-x_0|} \leq \dfrac{\int_{x_0}^x |f(t)dt - f(x_0)|}{|x-x_0|}
+    \]
+    
+    Ahora, por la continuidad de $f$, dado $\epsilon > 0$, existe un $\delta_f > 0$ tal que si $|x-x_0| < \delta_f$ entonces $|f(x)-f(x_0)| < \epsilon$. Entonces
+    
+    \[
+    \dfrac{\int_{x_0}^x |f(t)dt - f(x_0)|}{|x-x_0|} \leq \frac{\epsilon}{|x-x_0|}\int_{x_0}^xdt = \epsilon
+    \]
+    
+    Por lo tanto, concluímos que si $|x-x_0| < \delta_f$, tenemos que
+    
+    \[
+    \left| \frac{F(x) - F(x_0)}{x-x_0} - f(x_0) \right| < \varepsilon
+    \]
+    
+    De esta manera, basta fijar $\delta = \delta_f$ para concluir que $F'(x_0) = f(x)$. Y así queda demostrado el teorema.
+\end{proof}
+
+\begin{teo}[Segundo Teorema Fundamental del Cálculo]\label{teo:2TFC}
+    Sean $f \in C[a,b]$, $F$ tal que $F'(x) = f(x)$. Entonces
+    
+    \[
+    \intab f(x)dx = F(b) - F(a)
+    \]
+\end{teo}
+
+\begin{proof}
+    Sea $G(x) = \int_a^x f(t)dt$, y por el 1TFC, obtenemos que $G'(x) = f(x)$. Pero por otro lado, también tenemos que $F'(x) = f(x)$. Como $G'(x) = F'(x)$ entonces
+    
+    \[
+    G(x) - F(x) = k, \quad \text{con } k \in \R
+    \]
+    
+    \noindent pero sabemos a qué equivale $G$, luego
+    
+    \[
+    \int_a^x f(t)dt - F(x) = k \implies \cancelto{0}{\int_a^af(t)dt} - F(a) = k \implies -F(a) = k
+    \]
+    
+    De esta manera,
+    
+    \begin{align*}
+        \int_a^x f(t)&dt - F(x) = -F(a) \implies \intab f(t)dt - F(b) = -F(a) \\
+        &\implies \intab f(t)dt = F(a) - F(b)
+    \end{align*}
+    
+    \noindent y así queda demostrado el teorema.
+\end{proof}
+
+La primera aplicación importante que veremos de estos teoremas es una bastante usada en los cursos de cálculo:
+
+\begin{teo}[Cambio de Variable]
+    Sean $I_1, I_2 \subset \R$, y sean $f: I_1 \rightarrow I_2$ tal que $f \in C^1(I_1)$\marginfootnote{Aquí estamos manejando la siguiente notación:
+    
+    \begin{nota}
+        Sea $f$ una función, e $I$ un intervalo cualquiera. Decir que $f \in C^1(I_1)$ equivale a pedir que la función sea continua, derivable y que su derivada sea continua sobre el intervalo $I$.
+    \end{nota}}, $g: I_2 \rightarrow \R$ tal que $g \in C(I_2)$. Entonces
+    
+    \[
+    \intab g\left(f(t)\right)f'(t)dt = \int_{f(a)}^{f(b)} g(u)du
+    \]
+\end{teo}
+
+\begin{proof}
+    Sea $G$ derivable en $I_2$ tal que $G'(x) = g(x)$. Luego, por 1TFC tenemos que $G(x) = \int_a^x g(u)du$, y por el 2TFC, podemos decir que
+    
+    \begin{equation}\label{eq:cl6.1}
+        G(f(b))-G(f(a)) = \int_{f(a)}^{f(b)} g(u)du \quad \text{porque $G'(x) = g(x)$ para cada $x$}
+    \end{equation}
+    
+    Por otro lado, la regla de la cadena nos dice que
+    
+    \[
+    \left[ G(f(t)) \right]' = G'(f(t))f'(t)
+    \]
+    
+    \noindent entonces, aplicando nuevamente el 2TFC,
+    
+    \begin{equation}\label{eq:cl6.2}
+        \intab \left[ G(f(t)) \right]'dt = G(f(b)) - G(f(a))
+    \end{equation}
+    
+    Luego, por \ref{eq:cl6.1} y \ref{eq:cl6.2} tenemos que
+    
+    \[
+    \int_{f(a)}^{f(b)} g(u)du = \intab \left[ G(f(t)) \right]'dt = \intab g(f(t))f'(t)dt
+    \]
+    
+    De esta forma, queda demostrado.
+\end{proof}
+
+\begin{teo}[Integración por partes]
+    Sean $f, g \in C^1[a,b]$. Entonces
+    
+    \[
+    \intab f(t)g'(t)dt = f(b)g(b) - f(a)g(a) - \intab f'(t)g(t)dt
+    \]
+\end{teo}
+
+\begin{proof}
+    Sabemos que
+    
+    \[
+    [f(t)g(t)]' = f'(t)g(t) + g'(t)f(t)
+    \]
+    
+    También sabemos por el 2TFC que
+    
+    \[
+    \intab (f(t)g(t))'dt = f(b)g(b) - f(a)g(a)
+    \]
+    
+    Por otro lado,
+    
+    \[
+    \intab (f(t)g(t))'dt = \intab f'(t)g(t)dt + \intab g'(t)f(t)dt
+    \]
+    
+    De esta forma, despejando y sustituyendo nos queda
+    
+    \begin{gather*}
+        \intab g'(t)f(t)dt = \intab (f(t)g(t))'dt - \intab f'(t)g(t)dt \\
+        \implies \intab g'(t)f(t)dt = f(b)g(b) - f(a)g(a) - \intab f'(t)g(t)dt
+    \end{gather*}
+    
+    Así, queda demostrado el teorema.
+\end{proof}

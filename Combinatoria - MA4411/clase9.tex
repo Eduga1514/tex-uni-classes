@@ -1,0 +1,80 @@
+Hemos visto que los árboles son útiles para ordenar, para hacer árboles de decisión y para hallar el AGM. Ahora, vamos a ver que son útiles también para hacer búsqueda.
+
+Supongamos que vamos a hacer una busqueda dentro de un grafo visitando sus vértices. A continuación, vamos a distinguir dos estrategias principales de búsqueda: \textit{En profundidad} (BEP) y \textit{en anchura} (BEA). En profundidad quiere decir que a partir de un vértice, ir a uno vecino (si es posible) y de ahí a otro vecino del actual, y así. En anchura significa que a partir de un vértice, buscar entre sus vecinos, y luego buscar entre los vecinos de un vecino, etcétera.
+
+
+\subsection{Búsqueda en profundidad}
+
+Para hacer una BEP en un grafo $G$, comenzamos con un vértice $v$ y construímos un árbol $T$ de la siguiente forma:
+
+\begin{enumerate}
+    \item El \textit{vértice activo} $x$ es $v$.
+    \item Si $x$ tiene un vecino $y$ (que no haya sido usado ya), agrega $xy$ al árbol y ahora $x$ será $y$.
+    \item Si $x$ tiene un vecino $z$ (que no haya sido usado ya), agrega $xz$ al árbol y ahora $x$ será $z$.
+    \item En caso contrario, $x$ será $y$ y se vuelve al paso 3.
+    \item La búsqueda termina cuando $x$ sea $v$ de nuevo y no hayan más vecinos de $x$.
+\end{enumerate}
+
+Por construcción, $T$ es un árbol. Ahora, vale la pena preguntarnos lo siguiente:
+
+\begin{pre}
+    ¿Qué podemos decir sobre los vértices que se visitan con este algoritmo?
+\end{pre}
+
+\begin{proof}[Respuesta]
+    Supongamos que $z$ es un vértice en la misma componente de $G$ que $v$. Sea ahora $v = v_0 \dots v_k = z$ un caminio en $G$. Si $z \notin V(T)$ entonces hay un índice $i$ para el cual $v_i \in V(T)$ y $v_{i+1} \notin V(T)$. Luego $v_i$ es el vértice activo al menos una vez, y si sabe que se abandona $v_i$ cuando se han visitado todos sus vecinos. Como $v_{i+1} \notin V(T)$, $v_{i+1}$ no es vecino de $v_i$ y esto es una contradicción. Luego $z \in T$.
+\end{proof}
+
+Así, hemos demostrado este teorema:
+
+\begin{teo}
+    Sea $G$ un grafo, $v \in V(G)$ y $T$ obtenido mediante BEP a partir de $v$. Entonces $T$ contiene todos los vértices de la componente de $G$ que contiene a $v$.
+\end{teo}
+
+\subsection{Búsqueda en anchura}
+
+Para hacer una BEA en un grafo $G$, ordenamos los vértices en una lista y se comienza con el primero, digamos $v$ para construir un árbol $T$ así:
+
+\begin{enumerate}
+    \item El \textit{vértice activo} $x$ es $v$.
+    \item Mientras que $x$ tienga un vecino $y$, agregar $xy$ al árbol.
+    \item Ahora $x$ es el siguiente vértice de $G$.
+    \item Vuelve al paso 2.
+    \item El proceso termina cuando se acaben los vértices de la lista.
+\end{enumerate}
+
+Así como para BEP, BEA produce el árbol como queremos:
+
+\begin{teo}\label{teo:BEA}
+    Sean $G$ un grafo, $v \in V(G)$ y $T$ obtenido mediante $BEA$ a partir de $v$, entonces $T$ contiene todos los vértices de la componente de $G$ que contiene a $v$.
+\end{teo}\marginnote{La demostración del teorema \ref{teo:BEA} es bastante parecida a la del teorema anteior, por eso no se hace.}
+
+\subsection{El problema del camino más corto}
+
+Veamos una aplicación del algoritmo de BEA para hallar el camino más corto entre dos vértices dados de un grafo ponderado conexo. Supongamos que queremos hallar el camino más corto de un vértice $v$ a otro $w$ en el grafo ponderado $G$ con peso $p$. Aquí la longitud de un camino es la suma de los pesos de sus lados.
+
+La estrategia se basa en lo siguiente:
+
+\begin{enumerate}
+    \item Supongamos que ya hemos decidido que la longitud del camino más corto de $v$ a un vértice intermedio $z$ es $l(z)$.
+    \item Sea $y$ un vecino de $z$ en $G$ del cual tenemos una estimación provisional $l(y)$ de la longitud de un camino de $v$ a $y$.
+    \item Cambia $l(y)$ por el mínimo entre $l(y)$ y $l(z) + p(zy)$.
+\end{enumerate}
+
+\begin{pre}
+    ¿Cómo interviene BEA en esta estrategia?
+\end{pre}
+
+\begin{proof}[Respuesta]
+
+    Construiremos un árbol $T$ con raíz en $v$ cuyos lados producen el camino más corte de $v$ a cualquier otro vértice:
+    
+    \begin{enumerate}
+        \item Definimos $l(v) = 0$ (definitiva) y $l(x)$ un número grande (provisional) para $x \neq v$.
+        \item Sea $w$ el último vértice con etiqueta definitiva $l(w)$.
+        \item Para cada vecino $y$ de $w$ con etiqueta provisional, calculamos $l(y)$ como en la estrategia.
+        \item Elige el vértice del paso anterior con etiqueta mínima y se llamará $u$. Se hace definitiva $l(u)$ y se agrega $u$ a $T$ con el lado $zu$ si $z$ es el vértice usado para hacer definitivo $l(u)$.
+        \item Ahora asignamos $w = u$ y se regresa al segundo paso.
+        \item El proceso termina cuando todos los vértices tengan etiqueta definitiva.
+    \end{enumerate}
+\end{proof}

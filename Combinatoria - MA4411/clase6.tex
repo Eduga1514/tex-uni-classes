@@ -1,0 +1,83 @@
+\section{Árboles, ordenamiento y búsqueda}
+
+Recordemos que un árbol puede definirse como un grafo conexo que no tiene ciclos. Los árboles aparecen en muchos contexos, y con frecuencia un vértice se distingue de alguna manera.
+
+\begin{defn}
+    La \ul{raíz} de un árbol es un vértice que se distingue de los demás, y se puede interpretar como el vértice donde "empieza" el árbol. Para estudiar los árboles con raíz, es natural ordenar los vértices en niveles: Decimos que la raíz $r$ está en el \textit{nivel 0}, y los vecinos de $r$ están en el \textit{nivel 1}. Para cada $k \geq 2$, el \textit{nivel $k$} contiene esos vértices adyacentes a los vértices que están en el \textit{nivel $k-1$} que no están en el \textit{nivel $k-2$}.
+    
+    Si un vértice está en el nivel $i$ y no es adyacente a ningún vértice del nivel $i+1$, de dice que es una \ul{hoja}. Un vértice que no es una hoja se dice que es un vértice \ul{interno}.
+    
+    La \ul{altura} de un árbol con raíz es el valor máximo para $k$, para el cual $k$ es no-vacío. En la figura \ref{subfig:conraiz}, vemos que el árbol tiene 6 hojas y 4 vértices internos, con altura 3.
+    
+    Si todo vértice que no sea una hoja tiene $n$ hijos, diremos que el árbol es $n$-ario.
+\end{defn}
+
+\vspace{5mm}
+
+\begin{marginfigure}
+    \begin{subfigure}[b]{.5\textwidth}
+    \centering
+        \begin{tikzpicture}
+            \node[circle, draw]{$r$}
+                child[grow=south]{node{$g$}
+                child{node{$h$}
+                child{node{$d$}} child{node{$e$}} child{node{$f$}}
+                }
+                child{node{$i$}}
+                }
+                child[grow=north east]{node{$c$}}
+                child[grow=north west]{node{$b$}
+                child{node{$a$}}};
+        \end{tikzpicture}
+        \caption{Árbol sin raíz.}
+        \label{subfig:sinraiz}
+    \end{subfigure}
+    \par\bigskip
+    \begin{subfigure}[b]{.5\textwidth}
+    \centering
+        \begin{tikzpicture}
+            \node(r)[circle, draw, grow'=up]{$r$}
+                child{node{$b$}
+                child{node{$a$}}}
+                child{node{$c$}}
+                child{node{$g$}
+                child{node{$h$}
+                child{node{$d$}} child{node{$e$}} child{node{$f$}}}
+                child{node{$i$}}};
+                \coordinate[right=of r]  (y) ;
+                \draw (y) ++(3,0) node{Nivel 0};
+                \draw (y) ++(3,-1.5) node{Nivel 1};
+                \draw (y) ++(3,-3) node{Nivel 2};
+                \draw (y) ++(3,-4.5) node{Nivel 3};
+        \end{tikzpicture}
+        \caption{Árbol con raíz $r$, y sus niveles identificados.}
+        \label{subfig:conraiz}
+    \end{subfigure}
+    \caption{Ejemplo de árbol sin raíz y con raíz}
+    \label{fig:arbol1}
+\end{marginfigure}
+
+\begin{teo}\label{teo:arbol1}
+    La altura $h$ de un árbol $m$-ario, $l$ hojas es
+    
+    \[
+    h \geq \log_m (l)
+    \]
+\end{teo}
+
+\begin{proof}
+    Como
+    
+    \[
+    h \geq \log_m (l) \quad \iff \quad m^h \geq l
+    \]
+    
+    Entonces, es equivalente probar que un árbol $m$-artio con altura $h$ tiene a lo sumo $m^h$ hojas. Esta demostración la haremos por inducción.
+    
+    Para $h = 0$ tendremos únicamente un vértice: la raíz, la cual es una hoja. Entonces $l = 1$ y se cumple. Supongamos que el teorema es cierto para $0 \leq h \leq h_0$.
+    
+    Sea ahora $T$ un árbol con altura $h_0 + 1$. Al eliminar la raíz $r$ de este árbol, entonces tendremos $T_1, \dots, T_m$ árboles, cuyas raíces son los vértices del nivel 1 de $T$. Por hipótesis inductiva, cada uno de estos árboles tiene a lo sumo $m^{h_0}$ hojas, pero las hojas de cada uno de estos árboles son las hojas de $T$, entonces tenemos $m^{h_0} \times m = m^{h_0+1}$ hojas.
+    
+    De esta manera, se cumple para $h = h_0 + 1$, y queda demostrado el teorema por inducción completa.
+\end{proof}
+

@@ -1,0 +1,114 @@
+\section{Ultrafiltros}
+
+Trataremos ahora la idea de \textit{conjuntos "grandes"} en $\N$. Diremos que un conjunto $X$ es grande si para toda sucesión $\{x_n\}_{n \in \N}$ convergente a un punto $x$, tenemos que para toda vecindad $V$ de $x$, la cantidad de elementos que están fuera de esta vecindad es finita, es decir que
+
+\[
+\left| \N - \{ n \in \N : x_n \in V \} \right| < \infty
+\]
+
+En un contexto general, sea $S$ un conjunto infinito, la \ul{familia de Fréchet} está definida como
+
+\[
+\frechet{S} = \{A \subseteq S : |S - A| < \infty\}
+\]
+
+Entonces los conjuntos que pertenecen a esta familia pueden considerarse como conjuntos "grandes".
+
+Esta familia tiene las siguientes características\marginfootnote{Verificar estas características es trivial.}:
+
+\begin{enumerate}
+    \item $S \in \frechet{S}$.
+    \item Si $A \in \frechet{S}$ y $A \subseteq B$. Entonces $B \in \frechet{S}$.
+    \item Si tenemos $A \in \frechet{S}$ y $B \in \frechet{S}$. Entonces $A \cap B \in \frechet{S}$.
+\end{enumerate}
+
+Dicha lista de características nos da pie a la siguiente definición:
+
+\begin{defn}
+    Sean $S$ un conjunto no-vacío, y una colección $\F \subseteq \partes{S}$ tal que satisface las condiciones expuestas anteriormente. Entonces decimos que $\F$ es un \ul{filtro} sobre $S$\marginfootnote{Nos interesan solamente los filtros sobre los números naturales, pero habrán conceptos que serán definidos en general.}.
+\end{defn}
+
+\begin{ejem}
+    Consideraremos un par de ejemplos a continuación:
+    
+    \begin{enumerate}
+        \item Si $\emptyset \in \F$, entonces $\F = \partes{S}$ y en ese caso decimos que el filtro es \textit{trivial}.
+        \item $\frechet{S}$ es un filtro.
+        \item Sea $S$ un conjunto no vacío y $A \subseteq S$. La familia
+        
+        \[
+        \F_{A} = \{ B \subseteq S : A \subseteq B \}
+        \]
+        \noindent es un filtro y se llama \textit{filtro generado} por $A$.
+        
+        En el caso particular en el que tengamos un filtro generado por $A$, donde $A$ es de la forma $A = \{a\}$. Entonces podemos fijarnos de algo muy especial: Dado $X \subseteq S$, entonces
+        
+        \[
+            a \in X \iff a \notin S - X \implies X \in \F_a \iff S - X \notin \F_a
+        \]
+        
+        \noindent estos filtros definidos de esa manera se llaman \textit{principales}.
+    \end{enumerate}
+\end{ejem}
+
+Estas características de los filtros principales llevadas a un contexto general nos llevan a la siguiente definición:
+
+\begin{defn}
+    Sea $\F$ un filtro sobre $S$. Si para todo $X \subseteq S$, se tiene que
+    
+    \[
+    X \in \F \iff S - X \notin \F
+    \]
+    
+    \noindent entonces se dice que $\F$ es un \ul{ultrafiltro}.
+\end{defn}
+
+Fijemos los siguientes hechos\marginfootnote{Demostrarlos queda como ejercicio.}:
+
+\begin{enumerate}
+    \item Sea $\U$ un ultrafiltro sobre $S$. Entonces
+    
+    \begin{enumerate}
+        \item Sean $X_1, \dots, X_n$ subconjuntos $S$ tales que
+        
+        \[
+        \bigcup_{j=1}^n X_j \in \U \quad \text{y} \quad (i \neq j) \implies X_i \cap X_j \notin \U
+        \]
+        
+        Entonces uno y sólo uno de los $X_k$'s está en $\U$.
+        
+        \item Sea $X \in \U$ con $|X| \geq 2$. Entonces existe $Y \subset X$ tal que $Y \in \U$.
+        
+        \item Si existe $F \in \U$ con $|F| < \infty$. Entonces $\U$ es principal.
+    \end{enumerate}
+    
+    \item Sea $\F$ un filtro sobre $S$. Entonces $\F$ es un ultrafiltro sii $\F$ es un filtro maximal\marginfootnote{Es decir, no está contenido en ningún otro filtro que no sea el trivial.}.
+\end{enumerate}
+
+Ahora, pasemos a demostrar el siguiente teorema:
+
+\begin{teo}
+    Existe un ultrafiltro no principal sobre $\N$.
+\end{teo}
+
+\begin{proof}
+    Sea ahora $\frechet{\N}$, por el lema de Zorn, podemos encontrar un filtro maximal no trivial $\U$ tal que $\U \supseteq \frechet{\N}$. Luego, $\U$ es no principal: Supongamos que $\{a\} \subset \U$, como $\U$ contiene al filtro de Fréchet, tenemos que $\N - \{a\} \in \U$. Pero esta es una contradicción: $\U$ no puede contener a la vez a $\{a\}$ y a su complemento porque $\U$ es un ultrafiltro. Luego $\{a\} \notin \U$ y $\U$ es no principal.
+\end{proof}
+
+\begin{notn}
+    Fijemos un ultrafiltro no principal $\U$ en $\N$. Para cada $k$ definimos un ultrafiltro no principal en $\N^{[k]}$ como sigue: para $X \subseteq \N^{[k]}$, $X \in \U^k$ si y sólo si
+    
+    \[
+    \{ n_0 : \{ n_1 : \dots \{ n_{k-1} : \{ n_0, n_1, \dots, n_{k-1} \} \in X \} \in \U \} \dots \in \U \} \in \U
+    \]
+\end{notn}
+
+Con esta notación y lo que hemos establecido sobre los ultrafiltros, podemos pasar a demostrar el teorema de Ramsey.
+
+\begin{teo}[Ramsey]
+    Si $\U$ es un ultrafiltro no principal sobre $\N$, entonces $\U^2$ es un ultrafiltro no principal sobre $\N^{[2]}$
+\end{teo}
+
+\begin{proof}
+    
+\end{proof}

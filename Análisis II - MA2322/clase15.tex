@@ -1,0 +1,171 @@
+\subsection{Límites y continuidad en $\R^n$}
+
+\begin{defn}
+    Sea $f : A \rightarrow \R$, con $A \subset \R^n$, entonces el \ul{límite} para una función escalar está definido como
+    
+    \[
+    \lim_{x \to a} f(x) = L
+    \]
+    
+    \noindent sii dado $\varepsilon > 0$, un $\delta > 0$ tal que
+    
+    \[
+    \text{si $\normaeuc{x-a} < \delta$} \implies |f(x) - L| < \varepsilon
+    \]
+    
+    Análogamente para una función vectorial, sea $F : A \rightarrow \R^m$, con $A \subset \R^n$, entonces el \ul{límite} está definido como
+    
+    \[
+    \lim_{x \to a} F(x) = L
+    \]
+    
+    \noindent sii dado $\varepsilon > 0$, un $\delta > 0$ tal que
+    
+    \[
+    \text{si $\normap{x-a}{2, \R^n} < \delta$} \implies \normap{F(x)-L}{2, \R^m} < \varepsilon
+    \]
+\end{defn}
+
+\begin{defn}
+    Una sucesión $\sucinf{x}{m} \subset \R^n$ es \ul{convergente} a $x_0 \in \R^n$ si $\forall \varepsilon > 0$, existe un $N_{\varepsilon} \in \N$ tal que\marginnote{Se deja como ejercicio demostrar que el límite de una sucesión convergente es único.}
+    
+    \[
+    \text{si $m \geq N_{\varepsilon}$} \implies \normaeuc{x_m - x_0}
+    \]
+    
+    Además, diremos que $\sucinf{x}{m}$ es de \ul{Cauchy} si dado $\varepsilon > 0$ existe $N_{\varepsilon} \in \N$ tal que
+    
+    \[
+    \normaeuc{x_k - x_j} < \varepsilon \quad \forall k,j \geq N_{\varepsilon}
+    \]
+\end{defn}
+
+\begin{teo}
+    En $(\R^n, \normaeuc{ })$ toda sucesión de Cauchy es convergente.\marginfootnote{El recíproco puede demostrarse también: Toda sucesión convergente es de Cauchy.}
+\end{teo}
+
+\begin{proof}
+    Sea $\sucinf{x}{m} \subset \R^n$, y denotemos como el recorrido de la sucesión (es decir, el rango de la sucesión) al conjunto
+    
+    \[
+    T = \{x_1, x_2, \dots \} \subset \R^n
+    \]
+    
+    Si $T$ es finito, entonces salvo una cantidad finita de índices, tendremos que los $x_m$ son todos iguales a una constante. Por lo tanto $\sucinf{x}{m}$ converge a dicha constante, por lo que queda demostrado.
+    
+    Veamos qué sucede si $T$ es infinito: En primer lugar, veamos que $T$ es acotado. Sabemos que la sucesión es de Cauchy por hipótesis, entonces dado $\varepsilon = 1$, existe $N_1 \in \N$ tal que
+    
+    \[
+    \normaeuc{x_{N_1} - x_m} < 1 \quad \forall m \geq N_1
+    \]
+    
+    Pero esto quiere decir que todos los puntos $x_m$ tales que $m \geq N_1$ están contenidos en una bolas de radio $1$ y centro $x_{N_1}$. De esta forma, $T$ está contenido en una bola de centro $0$ y radio $1 + M$, donde $M = \max(\normaeuc{x_1}, \dots, \normaeuc{x_{N_1}})$. De esta forma, $T$ es acotado.
+    
+    Como $T$ es acotado y es infinito, por el teorema de Bolzano-Weierstrass, $T' \neq \emptyset$. Nuevamente, como la sucesión es de Cauchy, entonces dado $\varepsilon > 0$, existe $N_{\varepsilon} \in \N$ tal que
+    
+    \[
+    \text{si $n, m \geq N_{\varepsilon}$} \implies \normaeuc{x_n - x_m} < \varepsilon/2
+    \]
+    
+    Sea $x_0 \in T'$, entonces hay una bola $B_2(x_0, \varepsilon/2)$ tal que
+    
+    \[
+    B(x_0, \varepsilon/2) \cap T \neq \emptyset
+    \]
+    
+    Luego hay un $k_0$ tal que $x_{k_0} \in B_2(x_0, \varepsilon/2)$, esto implica que $\normaeuc{x_{k_0} - x_0} < \varepsilon/2$. Como $x_0$ es un punto de acumulación, podemos escoger un $k_0 > N_{\varepsilon}$ y tenemos que
+    
+    \[
+    \normaeuc{x_n - x_0} \leq \normaeuc{x_n - x_{k_0}} + \normaeuc{x_0 - x_{k_0}} \leq \varepsilon
+    \]
+    
+    \noindent si $n > N_{\varepsilon}$.
+    
+    En conclusión, toda sucesión de Cauchy es una serie convergente, y queda demostrado el teorema.
+\end{proof}
+
+\begin{teo}
+    Sean $A \subset \R^n$ y $x_0 \in A'$. Sea $f: A \rightarrow \R$. Entonces diremos que
+    
+    \[
+    \lim_{x \to x_0} f(x) = L
+    \]
+    
+    Sii $\forall \sucinf{x}{n} \subset A$ tal que $\limtoinfty{n}{x_n} = x_0$, se tiene que $\limtoinfty{n}{f(x_n)} = L$.
+\end{teo}
+
+\begin{proof}
+    Demostremos ambas implicaciones:
+    
+    \begin{itemize}
+        \item[($\Rightarrow$)] Supongamos que
+        
+        \[
+        \lim_{x \to x_0} f(x) = L
+        \]
+        
+        Esto equivale a decir que dado $\varepsilon > 0$, existe un $\delta > 0$ tal que
+        
+        \begin{equation}\label{eq:epsln}
+            \text{si $\normaeuc{x - x_0} < \delta$} \implies |f(x) - L| < \varepsilon
+        \end{equation}
+        
+        Por otro lado, como $x_0$ es un punto de acumulación de $A$, podemos hallar una sucesión $\sucinf{y}{n} \subset A \backslash \{x_0\}$ tal que
+        
+        \[
+        \limtoinfty{n}{y_n} = x_0
+        \]
+        
+        \noindent esto se puede hacer porque todo entorno alrededor de $x_0$ contiene infinitos puntos de $A$.
+        
+        Es decir, que podemos escoger la sucesión $\sucinf{y}{n}$ tal que
+        
+        \[
+        \normaeuc{y_n - x_0} < \frac{1}{n}, \quad \text{para cada $n \in \N$}
+        \]
+        
+        Luego, por \ref{eq:epsln} y el lema de Arquímedes, podemos establecer lo siguiente
+        
+        \[
+        \normaeuc{y_n - x_0} < \frac{1}{N_{\varepsilon}} < \delta \quad \forall n \geq N_{\varepsilon}
+        \]
+        
+        Y por hipótesis esto implica que
+        
+        \[
+        |f(y_n) - L| < \varepsilon \quad \forall n \geq N_{\varepsilon}
+        \]
+        
+        De esta forma, $\limtoinfty{n}{f(x_n)} = L$ y queda demostrado.
+        
+        \item[($\Leftarrow$)] Pasemos a realizar la prueba por reducción al absurdo: Primero, por hipótesis tenemos que $\forall \sucinf{x_n}{n} \subset A \backslash \{x_0\}$ convergente a $x_0$, se tiene que $\limtoinfty{n}{f(x_n)} = L$. Supongamos ahora que
+        
+        \[
+        \lim_{x \to x_0} f(x) \neq L
+        \]
+        
+        Así, para algún $\varepsilon > 0$, y para todo $\delta > 0$ se tiene que existe un $x \in A$ tal que
+        
+        \[
+        \text{si $\normaeuc{x - x_0} < \delta$} \implies |f(x) - L| > \varepsilon
+        \]
+        
+        Consideremos ahora $\delta = 1/n$ y escojamos la suceción $\sucinf{x_n}{n}$ tal que
+        
+        \[
+        \text{si $\normaeuc{x_n - x_0} < \frac{1}{n}$} \implies \limtoinfty{n}{x_n} = x_0
+        \]
+        
+        Entonces tenemos que
+        
+        \[
+        |f(x) - L| < \varepsilon \quad \text{y también} \quad |f(x) - L| > \varepsilon
+        \]
+        
+        Esto es una contradicción que surje de suponer $\lim_{x \to x_0} f(x) \neq L$. Por lo tanto $\lim_{x \to x_0} f(x) = L$.
+        
+        De esta forma, queda demostrado.
+    \end{itemize}
+\end{proof}
+
+Este teorema nos presenta con una caracterización bastante poderosa de los límites.

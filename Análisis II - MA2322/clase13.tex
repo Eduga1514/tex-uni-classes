@@ -1,0 +1,296 @@
+\section{Análisis Vectorial}
+
+A continuación realizaremos una generalización de los conceptos vistos en análisis matemático. Extenderemos las nociones de límite, continuidad y diferenciabilidad, pero en un espacio vectorial particular $\R^n$ ($n \in \N$).
+
+\subsection{Definición del Espacio Eucledeano y su topología}
+
+\begin{defn}
+    Sea $n \in \N$. Un conjunto ordenado de $n$ números reales $(x_1, \dots, x_n)$ es conocido como un \ul{punto $n$-dimensional} o un \ul{vector con $n$ componentes}. El número $x_k$ se llama la \ul{$k$-ésima coordenada} del punto $x = (x_1, \dots, x_n)$ o la \ul{$k$-ésima componente} del vector $x$.
+    
+    El conjunto de todos los puntos $n$-dimensionales se llama \ul{espacio Eucledeano $n$-dimensional} o \ul{$n$-espacio}, y se denota por $\R^n$.
+\end{defn}
+
+\begin{defn}
+    Sean
+    
+    \[
+    x = (x_1, \dots, x_n) \quad \text{y} \quad y = (y_1, \dots, y_n)
+    \]
+    
+    en $\R^n$. Definimos
+    
+    \begin{enumerate}
+        \item \ul{Igualdad}: $x=y$ sii $x_1 = y_1, \dots, x_n = y_n$.
+        \item \ul{Suma}: $x + y = (x_1 + y_1, \dots, x_n + y_n)$.
+        \item \ul{Multiplicación por un escalar}: $\lambda x = (\lambda x_1, \dots, \lambda x_n)$ (para $\lambda \in \R$).
+        \item \ul{Diferencia}: $x-y = x + (-1)y$.
+        \item \ul{Vector cero u origen}: $0 = (0, \dots, 0)$.
+        \item \ul{Productor escalar}: $x \cdot y = \sum_{k=1}^n x_ky_k$.
+        \item \ul{Norma eucledeana}: $\normaeuc{x} = \sqrt{x \cdot x} = \left( \sum_{k=1}^n x_k^2 \right)^{1/2}$.
+    \end{enumerate}
+    
+    Adicionalmente, la norma $\normaeuc{x-y}$ es llama la \ul{distancia} entre $x$ e $y$.
+\end{defn}
+
+\begin{teo}
+    Sean $x, y \in \R^n$. Entonces\marginfootnote{Las 3 primeras propiedades son consecuencias directas de la definición de norma, y la última se plantea como ejercicio.}
+    
+    \begin{enumerate}
+        \item $\normaeuc{x} > 0 \wedge \normaeuc{x} = 0$ sii $x = 0$.
+        \item $\normaeuc{\lambda x} = |\lambda| \normaeuc{x}$ para todo $\lambda \in \R$.
+        \item $\normaeuc{x-y} = \normaeuc{y-x}$.
+        \item $|x \cdot y| \leq \normaeuc{x}\normaeuc{y}$ (Desigualdad de Cauchy-Schwartz).
+        \item $\normaeuc{x + y} \leq \normaeuc{x} + \normaeuc{y}$ (Desigualdad triangular).
+    \end{enumerate}
+\end{teo}
+
+\begin{proof}
+    Demostremos las dos últimas propiedades:
+    
+    \textit{Cauchy-Schwartz}: Queremos demostrar que
+    
+    \[
+    \left| \sum_{i=1}^n x_iy_i \right| \leq \left( \sum_{i=1}^n x_iy_i \right)^2 \leq \left( \sum_{i=1}^n x_i^2 \right)\left( \sum_{i=1}^n y_i^2 \right)
+    \]
+    
+    Consideremos entonces $\alpha, \beta \in \R$. Luego
+    
+    \begin{gather}\label{eq:des1}
+        0 \leq (\alpha - \beta)^2 = \alpha^2 - 2\alpha\beta + \beta^2
+    \end{gather}
+    
+    Sean para cada $i = 1, \dots, n$
+    
+    \[
+    \alpha_i = \frac{|x_i|}{\normaeuc{x}} \quad \beta_i = \frac{|y_i|}{\normaeuc{y}}
+    \]
+    
+    Luego la desigualdad \ref{eq:des1} queda como
+    
+    \begin{gather*}
+        \frac{2|x_iy_i|}{\normaeuc{x}\normaeuc{y}} \leq \frac{x_i^2}{\normaeuc{x}^2} + \frac{y_i^2}{\normaeuc{y}^2} \implies \\
+        2 \frac{\displaystyle \sum_{i=1}^n |x_iy_i|}{\normaeuc{x}\normaeuc{y}} \leq \frac{\displaystyle \sum_{i=1}^n x_i^2}{\normaeuc{x}^2} + \frac{\displaystyle \sum_{i=1}^n y_i^2}{\normaeuc{y}^2} \implies \\
+        2 \frac{\displaystyle \sum_{i=1}^n |x_iy_i|}{\normaeuc{x}\normaeuc{y}} \leq 1 + 1 \implies \\
+        \sum_{i=1}^n |x_iy_i| \leq \normaeuc{x}\normaeuc{y}
+    \end{gather*}
+    
+    Finalmente, por desigualdad triangular, $|xy| = \left|\sum_{i=1}^n x_iy_i\right| \leq \sum_{i=1}^n |x_iy_i| \leq \normaeuc{x}\normaeuc{y}$. Y queda demostrado.
+    
+    \textit{Desigualdad triangular}: 
+    
+    \begin{gather*}
+        \sum_{i=1}^n |x_i + y_i|^2 = \sum_{i=1}^n |x_i + y_i| |x_i + y_i| \leq \\
+        \sum_{i=1}^n |x_i + y_i|\left( |x_i| + |y_i| \right) = \sum_{i=1}^n |x_i||x_i + y_i| + \sum_{i=1}^n |y_i||x_i + y_i|
+    \end{gather*}
+    
+    Ahora, aplicando Cauchy-Schwartz, lo anterior queda como
+    
+    \[
+    \sum_{i=1}^n |x_i + y_i|^2 \leq \normaeuc{x+y} \left( \normaeuc{x} + \normaeuc{y} \right)
+    \]
+    
+    En conclusión,
+    
+    \begin{gather*}
+        \sum_{i=1}^n |x_i + y_i|^2 = \normaeuc{x + y}^2 \leq \normaeuc{x+y} \left( \normaeuc{x} + \normaeuc{y} \right) \implies \\
+        \normaeuc{x + y} \leq \normaeuc{x} + \normaeuc{y}
+    \end{gather*}
+    
+    De esta forma, queda demostrada la desigualdad triangular.
+\end{proof}
+
+\subsection{Bolas abiertas y conjuntos en $\R^n$}
+
+\begin{defn}
+    Sea $a$ un punto fijo en $\R^n$ y sea $r>0$. El conjunto de todos los puntos $x \in \R^n$ tales que
+
+    \[
+    \normaeuc{x-a} < r
+    \]
+    
+    \noindent se llama una \ul{$n$-bola abierta} de radio $r$ y centro $a$. Denotamos este conjunto por $B_2(a)$ o por $B_2(a, r)$.
+\end{defn}
+
+La topología generada por $\normaeuc{ }$ en $\R^n$ es la \textit{topología eucledeana}.
+
+\begin{aco}
+    La topología eucledeana no es la única que podemos considerar en $\R^n$. Si consideramos otras normas:
+    
+    \begin{gather*}
+        \normap{x}{1} = \sum_{i=1}^n |x_i| \\
+        \normap{x}{p} = \sum_{i=1}^n |x_i^p|^{1/p} \quad \text{con $p \geq 1$} \\
+        \norma{x} = \sup_{i = 1, \dots, n} |x_i|
+    \end{gather*}
+    
+    Entonces podremos definir otras distancias:
+    
+    \begin{gather*}
+        d_1(x,y) = \normap{x-y}{1} \\
+        d_{\infty}(x,y) = \norma{x-y} \\
+        d_p(x,y) = \normap{x-y}{p}
+    \end{gather*}
+    
+    En este contexto podemos nuevamente hablar de espacios topológicos y estructuras topológicas todas relacionadas a $\R^n$. También podemos definir las bolas abiertas $B_1(a,r), B_{\infty}(a,r), B_p(a,r)$ definidas para cada norma.
+\end{aco}
+
+\begin{defn}
+    Diremos que $A \subset \R^n$ es \ul{abierto} si para cada $x \in A$, $\exists r > 0$ tal que $B_2(x,r) \subset A$.
+    
+    Además, $a \in A$ es un \ul{punto interior} si $\exists r > 0$ tal que $B_2(a,r) \subset A$.
+\end{defn}
+
+\begin{defn}
+    Denotaremos por el \ul{interior} de $A$ al siguiente conjunto:
+    
+    \[
+    \interior{A} = \{x \in \R^n : x \quad \text{es punto interior de $A$}\}
+    \]
+\end{defn}
+
+\begin{teo}
+    $A$ es abierto sii $A = \interior{A}$.
+\end{teo}
+
+\begin{proof}
+    Se deja como ejercicio.
+\end{proof}
+
+De aquí en adelante, consideraremos la topología eucledeana:
+
+\[
+\topeuc = \{\R^n, \emptyset, B_2(x,r)\}, \quad \text{donde $r>0$ y $x \in \R^n$}
+\]
+
+Esta topología cumple con la definición:
+
+\begin{itemize}
+    \item $R^n, \emptyset \in \topeuc$.
+    \item $\displaystyle \left( A_i \right)_{i=1}^{\infty} \in \topeuc \implies \bigcup_{i=1}^{\infty} A_i \in \topeuc$.
+    \item $\displaystyle \left( A_i \right)_{i=1}^n \in \topeuc \implies \bigcap_{i=1}^n A_i \in \topeuc$.
+\end{itemize}
+
+Esto nos da pie a otra definición:
+
+\begin{defn}
+    Un conjunto $A \subset \R^n$ es \ul{cerrado} sii $A^c$ es abierto\marginfootnote{Recordemos que $A^c = \R^n \backslash A$.}.
+\end{defn}
+
+\begin{pro}
+    Sean $A, B \in \R^n$. Si $A$ es abierto y $B$ es cerrado, entonces
+    
+    \begin{itemize}
+        \item $A \backslash B$ es abierto.
+        \item $B \backslash A$ es cerrado.
+    \end{itemize}
+\end{pro}
+
+\begin{proof}
+    Basta ver que
+    
+    \[
+    A \backslash B = A \cap B^c
+    \]
+    
+    Como $B$ es cerrado, entonces $B^c$ es abierto. Luego, como la intersección de dos conjuntos abiertos es abierto, entonces $A \backslash B$ es abierto y queda demostrado.
+    
+    La demostración para el segundo punto es análoga.
+\end{proof}
+
+\begin{defn}
+    Sea $a \in \R^n$ y $A \subset \R^n$. Entonces $a$ es \ul{punto de acumulación} de $A$ si para cada $\varepsilon > 0$, $\exists x \in A$ (con $x \neq a$), tal que
+    
+    \[
+    B_2(a, \varepsilon) \backslash \{a\} \cap A \neq \emptyset \quad \footnotemark
+    \]\footnotetext{Es importante resaltar que $x$ no necesariamente tiene que estar en $A$.}
+    
+    Si $x \in A$ pero no es de acumulación, se dice que $x$ es \ul{aislado}.
+\end{defn}
+
+\begin{nota}
+    Tomaremos
+    
+    \[
+    A' = \{a \in \R^n : \text{$a$ es de acumulación de $A$}\}
+    \]
+    
+    Y la \ul{clausura} de $A$ como
+    
+    \[
+    \Bar{A} = A \cup A'
+    \]
+\end{nota}
+
+\subsection{Caracterización de cerrados}
+
+\begin{pro}
+    $A \subset \R^n$ es un conjunto cerrado sii $A' \subset A$.
+\end{pro}
+
+\begin{proof}
+
+    Pasemos a demostrar ambas implicaciones:
+    
+    \begin{enumerate}
+        \item[($\Rightarrow$)] Supongamos que $A$ es cerrado y que existe un punto $a \in A'$ pero que $a \notin A$. Como $A^c$ es abierto y $a \notin A$ entonces existe un $\varepsilon > 0$ tal que $B_2(a, \varepsilon) \subset A^c$. Luego si algún $x \in B_2(a, \varepsilon)$ entonces $x \notin A$. Pero esto implica que para todo $x \in B_2(a, \varepsilon)$
+        
+        \[
+        \left( B_2(a, \varepsilon) \backslash \{a\} \right) \cap A = \emptyset
+        \]
+        
+        Lo que contradice que $a \in A'$. Por lo tanto, si $A$ es cerrado entonces $A' \subset A$.
+        
+        \item[($\Leftarrow$)] Ahora supongamos que $A' \subset A$. Sea $x_0 \in A^c$, entonces $x_0$ es aislado ya que $A' \subset A$, por lo tanto existe $\varepsilon > 0$ tal que
+        
+        \[
+        B(x_0, \varepsilon) \cap A = \emptyset
+        \]
+        
+        Ahora, esto implica que $B(x_0, \varepsilon) \subset A^c$ y de esta manera, $A^c$ es abierto, y esto ocurre para todo $x_0 \in A^c$.
+        
+        Como $A^c$ es abierto, $A$ es cerrado. De esta forma queda demostrado.
+    \end{enumerate}
+\end{proof}
+
+\begin{cor}
+    $A \subset \R^n$ es un conjunto cerrado sii $\Bar{A} = A$.
+\end{cor}
+
+\begin{proof}
+    Para demostrar este resultado, basta cer que $\Bar{A} = A \cup A'$ y aplicar el resultado anterior.
+\end{proof}
+
+\begin{teo}
+    Sean $a \in \R^n$ y $A \subset \R^n$. Entonces $a \in A'$ sii para todo $\varepsilon > 0$ la bola $B_2(a, \varepsilon)$ contiene infinitos puntos de $A$.
+\end{teo}
+
+\begin{proof}
+    Pasemos a demostrar ambas implicaciones:
+    
+    \begin{enumerate}
+        \item[($\Rightarrow$)] Consideremos $a \in A'$ y supongamos que existe $\varepsilon > 0$ tal que la bolas $B_2(a, \varepsilon)$ contiene una cantidad finita de puntos de $A$. Sean $\{x_1, \dots, x_n\}$ dichos puntos y consideremos
+        
+        \[
+        r = \frac{\min \normaeuc{a - x_n}}{2}
+        \]
+        
+        Entonces $\left( B_2(a, r) \backslash \{a\} \right) \cap A = \emptyset$. Esto es una contradicción ya que $a$ es un punto de acumulación de $A$. Por lo tanto la bola contiene una cantidad infinita de puntos de $A$.
+        
+        \item[($\Leftarrow$)] Consideremos la bola $B_2(a, \varepsilon)$ para $\varepsilon > 0$. Como esta bola tiene una cantidad infinita de puntos de $A$, entonces existe $a_0 \neq a$ tal que $a_0 \in B(a,r), a_0 \in A$. Esto implica que
+        
+        \[
+        A \cap \left( B(a,r) \backslash \{a\} \right) \neq \emptyset
+        \]
+        
+        Pero esta es la definición de punto de acumulación. Entonces $a \in A'$.
+    \end{enumerate}
+    
+    De esta forma queda demostrado el teorema.
+\end{proof}
+
+\begin{cor}
+    Si $A \subset \R^n$ es finito entonces $A' = \emptyset$.
+\end{cor}
+
+\begin{aco}
+    El recíproco no es cierto: Un contraejemplo es el conjunto de los enteros $\{1, 2, 3, 4, \dots\}$ el cual es infinito, pero no tiene puntos de acumulación.
+\end{aco}

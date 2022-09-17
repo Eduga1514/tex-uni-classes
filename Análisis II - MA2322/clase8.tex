@@ -1,0 +1,238 @@
+\subsection{Condición de Cauchy. Sucesiones integrables y derivables}
+
+\begin{nota}
+    Diremos que $\sucinf{f}{n} \in A(D)$ satisface la condición \ul{fuertemente Cauchy} si es una sucesión de Cauchy con respecto a la norma del supremo. Es decir: dado $\epsilon > 0$, $\exists N_{\varepsilon} \in \N$ tal que
+    
+    \[
+    \norma{f_n - f_m} < \varepsilon \quad \forall n,m \geq N_{\varepsilon}
+    \]
+\end{nota}
+
+\begin{teo}
+    Sea $\sucinf{f}{n} \in A(D)$. Esta sucesión c.u sii es fuertemente Cauchy.
+\end{teo}
+
+\begin{proof}
+    Pasemos a demostrar ambos sentidos de la implicación:
+    
+    \begin{itemize}
+        \item[($\Rightarrow$)] Como $\sucinf{f}{n}$ c.u a una función $f$, dado $\varepsilon > 0$, $\exists N_{\varepsilon} \in \N$ tal que
+        
+        \[
+        \norma{f_n - f} < \varepsilon/2 \quad \forall n \geq N_{\varepsilon}
+        \]
+        
+        Al escoger $k,m \geq N_{\varepsilon}$ tenemos que
+        
+        \[
+        \norma{f_k - f_m} = \norma{f_k - f_m + f - f} \leq \norma{f_k - f} + \norma{f_m - f} < \varepsilon/2 + \varepsilon/2 = \varepsilon
+        \]
+        
+        En conlusión, $\norma{f_k - f_m} < \varepsilon$. Así queda demostrado.
+        
+        \item[($\Leftarrow$)] Si $\sucinf{f}{n}$ es fuertemenete Cauchy, entonces dado $\varepsilon > 0$ existe algún $N_{\varepsilon}$ tal que
+        
+        \[
+        \norma{f_n - f_m} < \varepsilon \quad \forall n,m \geq N_{\varepsilon}
+        \]
+        
+        Entonces $\sucinf{f}{n}$ es puntualmente Cauchy, es decir que $\left\{ f_n(x) \right\}_{n=1}^{\infty} \subset \R$ para cada $x \in D$ fijo y arbitrario. Pero como $\R$ es completo, toda sucesión de Cauchy es convergente. Así, para cada $x \in D$ definimos
+        
+        \[
+        f(x) = \limtoinfty{n}{f_n(x)} \implies \left| f_n(x) - f(x) \right| < \varepsilon
+        \]
+        
+        \noindent si $n \geq N_{\varepsilon}$ y $x \in D$. Entonces, como se cumple para cada $x \in D$,
+        
+        \[
+        \text{si} \quad n \geq N_{\varepsilon} \implies \sup_{x \in D} \left| f_n(x) - f(x) \right| < \epsilon
+        \]
+        
+        \noindent pero esto implica que $f_n \xrightarrow[]{\text{c.u}} f$. De esta forma, queda demostrado.
+    \end{itemize}
+\end{proof}
+
+De esta forma, tenemos que $(A(D), \norma{\dots})$ es completo.
+
+\begin{teo}
+    Sean $f_n: D \rightarrow \R$, y sea $\sucinf{f}{n} \subset C(D)$. Si $f_n \xrightarrow[]{\text{c.u}} f$ entonces $f$ es continua.
+\end{teo}
+
+\begin{proof}
+    Consideremos $\varepsilon > 0$, $x_0 \in D$. Por la continuidad de $\sucinf{f}{n}$, existe un $\delta(\varepsilon, x_0)$ tal que
+    
+    \[
+    \text{si} \quad |x_0 - y| < \delta \implies \left|f_n(x_0) - f_n(y) \right| < \varepsilon/3
+    \]
+    
+    Por otro lado, por c.u sabemos que existe un $N_0 \in \N$ tal que
+    
+    \[
+    \text{si} \quad n \geq N_0 \implies \norma{f_n - f} < \varepsilon/3
+    \]
+    
+    Fijamos $n \geq N_0$ y $\delta$ dependiente de $\varepsilon, x_0, n$. Luego,
+    
+    \begin{gather}
+        \left|f(x_0) - f(y)\right| = \left|f(x_0) - f_n(x_0) + f(x_0) - f(y) + f_n(y) - f_n(y) \right| \\
+        \leq \left|f_n(x_0) - f_n(y) \right| + 2 \norma{f_n - f} < \varepsilon
+    \end{gather}
+    
+    Así tenemos que
+    
+    \[
+    \text{si} \quad |x_0 - y| < \delta_0 \implies |f(x_0) - f(y)| < \varepsilon
+    \]
+    
+    Así, $f$ es continua, y queda demostrado el teorema.
+\end{proof}
+
+Vamos a ver un resultado que establece las condiciones que tiene que cumplir una función que c.p a una función $f$ para que c.u a la misma función $f$.
+
+\begin{teo}[Teorema de Dini]\label{teo:diny}
+    Sea $\sucinf{f}{n} \subset C(D)$ con $D \subset \R$ compacto. Si $\sucinf{f}{n}$ es creciente $\forall x \in D$ y $\limtoinfty{n}{f_n(x)} = f(x)$ puntualmente con $f \in C(D)$, para cada $x \in D$. Entonces
+    
+    \[
+    \limtoinfty{n}{\norma{f_n - f}} = 0
+    \]
+\end{teo}
+
+\begin{proof}
+    Definamos una sucesión de funciones $\sucinf{g}{n}$ donde para cada $n$, $g_n = f_n - f$. Esta sucesión cumple:
+    
+    \begin{itemize}
+        \item Todas las $g_n$ son continuas.
+        \item $g_n(x)$ son decrecientes $\forall x \in D$. Esto debido a que $f_n$ es creciente y converge a $f$, por lo que su diferencia es decreciente.
+        \item $\limtoinfty{n}{g_n(x)} = \limtoinfty{n}{f - f_n(x)} = 0$ para cada $x \in D$.
+    \end{itemize}
+    
+    La tercera hipótesis nos permite establecer que: dado $\varepsilon > 0$, $\exists N_0(x, \varepsilon) \in \N$\marginfootnote{Recordemos que $x$ está fijo por la convergencia puntual.} tal que
+    
+    \[
+    \left|g_n(x)\right| < \varepsilon/2 \quad \forall n \geq N_0(x, \varepsilon)
+    \]
+    
+    Por otro lado, como las $g_n$ son continuas: dado $\varepsilon > 0$, $\exists \delta(x, n)$ tal que
+    
+    \[
+    \text{si} \quad |x-y| < \delta(x, n) \implies \left|g_n(x) - g_n(y)\right| < \varepsilon/2
+    \]
+    
+    Ahora, como $D$ es compacto si denotamos por
+    
+    \[
+    I^{\varepsilon}\left(\delta(x, n), x\right) = \left(x - \delta(x, n), x + \delta(x, n)\right)
+    \]
+    
+    \noindent entonces $D \subset \bigcup_{x \in D} I^{\varepsilon}\left(\delta(x, n), x\right)$\marginfootnote{Recordar la definición de compacidad: Hay un subcubrimiento por abiertos que cubre a $D$ totalmente.}. Luego, existe $N_1 \in \N$ tal que
+    
+    \[
+    D \subseteq \bigcup_{j=1}^{N_1} I^{\varepsilon}\left(\delta(x_j, n), x_j\right)
+    \]
+    
+    Consideremos entonces 
+    
+    \[
+    N_{\varepsilon} = \max_{j = 1, \dots, N_1} N_0(x_j, \varepsilon)
+    \]
+    
+    \noindent y sea $y \in D \subseteq \bigcup_{j=1}^{N_1} I^{\varepsilon}\left(\delta(x, n), x_j\right)$, entonces existe $j_0$ tal que\marginnote{En esta demostración, lo que se hace es establecer la hipótesis de continuidad y de c.p. Luego, a través de la hipótesis de compacidad, fijar el $x$ para completar la demostración.}
+    
+    \[
+    y \in I^{\varepsilon}\left(\delta(x_{j_0}, n), x_{j_0}\right)
+    \]
+    
+    Y esto implica que existe un $n \geq N_{\varepsilon}$ tal que
+    
+    \[
+    |x_{j0} - y| < \delta(x_{j_0}, n) \implies \left|g_n(x_{j_0}) - g_n(y)\right| < \varepsilon/3
+    \]
+    
+    Ahora, fijémonos si $n \geq N_{\varepsilon}$
+    
+    \[
+    |g_n(y)| \leq |g_n(x_{j_0}) - g_n(y)| + |g_n(x_{j_0})| \leq \varepsilon/2 + \varepsilon/2 = \varepsilon
+    \]
+    
+    En conclusión, $\limtoinfty{n}{g_n} = 0$, por lo tanto $g_n$ c.u a $0$ cuando $n \rightarrow \infty$.
+\end{proof}
+
+\begin{defn}
+    Sea $\sucinf{f}{n} \subset A(D)$, con $f_n : D \rightarrow \R$ una sucesión de funciones. Diremos que $\sumtoinfty{n=1}{f_n}$ \ul{converge uniformemente} si la sucesión $\sucinf{S}{N}$, donde $S_N = f_1 + \dots + f_N$ c.u. Es decir
+    
+    \[
+    \limtoinfty{N}{\norma{S_N - f}} = 0
+    \]
+\end{defn}
+
+\begin{teo}[Weierstrass]\label{teo:wei}
+    Sean $\sucinf{f}{n} \in C(D)$ y $\sucinf{a}{n}$ una sucesión real. Supongamos que $\sumtoinfty{n=1}{a_n} < \infty$ y $\norma{f_n} < a_n$ para todo $n$.\marginfootnote{Esto es verdad sólo si la sucesión numérica es positiva.} Entonces
+    
+    \[
+    \sumtoinfty{n=1}{f_n} \quad \text{converge uniformemente.}
+    \]
+\end{teo}
+
+\begin{proof}
+    Sin pérdida de generalidad, sean $n,m \in \N$ tales que $n > m$. Luego, por desigualdad triangular
+    
+    \[
+    \norma{S_n - S_m} = \norma{f_{m+1} + \dots + f_{n}} \leq \norma{f_{m+1}} + \dots + \norma{f_n}
+    \]
+    
+    Pero por hipótesis, cada una de estas normas está acotada, entonces
+    
+    \[
+    \norma{f_{m+1}} + \dots + \norma{f_n} < a_{m+1} + \dots + a_n
+    \]
+    
+    Como $\sum a_n < \infty$, entonces $a_{m+1} + \dots + a_n = S_n^a - S_m^a$ cumple con la condición de Cauchy para series\marginfootnote{Este es el teorema 8.11 del Apostol}. Entonces, dado $\varepsilon > 0$, existe $N_{\varepsilon} \in \N$ tal que
+    
+    \[
+    \sumtoinfty{n=N_{\varepsilon}}{a_n} < \varepsilon
+    \]
+    
+    Y esto implica que si $n, m \geq N_{\varepsilon}$ entonces $a_{m+1} + \dots + a_n < \varepsilon$. De esta forma,
+    
+    \[
+    \norma{S_n - S_m} < \varepsilon \implies \{S_N\} \quad \text{es fuertemente Cauchy}
+    \]
+    
+    Por lo tanto, $\sumtoinfty{n=1}{f_n}$ converge uniformemente.
+\end{proof}
+
+\begin{teo}
+    Sea $\sucinf{f}{n}$ una familia de funciones integrable en el sentido de Riemann y c.u a $f$ en $[a,b]$. Entonces,
+    
+    \[
+    F_n(x) = \int_a^x f_n(t)dt \quad \text{convergen uniformemente a} \quad F(x) = \int_a^x f(t)dt
+    \]
+\end{teo}
+
+\begin{proof}
+    Por la convergencia uniforme, dado $\varepsilon > 0$, existe $N_0$ tal que
+    
+    \begin{equation}\label{eq:bmenosa}
+        \text{si} \quad n \geq N_0 \implies \norma{f_n - f} < \frac{\varepsilon}{b-a}
+    \end{equation}
+    
+    Por otro lado, si $n \geq N_0$, entonces
+    
+    \[
+    \norma{F_n - F} = \sup_{x \in [a,b]} \left| \int_a^x \left[f_n(t) - f(t)\right]dt \right| \leq \sup_{x \in [a,b]} \int_a^x \left[ \left| f_n(t) - f(t)\right| \right]dt
+    \]
+    
+    Como $\left| f_n(t) - f(t)\right| \leq \norma{f_n - f}$, entonces
+    
+    \[
+    \sup_{x \in [a,b]} \int_a^x \left[ \left| f_n(t) - f(t)\right| \right]dt \leq \sup_{x \in [a,b]} \left( \norma{f_n - f} \int_a^x dt \right) = \sup_{x \in [a,b]} \left( \norma{f_n - f} (x-a) \right)
+    \]
+    
+    Ahora, por \ref{eq:bmenosa} entonces
+    
+    \[
+    \norma{F_n - F} \leq \sup_{x \in [a,b]} \left( \norma{f_n - f} (x-a) \right) \leq \sup_{x \in [a,b]} \left( \frac{\varepsilon}{b-a} (x-a) \right) < \varepsilon
+    \]
+    
+    De esta forma, $\norma{F_n - F} < \varepsilon$, por lo que $F_n$ converge uniformemente a $F$.
+\end{proof}
