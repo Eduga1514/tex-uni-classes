@@ -1,0 +1,2 @@
+# tex-uni-classes
+The objective of this repository is to serve as an archive for all the stuff I do in LaTeX. I've been using it for some time instead of pen-and-paper to transcribe all of my classes, and it has served as an excellent learning tool for the past year or so. If there's someone that can find the utility in them, I don't have any problem in anybody cloning this repo and using them for themselves, but keep in mind: These notes are VERY personal and are in Spanish.
