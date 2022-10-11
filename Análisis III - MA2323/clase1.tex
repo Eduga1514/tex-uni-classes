@@ -1,0 +1,167 @@
+\section{Funciones Diferenciables}
+
+Esta parte del curso se centrará en el estudio de las funciones diferenciables, sus propiedades y aplicaciones. Además estudiaremos dos teoremas centrales cuyas demostraciones no son triviales: El teorema de la función implícita y el teorema de la función inversa.
+
+\subsection{Repaso de derivada}
+
+Haremos primero un repaso de la derivada, concepto fundamental del cálculo diferencial. Trataremos ante todo las derivadas de funciones de una variable real, más especialmente de funciones reales definidas en intervalos de $\R$.
+
+\begin{defn}
+    Sea $f$ una función real definida en un intervalo abierto $(a, b)$, y supongamos que $c \in \R$ es un punto tal que $c \in (a, b)$. Diremos que $f$ es diferenciable en $c$ siempre que el límite
+    
+    \[
+    \lim_{x \to c} \frac{f(x) - f(c)}{x-c}
+    \]
+    
+    \noindent exista. Este límite, denotado por $f'(c)$ se llama \ul{derivada} de $f$ en $c$.
+\end{defn}
+
+Esta forma de calcular límites define una nueva función $f'$ cuyo dominio está formado por aquellos puntos de $(a, b)$ en los que $f$ es diferenciable. La función $f'$ se llama la \ul{primera derivada} de $f$. De forma análoga, la $n$-ésima derivada de $f$ se designa por $f^{(n)}$, y es la primera derivada de $f^{(n-1)}$, para $n = 2, 3, \dots$
+
+\begin{teo}\label{teo:teo1.1.1}
+    Si $f$ está definida en un intervalo $(a, b)$ y es diferenciable en un punto $c$ de $(a, b)$, entonces existe una función $f^*$ (que depende de $f$ y $c$) continua en $c$ y que satisface la ecuación
+    
+    \begin{equation}\label{eq:eq1.1.1}
+        f(x) - f(c) = (x-c)f^*(x)
+    \end{equation}
+    
+    \noindent para todo $x$ de $(a, b)$, con $f^*(c) = f'(c)$. Recíprocamente, si existe una función $f^*$ continua en $c$, que satisface la ecuación anterior, entonces $f$ es diferenciable en $c$ y $f'(c) = f^*(c)$.
+\end{teo}
+
+\begin{proof}
+    Si $f$ es diferenciable en $c$, entonces $f'(c)$ existe. Definamos ahora $f^*$  en $(a, b)$ como sigue:
+    
+    \[
+    f^*(x) = 
+    \begin{cases}
+        \dfrac{f(x) - f(c)}{x-c} & \text{si $x \neq c$} \\
+        f'(c) & \text{e.o.c}
+    \end{cases}
+    \]
+    
+    Entonces $f^*$ es continua en $c$ y \ref{eq:eq1.1.1} se verifica para todo $x$ de $(a, b)$.
+    
+    Recíprocamente, si \ref{eq:eq1.1.1} se verifica para alguna función $f^*$ continua en $c$, entonces dividiento por $x-c$ y haciendo tender $x$ a $c$, vemos que $f'(c)$ existe y es igual a $f^*(c)$.
+\end{proof}
+
+Como consecuencia directa de este teorema tenemos:
+
+\begin{teo}
+    Si $f$ es diferenciable en $c$, entonces $f$ es continua en $c$.
+\end{teo}
+
+\begin{proof}
+    Se demostró en el teorema anterior. Basta con hacer $x \to c$.
+\end{proof}
+
+Ahora describiremos las fórmulas para diferenciar la suma, la resta, el producto, y el cociente de dos funciones:
+
+\begin{teo}
+    Supongamos que $f$ y $g$ están definidas en $(a, b)$ y son diferenciables en $c$. Entonces $f+g$, $f-g$ y $f \cdot g$ son también diferenciables en $c$. Esto es así para $f / g$ si $g(c) \neq 0$. Las derivadas de $c$ están dadas por
+    
+    \begin{enumerate}
+        \item $(f \pm g)'(c) = f'(c) \pm g'(c)$.
+        \item $(f \cdot g)'(c) = f(c)g'(c) + f'(c)g(c)$.
+        \item $(f/g)'(c) = \dfrac{g(c)f'(c) - f(c)g'(c)}{g(c)^2}$, si $g(c) \neq 0$.
+    \end{enumerate}
+\end{teo}
+
+Y finalmente, describiremos la regla de la cadena:
+
+\begin{teo}[Regla de la cadena]
+    Sea $f$ definida en un intervalo abierto $S$ y sea $g$ definida en $f(S)$ y consideremos la función compuesta $g \circ f$ definida en $S$ por medio de la ecuación
+    
+    \[
+    (g \circ f)(x) = g(f(x))
+    \]
+    
+    Supongamos que existe un punto $c$ de $S$ tal que $f(c)$ sea un punto interior de $f(S)$. Si $f$ es diferenciable en $c$ y $g$ es diferenciable en $f(c)$, entonces $g \circ f$ es diferenciable en $c$ y se tiene que
+    
+    \[
+    (g \circ f)'(c) = f'[f(c)]f'(c)
+    \]
+\end{teo}
+
+\begin{proof}
+    Usando el teorema \ref{teo:teo1.1.1}, tenemos que
+    
+    \[
+    f(x) - f(c) = (x-c)f^*(x)
+    \]
+    
+    \noindent para todo $x$ de $S$. Donde $f^*$ es continua en $c$ y $f^*(c) = f'(c)$. En particular,
+    
+    \[
+    g(y) - g[f(c)] = [y - g(c)]g^*(y)
+    \]
+    
+    \noindent para todo $y$ de un cierto subintervalo abierto $T$ de $f(S)$ que contenga a $f(c)$. Aquí, $g^*$ es continua en $f(c)$ y $g^*(f(c)) = g'[f(c)]$.
+    
+    Ahora pasemos a elegir un $x \in S$ tal que $y = f(x) \in T$. Entonces
+    
+    \begin{equation}\label{eq:eq1.1.2}
+        g[f(x)] - g[f(c)] = [f(x) - g(c)]g^*[f(x)] = (x-c)f^*(x)g^*[f(x)]
+    \end{equation}
+    
+    Por el teorema de continuidad de las funciones compuestas\marginfootnote{Si la función $g$ es continua en $a$ y la función $f$ es continua en $g(a)$, entonces la función compuesta $f \circ g$ es continua en $a$.},
+    
+    \[
+    g^*[f(x)] \rightarrow g^*[f(c)] = g'[f(c)] \quad \text{cuando $x \rightarrow c$}
+    \]
+    
+    Por lo que si dividimos \ref{eq:eq1.1.2} por $x-c$, y hacemos $x \rightarrow c$ obtenemos
+    
+    \[
+    \lim_{x \to c} \frac{f[f(x)] - g[f(c)]}{x-c} = g'[f(c)]f'(c)
+    \]
+    
+    \noindent como queríamos.
+\end{proof}
+
+\subsection{Campos escalares y vectoriales}
+
+Empezamos esta primera parte estudiando la noción de diferenciabilidad para funciones escalares definidas de $\R^n$ en $\R$ (a las cuales llamaremos campos escalares) y para funciones vectoriales definidas de $\R^n$ en $\R^m$ (que llamaremos campos vectoriales), con $n,m \in \N$.
+
+Para ello introduciremos primero las definiciones de derivada direccional, derivada parcial, operador gradiente y el jacobiano de una función.
+
+\begin{def}
+    Sean $A \subseteq \R^n$ abierto, conexo y convexo y $f: A \rightarrow \R$ tal que $f$ es continua. Entonces
+    
+    \[
+    \delta_i f(x_0) = \frac{\delta f}{\delta x_i}(x_0) \quad \text{\delta_1\delta_2f}
+    \]
+    
+    \noindent son las derivadas parciales de $f$ respecto a $i$-ésima variable son las funciones con valores reales, y vienen dadas por
+    
+    \[
+    \delta_i f(x_0) = \lim_{h \to 0} \frac{f(x_0 + h \cdot e_i) - f(x_0)}{h}
+    \]
+    
+    \noindent donde $h \in \R$, y $e_i = (0, 0, \dots, 1, \dots, 0)$, con el $1$ en la $i$-ésima coordenada.
+\end{def}
+
+\begin{teo}
+    Sean $A \subseteq \R^n$ abierto, conexo y convexo, con $f: A \rightarrow \R$ de clase $C^2(A)$\marginfootnote{Es decir, que $f$, $\delta_if, \delta^2_{ij}f$ para todo $i,j=1, \dots, n$ son todas funciones continuas.}. Entonces
+    
+    \[
+    \delta_k\delta_if = \delta_i\delta_kf
+    \]
+\end{teo}
+
+\begin{proof}
+    Consideremos primero para el caso $n = 2$: Queremos verificar que
+    
+    \[
+    \delta_1\delta_2f = \delta_2\delta_1f
+    \]
+    
+    Sean $(x_1, x_2) \in A$ y $h_1, h_2 \in \R$. Definamos la función $g: (x,y) \rightarrow \R$ (donde $(x,y)$ es un conjunto abierto perteneciente a $A$) de la siguiente manera
+    
+    \[
+    g(x_1) = f(x_1, x_2 + h_2) - f(x_1, x_2)
+    \]
+    
+    Como $f$ es continua, entonces $g$ es continua también. Además $g$ es derivable porque tenemos como hipótesis que es $f$ derivable con respecto a cada una de las variables\marginfootnote{????? ¿Por qué $f$ es derivable si no es algo que estamos asumiendo en la hipótesis?: Preguntar a Iris, buscar en el cálculo de apostol. Revisar el teorema 9 del capitulo 2, tromba.}.
+\end{proof}
+
+\subsection{Diferenciabilidad}
