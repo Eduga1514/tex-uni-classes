@@ -4,9 +4,11 @@ The objective of this repository is to serve as an archive for all the stuff I d
 The degree I'm going for is a degree in Mathematics from the Simón Bolívar University in Caracas, Venezuela, and the courses that I currently have here are:
 
   - Análisis II.
+  - Análisis III (in progress).
+  - Teoría de Grafos I (in progress).
   - Combinatoria.
-  - Introducción a la Teoría de Ramsey.
+  - Introducción a la Teoría de Ramsey (missing a couple of sections).
   
 And I have personal notes on:
 
-   - Topología
+   - Topología (in progress).
