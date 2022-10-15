@@ -1,10 +1,5 @@
-\section{Funciones Diferenciables}
-\addtocounter{sec}{1}
-
-Esta parte del curso se centrará en el estudio de las funciones diferenciables, sus propiedades y aplicaciones. Además estudiaremos dos teoremas centrales cuyas demostraciones no son triviales: El teorema de la función implícita y el teorema de la función inversa.
-
-\subsection{Repaso de derivada}
-\stepcounter{subsec}
+\section{Repaso de Derivada}
+\stepcounter{sec}
 
 Haremos primero un repaso de la derivada, concepto fundamental del cálculo diferencial. Trataremos ante todo las derivadas de funciones de una variable real, más especialmente de funciones reales definidas en intervalos de $\R$.
 
@@ -120,6 +115,11 @@ Y finalmente, describiremos la regla de la cadena:
     \noindent como queríamos.
 \end{proof}
 
+\section{Funciones Diferenciables}
+\addtocounter{sec}{1}
+
+Esta parte del curso se centrará en el estudio de las funciones diferenciables, sus propiedades y aplicaciones. Además estudiaremos dos teoremas centrales cuyas demostraciones no son triviales: El teorema de la función implícita y el teorema de la función inversa.
+
 \subsection{Campos escalares y vectoriales}
 \stepcounter{subsec}
 
@@ -202,10 +202,10 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     
     Y así queda demostrado el teorema para $n=2$. Para $n>2$ el procedimiento es el mismo, pero hay que tener más cuidado con la notación:
     
-    Sea el vector $x_0 = (x_0', x_0^2, \dots, x_0^n) \in A$ con $i \neq j$, $(i < j)$. Definamos nuevamente una función auxiliar para $x, y \in \R$
+    Sean el vector $x_0 = (x_0^1, x_0^2, \dots, x_0^n) \in A$, y $h_i, h_j \in \R$ con $i \neq j$, $(i < j)$. Definamos nuevamente una función auxiliar para $x, y \in \R$
     
     \[
-    \Phi(x,y) = f(x_0', x_0^2, \dots, x, \dots, y, \dots, x_0^n)
+    \Phi(x,y) = f(x_0^1, x_0^2, \dots, x, \dots, y, \dots, x_0^n)
     \]
     
     \noindent donde $x$ está en la $i$-ésima coordenada e $y$ está en la $j$-ésima coordenada. Esto para todo $(x, y) \in U$, donde $U$ es un abierto que contiene a $(x_0^i, x_0^j)$. Sea ahora
@@ -214,17 +214,39 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     g(x_0^i) = \Phi(x_0^i, x_0^j + h_j) - \Phi(x_0^i, x_0^j)
     \]
     
-    Por el \TVM, podemos decir que
+    Como $f$ es de clase $C^2(A)$, entonces $\Phi$ y $g$ son continuas y derivables en $x_0^i$ y $(x_0^i, x_0^i + h_i)$ respectivamente. Entonces podemos usar el \TVM, sobre $g$ y el intervalo $[x_0^i, x_0^i + h_i]$, y existe $S_i \in (x_0^i, x_0^i + h_i)$ tal que
     
     \[
     g(x_0^i + h_i) - g(x_0^i) = h_ig'(S_i)
     \]
     
-    Procediendo de forma análoga\marginnote{Completar este argumento} que en el caso para $n=2$, tenemos que
+    Luego,
+    
+    \begin{align*}
+        \Phi(x_0^i + h_i, &x_0^j + h_j) - \Phi(x_0^i + h_0^i, x_0^j) - \Phi(x_0^i, x_0^j + h_0^j) + \Phi(x_0^i, x_0^j) \\
+            &= g(x_0^i + h_i) - g(x_0^i) = h_i \cdot g'(S_i) \\
+            &= h_i \left[ \delta_i \Phi(S_i, x_0^j + h_j) - \delta_i \Phi(S_i, x_0^j) \right]
+    \end{align*}
+    
+    Como la función $f$ es de clase $C^2$, nuevamente podemos aplicar el \TVM, y nos queda que
+    
+    \begin{align}\label{eq:1.2.3}
+        h_i \left[ \delta_i \Phi(&S_i, x_0^j + h_j) - \delta_i \Phi(S_i, x_0^j) \right] \nonumber \\
+            &= h_ih_j \delta_j\delta_i \Phi(S_i, S_j)
+    \end{align}
+    
+    Nuevamente, ahora si consideramos $\hat{g}(x_0^j) = \Phi(x_0^i + h_i, x_0^j) - \Phi(x_0^i, x_0^j)$, podemos repetir el mismo argumento y podemos concluir que existen $t_1 \in (x_0^i, x_0^i + h_i)$ y $t_2 \in (x_0^j, x_0^j + h_j)$ tales que
+    
+    \begin{align}\label{eq:1.2.4}
+        \Phi(x_0^i + h_i, &x_0^j + h_j) - \Phi(x_0^i + h_0^i, x_0^j) - \Phi(x_0^i, x_0^j + h_0^j) + \Phi(x_0^i, x_0^j) \nonumber \\
+            &= h_ih_j \delta_i\delta_j \Phi(t_i, t_j)
+    \end{align}
+    
+    De esta manera, de \ref{eq:1.2.3} y \ref{eq:1.2.4} tenemos que
     
     \begin{gather*}
-        h_ih_j \delta_j\delta_i f(x_0', \dots, S_i, \dots, S_j, \dots, x_0^n) \\
-        = h_ih_j \delta_i\delta_j f(x_0', \dots, t_i, \dots, t_j, \dots, x_0^n)
+        h_ih_j \delta_j\delta_i f(x_0^1, \dots, S_i, \dots, S_j, \dots, x_0^n) \\
+        = h_ih_j \delta_i\delta_j f(x_0^1, \dots, t_i, \dots, t_j, \dots, x_0^n)
     \end{gather*}
     
     Al hacer $(h_i, h_j) \to (0, 0)$, como las derivadas parciales existen (tanto las de primer como segundo grado), podemos concluir que
