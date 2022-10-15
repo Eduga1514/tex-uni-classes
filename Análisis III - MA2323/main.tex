@@ -1,11 +1,10 @@
 \documentclass{tufte-handout}
 \usepackage[utf8]{inputenc}
 \usepackage{parskip} % Varios paquetes para símbolos y fuentes
-\usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{fdsymbol}
-\usepackage{mathtools}
 \usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{physics}
 \usepackage{tikz, pgfplots}
 \usetikzlibrary{decorations.pathreplacing, calligraphy, arrows.meta}
 \usepackage{titling} % Para estilizar el título
@@ -29,6 +28,7 @@
 \newtheorem{lem}[teo]{Lema}
 \newtheorem{pro}[teo]{Proposición}
 \newtheorem{pre}{Pregunta}
+\newtheorem{prop}{Propiedad}
 
 \theoremstyle{definition}
 \newtheorem{defn}{Definición}
@@ -43,13 +43,10 @@
 \newcommand{\marginfootnote}[1]{\footnotemark\footnotetext{#1}}
 
 \newcommand{\N}{\mathbb{N}}
-\newcommand{\Ne}{N_{\varepsilon}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Oc}{\mathcal{O}}
 \newcommand{\Pa}{\mathcal{P}}
 \newcommand{\F}{\mathcal{F}}
-\newcommand{\Pe}{P_{\varepsilon}}
-\newcommand{\intab}{\int_a^b}
 \newcommand{\Rint}{R\big([a,b]\big)}
 \newcommand{\sucinf}[2]{\left({#1}_{#2}\right)_{#2=1}^{\infty}}
 \newcommand{\norma}[1]{\left\| #1 \right\|_{\infty}}
@@ -57,15 +54,18 @@
 \newcommand{\normap}[2]{\left\| #1 \right\|_{#2}}
 \newcommand{\limtoinfty}[2]{\lim_{{#1} \to \infty} #2}
 \newcommand{\sumtoinfty}[2]{\sum_{#1}^{\infty} #2}
-\newcommand{\interior}[1]{\operatorname{int}(#1)}
-\newcommand{\topeuc}{\tau^2_{\R^n}}
+\newcommand{\TVM}{\hyperref[teo:1.1.1]{\textbf{T.V.M}}}
 
 % Establece el directorio para las imagenes
 \graphicspath{ {img/} }
 
 % Resetea el contador de ecuaciones en cada sección y/o subsección
-\counterwithin*{equation}{section}
-\counterwithin*{equation}{subsection}
+\newcounter{sec}
+\newcounter{subsec}
+\setcounter{sec}{0}
+\setcounter{subsec}{0}
+\counterwithin*{equation}{sec}
+\counterwithin*{equation}{subsec}
 
 
 % Establecemos cómo será el encabezado y el pie de página

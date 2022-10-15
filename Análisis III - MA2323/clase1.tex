@@ -1,8 +1,10 @@
 \section{Funciones Diferenciables}
+\addtocounter{sec}{1}
 
 Esta parte del curso se centrará en el estudio de las funciones diferenciables, sus propiedades y aplicaciones. Además estudiaremos dos teoremas centrales cuyas demostraciones no son triviales: El teorema de la función implícita y el teorema de la función inversa.
 
 \subsection{Repaso de derivada}
+\stepcounter{subsec}
 
 Haremos primero un repaso de la derivada, concepto fundamental del cálculo diferencial. Trataremos ante todo las derivadas de funciones de una variable real, más especialmente de funciones reales definidas en intervalos de $\R$.
 
@@ -18,10 +20,10 @@ Haremos primero un repaso de la derivada, concepto fundamental del cálculo dife
 
 Esta forma de calcular límites define una nueva función $f'$ cuyo dominio está formado por aquellos puntos de $(a, b)$ en los que $f$ es diferenciable. La función $f'$ se llama la \ul{primera derivada} de $f$. De forma análoga, la $n$-ésima derivada de $f$ se designa por $f^{(n)}$, y es la primera derivada de $f^{(n-1)}$, para $n = 2, 3, \dots$
 
-\begin{teo}\label{teo:teo1.1.1}
+\begin{teo}[Teorema del Valor Medio (T.V.M)]\label{teo:1.1.1}
     Si $f$ está definida en un intervalo $(a, b)$ y es diferenciable en un punto $c$ de $(a, b)$, entonces existe una función $f^*$ (que depende de $f$ y $c$) continua en $c$ y que satisface la ecuación
     
-    \begin{equation}\label{eq:eq1.1.1}
+    \begin{equation}\label{eq:1.1.1}
         f(x) - f(c) = (x-c)f^*(x)
     \end{equation}
     
@@ -39,9 +41,9 @@ Esta forma de calcular límites define una nueva función $f'$ cuyo dominio est�
     \end{cases}
     \]
     
-    Entonces $f^*$ es continua en $c$ y \ref{eq:eq1.1.1} se verifica para todo $x$ de $(a, b)$.
+    Entonces $f^*$ es continua en $c$ y \ref{eq:1.1.1} se verifica para todo $x$ de $(a, b)$.
     
-    Recíprocamente, si \ref{eq:eq1.1.1} se verifica para alguna función $f^*$ continua en $c$, entonces dividiento por $x-c$ y haciendo tender $x$ a $c$, vemos que $f'(c)$ existe y es igual a $f^*(c)$.
+    Recíprocamente, si \ref{eq:1.1.1} se verifica para alguna función $f^*$ continua en $c$, entonces dividiento por $x-c$ y haciendo tender $x$ a $c$, vemos que $f'(c)$ existe y es igual a $f^*(c)$.
 \end{proof}
 
 Como consecuencia directa de este teorema tenemos:
@@ -83,7 +85,7 @@ Y finalmente, describiremos la regla de la cadena:
 \end{teo}
 
 \begin{proof}
-    Usando el teorema \ref{teo:teo1.1.1}, tenemos que
+    Usando el teorema \ref{teo:1.1.1}, tenemos que
     
     \[
     f(x) - f(c) = (x-c)f^*(x)
@@ -99,7 +101,7 @@ Y finalmente, describiremos la regla de la cadena:
     
     Ahora pasemos a elegir un $x \in S$ tal que $y = f(x) \in T$. Entonces
     
-    \begin{equation}\label{eq:eq1.1.2}
+    \begin{equation}\label{eq:1.1.2}
         g[f(x)] - g[f(c)] = [f(x) - g(c)]g^*[f(x)] = (x-c)f^*(x)g^*[f(x)]
     \end{equation}
     
@@ -109,7 +111,7 @@ Y finalmente, describiremos la regla de la cadena:
     g^*[f(x)] \rightarrow g^*[f(c)] = g'[f(c)] \quad \text{cuando $x \rightarrow c$}
     \]
     
-    Por lo que si dividimos \ref{eq:eq1.1.2} por $x-c$, y hacemos $x \rightarrow c$ obtenemos
+    Por lo que si dividimos \ref{eq:1.1.2} por $x-c$, y hacemos $x \rightarrow c$ obtenemos
     
     \[
     \lim_{x \to c} \frac{f[f(x)] - g[f(c)]}{x-c} = g'[f(c)]f'(c)
@@ -119,29 +121,30 @@ Y finalmente, describiremos la regla de la cadena:
 \end{proof}
 
 \subsection{Campos escalares y vectoriales}
+\stepcounter{subsec}
 
 Empezamos esta primera parte estudiando la noción de diferenciabilidad para funciones escalares definidas de $\R^n$ en $\R$ (a las cuales llamaremos campos escalares) y para funciones vectoriales definidas de $\R^n$ en $\R^m$ (que llamaremos campos vectoriales), con $n,m \in \N$.
 
 Para ello introduciremos primero las definiciones de derivada direccional, derivada parcial, operador gradiente y el jacobiano de una función.
 
-\begin{def}
+\begin{defn}
     Sean $A \subseteq \R^n$ abierto, conexo y convexo y $f: A \rightarrow \R$ tal que $f$ es continua. Entonces
     
     \[
-    \delta_i f(x_0) = \frac{\delta f}{\delta x_i}(x_0) \quad \text{\delta_1\delta_2f}
+    \delta_i f(x_0) = \frac{\delta f}{\delta x_i}(x_0)
     \]
     
-    \noindent son las derivadas parciales de $f$ respecto a $i$-ésima variable son las funciones con valores reales, y vienen dadas por
+    \noindent son las \ul{derivadas parciales} de $f$ respecto a $i$-ésima variable son las funciones con valores reales, y vienen dadas por
     
     \[
     \delta_i f(x_0) = \lim_{h \to 0} \frac{f(x_0 + h \cdot e_i) - f(x_0)}{h}
     \]
     
     \noindent donde $h \in \R$, y $e_i = (0, 0, \dots, 1, \dots, 0)$, con el $1$ en la $i$-ésima coordenada.
-\end{def}
+\end{defn}
 
 \begin{teo}
-    Sean $A \subseteq \R^n$ abierto, conexo y convexo, con $f: A \rightarrow \R$ de clase $C^2(A)$\marginfootnote{Es decir, que $f$, $\delta_if, \delta^2_{ij}f$ para todo $i,j=1, \dots, n$ son todas funciones continuas.}. Entonces
+    Sean $A \subseteq \R^n$ abierto, conexo y convexo, con $f: A \rightarrow \R$ de clase $C^2(A)$\marginfootnote{Es decir, que $f$, $\delta_if, \delta^2_{ij}f$ para todo $i,j=1, \dots, n$ existen en cada punto de $A$ y además son continuas.}. Entonces
     
     \[
     \delta_k\delta_if = \delta_i\delta_kf
@@ -161,7 +164,260 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     g(x_1) = f(x_1, x_2 + h_2) - f(x_1, x_2)
     \]
     
-    Como $f$ es continua, entonces $g$ es continua también. Además $g$ es derivable porque tenemos como hipótesis que es $f$ derivable con respecto a cada una de las variables\marginfootnote{????? ¿Por qué $f$ es derivable si no es algo que estamos asumiendo en la hipótesis?: Preguntar a Iris, buscar en el cálculo de apostol. Revisar el teorema 9 del capitulo 2, tromba.}.
+    Como $f$ es continua, entonces $g$ es continua también. Además $g$ es derivable porque tenemos como hipótesis que es $f$ derivable con respecto a cada una de las variables. En consecuencia, $g$ es derivable en el punto $x_1$. Consideremos $g$ sobre el intervalo $[x_1, x_1 + h_1]$, aplicando el \TVM, existe $S_1 \in (x_1, x_1 + h_1)$ tal que satisface
+    
+    \[
+    g'(S_1) = \frac{g(x_1 + h_1) - g(x_1)}{h_1}
+    \]
+    
+    Por lo tanto, tenemos que
+    
+    \begin{align*}
+        f(x_1 + h_1, &x_2 + h_2) - f(x_1 + h_1, x_2) - f(x_1, x_2 + h_2) + f(x_1, x_2) \\
+            &= g(x_1 + h_1) - g(x_1) = h_1 \cdot g'(S_1) \\
+            &= h_1 \left[ \delta_1 f(S_1, x_2 + h_2) - \delta_1 f(S_1, x_2) \right]
+    \end{align*}
+    
+    Como la función $f$ es de clase $C^2$, nuevamente podemos aplicar el \TVM, y nos queda que
+    
+    \begin{align}\label{eq:1.2.1}
+        h_1 \big[ \delta_1 f(&S_1, x_2 + h_2) - \delta_1 f(S_1, x_2) \big] \nonumber \\
+            &= h_1h_2 \delta_2\delta_1 f(S_1, S_2)
+    \end{align}
+    
+    \noindent con $S_2 \in (x_2, x_2 + h_2)$.
+    
+    Nuevamente, ahora si consideramos $\hat{g}(x_2) = f(x_1 + h_1, x_2) - f(x_1, x_2)$, podemos repetir el mismo argumento y podemos concluir que existen $t_1 \in (x_1, x_1 + h_1)$ y $t_2 \in (x_2, x_2 + h_2)$ tales que
+    
+    \begin{align}\label{eq:1.2.2}
+        f(x_1 + h_1, &x_2 + h_2) - f(x_1 + h_1, x_2) - f(x_1, x_2 + h_2) + f(x_1, x_2) \nonumber \\
+            &= h_1h_2 \delta_1\delta_2 f(t_1, t_2)
+    \end{align}
+    
+    Al hacer $(h_1, h_2) \to (0, 0)$, como las derivadas parciales existen (tanto las de primer como segundo grado), podemos concluir por \ref{eq:1.2.1} y \ref{eq:1.2.2} que
+    
+    \[
+    \delta_1\delta_2 f(x_1, x_2) = \delta_2\delta_1 f(x_1, x_2)
+    \]
+    
+    Y así queda demostrado el teorema para $n=2$. Para $n>2$ el procedimiento es el mismo, pero hay que tener más cuidado con la notación:
+    
+    Sea el vector $x_0 = (x_0', x_0^2, \dots, x_0^n) \in A$ con $i \neq j$, $(i < j)$. Definamos nuevamente una función auxiliar para $x, y \in \R$
+    
+    \[
+    \Phi(x,y) = f(x_0', x_0^2, \dots, x, \dots, y, \dots, x_0^n)
+    \]
+    
+    \noindent donde $x$ está en la $i$-ésima coordenada e $y$ está en la $j$-ésima coordenada. Esto para todo $(x, y) \in U$, donde $U$ es un abierto que contiene a $(x_0^i, x_0^j)$. Sea ahora
+    
+    \[
+    g(x_0^i) = \Phi(x_0^i, x_0^j + h_j) - \Phi(x_0^i, x_0^j)
+    \]
+    
+    Por el \TVM, podemos decir que
+    
+    \[
+    g(x_0^i + h_i) - g(x_0^i) = h_ig'(S_i)
+    \]
+    
+    Procediendo de forma análoga\marginnote{Completar este argumento} que en el caso para $n=2$, tenemos que
+    
+    \begin{gather*}
+        h_ih_j \delta_j\delta_i f(x_0', \dots, S_i, \dots, S_j, \dots, x_0^n) \\
+        = h_ih_j \delta_i\delta_j f(x_0', \dots, t_i, \dots, t_j, \dots, x_0^n)
+    \end{gather*}
+    
+    Al hacer $(h_i, h_j) \to (0, 0)$, como las derivadas parciales existen (tanto las de primer como segundo grado), podemos concluir que
+    
+    \[
+    \delta_i\delta_j f(x_0) = \delta_j\delta_i f(x_0)
+    \]
+    
+    Y queda finalizada la demostración del teorema.
 \end{proof}
 
+\begin{defn}
+    Sea $A \subseteq \R^n$ (con $n \in \N$) abierto, conexo y convexo. Sea también una función $f: A \rightarrow \R$ (es decir, a valores escalares) continua. El \ul{gradiente} de dicha función $f$ para cada punto $x \in A$, viene dado por
+    
+    \[
+    \grad f(x) = \left(\delta_1 f(x), \delta_2 f(x), \dots, \delta_n f(x)\right)
+    \]
+\end{defn}
+
+Como se puede observar, el gradiente de $f$, $\grad f$ es un campo vectorial que está definido en $\R^n \rightarrow \R^n$
+
+\begin{defn}
+    Sean $A \subseteq \R^n$ (con $n \in \N$) abierto, conexo y convexo, una función $f: A \rightarrow \R$ continua, y $u \in A$ un vector fijo y arbitrario. Consideremos ahora
+    
+    \[
+    \delta_u f(x_0) = \lim_{h \to 0} \frac{f(x_0 + hu) - f(x_0)}{h}
+    \]
+    
+    \noindent con $h \in \R$. Esta es la \ul{derivada direccional} de $f$.
+\end{defn}
+
+En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\delta_u f(x_0)$ es la derivada parcial.
+
+\begin{prop}
+    Como resultado de la linealidad de la derivada\marginfootnote{Esto se revisa de forma exhaustiva en las secciones 4.8 y 4.9 de Cálculo Tomo II de Tom Apostol}, tenemos que
+    
+    \[
+    \delta_u f(x_0) = u \cdot \grad f(x_0)
+    \]
+    
+    También tenemos que
+    
+    \[
+    \delta_u f(x_0) = \normaeuc{u} \normaeuc{\grad f(x_0)} \cos \alpha
+    \]
+    
+    Cuando el ángulo vale $0$ o $\pi$, entonces $u$ es paralelo al gradiente de $f$ en $x_0$.
+    
+    En general, el gradiente apunta a la dirección de mayor declive con respecto a la curva de nivel de la superficie generada por $f$. Y en esa dirección de mayor declive, siempre podremos considerar un vector $u$ normalizado, y nos queda
+    
+    \[
+    \delta_u f(x_0) = \normaeuc{\grad f(x_0)}
+    \]
+\end{prop}
+
+\begin{defn}
+    Sea $F: \R^n \rightarrow \R^k$ y supongamos que $F = (f_1, \dots, f_k)$, donde cada $f_i(x) = f_i(x_1, \dots, x_n)$ para $i = 1, \dots, k$. El \ul{jacobiano} está definido como
+    
+    \[
+    JF(x_0) =
+    \begin{pmatrix}
+        \delta_1 f_1(x_0) & \dots & \delta_n f_1(x_0) \\
+        \vdots & & \vdots \\
+        \delta_1 f_k(x_0) & \dots & \delta_n f_k(x_0)
+    \end{pmatrix}
+    \]
+\end{defn}
+
+\begin{nota}
+    La letra $D$ se utilizará para denotar el jacobiano, la derivada o el gradiente, dependiendo del contexto.
+\end{nota}
+
+\begin{ejem}
+    Supongamos que tenemos $F: \R^2 \rightarrow \R^2$, donde
+    
+    \[
+    F(x, y) = \left( y^2 + x^3, e^{x+y} \right)
+    \]
+    
+    Entonces tendremos que
+    
+    \[
+    JF(x,y) =
+    \begin{pmatrix}
+        3x^2    & 2y \\
+        e^{x+y} & e^{x+y}
+    \end{pmatrix}
+    \]
+    
+    En particular,
+    
+    \[
+    JF(1,1) =
+    \begin{pmatrix}
+        3   & 2 \\
+        e^2 & e^2
+    \end{pmatrix}
+    \]
+\end{ejem}
+
+\begin{pre}
+    La pregunta que queremos contestar a lo largo del curso es la siguiente: ¿Dada $F: \R^n \rightarrow \R^n$, existe $f: \R^n \rightarrow \R$ tal que $F = \grad f$?
+    
+    Si la respuesta es afirmativa, tendremos que $F$ es un \textbf{campo conservativo}.
+\end{pre}
+
 \subsection{Diferenciabilidad}
+\stepcounter{subsec}
+
+\begin{defn}
+    Sea $A \subseteq \R^k$ abierto, conexo y convexo. Sea también $f: A \rightarrow \R^n$ continua. Diremos entonces que $f$ es \ul{diferenciable} en $x_0 \in A$ si $\delta_i f$ (con $i = 1, \dots, n$) existen en el punto $x_0$ y 
+    
+    \[
+    \lim_{x \to x_0} \frac{\normaeuc{f(x) - f(x_0) - Jf(x_0)(x - x_0)}}{\normaeuc{x - x_0}} = 0 \quad \footnotemark
+    \]\footnotetext{Obsérvese que si $k=1$, entonces $\normaeuc{f} = |f|$ y $Jf(x_0)$ es el gradiente de $f$ en $x_0$.}
+\end{defn}
+
+\begin{teo}
+    Sea $f: A \rightarrow \R^k$ diferenciable en $x_0$ entonces $f$ es continua en $x_0$. Más aún, $\exists M > 0$ tal que
+    
+    \[
+    \normaeuc{f(x) - f(x_0)} \leq M \normaeuc{x - x_0}
+    \]
+    
+    \noindent si $\normaeuc{x - x_0} < \delta$ para algún $\delta < 0$.
+\end{teo}
+
+\begin{proof}
+    En primer lugar, como $f$ es diferenciable tenemos que
+    
+    \[
+    \lim_{x \to x_0} \frac{\normaeuc{f(x) - f(x_0) - Jf(x_0)(x - x_0)}}{\normaeuc{x - x_0}} = 0
+    \]
+    
+    Por definición en términos de $\epsilon - \delta$, dado $\epsilon > 0$, $\exists \delta > 0$ tal que si $\normaeuc{x-x_0} < \delta$,
+    
+    \[
+    \frac{\normaeuc{f(x) - f(x_0) - Jf(x_0)(x - x_0)}}{\normaeuc{x - x_0}} < \epsilon
+    \]
+    
+    En lo particular sea $\epsilon = 1$ y fijamos $\delta = \delta_1$. Ahora podemos decir lo siguiente: Si $\normaeuc{x - x_0} < \delta_1$ entonces por desigualdad triangular,
+    
+    \begin{align*}
+        \normaeuc{f(x) - f(x_0)} &\leq \normaeuc{f(x) - f(x_0) - Jf(x_0)(x-x_0)} + \normaeuc{Jf(x_0)(x-x_0)}\\
+            & < \normaeuc{x - x_0} + \normaeuc{Jf(x_0)(x-x_0)}
+    \end{align*}
+    
+    Ahora, toca acotar el factor $\normaeuc{Jf(x_0)(x-x_0)}$. Por definición, este jacobiano es
+    
+    \[
+    Jf(x_0)(x-x_0) =
+    \begin{pmatrix}
+        \delta_1 f_1 (x_0) & \dots & \delta_n f_1 (x_0) \\
+        \vdots             & \dots & \vdots             \\
+        \delta_1 f_k (x_0) & \dots & \delta_n f_k (x_0)
+    \end{pmatrix}
+    \begin{pmatrix}
+        x_1-x_0^1 \\
+        \vdots    \\
+        x_n-x_0^n
+    \end{pmatrix}
+    \]
+    
+    Al realizar este producto de matrices, el resultado es el siguiente vector
+    
+    \[
+    Jf(x_0)(x-x_0) =
+    \begin{pmatrix}
+        \sum_{j=1}^n \delta_j f_1 (x_0) (x_j - x_0^j) \\
+        \vdots \\
+        \sum_{j=1}^n \delta_j f_k (x_0) (x_j - x_0^j)
+    \end{pmatrix}
+    \]
+    
+    Y tomando la norma,
+    
+    \[
+    \normaeuc{Jf(x_0)(x-x_0)} \leq M_1\normaeuc{x-x_0}
+    \]
+    
+    \noindent donde $\displaystyle M_1 = \left( \sum_{v = 1}^k \left( \sum_{j=1}^n \delta_j f_v(x_0) \right)^2 \right)^{1/2}$.
+    
+    Luego,
+    
+    \[
+    \normaeuc{f(x) - f(x_0)} \leq (M_1 + 1)\normaeuc{x - x_0}
+    \]
+    
+    Sea $\delta = \min(\delta_1, \epsilon / M_1 + 1)$ entonces tenemos que si $\normaeuc{x - x_0} < \delta$, podemos concluir que
+    
+    \[
+    \normaeuc{f(x) - f(x_0)} < \varepsilon(M_1 + 1)\normaeuc{x - x_0} < \varepsilon
+    \]
+    
+    Luego $\lim_{x \to x_0} f(x) = f(x_0)$, por lo tanto $f$ es continua. De esta forma, queda demostrado que toda función diferenciable es continua.
+\end{proof}
