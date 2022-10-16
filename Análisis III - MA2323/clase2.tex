@@ -1,0 +1,61 @@
+\begin{teo}
+    Sean $f: A \subseteq \R^n \rightarrow \R^m$ con $A$ abierto, conexo y convexo, y $x_0 \in A$. Si $\frac{\partial f_i}{\partial x_j}(x_0)$ existen y además $\frac{\partial f_i}{\partial x_j} \in C(A)$, entonces $f$ es diferenciable.
+\end{teo}
+
+\begin{proof}
+    Por razones de simplicidad, solamente se demostrará el caso para $f: A \subset \R^n \rightarrow \R$ (el caso general se realiza tomando coordenada a coordenada). Queremos demostrar que
+    
+    \[
+    \lim_{h \to 0} \frac{\left| f(x + h) - f(x) - \nabla f(x) \cdot h \right|}{\normaeuc{h}} = 0
+    \]
+    
+    Evaluemos primero lo siguiente
+    
+    \begin{align*}
+        f(x + h) - f(x) &= f(x_1 + h_1, \dots, x_n + h_n) \pm f(x_1, \dots, x_n + h_n) \\
+            &\pm f(x_1, x_2, \dots, x_n + h_n) \pm \dots \pm f(x_1, x_2, \dots, x_{n-1}, x_n + h_n) \\
+            &- f(x_1, \dots, x_n)
+    \end{align*}
+    
+    Aplicando ahora el \TVM, en cada coordenada, nos queda que
+    
+    \[
+    f(x + h) - f(x) = \frac{\partial f}{\partial x_1}(y_1)h_1 + \frac{\partial f}{\partial x_2}(y_2)h_2 + \dots + \frac{\partial f}{\partial x_n}(y_n)h_n
+    \]
+    
+    Entonces podemos concluir que
+    
+    \begin{gather*}
+        \big| f(x + h) - f(x) - \nabla f(x) \cdot h \big| = \Bigg| \sum_{j=1}^n \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) h_j \Bigg| \\
+            \leq \sum_{j=1}^n \Bigg| \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) \Bigg| |h_j|
+    \end{gather*}
+    
+    \noindent como $|h_j| \leq \normaeuc{h}$ (para todo $j$), entonces lo anterior queda así
+    
+    \begin{equation}\label{eq:2.1.1}
+        \leq \left(\sum_{j=1}^n \Bigg| \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) \Bigg| |h_j|\right) \leq \sum_{j=1}^n \Bigg| \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) \Bigg| \normaeuc{h}
+    \end{equation}
+    
+    Ahora, observemos que para cada $j = 1, \dots, n$, el teorema del valor medio garantiza la existencia de un $c_j \in (x_j, x_j + h_j)$ tal que $y_j = (x_1, \dots, c_j, \dots, x_n)$. Si $h \to 0$, entonces $h_j \to 0$ para todo $j = 1, \dots, n$. Por lo tanto $y_j \to x_j$.
+    
+    Como todas las derivadas parciales son continuas por hipótesis, obtenemos que
+    
+    \[
+    \lim_{h_j \to 0} \frac{\partial f}{\partial x_j} (y_j) = \frac{\partial f}{\partial x_j} (x_j)
+    \]
+    
+    Y por \ref{eq:2.1.1}, tenemos que si hacemos a $x_j \to 0$, nos queda que
+    
+    \[
+    \left| f(x + h) - f(x) \right| \leq \normaeuc{h} \cancelto{0}{\sum_{j=1}^n \Bigg| \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) \Bigg|}
+    \]
+    
+    Y en conclusión,
+    
+    \[
+    \lim_{h \to 0} \frac{\left| f(x + h) - f(x) - \nabla f(x) h \right|}{\normaeuc{h}} = 0
+    \]
+\end{proof}
+
+\subsection{Regla de la Cadena}
+\stepcounter{subsec}
