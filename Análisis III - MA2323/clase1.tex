@@ -131,23 +131,23 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     Sean $A \subseteq \R^n$ abierto, conexo y convexo y $f: A \rightarrow \R$ tal que $f$ es continua. Entonces
     
     \[
-    \delta_i f(x_0) = \frac{\delta f}{\delta x_i}(x_0)
+    \partial_i f(x_0) = \frac{\partial f}{\partial x_i}(x_0)
     \]
     
     \noindent son las \ul{derivadas parciales} de $f$ respecto a $i$-ésima variable son las funciones con valores reales, y vienen dadas por
     
     \[
-    \delta_i f(x_0) = \lim_{h \to 0} \frac{f(x_0 + h \cdot e_i) - f(x_0)}{h}
+    \partial_i f(x_0) = \lim_{h \to 0} \frac{f(x_0 + h \cdot e_i) - f(x_0)}{h}
     \]
     
     \noindent donde $h \in \R$, y $e_i = (0, 0, \dots, 1, \dots, 0)$, con el $1$ en la $i$-ésima coordenada.
 \end{defn}
 
 \begin{teo}
-    Sean $A \subseteq \R^n$ abierto, conexo y convexo, con $f: A \rightarrow \R$ de clase $C^2(A)$\marginfootnote{Es decir, que $f$, $\delta_if, \delta^2_{ij}f$ para todo $i,j=1, \dots, n$ existen en cada punto de $A$ y además son continuas.}. Entonces
+    Sean $A \subseteq \R^n$ abierto, conexo y convexo, con $f: A \rightarrow \R$ de clase $C^2(A)$\marginfootnote{Es decir, que $f$, $\partial_if, \partial^2_{ij}f$ para todo $i,j=1, \dots, n$ existen en cada punto de $A$ y además son continuas.}. Entonces
     
     \[
-    \delta_k\delta_if = \delta_i\delta_kf
+    \partial_k\partial_if = \partial_i\partial_kf
     \]
 \end{teo}
 
@@ -155,7 +155,7 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     Consideremos primero para el caso $n = 2$: Queremos verificar que
     
     \[
-    \delta_1\delta_2f = \delta_2\delta_1f
+    \partial_1\partial_2f = \partial_2\partial_1f
     \]
     
     Sean $(x_1, x_2) \in A$ y $h_1, h_2 \in \R$. Definamos la función $g: (x,y) \rightarrow \R$ (donde $(x,y)$ es un conjunto abierto perteneciente a $A$) de la siguiente manera
@@ -175,14 +175,14 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     \begin{align*}
         f(x_1 + h_1, &x_2 + h_2) - f(x_1 + h_1, x_2) - f(x_1, x_2 + h_2) + f(x_1, x_2) \\
             &= g(x_1 + h_1) - g(x_1) = h_1 \cdot g'(S_1) \\
-            &= h_1 \left[ \delta_1 f(S_1, x_2 + h_2) - \delta_1 f(S_1, x_2) \right]
+            &= h_1 \left[ \partial_1 f(S_1, x_2 + h_2) - \partial_1 f(S_1, x_2) \right]
     \end{align*}
     
     Como la función $f$ es de clase $C^2$, nuevamente podemos aplicar el \TVM, y nos queda que
     
     \begin{align}\label{eq:1.2.1}
-        h_1 \big[ \delta_1 f(&S_1, x_2 + h_2) - \delta_1 f(S_1, x_2) \big] \nonumber \\
-            &= h_1h_2 \delta_2\delta_1 f(S_1, S_2)
+        h_1 \big[ \partial_1 f(&S_1, x_2 + h_2) - \partial_1 f(S_1, x_2) \big] \nonumber \\
+            &= h_1h_2 \partial_2\partial_1 f(S_1, S_2)
     \end{align}
     
     \noindent con $S_2 \in (x_2, x_2 + h_2)$.
@@ -191,13 +191,13 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     
     \begin{align}\label{eq:1.2.2}
         f(x_1 + h_1, &x_2 + h_2) - f(x_1 + h_1, x_2) - f(x_1, x_2 + h_2) + f(x_1, x_2) \nonumber \\
-            &= h_1h_2 \delta_1\delta_2 f(t_1, t_2)
+            &= h_1h_2 \partial_1\partial_2 f(t_1, t_2)
     \end{align}
     
     Al hacer $(h_1, h_2) \to (0, 0)$, como las derivadas parciales existen (tanto las de primer como segundo grado), podemos concluir por \ref{eq:1.2.1} y \ref{eq:1.2.2} que
     
     \[
-    \delta_1\delta_2 f(x_1, x_2) = \delta_2\delta_1 f(x_1, x_2)
+    \partial_1\partial_2 f(x_1, x_2) = \partial_2\partial_1 f(x_1, x_2)
     \]
     
     Y así queda demostrado el teorema para $n=2$. Para $n>2$ el procedimiento es el mismo, pero hay que tener más cuidado con la notación:
@@ -225,34 +225,34 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     \begin{align*}
         \Phi(x_0^i + h_i, &x_0^j + h_j) - \Phi(x_0^i + h_0^i, x_0^j) - \Phi(x_0^i, x_0^j + h_0^j) + \Phi(x_0^i, x_0^j) \\
             &= g(x_0^i + h_i) - g(x_0^i) = h_i \cdot g'(S_i) \\
-            &= h_i \left[ \delta_i \Phi(S_i, x_0^j + h_j) - \delta_i \Phi(S_i, x_0^j) \right]
+            &= h_i \left[ \partial_i \Phi(S_i, x_0^j + h_j) - \partial_i \Phi(S_i, x_0^j) \right]
     \end{align*}
     
     Como la función $f$ es de clase $C^2$, nuevamente podemos aplicar el \TVM, y nos queda que
     
     \begin{align}\label{eq:1.2.3}
-        h_i \left[ \delta_i \Phi(&S_i, x_0^j + h_j) - \delta_i \Phi(S_i, x_0^j) \right] \nonumber \\
-            &= h_ih_j \delta_j\delta_i \Phi(S_i, S_j)
+        h_i \big[ \partial_i \Phi(&S_i, x_0^j + h_j) - \partial_i \Phi(S_i, x_0^j) \big] \nonumber \\
+            &= h_ih_j \partial_j\partial_i \Phi(S_i, S_j)
     \end{align}
     
     Nuevamente, ahora si consideramos $\hat{g}(x_0^j) = \Phi(x_0^i + h_i, x_0^j) - \Phi(x_0^i, x_0^j)$, podemos repetir el mismo argumento y podemos concluir que existen $t_1 \in (x_0^i, x_0^i + h_i)$ y $t_2 \in (x_0^j, x_0^j + h_j)$ tales que
     
     \begin{align}\label{eq:1.2.4}
         \Phi(x_0^i + h_i, &x_0^j + h_j) - \Phi(x_0^i + h_0^i, x_0^j) - \Phi(x_0^i, x_0^j + h_0^j) + \Phi(x_0^i, x_0^j) \nonumber \\
-            &= h_ih_j \delta_i\delta_j \Phi(t_i, t_j)
+            &= h_ih_j \partial_i\partial_j \Phi(t_i, t_j)
     \end{align}
     
     De esta manera, de \ref{eq:1.2.3} y \ref{eq:1.2.4} tenemos que
     
     \begin{gather*}
-        h_ih_j \delta_j\delta_i f(x_0^1, \dots, S_i, \dots, S_j, \dots, x_0^n) \\
-        = h_ih_j \delta_i\delta_j f(x_0^1, \dots, t_i, \dots, t_j, \dots, x_0^n)
+        h_ih_j \partial_j\partial_i f(x_0^1, \dots, S_i, \dots, S_j, \dots, x_0^n) \\
+        = h_ih_j \partial_i\partial_j f(x_0^1, \dots, t_i, \dots, t_j, \dots, x_0^n)
     \end{gather*}
     
     Al hacer $(h_i, h_j) \to (0, 0)$, como las derivadas parciales existen (tanto las de primer como segundo grado), podemos concluir que
     
     \[
-    \delta_i\delta_j f(x_0) = \delta_j\delta_i f(x_0)
+    \partial_i\partial_j f(x_0) = \partial_j\partial_i f(x_0)
     \]
     
     Y queda finalizada la demostración del teorema.
@@ -262,7 +262,7 @@ Para ello introduciremos primero las definiciones de derivada direccional, deriv
     Sea $A \subseteq \R^n$ (con $n \in \N$) abierto, conexo y convexo. Sea también una función $f: A \rightarrow \R$ (es decir, a valores escalares) continua. El \ul{gradiente} de dicha función $f$ para cada punto $x \in A$, viene dado por
     
     \[
-    \grad f(x) = \left(\delta_1 f(x), \delta_2 f(x), \dots, \delta_n f(x)\right)
+    \grad f(x) = \left(\partial_1 f(x), \partial_2 f(x), \dots, \partial_n f(x)\right)
     \]
 \end{defn}
 
@@ -272,25 +272,25 @@ Como se puede observar, el gradiente de $f$, $\grad f$ es un campo vectorial que
     Sean $A \subseteq \R^n$ (con $n \in \N$) abierto, conexo y convexo, una función $f: A \rightarrow \R$ continua, y $u \in A$ un vector fijo y arbitrario. Consideremos ahora
     
     \[
-    \delta_u f(x_0) = \lim_{h \to 0} \frac{f(x_0 + hu) - f(x_0)}{h}
+    \partial_u f(x_0) = \lim_{h \to 0} \frac{f(x_0 + hu) - f(x_0)}{h}
     \]
     
     \noindent con $h \in \R$. Esta es la \ul{derivada direccional} de $f$.
 \end{defn}
 
-En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\delta_u f(x_0)$ es la derivada parcial.
+En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\partial_u f(x_0)$ es la derivada parcial.
 
 \begin{prop}
     Como resultado de la linealidad de la derivada\marginfootnote{Esto se revisa de forma exhaustiva en las secciones 4.8 y 4.9 de Cálculo Tomo II de Tom Apostol}, tenemos que
     
     \[
-    \delta_u f(x_0) = u \cdot \grad f(x_0)
+    \partial_u f(x_0) = u \cdot \grad f(x_0)
     \]
     
     También tenemos que
     
     \[
-    \delta_u f(x_0) = \normaeuc{u} \normaeuc{\grad f(x_0)} \cos \alpha
+    \partial_u f(x_0) = \normaeuc{u} \normaeuc{\grad f(x_0)} \cos \alpha
     \]
     
     Cuando el ángulo vale $0$ o $\pi$, entonces $u$ es paralelo al gradiente de $f$ en $x_0$.
@@ -298,7 +298,7 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
     En general, el gradiente apunta a la dirección de mayor declive con respecto a la curva de nivel de la superficie generada por $f$. Y en esa dirección de mayor declive, siempre podremos considerar un vector $u$ normalizado, y nos queda
     
     \[
-    \delta_u f(x_0) = \normaeuc{\grad f(x_0)}
+    \partial_u f(x_0) = \normaeuc{\grad f(x_0)}
     \]
 \end{prop}
 
@@ -308,9 +308,9 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
     \[
     JF(x_0) =
     \begin{pmatrix}
-        \delta_1 f_1(x_0) & \dots & \delta_n f_1(x_0) \\
+        \partial_1 f_1(x_0) & \dots & \partial_n f_1(x_0) \\
         \vdots & & \vdots \\
-        \delta_1 f_k(x_0) & \dots & \delta_n f_k(x_0)
+        \partial_1 f_k(x_0) & \dots & \partial_n f_k(x_0)
     \end{pmatrix}
     \]
 \end{defn}
@@ -357,7 +357,7 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
 \stepcounter{subsec}
 
 \begin{defn}
-    Sea $A \subseteq \R^k$ abierto, conexo y convexo. Sea también $f: A \rightarrow \R^n$ continua. Diremos entonces que $f$ es \ul{diferenciable} en $x_0 \in A$ si $\delta_i f$ (con $i = 1, \dots, n$) existen en el punto $x_0$ y 
+    Sea $A \subseteq \R^k$ abierto, conexo y convexo. Sea también $f: A \rightarrow \R^n$ continua. Diremos entonces que $f$ es \ul{diferenciable} en $x_0 \in A$ si $\partial_i f$ (con $i = 1, \dots, n$) existen en el punto $x_0$ y 
     
     \[
     \lim_{x \to x_0} \frac{\normaeuc{f(x) - f(x_0) - Jf(x_0)(x - x_0)}}{\normaeuc{x - x_0}} = 0 \quad \footnotemark
@@ -371,7 +371,7 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
     \normaeuc{f(x) - f(x_0)} \leq M \normaeuc{x - x_0}
     \]
     
-    \noindent si $\normaeuc{x - x_0} < \delta$ para algún $\delta < 0$.
+    \noindent si $\normaeuc{x - x_0} < \partial$ para algún $\partial < 0$.
 \end{teo}
 
 \begin{proof}
@@ -381,13 +381,13 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
     \lim_{x \to x_0} \frac{\normaeuc{f(x) - f(x_0) - Jf(x_0)(x - x_0)}}{\normaeuc{x - x_0}} = 0
     \]
     
-    Por definición en términos de $\epsilon - \delta$, dado $\epsilon > 0$, $\exists \delta > 0$ tal que si $\normaeuc{x-x_0} < \delta$,
+    Por definición en términos de $\varepsilon - \delta$, dado $\varepsilon > 0$, $\exists \delta > 0$ tal que si $\normaeuc{x-x_0} < \delta$,
     
     \[
-    \frac{\normaeuc{f(x) - f(x_0) - Jf(x_0)(x - x_0)}}{\normaeuc{x - x_0}} < \epsilon
+    \frac{\normaeuc{f(x) - f(x_0) - Jf(x_0)(x - x_0)}}{\normaeuc{x - x_0}} < \varepsilon
     \]
     
-    En lo particular sea $\epsilon = 1$ y fijamos $\delta = \delta_1$. Ahora podemos decir lo siguiente: Si $\normaeuc{x - x_0} < \delta_1$ entonces por desigualdad triangular,
+    En lo particular sea $\varepsilon = 1$ y fijamos $\delta = \delta_1$. Ahora podemos decir lo siguiente: Si $\normaeuc{x - x_0} < \delta_1$ entonces por desigualdad triangular,
     
     \begin{align*}
         \normaeuc{f(x) - f(x_0)} &\leq \normaeuc{f(x) - f(x_0) - Jf(x_0)(x-x_0)} + \normaeuc{Jf(x_0)(x-x_0)}\\
@@ -399,9 +399,9 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
     \[
     Jf(x_0)(x-x_0) =
     \begin{pmatrix}
-        \delta_1 f_1 (x_0) & \dots & \delta_n f_1 (x_0) \\
+        \partial_1 f_1 (x_0) & \dots & \partial_n f_1 (x_0) \\
         \vdots             & \dots & \vdots             \\
-        \delta_1 f_k (x_0) & \dots & \delta_n f_k (x_0)
+        \partial_1 f_k (x_0) & \dots & \partial_n f_k (x_0)
     \end{pmatrix}
     \begin{pmatrix}
         x_1-x_0^1 \\
@@ -415,9 +415,9 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
     \[
     Jf(x_0)(x-x_0) =
     \begin{pmatrix}
-        \sum_{j=1}^n \delta_j f_1 (x_0) (x_j - x_0^j) \\
+        \sum_{j=1}^n \partial_j f_1 (x_0) (x_j - x_0^j) \\
         \vdots \\
-        \sum_{j=1}^n \delta_j f_k (x_0) (x_j - x_0^j)
+        \sum_{j=1}^n \partial_j f_k (x_0) (x_j - x_0^j)
     \end{pmatrix}
     \]
     
@@ -427,7 +427,7 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
     \normaeuc{Jf(x_0)(x-x_0)} \leq M_1\normaeuc{x-x_0}
     \]
     
-    \noindent donde $\displaystyle M_1 = \left( \sum_{v = 1}^k \left( \sum_{j=1}^n \delta_j f_v(x_0) \right)^2 \right)^{1/2}$.
+    \noindent donde $\displaystyle M_1 = \left( \sum_{v = 1}^k \left( \sum_{j=1}^n \partial_j f_v(x_0) \right)^2 \right)^{1/2}$.
     
     Luego,
     
@@ -435,7 +435,7 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\del
     \normaeuc{f(x) - f(x_0)} \leq (M_1 + 1)\normaeuc{x - x_0}
     \]
     
-    Sea $\delta = \min(\delta_1, \epsilon / M_1 + 1)$ entonces tenemos que si $\normaeuc{x - x_0} < \delta$, podemos concluir que
+    Sea $\delta = \min(\delta_1, \varepsilon / M_1 + 1)$ entonces tenemos que si $\normaeuc{x - x_0} < \delta$, podemos concluir que
     
     \[
     \normaeuc{f(x) - f(x_0)} < \varepsilon(M_1 + 1)\normaeuc{x - x_0} < \varepsilon
