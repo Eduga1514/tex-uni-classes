@@ -364,14 +364,14 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\par
     \]\footnotetext{Obsérvese que si $k=1$, entonces $\normaeuc{f} = |f|$ y $Jf(x_0)$ es el gradiente de $f$ en $x_0$.}
 \end{defn}
 
-\begin{teo}
+\begin{teo}\label{teo:1.3.1}
     Sea $f: A \rightarrow \R^k$ diferenciable en $x_0$ entonces $f$ es continua en $x_0$. Más aún, $\exists M > 0$ tal que
     
     \[
     \normaeuc{f(x) - f(x_0)} \leq M \normaeuc{x - x_0}
     \]
     
-    \noindent si $\normaeuc{x - x_0} < \partial$ para algún $\partial < 0$.
+    \noindent si $\normaeuc{x - x_0} < \delta$ para algún $\delta < 0$.
 \end{teo}
 
 \begin{proof}
@@ -406,7 +406,7 @@ En el caso particular en que $u = e_i$, con $i = 1, \dots, n$, tenemos que $\par
     \begin{pmatrix}
         x_1-x_0^1 \\
         \vdots    \\
-        x_n-x_0^n
+        x_k-x_0^k
     \end{pmatrix}
     \]
     
