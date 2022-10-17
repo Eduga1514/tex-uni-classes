@@ -25,10 +25,10 @@
     
     Entonces podemos concluir que
     
-    \begin{gather*}
-        \big| f(x + h) - f(x) - \nabla f(x) \cdot h \big| = \Bigg| \sum_{j=1}^n \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) h_j \Bigg| \\
-            \leq \sum_{j=1}^n \Bigg| \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) \Bigg| |h_j|
-    \end{gather*}
+    \begin{align*}
+        \big| f(x + h) - f(x) - \nabla f(x) \cdot h \big| &= \Bigg| \sum_{j=1}^n \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) h_j \Bigg| \\
+            &\leq \sum_{j=1}^n \Bigg| \bigg( \frac{\partial f}{\partial x_j} (y_j) - \frac{\partial f}{\partial x_j} (x) \bigg) \Bigg| |h_j|
+    \end{align*}
     
     \noindent como $|h_j| \leq \normaeuc{h}$ (para todo $j$), entonces lo anterior queda así
     
@@ -57,5 +57,131 @@
     \]
 \end{proof}
 
+\subsection{Álgebra de funciones diferenciables}
+\stepcounter{subsec}
+
+\begin{teo}
+    Sea $A \subseteq \R^n$ un conjunto abierto, conexo y convexo. Sean también $x_0 \in A$ y $f, g: A \rightarrow \R^n$ dos funciones diferenciables en $x_0$. Entonces
+    
+    \begin{enumerate}
+        \item $\lambda f$ es diferenciable en $x_0$, $\forall \lambda \in \R - \{0\}$ y $D(\lambda f) (x_0) = \lambda D(f) (x_0)$.
+        \item $f + g$ es diferenciable en $x_0$ y además
+        
+        \[
+        D(f + g)(x_0) = D f(x_0) + D g(x_0)
+        \]
+        \item $f \cdot g$ es diferenciable en $x_0$ y además
+        
+        \[
+        D(f \cdot g)(x_0) = g(x_0)Df(x_0) + f(x_0)Dg(x_0)
+        \]
+        
+        \item Si $f,g : A \subseteq \R^n \rightarrow \R$, entonces $f / g$ es diferenciable en $x_0$ siempre que $g(x_0) \neq 0$ y además
+        
+        \[
+        D(f/g) (x_0) = \dfrac{g(x_0)Df(x_0) - f(x_0)Dg(x_0)}{g^2(x_0)}
+        \]
+    \end{enumerate}
+\end{teo}
+
+\begin{proof}[Demostración para el segundo inciso]
+    Primero, tenemos que $f, g$ son diferenciables. Entonces dado $\varepsilon > 0$, $\exists \delta_1, \delta_2 > 0$ tales que
+    
+    \[
+    \text{si $\normaeuc{x - x_0} < \delta_1$} \quad \implies \quad \dfrac{\normaeuc{f(x) - f(x_0) - Df(x_0)(x-x_0)}}{\normaeuc{x-x_0}} < \frac{\varepsilon}{2}
+    \]
+    
+    \[
+    \text{si $\normaeuc{x - x_0} < \delta_2$} \quad \implies \quad \dfrac{\normaeuc{g(x) - g(x_0) - Dg(x_0)(x-x_0)}}{\normaeuc{x-x_0}} < \frac{\varepsilon}{2}
+    \]
+    
+    Ahora escojamos $\delta = \min(\delta_1, \delta_2)$. Si $\normaeuc{x - x_0} < \delta$ tenemos que
+    
+    \begin{gather*}
+        \dfrac{\normaeuc{(f+g)(x) - (f+g)(x_0) - [Df(x_0) + Dg(x_0)](x-x_0)}}{\normaeuc{x-x_0}} \\
+            \leq \dfrac{\normaeuc{f(x) - f(x_0) - Df(x_0) + (x-x_0)}}{\normaeuc{x-x_0}} + \dfrac{\normaeuc{g(x) - g(x_0) - Dg(x_0) + (x-x_0)}}{\normaeuc{x-x_0}} \\
+            < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+    \end{gather*}
+    
+    En conclusión, tenemos que
+    
+    \[
+    \lim_{x \to x_0} \dfrac{\normaeuc{(f+g)(x) - (f+g)(x_0) - [Df(x_0) + Dg(x_0)](x-x_0)}}{\normaeuc{x-x_0}} = 0
+    \]
+    
+    Por lo tanto, $D(f+g)(x_0) = Df(x_0) + Dg(x_0)$\marginnote{Se entiende la diferenciabilidad, pero no se entiende la igualdad?¡?¡?¡?¡.}.
+\end{proof}
+
 \subsection{Regla de la Cadena}
 \stepcounter{subsec}
+
+\begin{teo}[Regla de la cadena]\label{teo:rcadena}
+    Sean $A \subset \R^n$, $V \subset \R^m$ dos conjuntos abiertos, conexos y convexos. Sea $x_0 \in A$ tal que $g: A \rightarrow \R^m$ es diferenciable en $x_0$ y $f: V \rightarrow \R^k$ tal que $V \subset g(A)$ y diferenciable en $g(x_0) = y_0$. Entonces
+    
+    \[
+    (f \circ g)(x) = f(g(x))
+    \]
+    
+    \noindent es diferenciable en $x_0$ y además
+    
+    \[
+    D(f \circ g)(x_0) = Df(y_0) \cdot Dg(x_0)
+    \]
+\end{teo}
+
+\begin{proof}
+    Queremos demostrar que
+    
+    \[
+    \lim_{x \to x_0} \dfrac{\normaeuc{f(g(x)) - f(g(x_0)) - Df(y_0)Dg(x_0)(x-x_0)}}{\normaeuc{x-x_0}} = 0
+    \]
+    
+    Consideremos
+    
+    \begin{gather*}
+        \normaeuc{f(g(x)) - f(g(x_0)) - Df(y_0)Dg(x_0)(x-x_0)} \\
+        = \normaeuc{f(g(x)) - f(g(x_0)) - Df(y_0)Dg(x_0)(x-x_0) \pm Df(y_0)(g(x) - g(x_0)} \\
+        \leq \normaeuc{f(g(x)) - f(g(x_0)) - Df(y_0)(g(x) - g(x_0)} + \normaeuc{Df(y_0) [g(x) - g(x_0) - Dg(x_0)(x-x_0)]}
+    \end{gather*}
+    
+    Centrémonos por ahora en el segundo factor. En la demostración del teorema \ref{teo:1.3.1}, obtuvimos que si $\normaeuc{x-x_0} < \delta$ para algún $\delta > 0$, entonces existe un $M > 0$ tal que
+    
+    \[
+    \normaeuc{Df(x_0)(x-x_0)} \leq M \normaeuc{x-x_0} \quad \text{donde $\displaystyle M = \left( \sum_{i=1}^k \left( \sum_{j=1}^m \partial_j f_v (y_0) \right)^2 \right)^{1/2}$}
+    \]
+    
+    Entonces, el segundo término de la expresión anterior queda acotado de la siguiente forma
+    
+    \begin{gather*}
+        \normaeuc{Df(y_0) [g(x) - g(x_0) - Dg(x_0)(x-x_0)]} \\
+            \leq M \normaeuc{g(x) - g(x_0) - Dg(x_0)(x-x_0)}
+    \end{gather*}
+    
+    Pero $g$ es diferenciable en $x_0$, luego existe un $\delta_1 > 0$ tal que si $\normaeuc{x - x_0} < \delta_1$, entonces
+    
+    \[
+    \dfrac{\normaeuc{g(x) - g(x_0) - Dg(x_0)(x-x_0)}}{\normaeuc{x-x_0}} < \frac{\varepsilon}{2M} \quad \text{para algún $\varepsilon > 0$}
+    \]
+    
+    Por otro lado, sea $M_1 > 0$ tal que
+    
+    \[
+    \normaeuc{g(x) - g(x_0)} \leq M_1 \normaeuc{x-x_0}
+    \]
+    
+    \noindent para un cierto $\delta_2 > 0$.
+    
+    Ahora, sea $\delta_3 > 0$ tal que si $\normaeuc{y - y_0} < \delta_3$, entonces
+    
+    \[
+    \dfrac{\normaeuc{f(x) - f(x_0) - Df(x_0)(x-x_0)}}{\normaeuc{y - y_0}} < \frac{\varepsilon}{2M_1} \quad \text{para algún $\varepsilon > 0$}
+    \]
+    
+    Y finalmente, escojamos $\delta = \min(\delta_1, \delta_2, \delta_3 / M_1)$, nos queda que si $\normaeuc{x - x_0} < \delta_3$ entonces\marginnote{falta completar la demostración}
+    
+    \[
+    \dfrac{\normaeuc{f(g(x)) - f(g(x_0)) - Df(y_0)Dg(x_0)(x-x_0)}}{\normaeuc{x-x_0}} < \varepsilon
+    \]
+    
+    De esta forma, queda demostrado que el límite establecido al principio existe y es igual a cero.
+\end{proof}
