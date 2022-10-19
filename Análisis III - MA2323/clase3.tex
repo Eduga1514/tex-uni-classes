@@ -1,0 +1,79 @@
+\subsection{Derivación implícita}
+\stepcounter{subsec}
+
+En términos simples, lo que quiere decir derivación implícita es derivar una ecuación con respecto a una variable sin despejarla explícitamente.
+
+\begin{pre}
+    Dada $z = F(x,y)$, ¿existe para $z = 0$ una curva que sea la gráfica de $y = f(x)$? Es decir, ¿se puede despejar la variable $y$ en términos de $x$?
+\end{pre}
+
+\begin{ejem}
+    Veamos la siguiente función
+    
+    \[
+    x^2 + y^2 = 1
+    \]
+    
+    Esto puede pensarse como
+    
+    \[
+    F(x,y) = x^2 + y^2 - 1
+    \]
+    
+    Si consideramos a $F(x,y) = z = 0$.
+\end{ejem}
+
+En general, no siempre podremos despejar $x$ en función de $y$ o viceversa:
+
+\begin{ejem}
+    Si consideramos la función
+    
+    \[
+    \sin(x+y) = xy
+    \]
+    
+    Esta función no se puede despejar en función de una variable.
+\end{ejem}
+
+Para evitar esta restricción, nos valemos del teorema de la función implícita.
+
+\begin{teo}[Teorema de la función implícita, caso $\R^2$]
+    Sea $z = F(x,y)$ y consideremos $(x_0, y_0) \in A$ tal que $F(x_0, y_0) = 0$. Supongamos que $F$ es diferenciable (es decir necesitamos $F$, $\partial_1 F$, $\partial_2 F$ sean continuas en $A$) en $(x_0, y_0)$ \marginfootnote{Estamos pidiendo que exista un $r > 0$ tal que $F$ es diferenciable en $B\left((x_0, y_0), r \right)$}. Supongamos también que $\partial_2 F(x_0, y_0) \neq 0$.
+    
+    Entonces $F(x, y) = 0$ se puede resolver en términos de $x$. Así, $\exists f$ tal que $y_0 = f(x_0)$ y sus derivadas parciales pueden ser calcularse como
+    
+    \[
+    \frac{dy}{dx} = f'(x) = - \frac{\partial F/dx}{\partial F/dy}
+    \]
+    
+    \noindent para todo $x \in V_{x_0}$ (donde $V_{x_0}$ es un abierto que contiene a $x_0$).
+\end{teo}
+
+\begin{proof}
+    Como $\frac{\partial F}{\partial y} (x_0, y_0) \neq 0$, entonces supongamos que $\frac{\partial F}{\partial y} (x_0, y_0) > 0$\marginfootnote{El caso $< 0$ se deja como ejercicio}. Por continuidad, dado $\varepsilon > 0$, $\exists \delta > 0$ tal que
+    
+    \[
+    \text{si $\displaystyle (x,y) \in (x_0 - \delta, x_0 + \delta)$} \quad \implies \quad \dfrac{\partial F}{\partial y}(x,y) > 0
+    \]
+    
+    \noindent ya que estamos suponiendo que en $(x_0, y_0)$ la derivada es positiva, entonces $\frac{\partial F}{\partial y} (x, y)$ es también positivo para todo $(x,y)$ ubicados en un entorno muy proximo al punto $x_0$.
+    
+    Luego, podemos decir que
+    
+    \begin{align*}
+        \frac{\partial F}{\partial y} (x, y) > 0 \quad \forall (x,y) \in &(x_0 - \delta, x_0 + \delta) \times (y_0 - \varepsilon, y_0 + \varepsilon) \\
+            &= I \times J
+    \end{align*}
+    
+    Por hipótesis, $F(x_0, y_0) = 0$, y por suponer que $\frac{\partial F}{\partial y} (x, y) > 0$, tenemos que $F$ es creciente con respecto a $y$. Entonces
+    
+    \[
+    F(x_0, y_0 - \varepsilon) < 0 \quad \text{y} \quad F(x_0, y_0 + \varepsilon) > 0
+    \]
+    
+    Luego por el teorema de los valores intermedios, existe para cada $x \in (x_0 - \delta, x_0 + \delta)$ un único valor $y$ tal que $F(x,y) = 0$, es decir que $y = f(x)$. Y así queda demostrado el teorema.
+\end{proof}
+
+\begin{aco}
+    Lo que nos da el teorema es la certeza de que la $f$ existe, es decir que $F$ efectivamente puede ser despejada, pero no da maneras para hallar dicha función. En la práctica nos daremos cuenta de que esto no es tan sencillo.
+\end{aco}
