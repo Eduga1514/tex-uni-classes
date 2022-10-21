@@ -2,7 +2,7 @@
 
 Este curso sigue los tres primeros capítulos de Introduction to Graph Theory de West. Esto comprende grafos, conteo, árboles, matching, teoremas de cubrimiento y una introducción a la factorización de grafos. Por lo tanto, es fundamental estudiar con el libro a la hora de revisar este curso y buscar ejercicios.
 
-\subsection{Definiciones y teoremas básicos}
+\subsection{Definiciones básicas}
 
 \begin{defn}
     Un \ul{grafo} es una tripleta $G = (V(G, E(G), f_G)$ en el cual $V(G)$ y $E(G)$ son conjuntos y $f_G$ es una función que asigna a cada $e \in E(G)$ un \textbf{par no ordenado} $\{x,y\} \subset V(G)$.
@@ -74,7 +74,7 @@ Este curso sigue los tres primeros capítulos de Introduction to Graph Theory de
     Un conjunto de vértices es \ul{independiente} si sus elementos son no adyacentes dos a dos.
 \end{defn}
 
-\begin{prob}
+\begin{prob}\label{prob:2}
     En todo grupo de seis personas, hay tres que se conocen o tres que son mutuamente desconocidos. Es decir, ¿es cierto que en todo grafo con $6$ vértices hay un clique con tres vértices o un conjunto independiente con tres vértices?
     
     \begin{marginfigure}
@@ -93,8 +93,12 @@ Este curso sigue los tres primeros capítulos de Introduction to Graph Theory de
     \begin{marginfigure}
         \centering
         \begin{tikzpicture}
+            \GraphInit[vstyle=Normal]
             \SetGraphUnit{2}
             \Vertices{circle}{$v$,$v_1$,$v_2$,$v_3$,$v_4$,$v_5$}
+            \tikzset{
+                EdgeStyle/.append style = {red}
+            }
             \Edges[color=red]($v$,$v_1$,$v$,$v_2$,$v$,$v_3$)
         \end{tikzpicture}
         \caption{Pintamos los lados de color rojo como lo describimos en el problema.}
@@ -105,3 +109,319 @@ Este curso sigue los tres primeros capítulos de Introduction to Graph Theory de
     
     De cualquier manera, tenemos $3$ personas que se conocen (clique rojo) o tres personas que no se conocen (conjunto independientes).
 \end{prob}
+
+Las definiciones de clique y complemento dan pie a la definición de complemento de un grafo:
+
+\begin{defn}
+    El \ul{complemento} de un grafo simple $G$ es el grafo simple $\overline{G}$ tal que $V(\overline{G}) = V(G)$ y $e \in E(\overline{G})$ sii $e \notin E(G)$. En este sentido, $V(G)$ es un clique si y sólo si $V(\overline{G})$ es un conjunto independiente
+\end{defn}
+
+\begin{defn}
+    El grafo $G$ es \ul{bipartito} si $V(G)$ es unión de dos conjuntos independientes disjuntos. En general, si $V(G)$ es unión de $k$ conjuntos independientes entonces decimos que $G$ es $k$-partito.
+\end{defn}
+
+\begin{prob}
+    Tenemos $m$ trabajos que queremos asignar a $n$ personas, pero no todas las personas están calificadas para todos los trabajos. ¿Podemos llenar las vacantes con personas calificadas?
+    
+    Este problema puede modelarse con un grafo $H$ donde cada vértice representa una persona ó un trabajo. El trabajo $t$ es adyacente a la persona $p$ si $p$ puede hacer $j$. Cada trabajo es realizado por exactamente una persona, por lo tanto estamos buscando $m$ lados disjuntos dos a dos. Un ejemplo de esto puede verse en la figura \ref{fig:trabajos-personas}.
+    
+    \begin{marginfigure}\label{fig:trabajos-personas}
+        \centering
+        \begin{tikzpicture}
+            \GraphInit[vstyle=Welsh]
+            \Vertex{a}
+            \Vertex[x=1 , y=0]{b}
+            \Vertex[x=2 , y=0]{c}
+            \Vertex[x=3 , y=0]{d}
+            \Vertex[x=0 , y=2]{1}
+            \Vertex[x=1 , y=2]{2}
+            \Vertex[x=2 , y=2]{3}
+            \Vertex[x=3 , y=2]{4}
+            \Edge(1)(a)
+            \Edge(1)(b)
+            \Edge(1)(c)
+            \Edge(1)(d)
+            \Edge(2)(a)
+            \Edge(2)(d)
+            \Edge(3)(b)
+            \Edge(3)(c)
+            \Edge(4)(a)
+            \Edge(4)(c)
+            \Edge(4)(d)
+            \AddVertexColor{red}{1,2,3,4}
+            \AddVertexColor{blue}{a,b,c,d}
+            \node[xshift=-1.2cm] at (0,2) {personas};
+            \node[xshift=-1.2cm] at (0,0) {trabajos};
+        \end{tikzpicture}
+        \caption{En rojo pintamos a las personas, y en azul a los trabajos. Los lados que queremos son $\{1,b\}$, $\{2,d\}$, $\{3,b\}$, $\{4,c\}$ (este conjunto no es único).}
+    \end{marginfigure}
+\end{prob}
+
+\begin{defn}
+    El \ul{número cromático} de un grafo $G$ es la mínima cantidad de colores $\chi(G)$ que pueden usarse para pintar los vértices de $G$ de manera que vértices adyacentes tengan distinto color.
+\end{defn}
+
+\begin{prob}
+    Suponga que queremos organizar $6$ eventos de una hora en una convención, estos eventos son $v_1, v_2, v_3, v_4, v_5, v_6$, y entre la audiencia hay gente que quiere ir al mismo tiempo a:
+    
+    \begin{itemize}
+        \item $v_1$ y $v_2$.
+        \item $v_1$ y $v_4$.
+        \item $v_3$ y $v_5$.
+        \item $v_2$ y $v_6$.
+        \item $v_4$ y $v_5$.
+        \item $v_5$ y $v_6$.
+        \item $v_1$ y $v_6$.
+    \end{itemize}
+    
+    ¿Cuántas horas harán falta para que los eventos puedan darse sin chocar entre la audiencia?
+    
+    \begin{marginfigure}
+        \centering
+        \begin{tikzpicture}
+            \GraphInit[vstyle=Welsh]
+            \Vertices[unit=2]{circle}{$v_3$, $v_2$, $v_1$, $v_6$, $v_5$, $v_4$}
+            \Edges($v_1$,$v_2$,$v_6$,$v_1$,$v_4$,$v_5$,$v_6$,$v_5$,$v_3$)
+        \end{tikzpicture}
+        \caption{Cada vértice de este grafo representa un evento, y cada lado un potencial choque.}
+        \label{fig:nocolor}
+    \end{marginfigure}
+    
+    La situación general se puede representar mediante el grafo de la figura \ref{fig:nocolor}, donde los vértices representan los eventos y los lados representan los potenciales choques. El problema se resuelve al tomar los pares de vértices que \textbf{no} están conectados. Luego, una solución puede ser la siguiente:
+    
+    \begin{center}
+        \begin{tabular}{cccc}
+            \text{Hora 1} & \text{Hora 2} & \text{Hora 3} & \text{Hora 4} \\ \toprule
+            $v_1$ \text{ y } $v_3$ & $v_2$ \text{ y } $v_4$ & $v_5$ & $v_6$
+        \end{tabular}
+    \end{center}
+    
+    En términos matemáticos, lo que hemos hecho es asignar una partición de cuatro partes al conjunto de vértices del grafo, con la condición de que ninguna de dichas partes contenga un par de vértices adyacentes.
+    
+    De esta forma, si decidimos asignar un color a cada uno de los vértices del grafo \ref{fig:nocolor}, el grafo puede colorearse como en \ref{fig:color}. Sin embargo, este no es el menor número de colores que se pueden usar. Como los vértices $v_1$, $v_2$ y $v_6$ forman un triángulo, es decir, un grafo $K_3$, cada uno de ellos necesita un color distinto por ser adyacente a los otros dos, por lo que se necesitan al menos $3$ colores para pintar el grafo completo.
+    
+    \begin{marginfigure}
+        \centering
+        \begin{tikzpicture}
+            \GraphInit[vstyle=Welsh]
+            \Vertices[unit=2]{circle}{$v_3$, $v_2$, $v_1$, $v_6$, $v_5$, $v_4$}
+            \Edges($v_1$,$v_2$,$v_6$,$v_1$,$v_4$,$v_5$,$v_6$,$v_5$,$v_3$)
+            \SetVertexNoLabel
+            \AddVertexColor{red}{$v_1$,$v_3$}
+            \AddVertexColor{blue}{$v_2$, $v_4$}
+            \AddVertexColor{green}{$v_5$}
+            \AddVertexColor{yellow}{$v_6$}
+        \end{tikzpicture}
+        \caption{El mismo grafo con la coloración planteada en la tabla.}
+        \label{fig:color}
+    \end{marginfigure}
+    
+    En general, lo que buscamos con este problema, fue el número cromático del grafo \ref{fig:nocolor}.
+\end{prob}
+
+\begin{defn}
+    Un \ul{camino} es un grafo simple cuyos vértices pueden ser ordenados en una lista de tal manera que dos vértices son adyacentes sii son consecutivos en la lista. Es decir, $V(P) = \{v_1, \dots, v_n\}$ y $E(P) = \{ \{v_1,v_2\}, \dots, \{v_{n-1},v_n\} \}$. En este contexto decimos que $v_1, v_n$ son los \ul{extremos} de $P$.
+\end{defn}
+
+\begin{marginfigure}
+    \centering
+    \begin{tikzpicture}
+        \clip (0,0) rectangle (5,6);
+        \Vertex[x=0.484,y=2.026]{0}
+        \Vertex[x=4.405,y=2.717]{1}
+        \Vertex[x=0.350,y=0.750]{2}
+        \Vertex[x=4.650,y=4.026]{3}
+        \Vertex[x=2.052,y=5.250]{4}
+        \Vertex[x=1.291,y=0.608]{5}
+        \Vertex[x=2.304,y=3.232]{6}
+        \Vertex[x=4.429,y=4.704]{7}
+        \Edge[](0)(1)
+        \Edge[](0)(2)
+        \Edge[](0)(3)
+        \Edge[](0)(4)
+        \Edge[](1)(2)
+        \Edge[](1)(3)
+        \Edge[](1)(4)
+        \Edge[](2)(3)
+        \Edge[](2)(4)
+        \Edge[](3)(4)
+        \Edge[](2)(5)
+        \Edge[](5)(6)
+        \Edge[](6)(7)
+    \end{tikzpicture}
+    \caption{}
+    \label{fig:camino-ejemplo}
+\end{marginfigure}
+
+\begin{ejem}
+    Si consideramos el grafo de la figura \ref{fig:camino-ejemplo}, los vértices $\{0,1,2,5,6,7\}$ en ese orden junto a los lados $\{\{0,1\}, \{1,2\}, \{2,5\}, \{5,6\}, \{6,7\}\}$, obtenemos un camino con extremos $0, 7$.
+\end{ejem}
+
+\begin{prob}
+    ¿Cuál es la ruta óptima para viajar de una ciudad a otra por carretera?: Lo que necesitamos es simplemente un camino cuyos extremos sean las ciudades dadas.
+\end{prob}
+
+\begin{notn}
+    De ahora en adelante, para un grafo simple $G$, si $u$ y $v$ son vértices vecinos, escribiremos $vw$ en lugar de $\{v,w\}$ para denotar al lado correspondiente.
+\end{notn}
+
+\begin{defn}
+    Un \ul{ciclo} es un grafo simple $C$ cuyos vértices se pueden ordenar de la forma $V(C) = \{v_1, \dots, v_m\}$, y cuyos lados son $\{v_1v_2, v_2v_3, \dots, v_{m-1}v_m, v_mv_1\}$. Es decir, que tiene la misma cantidad de vértices que de lados y se pueden disponer los vértices de manera circular (cada vértice es adyacente únicamente a sus consecutivos en el círculo).
+\end{defn}
+
+\begin{marginfigure}
+    \centering
+    \begin{tikzpicture}[scale=0.3]
+        \GraphInit[vstyle=Normal]
+        \grCycle[prefix=v]{6}
+    \end{tikzpicture}
+    \caption{Ejemplo de un grafo cíclico de $6$ vértices.}
+\end{marginfigure}
+
+\begin{defn}
+    Anteriormente, vimos el concepto de caminos dentro de un grafo, lo que nos lleva al concepto de subgrafo: Un \ul{subgrafo} de un grafo $G$ es un grafo $H$ tal que $V(H) \subseteq V(G)$ y $E(H) \subseteq E(G)$ y $f_H = f_{G_{E|H}}$.
+\end{defn}
+
+\begin{defn}
+    Un grafo $G$ es completo si $V(G)$ es un clique.
+\end{defn}
+
+\begin{marginfigure}
+    \centering
+    \begin{tikzpicture}[scale=0.3]
+        \GraphInit[vstyle=Normal]
+        \grComplete[prefix=v]{7}
+        \end{tikzpicture}
+    \caption{Ejemplo de grafo completo}
+\end{marginfigure}
+
+Bajo estas definiciones, el problema \ref{prob:2} puede replantearse de la siguiente manera: ¿Es cierto que si coloreamos los lados de un grafo completo con $6$ vértices usando dos colores, tendremos un subgrafo completo de $3$ vértices cuyos lados tienen el mismo color?
+
+\begin{defn}
+    Un grafo $G$ es \ul{conexo} si dados $v, w$ existe un camino $P$ que es subgrafo de $G$ y tiene como extremos a $v$ y $w$.
+\end{defn}
+
+\begin{figure}
+    \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{2}
+            \Vertices{circle}{a,b,c,d}
+            \Edges(a,b)
+            \Edges(c,d)
+        \end{tikzpicture}
+        \caption{Grafo no conexo}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{2}
+            \Vertices{circle}{a,b,c,d,e,f,g,h}
+            \Edges(a,d,g,b,e,h,c,f,a)
+        \end{tikzpicture}
+        \caption{Grafo conexo}
+    \end{subfigure}
+\end{figure}
+
+\subsection{Matrices e isomorfismo}
+\stepcounter{subsec}
+
+Ahora, vamos a hablar de grafos en relación con las matrices. Como hemos de suponer, surgirán algunas propiedades propias del álgebra lineal que podremos aprovechar para nuestros grafos.
+
+\begin{defn}
+    Sea $G$ un grafo sin bucles con $V(G) = \{v_1, \dots, v_n\}$ y $E(G) = \{e_1, \dots, e_m\}$. Una \ul{matriz de adyacencia} de $G$, denotada por $A(G)$, es la matriz $n \times n$ en la cual la entrada $a_{i,j}$ es el número de lados en $G$ con vértices $v_i,v_j$. Una \ul{matriz de incidencia} $M(G)$ es la matriz $n \times m$ en la cual la entrada $m_{i,j}$ es $1$ si $v_i \in e_j$, y $0$ de otra forma.
+    
+    Si el vértice $v$ pertenece al lado $e$, entonces decimos que $v$ y $e$ son \ul{incidentes}. El \ul{grado} de un vértice $v$ es el número de lados incidentes.
+\end{defn}
+
+\begin{marginfigure}
+    \centering
+    \begin{tikzpicture}
+        \GraphInit[vstyle=Normal]
+        \Vertex{x}
+        \Vertex[x=0 , y=3]{w}
+        \Vertex[x=1.5 , y=1.5]{y}
+        \Vertex[x=3 , y=1.5]{z}
+        \Edge[label=a](w)(x)
+        \Edge[label=b](w)(y)
+        \Edge[label=e](y)(z)
+        \tikzset{EdgeStyle/.append style = {bend left}}
+        \Edge[label=c](x)(y)
+        \tikzset{EdgeStyle/.append style = {bend right}}
+        \Edge[label=d](x)(y)
+    \end{tikzpicture}
+    \caption{}
+    \label{fig:matrices}
+\end{marginfigure}
+
+\begin{ejem}
+    Fijémonos en el grafo de la figura \ref{fig:matrices}. A continuación, mostraremos las matrices de adyacencia e incidencia que resulta al ordenar los vértices como $w, x, y, z$ y los lados como $a, b, c, d, e$.
+    
+    \[
+    A(G) =
+    \begin{pNiceMatrix}[first-row,first-col]
+                &  w  &  x  &  y  &  z  & \\
+            w   &  0  &  1  &  1  &  0  & \\
+            x   &  1  &  0  &  2  &  0  & \\
+            y   &  1  &  2  &  0  &  1  & \\
+            z   &  0  &  0  &  1  &  0  & \\
+    \end{pNiceMatrix}
+    \qquad
+    M(G) =
+    \begin{pNiceMatrix}[first-row,first-col]
+                &  a  &  b  &  c  &  d  &  e  \\
+            w   &  1  &  1  &  0  &  0  &  0  \\
+            x   &  1  &  0  &  1  &  1  &  0  \\
+            y   &  0  &  1  &  1  &  1  &  1 \\
+            z   &  0  &  0  &  0  &  0  &  1 \\
+    \end{pNiceMatrix}
+    \]
+    
+    El grado de cada vértice está determinado por la suma de las entradas en la fila correspondiente al vértice: Podemos darnos cuenta de que el grado de $y$ es $4$ al sumar las entradas de la fila $y$. Otra cosa que vale la pena resaltar es que la matriz de adyacencia está determinada por el orden de los vértices: Si cambiamos el orden, tenemos una matriz distinta. Toda matriz de adyacencia es simétrica, con $0$s en la diagonal.
+\end{ejem}
+
+Como para cada orden de los vértices de un grafo $G$ tenemos una matriz de adyacencia $A(G)$, entonces dado un grafo $H$ cuya matriz de adyacencia se obtenga permutando las filas (o columnas) de $A(G)$, $H$ es en esencia el mismo grafo que $G$. Solo se diferencian en el nombre de los vértices. Para ese caso decimos que la permutación \textbf{preserva adyacencia}.
+
+Esto nos da pie a la siguiente definición:
+
+\begin{defn}
+    Los grafos simples $G$ y $H$ son isomorfos si existe una biyección $\phi: V(G) \rightarrow V(H)$ que preserva adyacencia.
+    
+    Si los grafos no son simples, tenemos que tener más cuidado con la definición. Los grafos $G$ y $H$ son isomorfos si existen biyecciones $\phi: V(G) \rightarrow V(H)$ y $\psi: E(G) \rightarrow E(H)$ tales que dados $v, w \in V(G)$ entonces
+    
+    \[
+    vw = f_G(e), e \in E(G) \quad \iff \quad \phi(v)\phi(w) = f_h(\psi(e)) \in E(H)
+    \]
+\end{defn}
+
+\begin{nota}
+    La relación $\cong$ en el conjunto de los grafos simples, dada por $G \cong H \iff G$ es isomorfo a $H$ es una relación de equivalencia. A las clases de equivalencia de esta relación las llamaremos \ul{clases de isomorfismo}.
+\end{nota}
+
+\begin{ejem}
+    Todos los caminos con $n$ vértices son isomorfos. El conjunto de los caminos con $n$ vértices es una clase de isomorfismo.
+\end{ejem}
+
+\begin{nota}
+    Dos grafos isomorfos sólo se distinguen por las etiquetas de sus vértices, por lo tanto de manera informal nos referiremos a una clase de isomorfismo como un \textbf{grafo no etiquetado}.
+    
+    Para el ejemplo anterior, llamaremos $P_n$ al camino no etiquetado con $n$ vértices.
+\end{nota}
+
+Otros grafos no etiquetados (clases de isomorfismo) y sus notaciones son:
+
+\begin{itemize}
+    \item El ciclo de $n$ vértices, $C_n$.
+    \item El grafo completo con $n$ vértices, $K_n$.
+    \item El grafo bipartito completo, $K_{n,m}$. Esta es la clase de isomorfismo de un grafo bipartito $G$ tal que $V(G) = V_1(G) \cup V_2(G)$ es una partición, $|V_1(G)| = r$, $|V_2(G)| = s$ y $u, v \in V(G)$ son adyacentes sii están en distintas partes.
+\end{itemize}
+
+Un problema de interés es el de contar cuántos grafos \textbf{no isomorfos} hay con $n$ vértices. Por ejemplo, para $n = 4$ hay $11$ clases de isomorfismo.
+
+% No se realizaron los dibujos por flojera, básicamente
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{img/clases-de-isomorfismo.PNG}
+    \caption{Vemos que hay $11$ grafos en total}
+\end{figure}

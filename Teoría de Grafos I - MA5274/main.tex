@@ -19,9 +19,21 @@
 \usepackage{titling} % Cambia los parámetros del título
 \usepackage{booktabs} % Para hacer tablas un poco más estilizadas
 \usepackage{multirow}
+\usepackage[font={footnotesize}]{caption} % Cambia el tamaño de los captions
 
-% Cambia el tamaño de los captions
-\usepackage[font={footnotesize}]{caption}
+% Establece el subrayado de color rojo
+\definecolor{ferrari}{rgb}{1,0.17,0}
+\setulcolor{ferrari}
+
+% Agrega etiquetas con colores a las matrices
+\usepackage{colortbl}
+\usepackage{nicematrix}
+\NiceMatrixOptions{
+code-for-first-row = \color{red} ,
+code-for-last-row = \color{red} ,
+code-for-first-col = \color{red} ,
+code-for-last-col = \color{red}
+}
 
 % Establece los enviroments para teoremas, ejemplos, definiciones, etc
 \newtheorem{teo}{Teorema}
@@ -56,6 +68,14 @@
 \renewcommand*{\proofname}{Demostración}
 \renewcommand{\figurename}{Fig.}
 
+% Resetea el contador de ecuaciones en cada sección y/o subsección
+\newcounter{sec}
+\newcounter{subsec}
+\setcounter{sec}{0}
+\setcounter{subsec}{0}
+\counterwithin*{equation}{sec}
+\counterwithin*{equation}{subsec}
+
 % Establece las notas de margen
 \newcommand{\marginfootnote}[1]{\footnotemark\footnotetext{#1}}
 
@@ -78,19 +98,6 @@
   {\renewcommand{\algorithmcfname}{Algoritmo}% Update algorithm name
    \begin{algorithm}[#1]%
   }{\end{algorithm}}
-
-% Establece el entorno para hacer diagramas de Ferrers
-\newenvironment{ferrers}[1][4em]
- {%
-  \leavevmode
-  \hbox\bgroup
-    \def\\{\unskip\cr\noalign{\hskip#1}}%
-    \valign\bgroup&##\cr
- }
- {%
-  \unskip\crcr\egroup
-  \egroup
- }
 
 \newcommand{\row}[1]{%
   \hbox{$\activatem\romannumeral\number\number#1 000 \unskip$}\vskip 0.5em plus 3em
@@ -123,10 +130,6 @@
   },
   label me/.style={tikz+={\node [anchor=base north] at (.parent |- a) {#1};}},
 }
-
-% Establece el subrayado de color rojo
-\definecolor{ferrari}{rgb}{1,0.17,0}
-\setulcolor{ferrari}
 
 % Reduce el espacio entre el título y el header
 \setlength{\droptitle}{-5.5em}
