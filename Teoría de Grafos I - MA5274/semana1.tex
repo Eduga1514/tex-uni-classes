@@ -65,7 +65,7 @@ Este curso sigue los tres primeros capítulos de Introduction to Graph Theory de
         \caption{Ejemplo de un grafo con bucle en el vértice $a$.}
     \end{marginfigure}
     
-    Decimos que el grafo $G$ es simple si no tiene bucles y $f_G$ es inyectiva (es decir que no tiene lados paralelos como en el grafo de la figura \ref{fig:konisberg-model}). En este caso se identifica a $E(G)$ con el rango de $f_G$. Es decir, los lados son los pares no ordenados de vértices adyacentes.
+    Decimos que el grafo $G$ es \ul{simple} si no tiene bucles y $f_G$ es inyectiva (es decir que no tiene lados paralelos como en el grafo de la figura \ref{fig:konisberg-model}). En este caso se identifica a $E(G)$ con el rango de $f_G$. Es decir, los lados son los pares no ordenados de vértices adyacentes.
 \end{defn}
 
 \begin{defn}
@@ -417,11 +417,175 @@ Otros grafos no etiquetados (clases de isomorfismo) y sus notaciones son:
     \item El grafo bipartito completo, $K_{n,m}$. Esta es la clase de isomorfismo de un grafo bipartito $G$ tal que $V(G) = V_1(G) \cup V_2(G)$ es una partición, $|V_1(G)| = r$, $|V_2(G)| = s$ y $u, v \in V(G)$ son adyacentes sii están en distintas partes.
 \end{itemize}
 
-Un problema de interés es el de contar cuántos grafos \textbf{no isomorfos} hay con $n$ vértices. Por ejemplo, para $n = 4$ hay $11$ clases de isomorfismo.
+\begin{ejem}
+    Un problema de interés es el de contar cuántos grafos \textbf{no isomorfos} hay con $n$ vértices. Por ejemplo, para $n = 4$ hay $11$ clases de isomorfismo.
 
-% No se realizaron los dibujos por flojera, básicamente
+    % No se realizaron los grafos por flojera, básicamente
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.7]{img/clases-de-isomorfismo.PNG}
+        \caption{Vemos que hay $11$ grafos en total}
+    \end{figure}
+\end{ejem}
+
+\begin{ejem}
+    Cuando escogemos dos vértices de un conjunto de vértices $X$ de tamaño $n$ no nos importa el orden, entonces el número de maneras es $n(n-1)/2 = \binom{n}{2}$. En un grafo simple, cada vértice puede formar parte de un lado o no. Al hacer esta decisión para cada par estamos especificando el grafo, entonces el número total de grafos que podemos formar a partir de $X$ es $2^{\binom{n}{2}}$.
+    
+    Para el ejemplo anterior vimos que hay $11$ clases de isomorfismos, pero en total tenemos $64$ grafos que podemos formar.
+    
+    Es notable resaltar que solamente $P_4$ es isomorfo a su complemento. Esto nos motiva a introducir la siguiente sección.
+\end{ejem}
+
+\begin{marginfigure}
+    \centering
+    \begin{tikzpicture}
+        \GraphInit[vstyle=Normal]
+        \Vertex{1}
+        \Vertex[x=0 , y=3]{2}
+        \Vertex[x=3 , y=3]{3}
+        \Vertex[x=3 , y=0]{4}
+        \tikzset{EdgeStyle/.append style = {red}}
+        \Edges[color=red](1,2,4,3)
+        \tikzset{EdgeStyle/.append style = {blue}}
+        \Edges[color=blue](2,3,1,4)
+    \end{tikzpicture}
+    \caption{Vemos que $P_4 \cong P_4$}
+    \label{fig:auto-complementario}
+\end{marginfigure}
+
+\subsection{Descomposición de grafos}
+\stepcounter{subsec}
+
+\begin{defn}
+    Un grafo es \ul{autocomplementario} si es isomorfo a su complemento. Una \ul{descomposición} de un grafo es una lista de subgrafos tales que cada lado aparece en exactamente un subgrafo de la lista.
+    
+    Un grafo $H$ con $n$ vértices es autocomplementario si y sólo si $K_n$ tiene una descomposición que consiste en dos copias de $H$. El claro ejemplo de esto lo tenemos en \ref{fig:auto-complementario}.
+\end{defn}
+
+\begin{ejem}
+    Otro ejemplo de un grafo autocomplementario es $C_5$. Esto lo podemos visualizar en la siguiente figura \ref{fig:auto-complementario2}.
+    
+    \begin{marginfigure}
+        \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{2}
+            \Vertices{circle}{e,d,c,b,a}
+            \tikzset{EdgeStyle/.append style = {red}}
+            \Edges[color=red](a,b,c,d,e,a)
+            \tikzset{EdgeStyle/.append style = {blue}}
+            \Edges[color=blue](a,c,e,b,d,a)
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:auto-complementario2}
+    \end{marginfigure}
+\end{ejem}
+
+Adicionalemente, tenemos las siguientes propiedades:
+
+\begin{itemize}
+    \item Todo grafo $G$ de $n$ vértices y su complemento $\overline{G}$ descomponen a $K_n$.
+    \item $K_{1,n-1}$ y $K_{n-1}$ descomponen a $K_n$ a pesar de que uno de estos grafos omite un vértice.
+    \item Para descomponer un grafo $H$ en copias de un grafo $G$, el número de lados de $G$ debe dividir al número de lados de $H$. Pero esto no es suficiente.
+\end{itemize}
+
+\subsection{Grafo de Petersen y automorfismos}
+\stepcounter{subsec}
+
+\begin{defn}
+    El \ul{grafo de Petersen} es un grafo simple cuyos vértices son subconjuntos de $2$ elementos de un conjunto de $5$ elementos, y cuyos lados son las parejas de subconjuntos disjuntos.
+    
+    En otras palabras, es la clase de isomorfismo del grafo simple cuyos vértices son los pares no ordenados de elementos del conjunto $\{1,2,3,4,5\}$. Como hemos hecho con los lados de los grafos, en lugar de escribir el vértice $\{i,j\}$, escribiremos $ij$. Los lados del grafo de Petersen son todos los pares de vértices dados por conjuntos disjuntos. Por ejemplo, como $13$ y $45$ son disjuntos, los vértices $13$ y $45$ son adyacentes.
+\end{defn}
+
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{img/clases-de-isomorfismo.PNG}
-    \caption{Vemos que hay $11$ grafos en total}
+    \begin{tikzpicture}[scale=0.7]
+        \SetVertexNoLabel
+        \grPetersen[RA=6,RB=3]
+        \AssignVertexLabel[color = blue]{a}{34,12,45,23,51}
+        \AssignVertexLabel[color = blue]{b}{52,35,13,41,24}
+    \end{tikzpicture}
+    \caption{Grafo de Petersen}
+    \label{fig:petersen}
 \end{figure}
+
+\begin{nota}
+    Las propiedades del grafo de Petersen se desprenden de las reglas de adyacencia que definimos anteriormente:
+    
+    \begin{enumerate}
+        \item Cada vértice tiene grado $3$.
+        \item Se descompone en dos $5$-ciclos disjuntos.
+        \item Dos vértices no adyacentes tienen exactamente un vecino en común.
+        \item La longitud del ciclo más corto es $5$.
+    \end{enumerate}
+\end{nota}
+
+\begin{ejer}
+    Para ver 3: Dos vértices no adyacentes son de la forma $ij$ e $ik$. Si $pq$ es vecino común, entonces $p$ y $q$ son ambos distintos de $i, j$ y $k$. Por lo tanto $pq$ es único, ya que queda un par par restante que podemos elegir.
+    
+    Para ver 4: Por $2$, basta demostrar que no tiene ciclos con menos de $5$-vértices: No tiene $1$-ciclos ni $2$-ciclos porque es un grafo simple. Un $3$-ciclo debe estar compuesto por tres vértices que corresponden a pares ordenados disjuntos, lo cual es imposible si los pares son subconjuntos de un conjunto de $5$ elementos (se necesitan al menos $6$). Supongamos ahora que el grafo contiene un $4$-ciclo. Ese ciclo no contiene $3$-ciclos, entonces tiene dos vértices no adyacentes con dos vecinos en común. Pero esto contradice 3. Entonces queda demostrado que no contiene $4$-ciclos.
+\end{ejer}
+
+\begin{defn}
+    La propiedad 4 nos da pie a definir la \ul{cintura} de un grafo $G$ que tiene ciclos. Esta es la mínima longitud de un ciclo en $G$. Si un grafo no tiene ciclos se dice que su cintura es infinita.
+\end{defn}
+
+\begin{defn}
+    Un \ul{automorfismo} de $G$ es un isomorfismo de $G$ a $G$. Un grafo $G$ se dice que tiene \ul{transitividad por vértices} si para cada par $u, v \in V(G)$ existe un automorfismo que envía $u$ a $v$.
+\end{defn}
+
+\begin{ejem}
+    Dada una permutación $\sigma$ de $\{1,2,3,4,5\}$, la función $f_{\sigma}$ definida sobre los vértices del grafo de Petersen mediante $\Psi_{G}(ij) = \sigma(i)\sigma(j)$ preserva adyacencia. Es decir que
+    
+    \[
+    \text{$ij$ es vecino de $pq$} \quad \iff \quad \text{$\sigma(i)\sigma(j)$ es vecino de $\sigma(p)\sigma(q)$}
+    \]
+    
+    De esta manera, $f_{\sigma}$ es un isomorfismo del grafo de Petersen en sí mismo, un automorfismo. Esto implica que:
+    
+    \begin{itemize}
+        \item Hay al menos $120$ automorfismos del grafo de Petersen.
+        \item Para cada par de vértices en el grafo de Petersen hay un automorfismo que envía un vértice a otro, tiene transitividad por vértices.
+    \end{itemize}
+\end{ejem}
+
+\begin{ejem}
+    En el grafo bipartito completo $K_{n,m}$ cada permutación de una de las partes da un automorfismo, por lo tanto hay $n!m!$ en total. Si $n = m$, además de permutar los elementos de las partes, podemos permutar las partes mismas. Así que $K_{n,n}$ tiene $2(n!)^2$ automorfismos.
+    
+    Respecto a la transitividad por vértices, $K_{n,m}$ es transitivo por vértices sii $n = m$, ya que si $u, v$ están en distintas partes y $n \neq m$, entonces no son adyacentes a la misma cantidad de vértices, por lo tanto no se pueden permutar.
+\end{ejem}
+
+\begin{ejem}
+    ¿Cuántos automorfismos tiene el camino de $4$ vértices?: Además de la identidad, la permutación $(14)(23)$\marginfootnote{Esta es la notación de ciclos, en Wikipedia aparece al buscar permutación.} es un automorfismo, ¿habrá otro? El $2$ si se mueve debe ir al $3$ (y viceversa) para preservar el grado, pero el $1$ y el $4$ no pueden quedar fijos porque se pierde la adyacencia. De esta forma, sólo hay dos automorfismos en total.
+    
+    Y por la discusión anterior, se concluye que para $n > 2$, $P_n$ no es transitivo por vértices.
+    
+    \begin{figure}
+        \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+            \begin{tikzpicture}
+                \SetGraphUnit{1}
+                \Vertex{1}
+                \EA(1){2}
+                \EA(2){3}
+                \EA(3){4}
+                \Edges(1,2,3,4)
+            \end{tikzpicture}
+            \caption{Permutación $id$.}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+            \begin{tikzpicture}
+                \SetGraphUnit{1}
+                \Vertex{4}
+                \EA(4){3}
+                \EA(3){2}
+                \EA(2){1}
+                \Edges(1,2,3,4)
+            \end{tikzpicture}
+            \caption{Permutación $(14)(23)$.}
+        \end{subfigure}
+    \end{figure}
+\end{ejem}
+
