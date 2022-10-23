@@ -176,18 +176,7 @@ Las definiciones de clique y complemento dan pie a la definición de complemento
     
     ¿Cuántas horas harán falta para que los eventos puedan darse sin chocar entre la audiencia?
     
-    \begin{marginfigure}
-        \centering
-        \begin{tikzpicture}
-            \GraphInit[vstyle=Welsh]
-            \Vertices[unit=2]{circle}{$v_3$, $v_2$, $v_1$, $v_6$, $v_5$, $v_4$}
-            \Edges($v_1$,$v_2$,$v_6$,$v_1$,$v_4$,$v_5$,$v_6$,$v_5$,$v_3$)
-        \end{tikzpicture}
-        \caption{Cada vértice de este grafo representa un evento, y cada lado un potencial choque.}
-        \label{fig:nocolor}
-    \end{marginfigure}
-    
-    La situación general se puede representar mediante el grafo de la figura \ref{fig:nocolor}, donde los vértices representan los eventos y los lados representan los potenciales choques. El problema se resuelve al tomar los pares de vértices que \textbf{no} están conectados. Luego, una solución puede ser la siguiente:
+    La situación general se puede representar mediante el grafo a la izquierda de la figura \ref{fig:eventos-convencion}, donde los vértices representan los eventos y los lados representan los potenciales choques. El problema se resuelve al tomar los pares de vértices que \textbf{no} están conectados. Luego, una solución puede ser la siguiente:
     
     \begin{center}
         \begin{tabular}{cccc}
@@ -198,25 +187,37 @@ Las definiciones de clique y complemento dan pie a la definición de complemento
     
     En términos matemáticos, lo que hemos hecho es asignar una partición de cuatro partes al conjunto de vértices del grafo, con la condición de que ninguna de dichas partes contenga un par de vértices adyacentes.
     
-    De esta forma, si decidimos asignar un color a cada uno de los vértices del grafo \ref{fig:nocolor}, el grafo puede colorearse como en \ref{fig:color}. Sin embargo, este no es el menor número de colores que se pueden usar. Como los vértices $v_1$, $v_2$ y $v_6$ forman un triángulo, es decir, un grafo $K_3$, cada uno de ellos necesita un color distinto por ser adyacente a los otros dos, por lo que se necesitan al menos $3$ colores para pintar el grafo completo.
+    De esta forma, si decidimos asignar un color a cada uno de los vértices del primer grafo en \ref{fig:eventos-convencion}, puede colorear se como el que está a su derecha. Sin embargo, este no es el menor número de colores que se pueden usar. Como los vértices $v_1$, $v_2$ y $v_6$ forman un triángulo, es decir, un grafo $K_3$, cada uno de ellos necesita un color distinto por ser adyacente a los otros dos, por lo que se necesitan al menos $3$ colores para pintar el grafo completo.
     
-    \begin{marginfigure}
+    \begin{figure}
         \centering
-        \begin{tikzpicture}
-            \GraphInit[vstyle=Welsh]
-            \Vertices[unit=2]{circle}{$v_3$, $v_2$, $v_1$, $v_6$, $v_5$, $v_4$}
-            \Edges($v_1$,$v_2$,$v_6$,$v_1$,$v_4$,$v_5$,$v_6$,$v_5$,$v_3$)
-            \SetVertexNoLabel
-            \AddVertexColor{red}{$v_1$,$v_3$}
-            \AddVertexColor{blue}{$v_2$, $v_4$}
-            \AddVertexColor{green}{$v_5$}
-            \AddVertexColor{yellow}{$v_6$}
-        \end{tikzpicture}
-        \caption{El mismo grafo con la coloración planteada en la tabla.}
-        \label{fig:color}
-    \end{marginfigure}
+        \begin{subfigure}[b]{0.4\textwidth}
+            \begin{tikzpicture}
+                \GraphInit[vstyle=Welsh]
+                \Vertices[unit=2]{circle}{$v_3$, $v_2$, $v_1$, $v_6$, $v_5$, $v_4$}
+                \Edges($v_1$,$v_2$,$v_6$,$v_1$,$v_4$,$v_5$,$v_6$,$v_5$,$v_3$)
+            \end{tikzpicture}
+            \caption{Cada vértice de este grafo representa un evento, y cada lado un potencial choque.}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.4\textwidth}
+            \begin{tikzpicture}
+                \GraphInit[vstyle=Welsh]
+                \Vertices[unit=2]{circle}{$v_3$, $v_2$, $v_1$, $v_6$, $v_5$, $v_4$}
+                \Edges($v_1$,$v_2$,$v_6$,$v_1$,$v_4$,$v_5$,$v_6$,$v_5$,$v_3$)
+                \SetVertexNoLabel
+                \AddVertexColor{red}{$v_1$,$v_3$}
+                \AddVertexColor{blue}{$v_2$, $v_4$}
+                \AddVertexColor{green}{$v_5$}
+                \AddVertexColor{yellow}{$v_6$}
+            \end{tikzpicture}
+            \caption{El grafo presentado en la figura anterior con la coloración planteada en la tabla.}
+        \end{subfigure}
+        \caption{Grafo junto a su respectiva coloración.}
+        \label{fig:eventos-convencion}
+    \end{figure}
     
-    En general, lo que buscamos con este problema, fue el número cromático del grafo \ref{fig:nocolor}.
+    En general, lo que buscamos con este problema, fue el número cromático del grafo \ref{fig:eventos-convencion}.
 \end{prob}
 
 \begin{defn}
@@ -269,6 +270,14 @@ Las definiciones de clique y complemento dan pie a la definición de complemento
     Un \ul{ciclo} es un grafo simple $C$ cuyos vértices se pueden ordenar de la forma $V(C) = \{v_1, \dots, v_m\}$, y cuyos lados son $\{v_1v_2, v_2v_3, \dots, v_{m-1}v_m, v_mv_1\}$. Es decir, que tiene la misma cantidad de vértices que de lados y se pueden disponer los vértices de manera circular (cada vértice es adyacente únicamente a sus consecutivos en el círculo).
 \end{defn}
 
+\begin{defn}
+    Anteriormente, vimos el concepto de caminos dentro de un grafo, lo que nos lleva al concepto de subgrafo: Un \ul{subgrafo} de un grafo $G$ es un grafo $H$ tal que $V(H) \subseteq V(G)$ y $E(H) \subseteq E(G)$ y $f_H = f_{G_{E|H}}$.
+\end{defn}
+
+\begin{defn}
+    Un grafo $G$ es completo si $V(G)$ es un clique.
+\end{defn}
+
 \begin{marginfigure}
     \centering
     \begin{tikzpicture}[scale=0.3]
@@ -277,14 +286,6 @@ Las definiciones de clique y complemento dan pie a la definición de complemento
     \end{tikzpicture}
     \caption{Ejemplo de un grafo cíclico de $6$ vértices.}
 \end{marginfigure}
-
-\begin{defn}
-    Anteriormente, vimos el concepto de caminos dentro de un grafo, lo que nos lleva al concepto de subgrafo: Un \ul{subgrafo} de un grafo $G$ es un grafo $H$ tal que $V(H) \subseteq V(G)$ y $E(H) \subseteq E(G)$ y $f_H = f_{G_{E|H}}$.
-\end{defn}
-
-\begin{defn}
-    Un grafo $G$ es completo si $V(G)$ es un clique.
-\end{defn}
 
 \begin{marginfigure}
     \centering
@@ -509,6 +510,8 @@ Adicionalemente, tenemos las siguientes propiedades:
     \label{fig:petersen}
 \end{figure}
 
+\break
+
 \begin{nota}
     Las propiedades del grafo de Petersen se desprenden de las reglas de adyacencia que definimos anteriormente:
     
@@ -588,4 +591,3 @@ Adicionalemente, tenemos las siguientes propiedades:
         \end{subfigure}
     \end{figure}
 \end{ejem}
-

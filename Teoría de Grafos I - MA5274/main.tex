@@ -20,6 +20,7 @@
 \usepackage{booktabs} % Para hacer tablas un poco más estilizadas
 \usepackage{multirow}
 \usepackage[font={footnotesize}]{caption} % Cambia el tamaño de los captions
+\usepackage{subcaption} % Para referenciar subfiguras
 
 % Establece el subrayado de color rojo
 \definecolor{ferrari}{rgb}{1,0.17,0}
@@ -54,14 +55,8 @@ code-for-last-col = \color{red}
 \newcommand{\Nastk}{\mathbb{N}^*}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\prop}{\mathcal{P}}
-\newcommand{\con}{\sim_{c}}
-\newcommand{\ent}{\operatorname{entrada}}
-\newcommand{\sal}{\operatorname{salida}}
-\newcommand{\val}{\operatorname{val}}
-\newcommand{\sumtoinfty}[2]{\sum_{#1}^{\infty} #2}
+\newcommand{\lngtd}[1]{\operatorname{long}(#1)}
 
 % Cambia el nombre de varios comandos
 \renewcommand{\contentsname}{Contenido}
@@ -163,5 +158,6 @@ Carnet: 13-10524}
 \tableofcontents
 \break
 \input{semana1}
+\input{semana2}
 
 \end{document}
