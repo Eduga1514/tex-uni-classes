@@ -77,3 +77,277 @@ Para evitar esta restricción, nos valemos del teorema de la función implícita
 \begin{aco}
     Lo que nos da el teorema es la certeza de que la $f$ existe, es decir que $F$ efectivamente puede ser despejada, pero no da maneras para hallar dicha función. En la práctica nos daremos cuenta de que esto no es tan sencillo.
 \end{aco}
+
+Ahora, pasaremos a demostrar el teorema cuando tenemos una función $F: \R^{n+1} \rightarrow \R$.
+
+\begin{teo}[Teorema de la función implícita, caso campo escalar]
+    Sea $F: \R^{n+1} \rightarrow \R$ tal que $F(x, \dots, x_n, y) \in C^2(\R^{n+1})$. Supongamos que hay un punto $p_0(x_1^0, \dots, x_n^0, y^0) = (x_0, y_0)$ en $\R^{n+1}$ tal que existe $r > 0$ tal que
+    
+    \[
+    F(p_0) = 0 \quad \text{y} \quad \partial F(p_0) \neq 0
+    \]
+    
+    \noindent y esto para todo $(x_1, \dots, x_n, y) \in B(p_0, r)$\marginfootnote{Debido a la continuidad, la derivada se anula en la bola.}.
+    
+    Entonces en la ecuación $F(x_1, \dots, x_n, y) = 0$ podemos despejar $y$ en términos de $x_1, \dots, x_n$. Por lo tanto, podemos garantizar la existencia de un $V_{x_0} \subset \R^n $, entorno abierto de $x_0$, tal que
+    
+    \[
+    y = f(x_1, \dots, x_n), \quad \forall (x_1, \dots, x_n) \in V_{x_0}
+    \]
+    
+    \noindent y además, para cada $i = 1, \dots, n$ podemos expresar las derivadas parciales como
+    
+    \[
+    \partial_i f(x_1, \dots, x_n) = - \dfrac{\partial_i F(x_1, \dots, x_n, y)}{\partial_y F(x_1, \dots, x_n, y)}
+    \]
+\end{teo}
+
+\begin{proof}[Esbozo de la demostración]
+    En un principio, se expresan las ideas principales para la realización de la demostración, y los detalles se dejan como ejercicio para revisar de forma individual.
+    
+    En primer lugar, como tenemos que $\partial_y F(p_0) \neq 0$, podemos suponer que $\partial_y F(p_0) > 0$ (el caso $< 0$ también forma parte de la demostración, y es análogo). Esto implica que $\partial_y F(p_0)$ es una función creciente, y como además es continua entonces $\exists r > 0$ y $N_0 > 0$ tal que
+    
+    \[
+    \left| \partial_y F(w) \right| > N_0 \quad \forall w \in B(p_0, r) \quad \footnotemark
+    \]\footnotetext{Donde $w = (x,y)$}
+    
+    \noindent ya que que la derivada no se anula en $p_0$ y la derivada parcial es continua en $p_0$.
+    
+    Por otra parte, si consideramos $K = \overline{B(p_0, r)}$ (con respecto a $\normaeuc{}$), vemos que $K$ es cerrado (porque su complemento es abierto) y acotado. Entonces $K$ es compacto. Por lo tanto para este conjunto $K$, podemos acotar las derivadas $\partial_i F$, $\partial_y F$. De esta forma, $\exists M_i, M_y$ con $i = 1, \dots, n$ tales que
+    
+    \begin{equation}\label{eq:3.1.1}
+        \left| \partial_i F(w) \right| \leq M_i \quad \text{y} \quad \left| \partial_y F(w) \right| \leq M_y
+    \end{equation}
+    
+    \noindent si $w \in K$.
+    
+    Tomemos ahora
+    
+    \begin{align*}
+        F(x_1, \dots, x_n) &= F(x_1, \dots, x_n, y) - F(x_1^0, \dots, x_n^0, y_0) \pm F(x_1^0, \dots, x_n^0, y) \\
+            &= \big[ F(x_1, \dots, x_n, y) - F(x_1^0, \dots, x_n^0, y) \big] \\
+            &+ \left[ F(x_1^0, \dots, x_n^0, y) - F(x_1^0, \dots, x_n^0, y_0) \right]
+    \end{align*}
+    
+    Ahora pasemos a aplicar regla de la cadena. Primero parametricemos
+    
+    \[
+    h(t) = F\left(tx + (1-t)x_0, y\right)
+    \]
+    
+    \[
+    \alpha(t) = F\left(x_0, ty + (1-t)y_0\right)
+    \]
+    
+    \noindent donde $t \in [0,1]$. Ambas funciones son derivables y continuas. Usando el \TVM, $\exists \theta_0, \lambda_0 \in (0,1)$ tales que
+    
+    \[
+    h'(\theta_0) = h(1) - h(0) \quad \text{y} \quad \alpha'(\lambda_0) = \alpha(1) - \alpha(0)
+    \]
+    
+    Luego, vemos también que
+    
+    \begin{align*}
+        F(x_1, \dots, x_n, y) &- F(x_1^0, \dots, x_n^0, y) \\
+             &= h(1) - h(0) = h'(\theta_0) \\
+             &= \nabla F \big( c(\theta_0), y \big) (x-x_0) \\
+             &= \sum_{k=1}^n \partial_k F\big( c(\theta_0), y \big) (x_k - x_k^0) \big)
+    \end{align*}
+    
+    \noindent donde $c(\theta_0) = tx + (1-t)x_0$.
+    
+    De forma análoga,
+    
+    \begin{align*}
+        F(x_1^0, \dots, x_n^0, y) &- F(x_1^0, \dots, x_n^0, y_0) \\
+             &= \alpha(1) - \alpha(0) = \alpha'(\lambda_0) \\
+             &= \nabla F \big( x_0, c(\lambda_0) \big) (y-y_0) \\
+             &= \partial_y F\big( x_0, c(\lambda_0) \big) (y - y_0)
+    \end{align*}
+    
+    \noindent donde $c(\lambda_0) = ty + (1-t)y_0$.
+    
+    Ahora, sea $\varepsilon_0 < r$ entonces $\exists \delta_1 > 0$ tal que
+    
+    \[
+    \left| F(x_1, \dots, x_n, y) \right| \leq \sum_{k=1}^n \left( |\partial_k F\left( c(\theta_0), y \right)|\delta_1 \right) + \left|\delta_y F\left( x_0, c(\lambda_0) \right)\right|\delta_1
+    \]
+    
+    \noindent y por \ref{eq:3.1.1}, tomando $M = \max(M_1, \dots, M_n)$, lo anterior nos queda como
+    
+    \[
+    \left| F(x_1, \dots, x_n, y) \right| \leq nM\delta_1
+    \]
+    
+    Definamos ahora $\delta_0 = \min(\varepsilon_0, N_0/2M, \delta_1/M)$. Entonces
+    
+    \[
+    \partial_i F\big( c(\theta_0), y \big)(x_i - x_i^0) > \frac{-N_0 \varepsilon_0}{2}
+    \]
+    
+    \[
+    \partial_y F\big( x_0, c(\lambda_0) \big)(y - y_0) > \frac{N_0 \varepsilon_0}{2} \footnotemark
+    \]\footnotetext{no se entiene ¿¿??¿¿ como se salta a esos $>$?}
+    
+    Esto nos permite concluir que
+    
+    \[
+    F(x_1, \dots, x_n, y_0 + \varepsilon_0) > \varepsilon_0N_0 > \frac{\varepsilon_0N_0}{2} > 0
+    \]
+    
+    \[
+    F(x_1, \dots, x_n, y_0 - \varepsilon_0) < -\varepsilon_0N_0 + \frac{\varepsilon_0N_0}{2} = -\frac{\varepsilon_0N_0}{2}< 0
+    \]
+    
+    Luego aplicando el teorema de los valores intermedios, podemos decir que $\exists y \in (y_0 - \varepsilon, y_0 + \varepsilon)$ único tal que $F(x,y) = 0$, con cada $y$ dependiente de $x$. Como cada $y$ depende de $x$, definimos la función $f(x_1, \dots, x_n) = y$. Esta función estará definida en un abierto $V_{x_0} \subset \R^n$ donde $V_{x_0}$ son los $x \in \R^n$ tales que el par $(x, y) \in B(p_0, \delta_2)$ con $\delta_2 = \min(\delta_1, \delta_0)$.
+    
+    Y por regla de la cadena, tenemos que al derivar $F\left(x, f(x)\right) = 0$, nos queda
+    
+    \[
+    \frac{\partial F}{\partial x_i} \frac{dx_i}{dx_i} + \frac{\partial F}{\partial y} \frac{dy}{dx_i} = 0 \implies \frac{dy}{dx_i} = -\dfrac{\partial_i F(x_1, \dots, x_n, y)}{\partial_y F(x_1, \dots, x_n, y)}
+    \]
+    
+    De esta forma, queda demostrado.
+\end{proof}
+
+\begin{teo}[Teorema de la función implícita, 3ra versión]
+    Sean $F, G: \R^4 \rightarrow \R$ con dominio $A \subset \R^4$ abierto, conexo y convexo y $p_0 = (x_0, y_0, u_0, v_0) \in A$ tal que $G(p_0) = F(p_0) = 0$. Sea también $r > 0$ tal que $F, G \in C^1\left( B(p_0, r) \right)$ (tal que $B(p_0, r) \subset A$).
+    
+    Si $\frac{\partial(F,G)}{\partial(u,v)}(p_0) \neq 0$\marginfootnote{Donde tenemos que
+    
+    \[
+    \displaystyle \frac{\partial(F,G)}{\partial(u,v)} =
+    \det
+    \renewcommand\arraystretch{2}
+    \begin{pmatrix}
+        \dfrac{\partial F}{\partial u} & \dfrac{\partial F}{\partial V} \\
+        \dfrac{\partial G}{\partial u} & \dfrac{\partial G}{\partial V}
+    \end{pmatrix}
+    \]
+    }, entonces $F(x,y,u,v) = 0$ y $G(x,y,u,v) = 0$ definen implícitamente dos funciones $f_1, f_2$ como $u = f_1(x,y)$ y $v = f_2(x,y)$. Donde
+    
+    \[
+    \dfrac{\partial u}{\partial x} = \dfrac{
+    \det \renewcommand\arraystretch{2}\begin{vmatrix}
+             - \dfrac{\partial F}{\partial x} & \dfrac{\partial F}{\partial v} \\
+             - \dfrac{\partial G}{\partial x} & \dfrac{\partial G}{\partial v} \\
+         \end{vmatrix}
+    }{\dfrac{\partial (F,G)}{\partial (u,v)}}
+    \qquad
+    \dfrac{\partial u}{\partial y} = \dfrac{
+    \det \renewcommand\arraystretch{2}\begin{vmatrix}
+             - \dfrac{\partial F}{\partial y} & \dfrac{\partial F}{\partial v} \\
+             - \dfrac{\partial G}{\partial y} & \dfrac{\partial G}{\partial v} \\
+         \end{vmatrix}
+    }{\dfrac{\partial (F,G)}{\partial (u,v)}}
+    \]
+    
+    \noindent y también
+    
+    \[
+    \dfrac{\partial v}{\partial x} = \dfrac{
+    \det \renewcommand\arraystretch{2}\begin{vmatrix}
+             \dfrac{\partial F}{\partial u} & -\dfrac{\partial F}{\partial x} \\
+             \dfrac{\partial G}{\partial u} & -\dfrac{\partial G}{\partial x} \\
+         \end{vmatrix}
+    }{\dfrac{\partial (F,G)}{\partial (u,v)}}
+    \qquad
+    \dfrac{\partial v}{\partial y} = \dfrac{
+    \det \renewcommand\arraystretch{2}\begin{vmatrix}
+             \dfrac{\partial F}{\partial u} & -\dfrac{\partial F}{\partial y} \\
+             \dfrac{\partial G}{\partial u} & -\dfrac{\partial G}{\partial y} \\
+         \end{vmatrix}
+    }{\dfrac{\partial (F,G)}{\partial (u,v)}}
+    \]
+\end{teo}
+
+\begin{proof}
+    A continuación se presentará la demostración a grandes rasgos. Hay que completar los detalles.
+    
+    Por hipótesis, tenemos que
+    
+    \[
+    \renewcommand\arraystretch{2}
+    \begin{vmatrix}
+        \partial_u F & \partial_v F \\
+        \partial_u G & \partial_v G
+    \end{vmatrix}
+    \neq 0
+    \]
+    
+    \noindent cuando se evalua en el punto $p = p_0$.
+    
+    Esto implica que esas derivadas parciales no pueden ser todas simultáneamente iguales a $0$. Supongamos entonces que $\partial_v G(p_0) \neq 0$. Entonces miremos la siguiente función
+    
+    \[
+    z_1 = G(x,y,u,v)
+    \]
+    
+    Como $G: \R^4 \rightarrow \R$, el teorema de la función implícita para campos escalares nos permite establecer que $\exists \psi: \R^3 \rightarrow \R$ tal que $\psi(x,y,u) = v$. Y a partir de esta función, definamos la siguiente función auxiliar
+    
+    \[
+    H(x,y,u) = F\left( x,y,u,\psi(x,y,u) \right)
+    \]
+    
+    \noindent y ahora derivando, nos queda que por la regla de la cadena
+    
+    \begin{equation}\label{eq:3.1.2}
+        \partial_u H = \frac{\partial F}{\partial u} + \frac{\partial F}{\partial v} \frac{\partial \psi}{\partial u}
+    \end{equation}
+    
+    \noindent pero nuevamente por el teorema de la función implícita, nos queda que la derivada parcial de $\psi$ se puede reescribir como
+    
+    \[
+    \frac{\partial \psi}{\partial u} = - \frac{\partial_u G}{\partial_v G}
+    \]
+    
+    \noindent entonces \ref{eq:3.1.2} nos queda como
+    
+    \[
+    \partial_u H = \frac{\partial F}{\partial u} + \frac{\partial F}{\partial v} \left( -\frac{\partial_u G}{\partial_v G} \right) = \frac{\partial_uF \partial_vG - \partial_vF \partial_uG}{\partial_vG}
+    \]
+    
+    Ahora por hipótesis esto nos permite decir que
+    
+    \[
+    \frac{\partial}{\partial u} H(p_0) \neq 0
+    \]
+    
+    Como $H(p_0) = 0$ por como está definida $H$, entonces nuevamente aplicando el teorema de la función implícita, podemos despejar $u$ en términos de $x, y$. Entonces nos queda que $u = f_1(x,y)$ y $v = \psi\left( x, y, f_1(x,y) \right) = f_2 (x,y)$.
+    
+    Por otro lado, sabemos que
+    
+    \[
+    F(x,y,f_1(x,y),f_2(x,y)) = 0 \quad \text{y} \quad G(x,y,f_1(x,y),f_2(x,y)) = 0
+    \]
+    
+    \noindent entonces derivando $F$ con respecto a la $x$ y $G$ con respecto a $y$ y aplicando la regla de la cadena, obtenemos el siguiente sistema:
+    
+    \[
+    \begin{cases}
+        \partial_uF \partial_xu + \partial_vF \partial_xv = -\partial_xF \\
+        \partial_uG \partial_xu + \partial_vG \partial_xv = -\partial_xG
+    \end{cases}
+    \]
+    
+    Entonces como el determinante es distinto de $0$ por hipótesis, podemos aplicar la regla de Kramer\marginfootnote{Recordar el álgebra lineal. Si se necesita repasar, en Wikipedia hay una explicación bastante concisa.} y nos queda que
+    
+    \[
+    \partial_xu =
+    \dfrac{
+        \begin{vmatrix}
+            -\partial_xF & \partial_vF \\
+            -\partial_xG & \partial_vG
+        \end{vmatrix}
+    }{
+        \begin{vmatrix}
+            \partial_uF & \partial_vF \\
+            \partial_uG & \partial_vG
+        \end{vmatrix}
+    }
+    \]
+    
+    \noindent y de forma análoga se realiza el mismo planteamiento para obtener $\partial_xv$, $\partial_yu$ y $\partial_yv$.
+    
+    De esta manera, queda demostrado el teorema.
+\end{proof}
