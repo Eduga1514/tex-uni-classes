@@ -1,0 +1,128 @@
+\section{Paseos, recorridos y ciclos}
+\stepcounter{sec}
+
+En la parte anterior definimos los caminos, pero dependiendo del problema, querremos modelarlo prestando atención en el movimiento dentro del grafo. Quizá nos interese fijarnos en los vértices recorridos o en los lados recorridos.
+
+\subsection{Conexidad}
+\stepcounter{subsec}
+
+\begin{defn}
+    Un \ul{paseo} $W$ es una lista $v_0, e_1, v_2, \dots, e_k, v_k$ de vértices y lados de un grafo $G$ tales que para $i = 1, \dots, k$ se tiene $f_G(e_k) = \{v_{j-1},v_j\}$. Vemos que $k$ es la cantidad de lados del paseo, y lo denotaremos por $k = \lngtd{W}$.
+    
+    Un \ul{recorrido} es un paseo sin lados repetidos, es decir que si $W$ es un paseo en $G$, entonces $\forall i,j$ tenemos que $i \neq j \implies e_i \neq e_j$, con $e_i, e_j \in W$.
+    
+    Diremos que un paseo es \ul{cerrado} si $v_0 = v_k$.
+\end{defn}
+
+Es inmediato suponer que existe una relación entre los paseos y los caminos (que definimos en la sección anterior). Veamos concretamente cómo se relacionan:
+
+\begin{lem}
+    Todo paseo de $u$ a $v$ contiene un camino de $u$ a $v$.
+\end{lem}
+
+\begin{proof}
+    Pasaremos a realizar la demostración de este lema por inducción: Sea $W$ un camino con $\lngtd{W} = n$. Si $n = 0$, entonces el paseo no tiene lados, por lo tanto $W$ consiste de un único vértice y $u = v$. De esta forma $W$ contiene un camino de $u$ a $v$ de longitud $0$.
+    
+    \begin{marginfigure}
+        \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{1}
+            \Vertex{u}
+            \WE(u){v1}
+            \WE(v1){v2}
+            \WE(v2){v3}
+            \WE(v3){w}
+            \SO(w){v}
+            \Edges(u,v1,v2,v3,w,v)
+            \Loop[dist=1cm](w)
+        \end{tikzpicture}
+        \caption{Situación descrita en la demostración del lema. El bucle en $w$ representa los vértices entre $w$ y su repetición. Al igual que ocurre en $w$, esta situación se puede generalizar para cualquier vértice.}
+    \end{marginfigure}
+    
+    Supongamos ahora que el teorema se cumple para $n < k$. Toca demostrar para $n = k$: Si $W$ no tiene vértices repetidos, entonces todos sus vértices y lados forman un camino de $u$ a $v$. Si $W$ tiene un vértice repetido $w$, entonces omitamos todos los lados y vértices que aparecen entre $w$ y su repetición, de esta forma obtenemos un paseo $W'$ contenido en $W$. Como $\lngtd{W'} < k$, podemos aplicar la H.I y hay un camino $P$ de $u$ a $V$ contenido en $W'$. Ya que $W' \subset W$, entonces el camino $P$ está contenido en $W$.
+    
+    De esta forma, hemos demostrado el lema por inducción.
+\end{proof}
+
+\begin{defn}
+    Sean $G$ un grafo y $u, v \in G$. Diremos que $x$ está \ul{conectado} con $y$ si existe un camino de $u$ a $v$ (y de lo contrario, \ul{desconectado}). La \ul{relación de conexidad} sobre $V(G)$ consiste en los pares ordenados $(u,v)$ tales que $u$ está conectado a $v$. Las clases de equivalencia de esta relación son las componentes del grafo $G$, es decir todo subgrafo de $G$ tal que es conexo maximal.
+\end{defn}
+
+\begin{ejem}\label{ejem:cortes}
+    El grafo de abajo tiene $4$ componentes, una de ellas siendo un vértice aislado. Los conjuntos de vértices de cada componente son $\{a,b\}$, $\{c,d,e,f,g\}$, $\{h\}$ e $\{i,j,k\}$, y estas son las clases de equivalencia respecto a la relación de conexidad.
+    
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{1}
+            \Vertex{a}
+            \SO(a){b}
+            \Edges(a,b)
+            \Vertex[x=1 , y=0]{c}
+            \EA(c){d}
+            \SO(d){g}
+            \EA(d){e}
+            \EA(e){f}
+            \Edges(c,g,d,c,d,e,g,e,f)
+            \Vertex[x=3.5 , y=-1]{h}
+            \Vertex[x=5 , y=-1]{i}
+            \Vertex[x=5.5 , y=0]{j}
+            \EA(j){k}
+            \Edges(i,j,k)
+        \end{tikzpicture}
+        \caption{Grafo con $4$ componentes.}
+    \end{figure}
+\end{ejem}
+
+Vemos del ejemplo anterior que eliminar un vértice o lado puede incrementar el número de componentes. Por ejemplo, si eliminamos el lado que incide en $i$ pasamos a tener $5$ componentes, lo mismo ocurre si eliminamos $j$ y los lados que inciden con él.
+
+\begin{defn}
+    Un \ul{lado-corte} ó \ul{vértice-corte} de un grafo es un lado o vértice que al retirarlo del grafo incrementa el número de componentes. Escribimos $G - e$ o $G - M$ para denotar al subgrafo de $G$ obtenido al retirar el lado $e$ o el conjunto de lados $M$. Escribimos $G - v$ ó $G - S$ para denotar al subgrafo obtenido al retirar el vértice $e$ o el conjunto de vértices $S$.
+\end{defn}
+
+Es importante resaltar que las componentes son disjuntas dos a dos, es decir que no existe un par de componentes que comparta un vértice. Añadir un lado que une a dos vértices en componentes distintas hace que se reduzca en $1$ el número de componentes. De esta forma, añadir un lado reduce el número de componentes en $0$ o en $1$, y eliminar un lado incrementa el número de componentes por $0$ o $1$.
+
+\begin{pro}
+    Todo grafo con $n$ vértices y $k$ lados tiene al menos $n-k$ componentes.
+\end{pro}
+
+\begin{proof}
+    Un grafo con $n$ vértices sin lados tiene $n$ componentes. Sabemos por la discusión anterior que cada lado reduce el número en componentes en máximo $1$, así que cuando se han añadido $k$ lados, el número de componentes sigue siendo mayor o igual a $n-k$.
+\end{proof}
+
+\begin{ejem}
+    Para el grafo presentado en el ejemplo \ref{ejem:cortes}, tenemos que
+    
+    \begin{itemize}
+        \item Lados-corte: $ab$, $ef$, $ij$, $jk$.
+        \item Vértices-corte: $e$, $j$.
+    \end{itemize}
+\end{ejem}
+
+\begin{defn}
+    Sean $G$ un grafo y $T \subseteq V(G)$. El \ul{grafo inducido} denotado por $G[T]$ está conformado por $T$, $f_G$ y todo lado $e \in E(G)$ que cumpla lo siguiente: para algún par no ordenado $\{u,v\}$ con $u,v \in V(T)$, se tiene que $\{u,v\} = f_G(e)$. Es decir, que el grafo inducido consiste también de todos los lados cuyos vértices están contenidos en $V(T)$.
+\end{defn}
+
+Para esta definición, es importante resaltar que un conjunto de vértices $S$ es un conjunto independiente sii el grafo inducido por $S$ no tiene lados.
+
+\begin{ejem}
+    Nuevamente, en el grafo del ejemplo \ref{ejem:cortes}, tenemos que $C_4$ y $P_5$ son subgrafos \textbf{NO} inducidos, y $P_4$ es un subgrafo inducido: Puede ser inducido por $\{c,g,e,f\}$ o por $\{c,d,e,f\}$.
+\end{ejem}
+
+\begin{teo}
+    Sean $G$ un grafo y $e \in E(G)$, entonces $e$ es un lado-corte sii no pertenece a un ciclo.
+\end{teo}
+
+\begin{proof}
+    Sea $e$ un lado de un grafo $G$ (con vértices $x,y$) y sea $H$ la componente que contiene a $e$. Como al eliminar $e$ ninguna otra componente se ve afectada, es suficiente probar que $H - e$ es conexo si y sólo si $e$ pertenece a un ciclo. Probemos ambas implicaciones:
+    
+    \begin{enumerate}
+        \item[$\Leftarrow$] Supongamos que $e$ pertenece a un ciclo $C$ de $H$. Escojamos $u, v \in V(H)$. Como $H$ es conexo, entonces $H$ tiene un camino $P$ de $u$ a $v$. Si $P$ no contiene a $e$, entonces $P$ está en $H - e$, como esto es para todo $u, v \in V(H)$, $H - e$ es conexo. Si $P$ contiene a $e$ supongamos en primer lugar y sin pérdida de generalidad que $x$ está entre $u$ e $y$ en $P$. Como $H - e$ contiene un camino de $u$ a $x$ (el cual está en $P$), un camino de $x$ a $y$ (está en $C$) y un camino de $y$ a $v$ (está en $P$ nuevamente), por la transitividad de la relación de conexidad tenemos que eso implica que $H - e$ tiene un camino de $u$ a $v$, y esto se cumple para todo $u, v \in V(G)$.
+        
+        De esta forma, $u, v \in V(H)$ y $H - e$ es conexo.
+        
+        \item[$\Rightarrow$] Supongamos ahora que $H - e$ es conexo. Esto implica que existe un camino de $x$ a $y$, y si se agrega nuevamente el lado $e$, se tiene un ciclo. Por lo tanto $e$ pertenece a un ciclo.
+    \end{enumerate}
+    
+    De esta manera queda demostrado.
+\end{proof}
