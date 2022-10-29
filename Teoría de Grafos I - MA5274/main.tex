@@ -37,6 +37,17 @@ code-for-first-col = \color{red} ,
 code-for-last-col = \color{red}
 }
 
+\tikzset{unode/.style = {
+    circle, 
+    draw=black, 
+    thick,
+    fill=black,
+    inner sep=2.3pt,
+    minimum size=2.3pt } }
+\tikzset{uedge/.style = {
+    draw=black, 
+    very thick} }
+
 % Establece los enviroments para teoremas, ejemplos, definiciones, etc
 \newtheorem{teo}{Teorema}
 \newtheorem{cor}[teo]{Corolario}
@@ -58,6 +69,7 @@ code-for-last-col = \color{red}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\lngtd}[1]{\operatorname{long}(#1)}
+\newcommand{\LC}{\nameref{teo:primer}}
 
 % Cambia el nombre de varios comandos
 \renewcommand{\contentsname}{Contenido}
@@ -160,5 +172,6 @@ Carnet: 13-10524}
 \break
 \input{semana1}
 \input{semana2}
+\input{semana3}
 
 \end{document}

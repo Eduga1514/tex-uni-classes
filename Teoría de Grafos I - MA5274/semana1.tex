@@ -338,26 +338,6 @@ Ahora, vamos a hablar de grafos en relación con las matrices. Como hemos de sup
     Si el vértice $v$ pertenece al lado $e$, entonces decimos que $v$ y $e$ son \ul{incidentes}. El \ul{grado} de un vértice $v$ es el número de lados incidentes.
 \end{defn}
 
-\begin{marginfigure}
-    \centering
-    \begin{tikzpicture}
-        \GraphInit[vstyle=Normal]
-        \Vertex{x}
-        \Vertex[x=0 , y=3]{w}
-        \Vertex[x=1.5 , y=1.5]{y}
-        \Vertex[x=3 , y=1.5]{z}
-        \Edge[label=a](w)(x)
-        \Edge[label=b](w)(y)
-        \Edge[label=e](y)(z)
-        \tikzset{EdgeStyle/.append style = {bend left}}
-        \Edge[label=c](x)(y)
-        \tikzset{EdgeStyle/.append style = {bend right}}
-        \Edge[label=d](x)(y)
-    \end{tikzpicture}
-    \caption{}
-    \label{fig:matrices}
-\end{marginfigure}
-
 \begin{ejem}
     Fijémonos en el grafo de la figura \ref{fig:matrices}. A continuación, mostraremos las matrices de adyacencia e incidencia que resulta al ordenar los vértices como $w, x, y, z$ y los lados como $a, b, c, d, e$.
     
@@ -380,6 +360,26 @@ Ahora, vamos a hablar de grafos en relación con las matrices. Como hemos de sup
             z   &  0  &  0  &  0  &  0  &  1 \\
     \end{pNiceMatrix}
     \]
+    
+    \begin{marginfigure}
+    \centering
+    \begin{tikzpicture}
+        \GraphInit[vstyle=Normal]
+        \Vertex{x}
+        \Vertex[x=0 , y=3]{w}
+        \Vertex[x=1.5 , y=1.5]{y}
+        \Vertex[x=3 , y=1.5]{z}
+        \Edge[label=a](w)(x)
+        \Edge[label=b](w)(y)
+        \Edge[label=e](y)(z)
+        \tikzset{EdgeStyle/.append style = {bend left}}
+        \Edge[label=c](x)(y)
+        \tikzset{EdgeStyle/.append style = {bend right}}
+        \Edge[label=d](x)(y)
+    \end{tikzpicture}
+    \caption{}
+    \label{fig:matrices}
+\end{marginfigure}
     
     El grado de cada vértice está determinado por la suma de las entradas en la fila correspondiente al vértice: Podemos darnos cuenta de que el grado de $y$ es $4$ al sumar las entradas de la fila $y$. Otra cosa que vale la pena resaltar es que la matriz de adyacencia está determinada por el orden de los vértices: Si cambiamos el orden, tenemos una matriz distinta. Toda matriz de adyacencia es simétrica, con $0$s en la diagonal.
 \end{ejem}
@@ -426,7 +426,95 @@ Otros grafos no etiquetados (clases de isomorfismo) y sus notaciones son:
     % No se realizaron los grafos por flojera, básicamente
     \begin{figure}
         \centering
-        \includegraphics[scale=0.7]{img/clases-de-isomorfismo.PNG}
+        \begin{tikzpicture}[scale=0.5]
+            \begin{scope}[yshift=-8.1cm]
+                \begin{scope}[xshift=1.25cm,yshift=3cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {};  
+                \end{scope}
+                \begin{scope}[xshift=3.75cm,yshift=3cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (4);
+                \end{scope}
+                \begin{scope}[xshift=6.5cm,yshift=3cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (4) edge (3);  
+                \end{scope}
+                \begin{scope}[xshift=9.25cm,yshift=3cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (4); 
+                    \path[uedge] (2) edge (3);
+                \end{scope}
+                \begin{scope}[xshift=12cm,yshift=3cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (4) edge (3) edge (2); 
+                \end{scope}
+                \begin{scope}[xshift=14.75cm,yshift=3cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (2) edge (4); 
+                    \path[uedge] (2) edge (4);
+                \end{scope}
+                \begin{scope}[xshift=2.5cm,yshift=1cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (2) edge (4); 
+                    \path[uedge] (3) edge (4);
+                \end{scope}
+                \begin{scope}[xshift=5.25cm,yshift=1cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (2) edge (4); 
+                    \path[uedge] (3) edge (4);
+                    \path[uedge] (4) edge (2);
+                \end{scope}
+                \begin{scope}[xshift=8cm,yshift=1cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (2) edge (3); 
+                    \path[uedge] (4) edge (2) edge (3);
+                \end{scope}
+                \begin{scope}[xshift=10.75cm,yshift=1cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (2) edge (3) edge (4); 
+                    \path[uedge] (4) edge (2) edge (3);
+                \end{scope}
+                \begin{scope}[xshift=13.5cm,yshift=1cm]
+                    \node[unode] (1) at (0,0) {};
+                    \node[unode] (2) at (1,0) {};
+                    \node[unode] (3) at (1,1) {};
+                    \node[unode] (4) at (0,1) {}; 
+                    \path[uedge] (1) edge (2) edge (3) edge (4); 
+                    \path[uedge] (3) edge (2) edge (4) edge (1); 
+                    \path[uedge] (4) edge (2); 
+                \end{scope}
+            \end{scope}
+        \end{tikzpicture}
         \caption{Vemos que hay $11$ grafos en total}
     \end{figure}
 \end{ejem}
@@ -502,7 +590,7 @@ Adicionalemente, tenemos las siguientes propiedades:
 
 \begin{figure}
     \centering
-    \begin{tikzpicture}[scale=0.7]
+    \begin{tikzpicture}[scale=0.5]
         \SetVertexNoLabel
         \grPetersen[RA=6,RB=3]
         \AssignVertexLabel[color = blue]{a}{34,12,45,23,51}
