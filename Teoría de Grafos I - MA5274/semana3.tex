@@ -1,0 +1,121 @@
+\section{Grafos y conteo}
+\stepcounter{sec}
+
+Algunas de las preguntas que ahora son relevantes y que contestaremos en esta sección son las siguientes:
+
+\begin{itemize}
+    \item ¿Cómo se relaciona la cantidad de lados de un grafo con la cantidad de vértices?
+    \item ¿Cuántos subgrafos con características dadas, tiene un grafo?
+    \item ¿Cuántas clases de isomorfismo tiene un grafo dado?
+\end{itemize}
+
+\begin{defn}
+    Antes de hacer los análisis pertinentes, vale la pena recordar algunos conceptos y notación e introduciremos algunos más:
+    
+    \begin{enumerate}
+        \item El \ul{grado} de $v \in V(G)$ es la cantidad de lados de $G$ incidentes con $v$ (si $v$ tiene bucles, estos contribuyen en $2$ al grado). Lo denotaremos por $d_G(v)$ ó $d(v)$.
+        \item $\Delta(G)$ es el máximo de los grados en $G$.
+        \item $\delta(G)$ es el mínimo de los grados en $G$.
+        \item Si $\Delta(G) = \delta(G) = k$, decimos que $G$ es \ul{$k$-regular}.
+        \item La \ul{vecindad} de $v \in V(G)$ es el conjunto $N_G(v)$ de los vecinos de $v$ en $G$.
+        \item El \ul{orden} de $G$ es $n(G) = |V(G)|$.
+        \item El \ul{tamaño} de $G$ es $e(G) = |E(G)|$.
+        \item Dado $n \in \N$, denotamos $[n] = \{1, 2, \dots, n\}$.
+    \end{enumerate}
+\end{defn}
+
+\subsection{Conteo y biyecciones}
+\stepcounter{subsec}
+
+Introduciremos esta subsección con un resultado bastante relevante: Si queremos calcular la suma de los grados de los vértices de $G$, cada lado se cuenta dos veces. Hemos demostrado el siguiente resultado:
+
+\begin{teo}[Primer Teorema de la Teoría de Grafos]\label{teo:primer}
+    Si $G$ es un grafo, entonces
+    
+    \[
+    \sum_{v \in V(G)} d(v) = 2e(G)
+    \]
+\end{teo}
+
+De este teorema se pueden sacar varios corolarios:
+
+\begin{cor}
+    En un grafo $G$, el promedio de los grados es
+    
+    \[
+    \frac{2e(G)}{n(G)}
+    \]
+    
+    Por lo tanto,
+    
+    \[
+    \delta(G) \leq \frac{2e(G)}{n(G)} \leq \Delta(G)
+    \]
+\end{cor}
+
+\begin{cor}
+    $G$ tiene una cantidad par de vértices con grado impar.
+\end{cor}
+
+\begin{cor}
+    Si $G$ es $k$-regular, entonces $e(G) = kn(G)/2$.
+\end{cor}
+
+\begin{cor}
+    Si $n(G)$ es impar y $G$ es $k$-regular, entonces $k$ no puede ser impar.
+\end{cor}
+
+\begin{defn}
+    El \ul{cubo $k$-dimensional} o \ul{hipercubo} $Q_k$, es el grafo simple cuyos vértices son las $k$-tuplas con entradas en $\{0,1\}$ y cuyos lados son las parejas de $k$-tuplas que difieren en \textbf{exactamente} una posición.
+\end{defn}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \SetGraphUnit{2}
+        \SetVertexNoLabel
+        \grCycle[rotation=45, prefix=a, RA=1]{4}
+        \grCycle[x=3, y=1.5, rotation=45, prefix=b, RA=1]{4}
+        \AssignVertexLabel{a}{000,100,110,010}
+        \AssignVertexLabel{b}{001,101,111,011}
+        \SetUpEdge[style={dashed}]
+        \Edge(a0)(b0)
+        \Edge(a1)(b1)
+        \Edge(a2)(b2)
+        \Edge(a3)(b3)
+    \end{tikzpicture}
+    \caption{Acá se puede apreciar una representación de $Q_3$}
+    \label{fig:hipercubo}
+\end{figure}
+
+\begin{prob}[Estructura de los hipercubos]
+    Con respecto a los hipercubos surjen muchísimas propiedades interesantes:
+    
+    \begin{itemize}
+        \item Podemos establecer la \textit{paridad} de un vértice de $Q_k$ la siguiente manera: Si tiene una cantidad par de $1$s es par, y de lo contrario es impar. Cada lado de $Q_k$ incide en un vértice par y otro impar. De esta forma, los vértices pares son adyacentes únicamente a los impares, y viceversa. Por lo tanto ambos conjuntos de vértices forman un conjunto independiente y tenemos como resultado que $Q_k$ es bipartito.
+        \item Cada posición en las $k$-tuplas se puede elegir de dos maneras, por lo tanto $n(Q_k) = 2^k$. Además, los vecinos de cada vértice se pueden obtener al cambiar una de las $k$ posiciones de la tupla, por lo tanto $Q_k$ es $k$-regular, y se tiene que $e(Q_k) = k2^{k-1}$.
+        \item Vemos en la figura \ref{fig:hipercubo} que los lados no punteados son dos subgrafos de $Q_3$ isomorfos a $Q_2$, formados al mantener fijas la última coordenada de las tuplas. ¿De qué manera podemos generalizar este resultado?: Podemos formar un subcubo $j$-dimensional al fijar $k-j$ coordenadas y hacer que los valores en las $j$ sean escogidos a partir de una de las $2^j$ $j$-tuplas restantes. El subgrafo inducido por este conjunto de vértices es isomorfo a $Q_j$. Como hay $\binom{k}{j}$ maneras para escoger las $j$ coordenadas a variar, y $2^{k-j}$ maneras de escojer las coordenadas fijas y sus valores, en total tenemos $\binom{k}{j}2^{k-j}$ subcubos. Así, para cada $j \leq k$, $Q_k$ tiene $\binom{k}{j}2^{k-j}$ subgrafos isomorfos a $Q_j$.
+    \end{itemize}
+    
+    % Maldita sea como me excitan los hipercubos
+    Ahora, ¿cómo podemos construir un hipercubo $Q_k$?: Agregar $0$ a las tuplas de una copia de $Q_{k-1}$, agregar $1$ a las tuplas de otra copia de $Q_{k-1}$, y unir los vértices cuyas primeras $k-1$ coordenadas sean iguales. El resultado será $Q_k$.
+\end{prob}
+
+Vimos que un hipercubo es un grafo regular y bipartito, a continuación estableceremos una observación fundamental sobre esos grafos.
+
+\begin{teo}
+    Si $k > 0$, entonces un grafo $k$-regular y bipartito tiene la misma cantidad de vértices en cada partición.
+\end{teo}
+
+\begin{proof}
+    Sea $G$ un grafo $k$-regular y bipartito. Supongamos que $\{A, B\}$ es la bipartición. Entonces cada lado de $G$ tiene un extremo en $A$, por lo tanto $e(G) = k|A|$. También cada lado de $G$ tiene un extremo en $B$, por lo tanto $e(G) = k|B|$. Esto implica que $|A| = |B|$.
+\end{proof}
+
+\break
+
+Otra técnica de conteo para conjuntos involucra establecer una biyección desde el conjunto a otro de un tamaño conocido. El siguiente problema utiliza este enfoque.
+
+\begin{prob}
+    ¿Cuántos $6$-ciclos tiene el grafo de Petersen?
+\end{prob}
+
