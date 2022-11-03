@@ -1,0 +1,115 @@
+\subsection{Teorema del valor medio}
+\stepcounter{subsec}
+
+Ya hemos visto antes la versión clásica para una sola variable. Ahora toca formalizar el teorema para el caso en varias variables.
+
+\begin{teo}
+    Sea $A \subseteq \R^n$ abierto, conexo y convexo. Sea $f: A \rightarrow \R^m$ diferenciable para cada $x \in A$, y $a,b \in A$ fijos y arbitrarios. Entonces, para cada $v \in \R^m$, existe al menos $c \in A$ tal que
+    
+    \[
+    v \cdot \left( f(b) - f(a) \right)' = v \cdot Df(c)(b - a)
+    \]
+\end{teo}
+
+\begin{proof}
+    Sean $a, b \in A$ y denotemos $u = b - a \in A$. Este $u$ está en $A$ ya que este es abierto, conexo y convexo. Además, $a + tu \in A$ para $t \in (0,1)$. Sea $v \in \R^m$ entonces definimos la siguiente función
+    
+    \begin{align}\label{eq:6.1.1}
+        F(t) = v \cdot f(a + tu), \quad t \in [0,1]
+    \end{align}
+    
+    Vemos que $F$ está definida de $(0,1)$ a $\R$. Como $f$ es diferenciable y continua, entonces $F$ es derivable y continua. Así, aplicando el \TVM~, $\exists~\theta_0 \in (0,1)$ tal que
+    
+    \[
+    F'(\theta_0) = F(1) - F(0)
+    \]
+    
+    Y por \ref{eq:6.1.1}, nos queda que
+    
+    \[
+    F(0) = v \cdot f(a) \quad \text{y} \quad F(1) = v \cdot f(b)
+    \]
+    
+    Aplicando regla de la cadena nos queda que
+    
+    \[
+    F'(\theta_0) = v \cdot Df(\LaTeXoverbrace{a + \theta_0u}^{c \in A})u = v \cdot Df(c)(b-a)
+    \]
+    
+    Por lo tanto,
+    
+    \[
+    v \cdot \left( f(b) - f(a) \right)' = v \cdot Df(c)(b - a)
+    \]
+    
+    Y queda demostrado el teorema.
+\end{proof}
+
+\begin{cor}
+    Sea $A \subseteq \R^m$ abierto, conexo y convexo. Sea la función $f: A \rightarrow \R^m$ diferenciable, para cada $x \in A$. Si $Df(x) = 0$ para cada $x \in A$ entonces $f$ es constante.
+\end{cor}
+
+\begin{proof}
+    Consideremos $x, y \in A$. Por el teorema anterior, para cada $v \in \R^m$, $\exists~c \in A$ tal que
+    
+    \[
+    v \cdot \left( f(y) - f(x) \right) = v \cdot Df(c)(y-x)
+    \]
+    
+    Pero por hipótesis, $Df(x) = 0$ para cada $x \in A$, entonces
+    
+    \[
+    v \cdot \left( f(y) - f(x) \right) = 0
+    \]
+    
+    En lo particular, si $v = f(y) - f(x)$, nos queda que
+    
+    \begin{gather*}
+        \left( f(y) - f(x) \right)\left( f(y) - f(x) \right) = 0 \\
+        \implies \normaeuc{f(y) - f(x)} = 0
+    \end{gather*}
+    
+    Lo que implica que $f(x) = f(y)$ para cualquier par $x, y \in A$. Por lo tanto concluímos que $f$ es constante.
+\end{proof}
+
+Esto sirve como motivación para establecer unas definiciones que estaremos utilizando próximamente.
+
+\begin{defn}
+    Sean $A$ abierto. conexo y convexo y $f: A \subseteq \R^n \rightarrow \R$. Si $x_0 \in A$, decimos que en $x_0$ hay un \ul{mínimo local} si $\exists~r > 0$ tal que $f(x_0) \leq f(x)$, $\forall~x \in B(x_0, r) \subset A$. Análogamente, decimos que hay un \ul{máximo local} si $\exists~r > 0$ tal que $f(x_0) \geq f(x)$, $\forall~x \in B(x_0, r) \subset A$.
+    
+    Decimos que $x_0$ es un \ul{punto estacionario} si $\nabla f(x_0) = 0$.
+\end{defn}
+
+\begin{teo}
+    Sea $f: A \rightarrow \R$ es diferenciable y $a \in A$ es un extremo local. Entonces $\nabla f(a) = 0$.
+\end{teo}
+
+\begin{proof}
+    Supongamos que en $a \in A$ hay un máximo de $f$. Es decir, que $\exists~r > 0$ tal que $f(x) \leq f(a)$, $\forall~x \in B(a, r)$. Luego, considerando $g(t) = f(a + th)$ (con $t \in (0,1)$), tenemos que esta función tiene un máximo en $t = 0$, por lo tanto $g(t) \leq g(0)$. Si $t$ es un valor entre $0$ y $1$ podemos aseverar que $g(t) - g(0) \leq 0$.
+    
+    Esto implica que
+    
+    \[
+    g'(0) = \lim_{t \to 0^{+}} \dfrac{g(t) - g(0)}{t} \leq 0
+    \]
+    
+    Análogamente,
+    
+    \[
+    g'(0) = \lim_{t \to 0^{-}} \dfrac{g(t) - g(0)}{t} \geq 0
+    \]
+    
+    Esto nos permite concluir que $g'(0) = 0$. Pero recordemos que definimos $g(t) = f(a + th)$. Aplicando regla de la cadena, nos queda que
+    
+    \[
+    g'(0) = \nabla f(a) \cdot h
+    \]
+    
+    Luego, por lo anterior esto implica que
+    
+    \[
+    0 = \nabla f(a) \cdot h
+    \]
+    
+    Como $h \in A$ es un vector arbitrario, entonces $\nabla f(a) = 0$. Por lo tanto, $\partial_i f(a) = 0$, $\forall~i = 1, \dots, n$. De esta forma, $a$ es un punto estacionario y queda demostrado el teorema.
+\end{proof}

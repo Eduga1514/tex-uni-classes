@@ -1,0 +1,310 @@
+\subsection{Fórmula de Taylor}
+\stepcounter{subsec}
+
+Primero, desarrollaremos la fórmula de Taylor para $f: \R^n \rightarrow \R$. Pero antes de, introduciremos nuevas notaciones y definiciones.
+
+\begin{nota}
+    Sea $A \subset \R^n$ abierto, conexo y convexo. Denotaremos los operadores diferenciales de la siguiente manera:
+    
+    \[
+    \partial_1^{t_1} \dots \partial_n^{t_n} = \left( \dfrac{\partial}{\partial x_1} \right)^{t_1} \dots \left( \dfrac{\partial}{\partial x_n} \right)^{t_n}
+    \]
+    
+    \noindent estas son simplemente las derivadas de orden superior donde $(t_1, \dots, t_n) \in \N^n$.
+    
+    En particular, podemos también considerar combinaciones lineales. Por ejemplo
+    
+    \[
+    (\partial_1 + \partial_2)^2 = \partial_1^2 + 2 \partial_1\partial_2 + \partial_2^2
+    \]
+    
+    Generalizando, podemos considerar las combinaciones lineales: Sean $\lambda_1, \dots, \lambda_n \in \R$ y $r \in \N$. Entonces tendremos
+    
+    \[
+    (\lambda_1\partial_1 + \dots + \lambda_n\partial_n)^r = \sum_{\Delta} c_{t_1 \dots t_n}\lambda_1^{t_1}\dots\lambda_n^{t_n}\partial_1^{t_1}\dots\partial_n^{t_n}
+    \]
+    
+    \noindent donde $\Delta = \{(t_1, \dots, t_n) \in \N^n : t_1 + \dots + t_n \leq r\}$.
+    
+    En particular si queremos ver $(\alpha\partial_1 + \beta\partial_2)^r$, tendremos que
+    
+    \[
+    (\alpha\partial_1 + \beta\partial_2)^r = \sum_{j=0}^r \binom{r}{j} \alpha^j \beta^{r-j} \partial_1^j\partial_2^{r-j}
+    \]
+    
+    Obviamente, estas derivadas se aplican a una función $f$, por lo que se debe pedir que $f$ sea de clase $C^r(A)$.
+\end{nota}
+
+\begin{nota}
+    Sea $h = (h_1, \dots, h_n) \in \R^n$, entonces denotaremos $h \cdot \nabla$ de la siguiente manera:
+    
+    \[
+    h \cdot \nabla = h_1\partial_1 + \dots + h_n\partial_n
+    \]
+\end{nota}
+
+\begin{nota}
+    Por último, sean $p \in A$ y $h \in \R^n$ tales que $p + th \in A$ con $t \in (0,1)$. Definimos
+    
+    \[
+    g(t) = f(p + th)
+    \]
+    
+    Sabemos que está definida sobre $g: [0,1] \rightarrow \R$. Y por regla de la cadena, al igual que en ocasiones anteriores,
+    
+    \[
+    g'(t) = (h \cdot \nabla) f(p + th)
+    \]
+\end{nota}
+
+\begin{pro}
+    Sean $k \in \N$, $A \subseteq \R^n$ abierto, conexo y convexo, $f: A \rightarrow \R$ de clase $C^k(A)$. Sean $p \in A$ y $h \in \R^n$ tal que $p + th \in A$. Entonces
+    
+    \[
+    \left( \dfrac{d}{dt} \right) f(p+th) = \left( h \cdot \nabla \right)^k f(p+th)
+    \]
+\end{pro}
+
+\begin{proof}
+    Pasaremos a realizar la demostración aplicando inducción:
+    
+    Para $k = 1$: Definamos $g(t) = f(p+th)$, entonces $g'(t) = (h \cdot \nabla) f(p+th)$. Por lo tanto se cumple el caso base.
+    
+    Ahora, supongamos que el teorema es cierto para $k \in \N$. Si consideremos ahora la siguiente función auxiliar
+    
+    \[
+    \Phi = (h \cdot \nabla)^k f
+    \]
+    
+    \noindent entonces el teorema se cumple para ella.
+    
+    Verifiquemos para el caso $k+1$. Entonces calculemos la derivada de $\Phi$
+    
+    \[
+    \dfrac{d}{dt} \Phi(p+th) = \left(h \cdot \nabla\right) \left[ \left(h \cdot \nabla\right)^k f(p+th) \right] = \left(h \cdot \nabla\right)^{k+1}f(p+th)
+    \]
+    
+    \noindent esto sale por H.I.
+    
+    Por otra parte, también tenemos que
+    
+    \[
+    \dfrac{d}{dt} \Phi(p+th) = \dfrac{d}{dt} \left[ \left( \dfrac{d}{dt} \right)^k f(p+th) \right] = \left( \frac{d}{dt} \right)^{k+1} f(p+th)
+    \]
+    
+    Entonces, estamos concluyendo que
+    
+    \[
+    \dfrac{d^{k+1}}{dt^{k+1}}f(p+th) = (h \cdot \nabla)^{k+1}f(p+th)
+    \]
+    
+    Y queda demostrado.
+\end{proof}
+
+Ahora si estamos listos para enunciar y demostrar el Teorema de Taylor.
+
+\begin{teo}[Teorema de Taylor]\label{teo:taylor}
+    Sea $A \subseteq \R^n$ abierto, conexo y convexo. Sean $f \in C^k(A)$ con $k \in \N$. Sean $p \in A$ y $h \in \R^n$ tal que $p+h \in A$. Entonces $\exists
+    \theta \in (0,1)$ tal que
+    
+    \[
+    f(p+h) = f(p) + \dfrac{\left( \nabla \cdot h \right)}{1!}f(p) + \dots + \dfrac{\left( \nabla \cdot h \right)^{k-1}}{(k-1)!}f(p) + \dfrac{\left( \nabla \cdot h \right)^k}{k!}f(p+\theta h)
+    \]
+\end{teo}
+
+\begin{proof}
+    Consideremos la función auxiliar $g(t) = f(p + th)$ con $t \in (0,1)$. Vemos que $g$ es de clase $C^k(A)$ por tener $f$ esta propiedad. Además, $g: [0,1] \rightarrow \R$, por lo que se le puede aplicar el Teorema de Taylor para el caso unidimensional. Entonces el desarrollo de Taylor de $g(t)$ centrada en $a= 0$ y evaluada en $t=1$ queda como
+    
+    \[
+    g(1) = g(0) + \dfrac{g'(0)}{1!} + \dots + \dfrac{g^{k-1}(0)}{(k-1)!} + \dfrac{g^k(\theta)}{k!}
+    \]
+    
+    Como $g(0) = f(p)$ y $g(1) = f(p+h)$, usando la proposición anterior, la expresión nos queda como
+    
+    \[
+    f(p+h) = \LaTeXoverbrace{f(p) + \dfrac{\left( \nabla \cdot h \right)}{1!}f(p) + \dots + \dfrac{\left( \nabla \cdot h \right)^{k-1}}{(k-1)!}f(p)}^{P_{k-1}^f(p)} + R_k(h, \theta)
+    \]
+    
+    \noindent donde $R_k(h, \theta) = \dfrac{\left( \nabla \cdot h \right)^k}{k!}f(p+\theta h)$ y se conoce como el residuo.
+    
+    Y así, queda demostrado el teorema.
+\end{proof}
+
+\begin{aco}
+    Como comentario, tomemos en cuenta lo siguiente: $(\nabla \cdot h)(x)$ es un operador, y sabemos que equivale a
+
+    \[
+    (\nabla \cdot h) f(x) = \sum_{i=1}^n h_i \partial_i f(x)
+    \]
+    
+    A su vez, en el orden $2$ tendremos
+    
+    \[
+    (\nabla \cdot h)^2 f(x) = \sum_{i=1}^n\sum_{i=j}^n h_ih_j \partial_i\partial_j f(x)
+    \]
+    
+    \noindent vemos que estamos derivando dos veces, por lo tanto aparecen derivadas cruzadas, y cuando $i = j$, entonces empiezan a aparecer derivadas parciales de orden superior.
+    
+    Generalizando, nos queda lo siguiente
+    
+    \[
+    \sum_{\Delta} c_{i_1} \dots c_{i_n} h_1^{i_1} \dots h_n^{i_n} \partial_1^{i_1} \dots \partial_n^{i_n} f(x)
+    \]
+    
+    \noindent donde $\Delta = \{(i_1, \dots, i_n) \in \N^n : i_1 + \dots + i_n \leq k \}$.
+\end{aco}
+
+\begin{pro}[Estimación de la fórmula de Taylor]
+    Sea $C$ una cota universal para todas las derivadas de $f$ en $A$. Sea $p \in A$ y $R(h, \theta) = R_k(h, \theta) = \frac{\left( \nabla \cdot h \right)^k}{k!}f(p+\theta h)$ con $\theta \in (0,1)$.
+    
+    Entonces $\exists~M > 0$ tal que
+    
+    \[
+    \left| R(h, \theta) \right| \leq \frac{M}{k!}\normaeuc{h}^k
+    \]
+    
+    Si además escogemos un $h$ tal que $\normaeuc{h} < 1$, se tiene que $\frac{M}{k!}\normaeuc{h}^k \to 0$ cuando $k \to \infty$\marginfootnote{Esto es así ya que $1/k!$ tiende a cero, y $\normaeuc{h}^k$ va a generar una sucesión numérica que también tiende a cero}. Entonces nos va a quedar que
+    
+    \[
+    f(p + h) \simeq \sumtoinfty{k=0}{\dfrac{(\nabla \cdot h)^k}{k!}f(p)}
+    \]
+\end{pro}
+
+\begin{proof}
+    Pasemos a demostrar que efectivamente esta aproximación se cumple. En primer lugar, tenemos que
+    
+    \begin{equation}\label{eq:7.2.1}
+        \left| \dfrac{(\nabla \cdot k)^k}{k!} f(p + \theta h) \right| \leq \sum_{\Delta} \dfrac{c_{i_1} \dots c_{i_n}}{k!} \left| h_1^{i-1} \dots h_n^{i_n} \right| \left| \partial_1^{i_1} \dots \partial_n^{i_n} f(p + \theta h) \right|
+    \end{equation}
+    
+    Sabemos que:
+    
+    \begin{enumerate}
+        \item Cada $h_i$ puede ser acotada por $\normaeuc{h}$.
+        \item Las derivadas parciales están acotadas por una constante universal.
+        \item Los $c_i$ y $k!$ pueden sacarse de la suma porque son constantes.
+    \end{enumerate}
+    
+    Entonces \ref{eq:7.2.1} queda como
+    
+    \[
+    \left| \dfrac{(\nabla \cdot k)^k}{k!} f(p + \theta h) \right| \leq \frac{c}{k!} \normaeuc{h}^k \left( \sum_{\Delta} | c_{i_1, \dots, i_n} | \right)
+    \]
+    
+    Si definimos $M = c \sum_{\Delta} | c_{i_1, \dots, i_n} |$, entonces nos queda que
+    
+    \[
+    \left| \dfrac{(\nabla \cdot k)^k}{k!} f(p + \theta h) \right| \leq \frac{M}{k!}\normaeuc{h}^k
+    \]
+    
+    Y queda demostrado.
+\end{proof}
+
+En general, esta estimación lo que nos dice es que si tenemos una función $f$ de clase $C^{\infty}(A)$ (infinitamente diferenciable) entonces
+
+\[
+f(p + h) = \sumtoinfty{k=0}{\dfrac{(\nabla \cdot h)^k}{k!}f(p)}
+\]
+
+De toda esta discusión, se desprende que podemos establecer lo siguiente:
+
+\begin{align*}
+    f(p + h) = f(p) &+ \sum_{i=1}^n \partial_i f(p) h_i \\
+        &+ \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \partial_{ij}^2 f(p) h_ih_j \\
+        &+ R_2(h, \theta)
+\end{align*}
+
+\noindent con $\theta \in (0,1)$.
+
+Veamos una segunda demostración de la Fórmula de Taylor:
+
+\begin{proof}[Otra demostración de la Fórmula de Taylor]
+    Por regla de la cadena, sabemos que
+    
+    \[
+    \frac{d}{dt} f(p + th) = \nabla f(p + th) \cdot h = \sum_{i=1}^n \partial_i f(p + th)h_i
+    \]
+    
+    Por otra parte, si integramos entre $0$ y $1$, nos va a quedar que
+    
+    \[
+    \int_0^1 \frac{d}{dt} f(p + th)~dt = \int_0^1 \left( \nabla f(p + th) \cdot h = \sum_{i=1}^n \partial_i f(p + th)h_i \right)~dt
+    \]
+    
+    Y esto equivale a
+    
+    \[
+    f(p+h) - f(p) = \sum_{i=1}^0 \int_0^1 \partial_i f(p + th)h_i~dt
+    \]
+    
+    Tomando $u = \partial_i f$, $v = t-1$, podemos integrar por partes el término de la derecha y nos queda
+    
+    \[
+    \sum_{i=1}^n \int_0^1 \partial_i f(p + th)h_i~dt = \sum_{i=1}^n \sum_{j=1}^n \int_0^1 (1-t) \partial_{ij}^2 f(p + th) h_ih_j~dt + \sum_{i=1}^n h_i\partial_i f(p)
+    \]
+    
+    Luego, lo que concluímos es que
+    
+    \[
+    f(p + h) - f(p) = \sum_{i=1}^n \partial_i f(p) h_i + R_1(h,p)
+    \]
+    
+    \noindent con $R_1(h, p) = \sum_{i=1}^n \sum_{j=1}^n \int_0^1 (1-t) \partial_{ij}^2 f(p + th) h_ih_j~dt$. Considerando $u = \partial_{ij}^2f(p + th)$, y $v = -(t-1)^2/2$, aplicando nuevamente integración por partes, nos queda que
+    
+    \begin{align*}
+        f(p+t) - f(p) &= \sum_{i,j,k=1}^n \int_0^1 \dfrac{(t-1)^2}{2} \partial_{ijk}^3 f(p + th) h_ih_jh_k~dt \\
+            &+ \sum_{i,j=1}^n \frac{\partial_{ij}^2}{2} f(p) h_ih_j + \sum_{i=1}^n \partial_i f(p) h_i
+    \end{align*}
+    
+    \noindent donde el primer factor equivale a la fórmula del resto de orden $2$\marginfootnote{Lo interesante de esta demostración es el hecho de que estamos escribiendo la fórmula del resto en términos de integración, y el factor $\theta$ que teníamos antes no aparece por esta misma razón.}.
+    
+    Entonces, estamos concluyendo que
+    
+    \[
+    f(p + h) = f(p) + \sum_{i=1}^n \partial_i f(p) h_i + \sum_{i,j = 1}^n \frac{1}{2} \partial_{ij}^2 f(p) f_i f_j + R_2(h, p)
+    \]
+    
+    Y podemos acotar el resto, entonces nos queda que
+    
+    \[
+    |R_2(h, p)| \leq C \sum_{i,j,k=1}^n \left( \int_0^1 \dfrac{(t-1)^2}{2}~dt \right)|h_i||h_j||h_k|
+    \]
+    
+    \noindent donde $C$ es una cota universal para todas las derivadas parciales de $f$ alrededor de $p$.
+    
+    Entonces
+    
+    \[
+    R_2(h, p) \leq \dfrac{M \normaeuc{h}^3}{2}
+    \]
+    
+    En general,
+    
+    \[
+    R_k(h, p) \leq \dfrac{M \normaeuc{h}^k}{k!}
+    \]
+    
+    Como antes, al hacer $\normaeuc{h} \to 0$, nos queda que nos estamos aproximando a $p$, y más exacta va a ser la aproximación.
+\end{proof}
+
+\begin{defn}
+    Sean $A$ abierto, conexo y convexo y $f: A \subseteq \R^n \rightarrow \R$. Denotaremos por $H f(p) \cdot h$ ($h \in \R^n$) al \ul{hessiano} de la función $f$, y está definido como
+    
+    \[
+    H f(p) \cdot h = \frac{1}{2} \sum_{i=1}^n\sum_{j=1}^n \partial_{ij}^2 f(p) h_ih_j
+    \]
+\end{defn}
+
+Bajo esta definición, lo que nos dice el Teorema de Taylor es
+
+\[
+f(p + h) = f(p) + \nabla f(p) \cdot h + H f(p) \cdot h + R_2(h, p)
+\]
+
+Si $x = p$ es un punto estacionario, entonces
+
+\[
+f(p + h) \simeq f(p) + \nabla f(p) \cdot h + H f(p) \cdot h
+\]
+
+Y el hessiano desempeña el mismo rol que la segunda derivada en el estudio de valores extremos, y es fundamental para determinar si en ese punto hay o no un extremo relativo.

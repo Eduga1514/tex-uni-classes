@@ -234,10 +234,10 @@ Ahora podemos presentar el teorema de la función inversa. Recordar que de este 
     
     Y aplicando el \LC~, se sigue que $W_y$ tiene un único punto fijo $x$ tal que $W_y(x) = x$. Entonces esto implica que
     
-    \begin{align}
+    \begin{align*}
         x = y + W(x) \quad &\implies \quad x = y + x - F(x) \\
             &\implies \quad F(x) = y
-    \end{align}
+    \end{align*}
     
     \noindent para un único valor $x \in \overline{B(0,r/2)}$.
     
@@ -282,4 +282,50 @@ Ahora podemos presentar el teorema de la función inversa. Recordar que de este 
     \]
     
     Y ahora se puede decir lo siguiente: Dado $\varepsilon > 0$, existe $\delta > 0$ tal que si $\delta > \varepsilon / 2$ entonces concluimos que $G$ es continua.
+    
+    Para demostrar que $G$ es diferenciable, recordemos que como $JF(x_1)$ es invertible, entonces podemos expresar
+    
+    \[
+    F(x) - F(x_1) = JF(x_1)(x-x_1) + \Phi(x-x_1)(x-x_1)
+    \]
+    
+    \noindent donde $\Phi$ es tal que $\lim_{x \to x_1} \Phi(x-x_1) = 0$. Esto se deduce de la definición de diferenciabilidad.
+    
+    Ahora, podemos calcular el siguiente factor
+    
+    \begin{align*}
+        G(y) - G(y_1) &- \Big( JF(x_1) \Big)^{-1}(y-y_1) \\
+            &= (x-x_1) - \Big( JF(x_1) \Big)^{-1}\Big( F(x) - F(x_1) \Big) \\
+            &= (x-x_1) - \Big( JF(x_1) \Big)^{-1}\Big( JF(x_1)(x-x_1) + \Phi(x-x_1)(x-x_1) \Big) \\
+            &= \Big( JF(x_1) \Big)^{-1}\Phi(x-x_1)(x-x_1) \\
+            &= \Big( JF(x_1) \Big)^{-1}\Big( \Phi\big( G(y) - G(y_1) \big)(y-y_1) \Big)
+    \end{align*}
+    
+    Luego,
+    
+    \[
+    \normaeuc{G(y) - G(y_1) - [JF(x_1)]^{-1}(y-y_1)} \leq \normap{JF^{-1}(x_1)}{}\normaeuc{x-x_1}\normaeuc{\Phi(x-x_1)}
+    \]
+    
+    Y por la desigualdad \ref{eq:5.1.3}, lo anterior nos queda como
+    
+    \[
+    \normaeuc{G(y) - G(y_1) - [JF(x_1)]^{-1}(y-y_1)} \leq 2C\normaeuc{y_1 - y}\normaeuc{\Big( G(y_1) - G(y) \Big)}
+    \]
+    
+    Como $G$ es continua, $y \to y_1$ entonces $G(y) \to G(y_1)$ y $\lim_{x \to x_1} \Phi(x-x_1) = 0$ entonces podemos acotar el factor $\normaeuc{\Big( G(y_1) - G(y) \Big)}$ por otro tan pequeño como queramos. Luego dado $\varepsilon > 0$, $\exists \delta_0 > 0$ tal que
+    
+    \[
+    \text{si $\normaeuc{y - y_1} < \delta_0$} \quad \implies \quad \normaeuc{\Big( G(y_1) - G(y) \Big)} < \frac{\varepsilon}{2C}
+    \]
+    
+    Por lo tanto, si $\normaeuc{y - y_1} < \delta_0$ entonces
+    
+    \[
+    \dfrac{\normaeuc{G(y) - G(y_1) - [JF(x_1)]^{-1}(y-y_1)}}{\normaeuc{y - y_1}} \leq \varepsilon
+    \]
+    
+    En conclusión estamos diciendo que $G$ es diferenciable y además $JG(y_1) = [JF(x_1)]^{-1}$.
+    
+    Y así queda demostrado el teorema de la función inversa.
 \end{proof}
