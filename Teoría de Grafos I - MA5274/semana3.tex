@@ -111,11 +111,389 @@ Vimos que un hipercubo es un grafo regular y bipartito, a continuación establec
     Sea $G$ un grafo $k$-regular y bipartito. Supongamos que $\{A, B\}$ es la bipartición. Entonces cada lado de $G$ tiene un extremo en $A$, por lo tanto $e(G) = k|A|$. También cada lado de $G$ tiene un extremo en $B$, por lo tanto $e(G) = k|B|$. Esto implica que $|A| = |B|$.
 \end{proof}
 
-\break
-
 Otra técnica de conteo para conjuntos involucra establecer una biyección desde el conjunto a otro de un tamaño conocido. El siguiente problema utiliza este enfoque.
 
 \begin{prob}
-    ¿Cuántos $6$-ciclos tiene el grafo de Petersen?
+    ¿Cuántos $6$-ciclos tiene el grafo de Petersen?: Vimos anteriormente que el grafo de Petersen $P$ es $3$-regular. Por lo tanto tiene $10$ \textit{garras} (una por vértice). La figura \ref{fig:petersen} sugiere que a cada \textit{garra} le corresponde un $6$-ciclo. Si demostramos que este es el caso, tendremos que el grafo de Petersen tiene diez $6$-ciclos.
+    
+    \begin{marginfigure}
+        \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{1}
+            \GraphInit[vstyle=Classic]
+            \Vertex{w}
+            \NO(w){u1}
+            \SOEA(w){u2}
+            \SOWE(w){u3}
+            \Edge(w)(u1)
+            \Edge(w)(u2)
+            \Edge(w)(u3)
+        \end{tikzpicture}
+        \caption{Garra descrita en el problema.}
+        \label{fig:garra}
+    \end{marginfigure}
+    
+    Digamos que el ciclo $C$ es $(v1~v2~v3~v4~v5~v6)$. Como $P$ tiene cintura $5$, ningún $vj$ tiene más vecinos en $C$. Por lo tanto, cada $vj$ tiene exactamente un vecino fuera de $C$. Los vértices no adyacentes tienen exactamente un vecino en común $u1$, $u2$, $u3$, distintos entre sí ya que la cintura de $P$ es $5$. Solamente nos falta un vértice $w$ que sea vecino de $u1$, $u2$, $u3$. Por lo tanto esos vértices forman una garra con $w$.
+    
+    Veamos que una garra $G$ ocurre exactamente una vez quitando un $6$-ciclo: Sea $S$ el conjunto independiente en $G$. Cada $v \in S$ tiene sus otros vecinos fuera de $G$, y son distintos (ya lo discutimos). Entonces $P-G$ es $2$-regular y sus vértices son los seis a los que nos referimos en el párrafo anterior. Como la cintura de $P$ es $5$, entonces $P - G$ es un $6$-ciclo.
 \end{prob}
 
+Presentaremos una estrategia más de conteo: Los subgrafos de $G$ de la forma $G - v$ (con $v \in V(G)$) son útiles para hacer análisis, construcciones, demostraciones, etc. Recordemos que al retirar $v$, también estamos retirando los lados incidentes a este vértice. Por ejemplo, todos los subgrafos de la forma $G - v$ de $C_n$ son isomorfos a $P_n$.
+
+\begin{pro}
+    Sea $G$ un grafo simple con vértices $v_1, \dots, v_n$ y $n \geq 3$. Entonces
+    
+    \[
+    e(G) = \dfrac{\sum e(G - v_i)}{n-2} \qquad \text{y} \qquad d_g(v_j) = \dfrac{\sum e(G - v_i)}{n-2} - e(G - v_j)
+    \]
+\end{pro}
+
+\begin{proof}
+    En primer lugar, un lado $e$ de $G$ está en $G - v_j$ sii $v_j$ no es extremo de $e$. Entonces $\sum e(G - v_i) = (n-2)e(G)$ ya que cada lado se cuenta $n-2$ veces.
+    
+    Además, para cada $j$ tenemos que $d_G(v_j)$ es el número de lados que se pierden al eliminar $v_j$ para obtener $G - v_j$. Entonces $d_G(v_j) = \frac{\sum e(G - v_i)}{n-2} - e(G - v_j)$.
+    
+    Y así, queda demostrado.
+\end{proof}
+
+El siguiente es un problema relacionado con subgrafos de la forma $G-v$:
+
+\begin{prob}[Conjetura de Kelly, Ulam (1942)]
+    Si $G$ es un grafo simple con orden al menos $3$, entonces $G$ está determinado de manera única por sus subgrafos de la forma $G - v$.
+    
+    Esta conjetura se conoce como la \textit{conjetura de la reconstrucción} ya que si tienes la lista de los subgrafos de la forma $G - e$ puedes reconstruir $G$ agregando vértices. En 2017 se dio una demostración.
+\end{prob}
+
+\subsection{Problemas extremos y optimización}
+\stepcounter{subsec}
+
+Un \textbf{problema extremo} pide el máximo o mínimo valor de una función definida sobre una clase de objetos. Por ejemplo, el máximo número de lados en un grafo simple con $n$ vértices es $\binom{n}{2}$.
+
+Veamos un par de problemas más que derivaran en teoremas.
+
+\begin{prob}
+    ¿Cuál es el mínimo número de lados de un grafo conexo de orden $n$?:
+    
+    Vimos anteriormente que si $G$ tiene $n$ vértices y $k$ lados, entonces tiene al menos $n-k$ componentes\marginfootnote{Revisar la proposición \ref{pro:componentes}.}. Por lo que, si $k \leq n-2$ entonces $G$ no es conexo. Así que el mínimo buscado ha de ser mayor a $n - 2$.
+    
+    Más aún, la cota inferior es conseguida por el camino $P_n$.
+\end{prob}
+
+Así, hemos demostrado:
+
+\begin{teo}
+    El mínimo número de lados de un grafo conexo de orden $n$ es $n-1$.
+\end{teo}
+
+\begin{prob}
+    ¿Cuál es el máximo valor de $\delta(G)$ para un grafo simple disconexo $G$?:
+    
+    Primero, sean $u, v \in V(G)$ no adyacentes. Ahora, por el teorema de inclusión y exclusión, la intersección de sus vecindades quedan de la siguiente manera:
+    
+    \[
+    \left| N(u) \cap N(v) \right| = \left| N(u) \right| + \left| N(v) \right| - \left| N(u) \cup N(v) \right|
+    \]
+    
+    Como $u, v$ no están en $N(u) \cup N(v)$, tenemos $\left| N(u) \cup N(v) \right| \leq n-2$. Por lo tanto, nos queda que
+    
+    \[
+    \left| N(u) \cap N(v) \right| = \left| N(u) \right| + \left| N(v) \right| - n + 2
+    \]
+    
+    Ahora nos preguntamos: ¿Cuál cota inferior será suficiente para que el lado derecho sea al menos $1$?
+\end{prob}
+
+\begin{teo}
+    Si $G$ es un grafo simple de orden $n$ con $\delta(G) \geq (n-1)/2$ entonces $G$ es conexo.
+\end{teo}
+
+\begin{proof}
+    Por la discusión anterior, tenemos que
+    
+    \[
+    \left| N(u) \cap N(v) \right| = \left| N(u) \right| + \left| N(v) \right| - n + 2
+    \]
+    
+    Como $\left| N(x) \right| \geq \delta(G) \geq (n-1)/2$, $\forall~x \in V(G)$ entonces lo anterior queda como
+    
+    \[
+    \left| N(u) \cap N(v) \right| \geq 1
+    \]
+    
+    Por lo que todo par $u, v \in V(G)$ no adyacentes está conectado. Por lo tanto $G$ es conexo.
+\end{proof}
+
+\begin{ejem}
+    Sea $G$ no conexo, simple, de orden $n$ y con componentes isomorfas a la unión disjunta de $K_{\lfloor n/2 \rfloor}$ y $K_{\lceil n/2 \rceil}$. Como $\delta(G) = \lfloor n/2 \rfloor - 1$ y $G$ es no conexo, entonces $\delta(G)$ es efectivamente el máximo valor.
+\end{ejem}
+
+\begin{teo}
+    El máximo valor de $\delta(G)$ entre los grafos simples, de orden $n$ y disconexos es $\lfloor n/2 \rfloor - 1$.
+\end{teo}
+
+\begin{notn}
+    La unión disjunta de los grafos $H$ y $G$ también se conoce como \ul{suma} de $H$ y $G$ y se denota $H + G$.
+\end{notn}
+
+Otros problemas son los problemas de \textbf{optimización}, los cuales consisten en buscar objetos o cantidades extremas para un grafo dado en particular. Por ejemplo, el máximo tamaño de un subgrafo conexo, o de un conjunto de vértices independientes. Lo que sí suele darse en general para optimizar son algoritmos.
+
+\begin{ejem}
+    El siguiente algoritmo permite hallar un subgrafo bipartito \textit{grande} en el grafo sin bucles $G$:
+    
+    \begin{enumerate}
+        \item Elige una bipartición $A$, $B$ para $G$.
+        \item Llama $H$ al subgrafo de $G$ cuyos lados son los que tienen un extremo en $A$ y otro en $B$.
+        \item Para cada $v \in V(G)$, si $d_H(v) < d_G(v)/2$, cambia a $v$ de conjunto bipartito.
+    \end{enumerate}
+    
+    Ahora, se observa lo siguiente: Primero, $H$ es bipartito. Además el algoritmo termina porque $G$ es finito y en cada cambio se aumenta el tamaño de $H$. Por lo tanto, cuando el algoritmo termina, tennemos que $d_H(v) \geq d_G(v)/2$ para todo $v \in V(G)$. Sumando esto y aplicando la fórmula de la suma de los grados, nos queda que
+    
+    \[
+    e(G) \geq e(G)/2
+    \]
+\end{ejem}
+
+De esta forma, hemos demostrado el siguiente teorema:
+
+\begin{teo}
+    Si $G$ es un grafo finito sin bucles, entonces $G$ tiene un grafo bipartito con al menos $e(G)/2$ lados.
+\end{teo}
+
+\begin{nota}
+    Este teorema no demuestra que el subgrafo bipartito tiene el máximo tamaño posible. De hecho, diferentes biparticiones iniciales pueden conducir a diferentes tamaños del subgrafo.
+\end{nota}
+
+\begin{prob}
+    Dadas $n$ facciones en guerra, si ningun par de enemigos tiene un enemigo en común, ¿cuál es la cantidad máxima posible de pares de enemigos?:
+    
+    Esto equivale a determinar cuál es el máximo valor posible de $e(G)$ para un $G$ simple y de orden $n$ sin triángulos. Entonces sea $G$ como en la hipótesis, y consideremos $w \in V(G)$ con grado máximo $k$. Como no hay triángulos, no hay lados entre vecinos de $w$. Entonces
+        
+    \[
+    \sum_{v \notin N(w)} d_G(v) \geq e(G)
+    \]
+    
+    \noindent ya que cada \textit{no vecino} de $w$ cuenta al menos un extremo de un lado de $G$.
+    
+    Por otro lado, como cada vértice tiene grado a lo sumo $k$, entonces $e(G) \leq (n-k)k$. Pero $(n-k)k$ coincide con $e(K_{n-k,k})$. Al pasar un vértice del conjunto de tamaño $k$ al conjunto de tamaño $(n-k)$ se añaden $k-1$ lados y se retiran $n-k$, lo que da una ganancia neta de $2k-1-n$. Vemos entonces que ganamos lados cuando $2k > n + 1$ y perdemos cuando $2k < n + 1$, por lo que $e(K_{n-k,k})$ se maximiza cuando $k = \lfloor n/2 \rfloor$ o $k = \lceil n/2 \rceil$.
+    
+    De esta manera,
+    
+    \[
+    e(G) \leq \lfloor n^2/4 \rfloor
+    \]
+\end{prob}
+
+Como $K_{\lfloor n/2 \rfloor, \lceil n/2 \rceil}$ alcanza el máximo, hemos demostrado:
+
+\begin{teo}[Mantel, 1972]
+    La máxima cantidad de lados de un grafo simple de orden $n$ sin triángulos es $\lfloor n^2/4 \rfloor$.
+\end{teo}
+
+\subsection{Sucesiones Gráficas}
+\stepcounter{subsec}
+
+\begin{defn}
+    La \ul{secuencia de grados} de un grafo $G$ es la lista de grados de sus vértices escrita en orden no-creciente: $d_1 \geq \dots \geq d_n$.
+\end{defn}
+
+Todo grafo $G$ tiene una secuencia de grados, ¿pero cuáles grafos aparecen al fijar una sucesión no-creciente de enteros no-negativos?
+
+\begin{pro}
+    Una sucesión no-creciente de enteros no negativos $d_1, \dots, d_n$ se corresponde con los grados de los vértices de un grafo $G$ sii $\sum d_i$ es par.
+\end{pro}
+
+\begin{proof}
+    \begin{enumerate}
+        \item[$\Leftarrow$] Supongamos que $\sum d_i$ es par. Entonces pasamos a construir un grafo $G$ con el conjunto de vértices $v_1, \dots, v_n$ donde $d(v_i) = d_i$, $\forall~i$. Como la suma es par, entonces la cantidad de vértices impares es par. Ahora emparejemos de forma abritraria a los vértices impares. Para cada pareja, asignemos un lado que tenga a cada vértice como uno de sus extremos. Para completar el grado de cada vértice, todavía nos hacen falta una cantidad par de lados por vértice. Esto lo logramos al colocar $\lfloor d_i/2 \rfloor$ bucles en el vértice $v_i$, $\forall~i$.
+        
+        \item[$\Rightarrow$] Supongamos que $G$ tiene la sucesión dada como su secuencia de grados. Entonces por \ref{teo:primer}, tenemos que $\sum d_i = 2e(G)$, el cual es un número par.
+    \end{enumerate}
+\end{proof}
+
+Vemos que para esta demostración, hallar dicho $G$ es sencillo si se valen los bucles, pero si por ejemplo quisieramos construir un grafo con secuencia de grados $2, 0, 0$, esto es imposible sin bucles. De esta forma, si no tenemos bucles, la condición no es suficiente. Esta discusión nos da pie a la siguiente definición:
+
+\begin{defn}
+    Una \ul{secuencia gráfica} es una lista de números no-negativos tales que es la secuencia de grados de un grafo simple $G$. Un grafo simple con secuencia de grados $d$ \textit{realiza} $d$.
+\end{defn}
+
+\begin{ejem}
+    \begin{marginfigure}
+        \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{1}
+            \GraphInit[vstyle=Classic]
+            \SetVertexNoLabel
+            \Vertex{1}
+            \Vertex[x=0, y=1]{2}
+            \Vertex[x=1, y=0]{3}
+            \Edge(1)(2)
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:sec1}
+    \end{marginfigure}
+    
+    \begin{marginfigure}
+        \centering
+        \begin{tikzpicture}
+            \SetGraphUnit{1}
+            \GraphInit[vstyle=Classic]
+            \SetVertexNoLabel
+            \Vertex{1}
+            \Vertex[x=0, y=1]{2}
+            \Vertex[x=1, y=0]{3}
+            \Vertex[x=1, y=1]{4}
+            \Edge(1)(2)
+            \SetUpEdge[style={dashed}]
+            \Edge(3)(4)
+            \Edge(2)(4)
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:sec2}
+    \end{marginfigure}
+    
+    Las listas $2,2,1,1$ y $1,1,0$ son gráficas. El grafo $K_2 + K_1$ realiza $1,0,1$. Añadir un nuevo vértice adyacente a los grafos con grado $1$ y $0$ nos da como resultado un grafo con secuencia de grados $2,2,1,1$ como se muestra en \ref{fig:sec1} y \ref{fig:sec2}. De igual forma, si a un grafo que realiza $2,2,1,1$ tiene un vértice $w$ con vecinos de grados $2$ y $1$, tenemos como resultado un grafo con vértices $1,0,1$.
+    
+    De la misma manera, podemos experimentar con la secuencia $33333221$: Tendremos una realización con un vértice $w$ de grado $3$ con tres vértices de grado $3$. Esta existe si y sólo si $2223221$ es gráfica. Reordenando, probamos con $3222221$. Continuamos eliminando vértices y reordenando. Vemos que al insertar los vértices originales y sus lados respectivos, podemos llegar a una realización de la lista original. La situación descrita puede ser visualizada en la figura \ref{fig:sec3}.
+    
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}[scale=0.9]
+            \begin{scope}
+                \SetGraphUnit{1}
+                \GraphInit[vstyle=Classic]
+                \SetVertexNoLabel
+                \Vertex[x=0, y=1.5] {1}
+                \Vertex[x=1, y=0]   {2}
+                \Vertex[x=1, y=1.5] {3}
+                \Vertex[x=1, y=3]   {4}
+                \Vertex[x=2, y=0]   {5}
+                \Vertex[x=2, y=1.5] {6}
+                \Vertex[x=2, y=3]   {7}
+                \Vertex[x=3, y=1.5] {8}
+                \node[yshift=-0.4cm] at (0,1.5) {$v$};
+                \node[xshift=0.4cm]  at (2,3)   {$u$};
+                \node[yshift=-0.4cm] at (3,1.5) {$w$};
+                \Edge(1)(2)
+                \Edge(1)(3)
+                \Edge(1)(4)
+                \tikzset{EdgeStyle/.append style = {red}}
+                \Edges[color=red](4,7,6)
+                \tikzset{EdgeStyle/.append style = {blue}}
+                \Edge[color=blue](3)(6)
+                \Edge[color=blue](2)(5)
+                \tikzset{EdgeStyle/.append style = {green}}
+                \Edge[color=green](8)(7)
+                \Edge[color=green](8)(6)
+                \Edge[color=green](8)(2)
+            \end{scope}
+            \node at (1.5,-1) {$33333221$};
+            \draw[<-, line width=2pt]   (3.5,1.5)   -- (4.5,1.5);
+            \begin{scope}[xshift=5cm]
+                \SetGraphUnit{1}
+                \GraphInit[vstyle=Classic]
+                \SetVertexNoLabel
+                \Vertex[x=0, y=1.5] {1}
+                \Vertex[x=1, y=0]   {2}
+                \Vertex[x=1, y=1.5] {3}
+                \Vertex[x=1, y=3]   {4}
+                \Vertex[x=2, y=0]   {5}
+                \Vertex[x=2, y=1.5] {6}
+                \Vertex[x=2, y=3]   {7}
+                \node[yshift=-0.4cm] at (0,1.5) {$v$};
+                \node[xshift=0.4cm]  at (2,3)   {$u$};
+                \Edge(1)(2)
+                \Edge(1)(3)
+                \Edge(1)(4)
+                \tikzset{EdgeStyle/.append style = {red}}
+                \Edges[color=red](4,7,6)
+                \tikzset{EdgeStyle/.append style = {blue}}
+                \Edge[color=blue](3)(6)
+                \Edge[color=blue](2)(5)
+            \end{scope}
+            \node at (6,-1) {$3222221$};
+            \draw[<-, line width=2pt]   (7.5,1.5)   -- (8.5,1.5);
+            \begin{scope}[xshift=9cm]
+                \SetGraphUnit{1}
+                \GraphInit[vstyle=Classic]
+                \SetVertexNoLabel
+                \Vertex[x=0, y=0]   {2}
+                \Vertex[x=0, y=1.5] {3}
+                \Vertex[x=0, y=3]   {4}
+                \Vertex[x=1, y=0]   {5}
+                \Vertex[x=1, y=1.5] {6}
+                \Vertex[x=1, y=3]   {7}
+                \node[xshift=0.4cm]  at (1,3)   {$u$};
+                \tikzset{EdgeStyle/.append style = {red}}
+                \Edges[color=red](4,7,6)
+                \tikzset{EdgeStyle/.append style = {blue}}
+                \Edge[color=blue](3)(6)
+                \Edge[color=blue](2)(5)
+            \end{scope}
+            \node at (9.5,-1) {$221111$};
+            \draw[<-, line width=2pt]   (10.5,1.5)   -- (11.5,1.5);
+            \begin{scope}[xshift=12cm]
+                \SetGraphUnit{1}
+                \GraphInit[vstyle=Classic]
+                \SetVertexNoLabel
+                \Vertex[x=0, y=0]   {2}
+                \Vertex[x=0, y=1.5] {3}
+                \Vertex[x=0, y=3]   {4}
+                \Vertex[x=1, y=0]   {5}
+                \Vertex[x=1, y=1.5] {6}
+                \tikzset{EdgeStyle/.append style = {blue}}
+                \Edge[color=blue](3)(6)
+                \Edge[color=blue](2)(5)
+            \end{scope}
+            \node at (12.5,-1) {$11110$};
+        \end{tikzpicture}
+        \caption[]{Situación descrita en el ejemplo. Vemos que al eliminar vértices y reordenando, tenemos los grafos realizados por las secuencias.}
+        \label{fig:sec3}
+    \end{figure}
+\end{ejem}
+
+El siguiente teorema implica que este procedimiento recursivo efectivamente funciona.
+
+\begin{teo}][Havel (1955), Hakimi (1962)]
+    Para $n > 1$, una lista de enteros $d$ de tamaño $n$ es gráfica sii $d'$ es gráfica, donde $d'$ se obtiene al eliminar su elemento más grande $\Delta$ y sustrayendo $1$ de los siguientes $\Delta$ más grandes elementos. Además, la única sucesión gráfica de tamaño $1$ es $d_1 = 0$.
+\end{teo}
+
+\begin{proof}
+    Para $n=1$, la demostración es trivial. Demostramos el si y sólo si en ambos sentidos:
+    
+    \begin{enumerate}
+        \item[$\Leftarrow$] Sean $d$ con $d_1 \geq \dots \geq d_n$ y un grafo simple $G'$ con secuencia de grados $d'$. Añadimos un nuevo vértice a $G'$ adyacente a los vértices con grados $d_2 - 1, \dots, d_{\Delta+1}-1$. Estos $d_i$ son los $\Delta$ elementos más grandes de $d$ después de $\Delta$, por lo que el grafo resultante realiza $d$.
+        
+        \item[$\Rightarrow$] Ahora, consideremos un grafos imple $G$ que realiza a $d$. Queremos encontrar un grafo simple $G'$ que realice $d'$. Sea $w$ un vértice con grado $\Delta$ en $G$. Sea $S$ un conjunto de $\Delta$ vértices con el grado deseado $d_2, \dots, d_{\Delta + 1}$. Si $N(w) = S$, entonces eliminamos $w$ para obtener $G'$.
+        
+        Si esto no ocurre, entonces supongamos que existe un $x \in S - N(w)$ y $z \in N(w) - S$. Entonces $\Delta = d(x) \geq d(z)$. Así que hay un $y \in N(x) - N(z)$. Eliminamos $xy$ e $wz$ de $E(G)$ y en su lugar agregamos $wx$ e $zy$. De esta forma, preservamos el grado de los vértices en el grafo resultante $G^*$ con respecto a $G$. De ser necesario, repetimos este procedimiento las veces que sean necesarias hasta encontrarnos en la situación del párrafo anterior. Esto se puede hacer a lo sumo $\Delta$ veces (una por vecino de $w$).
+    \end{enumerate}
+    
+    Y así, queda demostrado.
+\end{proof}
+
+\begin{defn}
+    Lo que hicimos en el teorema anterior al intercambiar lados es lo que se conoce como un \ul{switch}. Más formalmente, un switch de un par de lados $xy$ e $zw$ en un grafo simple $G$ es el reemplazo de dichos lados por $xw$ e $yz$, dado que $xw$ e $yz$ no aparecían en el grafo original.
+\end{defn}
+
+Sobre los switches, se observa que
+
+\begin{enumerate}
+    \item Los switches preservan grados (y por ende, sucesiones gráficas).
+    \item Si $H'$ se obtiene de $H$ mediante un switch, enotnces aplicar un switch a $H'$ con los mismos vértices produce $H$ nuevamente.
+\end{enumerate}
+
+Y esta definición nos inspira a estudiar el siguiente teorema:
+
+\begin{teo}
+    Sean $G,H$ grafos simples con $V(G) = V(H)$. $H$ se puede obtener a partir de $G$ aplicando switches de forma sucesiva sii para cada vértice $v$ se cumple $d_G(v) = d_H(v)$.
+\end{teo}
+
+\begin{proof}
+    En primer lugar, como los switches preservan el grado de los vértices, la condición es necesaria.
+    
+    Ahora supongamos que $G$ y $H$ son grafos simples con $V(G) = V(H)$ y para cada vértice $v$ se cumple que $d_H(v) = d_G(v)$: Sea $n = V(G)$, para $n \leq 3$, sólo hay un grafo que realiza una sucesión de $3$ grados, por lo que al aplicar cualquier sucesión de switches, siempre vamos a obtener el mismo grafo.
+    
+    Procedamos a aplicar inducción en $n$ y supongamos que el resultado vale para $k < n$. Sea entonces $w$ un vértice con grado máximo $d_1$ y fijemos un conjunto $S$ de $d_1$ vértices (distintos de $w$) con los máximos grados. Como en el teorema anterior, aplicar switches lleva $G$ a otro grafo simple $G^*$ tal que $N_{G^*}(w) = S$. De forma análoga, esto lleva también a $H$ a $H^*$ tal que $N_{H^*}(w) = S$. Ahora, $G' = G^* - w$ y $H' = H^* - w$ tienen $n-1$ vpertices y para cada vértice $v$ se cumple que $d_{G'}(v) = d_{H'}(v)$. Por hipótesis inductiva, $H'$ se obtiene aplicando sucesivamente switches a $G'$. Entonces aplicar esos switches a $G^*$ resulta en $H^*$. De esta forma, aplicar switches se puede hacer $G \rightarrow G^* \rightarrow H^* \rightarrow H$.
+    
+    Y así, queda demostrado el teorema.
+\end{proof}
