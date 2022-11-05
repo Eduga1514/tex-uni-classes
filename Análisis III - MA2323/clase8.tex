@@ -1,0 +1,415 @@
+\subsection{Extremos relativos}
+\stepcounter{subsec}
+
+Ya vimos que si $x = p$ es un extremo relativo de $f$, entonces $\nabla f(p) = 0$. La pregunta que queremos contestar es: ¿Cuándo un punto estacionario es un extremo relativo de $f$?
+
+Para contestar esa pregunta, nos valeremos del Hessiano. Recordemos que
+
+\[
+H f(p) \cdot h = \frac{1}{2} \sum_{i=1}^n\sum_{j=1}^n \partial_{ij}^2 f(p) h_ih_j
+\]
+
+El cual en el desarrollo de Taylor tiene un papel principal:
+
+\[
+f(p+h) = f(p) + \nabla f(p) \cdot h + H f(p) \cdot h + R_2(h,p)
+\]
+
+Si $p$ es un punto estacionario, entonces
+
+\[
+f(p+h) - f(p) \simeq H f(p) \cdot h
+\]
+
+Ahora, si $n=1$, tenemos que
+
+\[
+H f(a) \cdot = \frac{1}{2} f''(a) \cdot h^2
+\]
+
+\noindent y se tiene que el hessiano equivale a la segunda derivada, entonces el criterio que queremos desarrollar equivale al criterio de la segunda derivada de los cursos de cálculo.
+
+También el hessiano cumple con ciertas propiedades lineales que se derivan de la definición:
+
+\[
+H f(p) (\lambda h) = \lambda^2 H f(p) \cdot h \quad \forall~\lambda \in \R
+\]
+
+Si definimos $g(h) = H f(p) \cdot \left( \frac{h}{\normaeuc{h}} \right)$ con $h \in \R^n - \{0\}$, es fácil ver que $g: \R^n \rightarrow \R$ es continua y alcanza un mínimo en el conjunto cerrado $\normaeuc{h} = 1$. Luego, existe $M > 0$ tal que
+
+\[
+g(h) \geq M \quad \text{en $h:~\normaeuc{h} = 1$}
+\]
+
+Bajo todas estas observaciones, podemos enunciar el siguiente teorema:
+
+\begin{teo}[Criterio de los extremos relativos en $\R^n$]
+    Sea $f: A \rightarrow \R$ tal que $A$ es abierto, conexo y convexo tal que $f \in C^2(A)$. Sea también $p \in A$ estacionario. Si consideramos $h \in \R^n:~p + h \in A$, entonces
+    
+    \begin{enumerate}
+        \item Si $H f(p) \cdot h > 0$, entonces en $x=p$, $f$ alcanza un mínimo relativo.
+        \item Si $H f(p) \cdot h < 0$, entonces en $x=p$, $f$ alcanza un máximo relativo.
+        \item Si $H f(p) \cdot h = 0$, el criterio no decide. En general lo que ocurre en este caso es que se tiene un punto de ensilladura, el cual no es ni máximo ni mínimo.
+    \end{enumerate}
+\end{teo}
+
+\begin{proof}
+    Supongamos que $H f(p) \cdot h > 0$. Por el \Taylor~sabemos que
+    
+    \[
+    f(p + h) = f(p) + H f(p) \cdot h + R_2(p,h)
+    \]
+    
+    ya que $\nabla f(p) = 0$ por ser $p$ estacionario.
+    
+    Ahora, el error lo podemos tomar lo suficientemente pequeño tal que la expresión siga siendo positiva, entonces lo anterior queda
+    
+    \begin{equation}\label{eq:8.1.1}
+        f(p+h) - f(p) = H f(p) \cdot h
+    \end{equation}
+    
+    Pero el hessiano se puede expresar como
+    
+    \[
+    H f(p) \cdot \left( \dfrac{h}{\normaeuc{h}}\normaeuc{h} \right) = \left(\normaeuc{h}\right)^2 H f(p) \cdot \left( \dfrac{h}{\normaeuc{h}} \right)
+    \]
+    
+    Recordemos que esta es la función $g$ que definimos antes del teorema, la cual está acotada inferiormente gracias a la continuidad sobre el cerrado. Entonces $\exists~M > 0$ tal que
+    
+    \[
+    H f(p) \cdot h \geq M \left(\normaeuc{h}\right)^2 > 0
+    \]
+    
+    Por \ref{eq:8.1.1} esto implica que 
+    
+    \[
+    f(p+h) - f(p) > 0 \implies f(p+h) \geq f(p), \quad \forall~p+h \in A~:~p+h \in B(p,r) \subset A
+    \]
+    
+    En conclusión, si $H f(p) \cdot h > 0$ entonces en $x=p$ hay un mínimo.
+    
+    Análogamente, bajo un argumento similar se concluye en resultado para $H f(p) \cdot h > 0$.
+\end{proof}
+
+\begin{lem}
+    Sean
+    
+    \[
+    B =
+    \begin{pmatrix}
+        a & b \\
+        b & c
+    \end{pmatrix}
+    \quad \text{y} \quad H(u) = \frac{1}{2} (u_1, u_2) B \binom{u_1}{u_2}
+    \]
+    
+    Entonces $H(u) > 0$ sii $a > 0$ y $\det(B) > 0$.
+\end{lem}
+
+\begin{proof}
+    Este lema es pura manipulación de matrices y uso de álgebra lineal:
+    
+    \[
+    H(u) = \frac{a}{2} \left[ u_1^2 + \frac{2b}{a}u_1u_2 + \frac{c}{a}u_2^2 \right]
+    \]
+    
+    Completando cuadrados nos queda
+    
+    \[
+    H(u) = \frac{a}{2} \left( u_1 + \frac{b}{a}u_2 \right)^2 + \left( c - \frac{b^2}{a} \right) u_2^2 
+    \]
+    
+    Vemos que para que $H(u)$ sea positivo, necesitamos que $a$ sea positivo y $ca - b^2 = \det(B)$ sea también positivo. Así queda demostrado el teorema
+\end{proof}
+
+Este lema nos es útil para enunciar el siguiente teorema:
+
+\begin{teo}
+    Sea $f: A \rightarrow \R$ donde $f \in C^2(A)$. Supongamos que $p_0 \in (x_0, y_0)$ es estacionario. Entonces
+    
+    \begin{enumerate}
+        \item Si $\partial_x^2 f(x_0, y_0) > 0$ y 
+        
+        \[
+        \det \begin{pmatrix}
+                 \partial_x^2f    & \partial_{yx}^2f \\
+                 \partial_{xy}^2f & \partial_y^2f
+             \end{pmatrix}
+             \Biggr\rvert_{p_0}
+        > 0
+        \]
+        
+        Entonces $f(x_0, y_0)$ es un mínimo local de la función $f$.
+        
+        \item Si $\partial_x^2 f(x_0, y_0) < 0$ y 
+        
+        \[
+        \det \begin{pmatrix}
+                 \partial_x^2f    & \partial_{yx}^2f \\
+                 \partial_{xy}^2f & \partial_y^2f
+             \end{pmatrix}
+             \Biggr\rvert_{p_0}
+        > 0
+        \]
+        
+        Entonces $f(x_0, y_0)$ es un máximo local de la función $f$.
+        
+        \item Si
+        
+        \[
+        \det \begin{pmatrix}
+                 \partial_x^2f    & \partial_{yx}^2f \\
+                 \partial_{xy}^2f & \partial_y^2f
+             \end{pmatrix}
+             \Biggr\rvert_{p_0}
+        > 0
+        \]
+        
+        Entonces no hay un extremo relativo en el punto.
+        
+        \item Si $\partial_x^2 f(x_0, y_0) > 0$ y 
+        
+        \[
+        \det \begin{pmatrix}
+                 \partial_x^2f    & \partial_{yx}^2f \\
+                 \partial_{xy}^2f & \partial_y^2f
+             \end{pmatrix}
+             \Biggr\rvert_{p_0}
+        = 0
+        \]
+        
+        Entonces el teorema no concluye nada.
+    \end{enumerate}
+\end{teo}
+
+\begin{teo}[Teorema de los Multiplicadores de Lagrange]\label{teo:lagrange}
+    Sean $A \subseteq \R^n$ abierto, conexo y convexo y dos funciones $f, g: A \rightarrow \R$ diferenciables y consideremos un punto $x_0 \in A$ tal que $g(x_0) = c$ y $S = \{x : g(x) = c\}$. Supongamos que $\nabla g(x_0) \neq 0$. Ahora si $f_{|S}$ tiene un valor extremo en $x_0$, entonces existe al menos un $\lambda \neq 0 \in \R$ (no necesariamente único) tal que
+    
+    \[
+    \nabla f(x_0) = \lambda \nabla g(x_0)
+    \]
+    
+    \noindent donde el factor $\lambda$ es el que se conoce como el multiplicador.
+\end{teo}
+
+\begin{proof}
+    El hiperplano tangente a $S$ en el punto $x_0$ viene dado por la siguiente ecuación
+    
+    \[
+    \nabla g(x_0) (x-x_0) = 0
+    \]
+    
+    Sea ahora $C$ una curva en $S$ cuya trayectoria viene dada por una función $\sigma: \R \rightarrow \R^3$ tal que $\sigma(0) = x_0$ y $\sigma'(0)$ es el vector tangente a $S$ en $x_0$. Ahora,
+    
+    \begin{equation}\label{eq:8.2.1}
+        \frac{d}{dt} g\left( \sigma(t) \right) = \frac{d}{dt} c = 0
+    \end{equation}
+    
+    \noindent por la definición de $S$ y $\sigma$.
+    
+    Por otro lado, gracias a la regla de la cadena,
+    
+    \begin{equation}\label{eq:8.2.2}
+        \frac{d}{dt} g\left( \sigma(t) \right) = \nabla g(x_0) \cdot \sigma'(0)
+    \end{equation}
+    
+    Entonces concluímos por \ref{eq:8.2.1} y \ref{eq:8.2.2} que
+    
+    \begin{equation}\label{eq:8.2.3}
+        \nabla g(x_0) \cdot \sigma'(0) = 0 \implies \sigma'(0) \perp \nabla g(x_0)
+    \end{equation}
+    
+    Ahora bien, si en $x = x_0$, $f$ alcanza un máximo entonces esto implica que $f\left( \sigma(0) \right)$ es máximo. Es decir, que en $t = 0$, la función $f\left( \sigma(t) \right)$ alcanza un máximo. Esto implica que
+    
+    \[
+    \frac{d}{dt} f(\sigma(0)) = 0
+    \]
+    
+    Por otro lado, aplicando nuevamente regla de la cadena,
+    
+    \begin{equation}\label{eq:8.2.4}
+        \frac{d}{dt} f(\sigma(t)) = \nabla f(x_0) \nabla'(0) \implies \nabla f(x_0) \perp \sigma'(0)
+    \end{equation}
+    
+    Por \ref{eq:8.2.3} y \ref{eq:8.2.4} podemos concluir que $\nabla f(x_0) \parallel \nabla g(x_0)$. Luego por paralelelismo $\exists~\lambda \in \R$ tal que $\nabla f(x_0) = \lambda \nabla g(x_0)$.
+    
+    De esta forma, queda demostrado el teorema.
+\end{proof}
+
+Lo que nos dice este teorema es que al escribir $\nabla f(x_0) = \lambda \nabla g(x_0)$ podemos plantear este sistema de ecuaciones:
+
+\[
+\begin{cases}
+    \partial_1 f = \lambda \partial_{x_1}g \\
+    \vdots                                 \\
+    \partial_n f = \lambda \partial_{x_n}g
+\end{cases}
+\]
+
+Pero esto es cierto siempre que se esté sujeto a la condición de que $g(x_1, \dots, x_n) = c$.
+
+Ahora definiendo una función auxiliar como
+
+\[
+h(x_1, \dots, x_{x_n}, \lambda) = f(x_1, \dots, x_n) - \lambda\left[g(x_1, \dots, x_n) - c\right]
+\]
+
+Entonces resolver el sistema anteriormente planteado, es equivalente a hallar los puntos estacionarios de $h$ y viceversa (donde $f_{|S}$).
+
+Por lo tanto, el problema que se plantea en la práctica es el de hallar los extremos relativos de $f$, sujeta a la condición $g(x) = c$. Este se resuelve hallando los puntos críticos de $h$ y luego viendo cómo estos puntos se comportan para $f$ y $g$. Sin embargo, esto no siempre es una tarea sencilla, ya que el sistema puede resultar en un sistema de ecuaciones no lineal.
+
+Por lo tanto, para el estudio de los extremos condicionados, no nos vale únicamente tener a la mano el \Lagrange~sino también el siguiente teorema:
+
+\begin{teo}[Teorema del máximo y el mínimo]\label{teo:max-min}
+    Sean $C \subset \R^n$ cerrado y acotado y $f: C \rightarrow \R$ continua. Entonces $f$ alcanza sus valores extremos en $C$.
+\end{teo}
+
+Este teorema se deduce de la compacidad de $C$:
+
+\begin{proof}
+    $C$ es cerrado y acotado, entonces es compacto, y $f$ es continua entonces su imagen es uniformemente continua y por lo tanto es acotada, por lo tanto alcanza un valor máximo y un valor mínimo.
+\end{proof}
+
+Entonces para resolver los problemas de extremos condicionados es el siguiente: Primero, se necesita una función $f: C \rightarrow \R$ tal que $C$ es cerrado. Si tuviéramos como antes un conjunto $A$ abierto, conexo, y convexo, necesitaríamos también que sea acotado y tomamos la clausura de $A$, en ese caso tenemos un conjunto acotado y cerrado. Bajo estas hipótesis, necesitamos
+
+\begin{enumerate}
+    \item Hallar los puntos críticos dentro de $C$.
+    \item Parametrizar la frontera, y hallar los puntos críticos en ella.
+    \item Comparar los puntos, es decir evaluar.
+\end{enumerate}
+
+\subsection{Criterio de la segunda derivada}
+\stepcounter{subsec}
+
+\begin{nota}
+    En lo sucesivo, denotaremos las derivadas de la siguiente manera
+    
+    \begin{gather*}
+        \partial_xf = f_x \qquad \partial_x^2f = f_{xx} \\
+        \partial_yf = f_y \qquad \partial_{xy}^2f = f_{xy} \\
+        \phi'(x) = \phi_x \qquad \phi''(x) = \phi_{xx}
+    \end{gather*}
+\end{nota}
+
+Ahora, pasaremos a desarrollar el criterio de la segunda derivada pero para funciones de varias variables, específicamente funciones definidas de $A \subseteq \R^2 \rightarrow \R$.
+
+Sean entonces $A$ abierto, conexo y convexo y $g,f: A \rightarrow \R$ con $g,f \in C^2(A)$. El problema que vamos a abordar a continuación es hallar los valores extremos de $f(x,y)$ sujeta a la condición $g(x,y) = c$, donde $c \in g(A)$. Por el \Lagrange~, sabemos que basta considerar una función auxiliar $h$ definida como
+
+\[
+h(x, y, \lambda) = f(x,y) - \lambda \left[ g(x,y) - c \right]
+\]
+
+Si tenemos que podemos despejar en la ecuación $g(x,y) - c = 0$ la variable $y$ en términos de $x$, esto equivale a encontrar una función $\phi$ tal que $y = \phi(x)$. Luego podemos sustituir en la función $f(x,y) = f\left(x, \phi(x)\right)$. Así, estudiar los valores extremos de $f$ ahora va a depender de una sola variable. Por lo tanto, estudiar $f$ se centrará a estudiar la composición de $f$ con $\phi$.
+
+Ahora, aplicando regla de la cadena, nos queda que
+
+\begin{equation}\label{eq:8.3.1}
+    f_x = f_x + f_y\phi_x
+\end{equation}
+
+Derivando nuevamente, y aplicando una vez más la regla de la cadena,
+
+\begin{align*}
+    f_{xx} &= (f_x)_x + (f_y\phi_x)_x \\
+        &= (f_{xx} + f_{xy}\phi_x) + (f_y)_x\phi_x + f_y(\phi_x)_x
+\end{align*}
+
+Calculemos $(f_y)_x\phi_x$ (Aplicando de nuevo... adivina qué... pues regla de la cadena):
+
+\begin{align*}
+    (f_y)_x\phi_x &= \phi_x((f_y)_x + \phi_x(f_y)_y) \\
+        &= \phi_xf_{yx} + (\phi_x)^2f_{yy}
+\end{align*}
+
+Y sustituyendo en lo que teníamos previamente, nos queda
+
+\begin{equation}\label{eq:8.3.2}
+    f_{xx} = f_{xx} + f_{xy}\phi_x + (f_{yx} + f_{yy})\phi_x + f_y\phi_{xx}
+\end{equation}
+
+Ahora, de la relación $g(x, \phi(x)) = c$ obtenemos lo siguiente cuando derivamos:
+
+\begin{equation}\label{eq:8.3.3}
+    g_x + g_y\phi_x = 0 \implies \phi_x = -\frac{g_x}{g_y}
+\end{equation}
+
+Derivando nuevamente esto, nos quedaría
+
+\begin{align}\label{eq:8.3.4}
+    (g_x)_x + (g_y\phi_x)_x = 0 &\implies (g_x)_x + (g_y)_x\phi_x + g_y\phi_{xx} = 0 \nonumber \\
+        &\implies g_{xx} + g_{xy}\phi_x + \Big[ g_{yx} + g_{yy}\phi_x \Big]\phi_x + g_y\phi_{xx} = 0 \nonumber \\
+        &\implies g_{xx} + 2g_{xy}\phi_x + g_{yy}\phi_x^2 + g_y\phi_{xx} = 0
+\end{align}
+
+Por lo tanto, sustituyendo \ref{eq:8.3.3} en \ref{eq:8.3.4} nos queda que
+
+\begin{equation}\label{eq:8.3.5}
+    \phi_{xx} = -\frac{1}{g_y} \left[ g_{xx} - 2g_{xy}\frac{g_x}{g_y} + g_{yy} \left( \frac{g_x}{g_y} \right)^2 \right]
+\end{equation}
+
+Recordemos: Realmente no sabemos cómo está definida la función $\phi$. Sólo estamos suponiendo que exsite. Pero en el caso de que existiese, sabemos que sus derivadas las podemos expresar en términos de $g$, son las ecuaciones \ref{eq:8.3.3} y \ref{eq:8.3.5}.
+
+Ahora, sustituyendo \ref{eq:8.3.5} en \ref{eq:8.3.1} y \ref{eq:8.3.2} obtenemos
+
+\begin{gather*}
+    f_x = f_x - f_y\dfrac{g_x}{g_y}
+\end{gather*}
+
+\noindent y también
+
+\[
+f_{xx} = -\frac{1}{(g_y)^2} \left[ \left( f_{xx} - \frac{f_y}{g_y}g_{xx} \right)(g_y)^2 - 2\left( f_{xy} - \frac{f_y}{g_y}g_{yx} \right)g_xg_y + \left(f_{yy} - \frac{f_y}{g_y}g_{yy} \right)(g_x)^2 \right]
+\]
+
+Pero, aplicando el \Lagrange~también sabemos que $f_y = \lambda g_y$ y $f_x = \lambda g_x$. Entonces esto implica que
+
+\[
+f_x = f_x - \lambda g_x = 0 \quad \text{en $p_0 = (x_0, y_0)$}
+\]
+
+En consecuencia,
+
+\[
+f_{xx} = -\frac{1}{(g_y)^2}\left[ h_{xx}(g_y)^2 - 2h_{xy}g_xg_y + h_{yy}(g_x)^2 \right]
+\]
+
+\noindent donde $h(x,y,\lambda) = f(x,y) - \lambda \left[g(x,y) - c\right]$.
+
+Pero esto equivale a
+
+\[
+f_{xx} = -\frac{1}{(g_y)^2} \det
+    \begin{pmatrix}
+        0    & -g_x   & -g_y   \\
+        -g_x & h_{xx} & h_{xy} \\
+        -g_y & h_{xy} & h_{yy}
+    \end{pmatrix}
+    \Biggr\rvert_{(x,y) = (x_0,y_0)}
+\]
+
+Ahora, aplicando el criterio de la segunda derivada (para valores reales a reales) a $f_{xx}$, podemos enunciar el siguiente teorema:
+
+\begin{teo}
+    Sean $f,g: A \rightarrow \R$ con $A \subseteq \R^2$ abierto, conexo y convexo, con $f \in C^2(A)$. Sea $p_0 \in A$ tal que $g(p_0) = c$, y además $\nabla g(p_0) \neq 0$.
+    
+    Supongamos que $\exists~\lambda \in \R$ tal que $\lambda \nabla g(p_0) = \nabla f(p_0)$, y sea $h = f - \lambda(g-c)$.
+    
+    Denotamos por
+    
+    \[
+    H(p_0) = \det \begin{pmatrix}
+                      0         & -g_x(p_0)   & -g_y(p_0)   \\
+                      -g_x(p_0) & h_{xx}(p_0) & h_{xy}(p_0) \\
+                      -g_y(p_0) & h_{xy}(p_0) & h_{yy}(p_0)
+                  \end{pmatrix}
+                  \Biggr\rvert_{p_0}
+    \]
+    
+    Entonces
+    
+    \begin{enumerate}
+        \item Si $H(p_0) > 0$ entonces $f$ tiene un máximo local en $p_0$.
+        \item Si $H(p_0) < 0$ entonces $f$ tiene un mínimo local en $p_0$.
+        \item Si $H(p_0) = 0$ entonces el teorema no decide.
+    \end{enumerate}
+\end{teo}
