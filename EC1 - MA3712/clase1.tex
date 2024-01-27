@@ -1,0 +1,111 @@
+\section*{Clase 1}
+
+\subsection*{Definiciones Básicas}
+
+\begin{defn}
+    Sea $x$ una variable independiente, $y$ una variable dependiente de $x$ y $D^{(i)}$ (con $i \in \N - \{0, +\infty\}$) el operador derivación. Una relación
+    
+    \[
+    \Phi\big( x, y, Dy, D^{(2)}y, \dots \big) = 0
+    \]
+
+    es llamada una \ul{ecuación diferencial}.
+
+    Una ecuación diferencial se dice que es \ul{ordinaria} si el operador derivada es el operador derivada en una variable.
+\end{defn}
+
+\begin{defn}
+    El orden de una EDO es el orden de la mayor derivada presente en la ecuación.
+\end{defn}
+
+\begin{defn}
+    Una EDO se dice \ul{lineal} si es lineal en términos de las variables $y, y', y'', \dots, y^{(n)}, \dots$.
+
+    En otro caso, se dice que la EDO es \ul{no lineal}.
+\end{defn}
+
+\begin{defn}
+    Una solución de una EDO es una función $y = y(x)$ tal que
+
+    \[
+    \Phi\big( x, y(x), y'(x), \dots \big) = 0
+    \]
+\end{defn}
+
+\subsection*{EDO de Orden 1}
+
+\begin{defn}
+    Una EDO de orden 1 es una ecuación diferencial de tipo
+
+    \[
+    \Phi\big( x, y, y' \big) = 0
+    \]
+
+    Si la EDO es lineal, entonces tiene la forma
+
+    \[
+    a_1(x)\frac{dy}{dx} + a_0(x)y = f(x), \hspace{1cm} a_1 \neq 0
+    \]
+\end{defn}
+
+Pasaremos ahora a resolver la EDO general lineal de primer orden mediante el método de los \ul{factores integrantes}:
+
+Consideremos la ecuación
+
+\begin{equation}\label{eq:met_integrantes1}
+    \frac{dy}{dt} + p(t)y = g(t)
+\end{equation}
+
+donde $p$ y $g$ son funciones cualesquiera. Multipliquemos esta expresión por una función $\mu(t)$ y nos queda
+
+\begin{equation}\label{eq:met_integrantes2}
+    \mu(t)\frac{dy}{dt} + \mu(t)p(t)y = \mu(t)g(t)
+\end{equation}
+
+Ahora, si consideramos $\mu$ tal que satisface
+
+\begin{equation}\label{eq:met_integrantes3}
+    \frac{d\mu(t)}{dt} = p(t)\mu(t)
+\end{equation}
+
+vemos que el lado izquierdo de \refeq{eq:met_integrantes2} es la derivada del producto $\mu(t)y$.
+
+Si además asumimos que $\mu(t)$ es positivo entonces nos queda
+
+\[
+    \frac{d\mu(t)/dt}{\mu(t)} = p(t)
+\]
+
+La derivada del logaritmo es conocida, entonces por el TFC esto implica que
+
+\[
+    \ln\mu(t) = \int p(t)dt + k
+\]
+
+Escogiendo $k = 0$ obtenemos
+
+\[
+    \mu(t) = \exp \big( p(t)dt \big)
+\]
+
+Así, la ecuación \refeq{eq:met_integrantes2} equivale a
+
+\[
+    \frac{d}{dt}(\mu(t)y) = \mu(t)g(t)
+\]
+
+Y se sigue que
+
+\[
+    \mu(t)y = \int \mu(s)g(s) + c
+\]
+
+Y la solución general de \refeq{eq:met_integrantes1} es
+
+\[
+    y = \displaystyle \frac{\int \mu(s)g(s) + c}{\mu(t)}
+\]
+
+donde $\mu$ es el factor integrante de la ecuación.
+
+Para aplicar este método vemos que necesitamos dos integraciones: Una para obtener $\mu$ y otra para obtener $y$.
