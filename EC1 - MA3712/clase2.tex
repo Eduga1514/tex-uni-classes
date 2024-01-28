@@ -1,0 +1,64 @@
+% TODO: Demostración del teorema
+\section*{Clase 2}
+
+\subsection*{El Problema De Cauchy}
+
+El \ul{problema de Cauchy}, también llamado el problema del valor inicial consiste en resolver una ecuación diferencial sujeta a unas ciertas condiciones de frontera o valores iniciales sobre la solución cuando una de las variables que la definen toma un valor determinado.
+
+\begin{defn}
+    Dado un intervalo $I$ de la recta real y $f: I \rightarrow \R^n$ continua. Sea $x_0 \in \R$ un punto de $I$. Diremos que $y: I \rightarrow \R^n$ es una curva \ul{solución del problema de valor inicial}
+
+    \[
+    \frac{dy}{dx} = f(x, y) \quad \text{con} \quad y(x_0) = y_0
+    \]
+
+    si $y = y(x)$ es diferenciable en $I$, $\frac{dy}{dx} = f(x, y(x))$ para todo $x \in I$ e $y(x_0) = y_0$.
+\end{defn}
+
+\begin{teo}
+    Sea $U = [ a, b ] \times \R$, $f: U \rightarrow \R$ continua en $U$ y \textbf{Lipschitz en $U$ respecto a la segunda variable}. Para cada $(x_0, y_0) \in U$ el problema
+
+    \[
+    \begin{cases*}
+    \frac{\displaystyle dy}{\displaystyle dx} = f(x, y) \\
+    y(x_0) = y_0    
+    \end{cases*}
+    \]
+
+    posee una única solución en $[a, b]$.
+\end{teo}
+
+\begin{proof}
+    Acá va la demostración
+\end{proof}
+
+\section*{Otras EDOs de Primer Orden}
+
+\ul{Ecuación de Variables Separables}: Tienen la forma $\frac{dy}{dx} = f(x, y) = F(x)G(y)$ y se resuelven tomando
+    
+\[
+\int \frac{dy}{G(y)} = \int F(x) dx + C
+\]
+
+Utilizando este método se puede modelar el crecimiento poblacional:
+
+\[
+\begin{cases*}
+    \frac{dy}{dt} = ky \\
+    y(t_0) = y_0
+\end{cases*}
+\]
+
+donde $F(X) = k$ y $G(y) = y$. Desarrollando,
+
+\[
+\int \frac{dy}{y} = k\int dt + C \implies \ln|y| = kt + C
+\]
+
+La solución general es $y(t) = e^{kt + C} = k_1e^{kt}$, $k_1$ constante.
+
+Para la solución particular, tenemos que
+
+\[
+y_0 = y(t_0) = k_1e^{kt_0} \implies k_1 = \frac{y_0}{e^{kt_0}} \implies y(t) = y_0 e^{k(t - t_0)}
+\]
