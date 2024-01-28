@@ -1,8 +1,8 @@
-PWD c:/Users/Condor Agency/Documents/repos/EduTex/EC1
+PWD c:/Users/Condor Agency/Documents/repos/tex-uni-classes/EC1 - MA3712
 INPUT c:/texlive/2023/texmf.cnf
 INPUT c:/texlive/2023/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/Users/Condor Agency/Documents/repos/EduTex/EC1/main.tex
+INPUT c:/Users/Condor Agency/Documents/repos/tex-uni-classes/EC1 - MA3712/main.tex
 OUTPUT main.log
 INPUT c:/texlive/2023/texmf-dist/tex/latex/base/article.cls
 INPUT c:/texlive/2023/texmf-dist/tex/latex/base/article.cls
@@ -451,19 +451,30 @@ INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/fdsymbol/FdSymbolF-Book.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/fdsymbol/FdSymbolF-Book.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/fdsymbol/FdSymbolF-Book.tfm
 INPUT c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT ./clase2.tex
+INPUT ./clase2.tex
+INPUT ./clase2.tex
+INPUT ./clase2.tex
+INPUT clase2.tex
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolA-Book.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolB-Book.pfb
+INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolC-Book.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolE-Book.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolF-Book.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb
+INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
