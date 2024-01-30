@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.27)  29 JAN 2024 20:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.27)  29 JAN 2024 20:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -988,7 +988,7 @@ Package hyperref Info: Link coloring OFF on input line 128.
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
- (./clase1.tex
+ (./clase3.tex
 LaTeX Font Info:    Font shape `U/FdSymbolA/m/n' will be
 (Font)              scaled to size 10.0pt on input line 6.
 LaTeX Font Info:    Font shape `U/FdSymbolA/m/n' will be
@@ -1035,7 +1035,7 @@ LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
 (Font)              scaled to size 5.0pt on input line 6.
  [1{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-] [2]) (./clase2.tex [3]) [4] 
+]) [2] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (./main.aux)
  ***********
@@ -1046,18 +1046,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 48230 strings out of 475673
- 1136010 string characters out of 5783044
- 1938978 words of memory out of 5000000
- 69579 multiletter control sequences out of 15000+600000
- 568090 words of font info for 71 fonts, out of 8000000 for 9000
+ 48215 strings out of 475673
+ 1135813 string characters out of 5783044
+ 1936978 words of memory out of 5000000
+ 69574 multiletter control sequences out of 15000+600000
+ 569506 words of font info for 75 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 108i,12n,131p,1698b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolA-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolB-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolC-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolE-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolF-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (4 pages, 178642 bytes).
+ 108i,11n,131p,1698b,713s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolA-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolB-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolC-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/fdsymbol/FdSymbolF-Book.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (2 pages, 151035 bytes).
 PDF statistics:
- 140 PDF objects out of 1000 (max. 8388607)
- 99 compressed objects within 1 object stream
- 21 named destinations out of 1000 (max. 500000)
+ 110 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
+ 13 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
