@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1706412409.95851 "c:/Users/Condor Agency/Documents/repos/tex-uni-classes/EC1 - MA3712/main.tex" "main.pdf" "main" 1706412415.23409 0
+["pdflatex"] 1706573649.66026 "c:/Users/Condor Agency/Documents/repos/tex-uni-classes/EC1 - MA3712/main.tex" "main.pdf" "main" 1706573654.57535 0
   "c:/Users/Condor Agency/Documents/repos/tex-uni-classes/EC1 - MA3712/main.tex" 1706412403 4149 7c801fcf5c677bcb42c63159c7a4fdff ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm" 1706379830 1536 06717a2b50de47d4087ac0e6cd759455 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1706378870 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -266,10 +266,10 @@
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1706385178 81656 496c519c54c97ea6295afe1364b05039 ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1706382692 7527337 c4dc33198e5b38402e177dd791056b30 ""
   "c:/texlive/2023/texmf.cnf" 1706382612 713 e69b156964470283e0530f5060668171 ""
-  "clase1.tex" 1706409472 2799 9b9b5e0a30687c35b61132a3e120be6a ""
+  "clase1.tex" 1706573647 2801 fb93065db9e1e79e96b561ae3ab4b2ee ""
   "clase2.tex" 1706412279 1970 142355c6b9ed0672a2c6e7427bc5d798 ""
-  "main.aux" 1706412414 532 9214b77549b0a406e2248dc9cee55b46 "pdflatex"
-  "main.out" 1706412414 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.aux" 1706573653 532 9214b77549b0a406e2248dc9cee55b46 "pdflatex"
+  "main.out" 1706573653 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "main.tex" 1706412403 4149 7c801fcf5c677bcb42c63159c7a4fdff ""
   (generated)
   "main.aux"
