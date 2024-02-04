@@ -1,0 +1,167 @@
+\section{Clase 2}
+\subsection{Separación de Variables}
+
+Recordemos que la ecuación de calor que intentamos resolver es la siguiente:
+
+\[
+    \begin{cases*}
+        \displaystyle\frac{\partial u}{\partial t} = \kappa \frac{\partial^2 u}{\partial x^2} & \\
+        u(0, t) = u(L, t) = 0 & \textbf{Condiciones de Frontera} \\
+        u(x, 0) = f(x) & \textbf{Condición Inicial}
+    \end{cases*}    
+\]
+
+donde $x \in (0, L)$ y $t > 0$.
+
+El método de \ul{Separación de Variables} consiste en suponer que podemos reescribir $u(x,t)$ como el producto $u(x,t) = \phi(x)G(t)$. Esto va a implicar que 
+
+\[
+    u(x,t) = \phi(x)G(t) \implies \begin{cases*}
+                               u_t = \phi G_t \\
+                               u_{xx} = \phi_{xx}G
+                           \end{cases*}
+\]
+
+Como $\frac{\partial u}{\partial t} = \kappa \frac{\partial^2 u}{\partial x^2}$ entonces sustituyendo nos queda
+
+\[
+    \phi G_t = \kappa \phi_{xx}G \implies \displaystyle \frac{G_t}{G} = \kappa\frac{\phi_{xx}}{\phi}
+\]
+
+El lado izquierdo solo depende de $t$ y el derecho de $x$. Luego, $\exists \lambda$ constante tal que
+
+\[
+    \frac{1}{G} \frac{\partial G}{\partial t} = \frac{\kappa}{\phi}\frac{\partial^2 \phi}{\partial x^2} = -\lambda \quad \footnotemark
+\]\footnotetext{$\lambda$ es negativo porque queremos hacer énfasis en que la temperatura decae a lo largo que pasa el tiempo.}
+
+De acá generaremos dos ecuaciones:
+
+\begin{equation}\label{ec:separables1}
+    \begin{cases*}
+        \displaystyle\frac{\partial^2 \phi}{\partial x^2} = -\lambda \phi \\
+        \phi(0) = \phi(L) = 0 \quad \footnotemark
+    \end{cases*}
+\end{equation}\footnotetext{Recordemos que las condiciones de frontera son $u(0, t) = u(L, t) = 0$.}
+
+\begin{equation}\label{ec:separables2}
+    \displaystyle\frac{\partial G}{\partial t} = -\lambda \kappa G
+\end{equation}
+
+Resolvamos en primer lugar la ecuación \ref{ec:separables2}: Como $G$ depende solo de $t$, y $\phi$ solo de $x$. $u$ depende de ambas y hemos supuesto que $u = \phi G$. Luego, aplicando integración a ambos lados de la ecuación nos queda
+
+\[
+    \begin{split}
+        \frac{\partial G}{\partial t} = -\lambda \kappa G &\implies \frac{\partial G}{G} = - \lambda \kappa t + \beta \implies \ln G = -\lambda \kappa t + \beta \\
+        &\implies G(t) = c e^{-\lambda \kappa t}
+    \end{split}
+\]
+
+Ahora examinemos \ref{ec:separables1}. Esta es una ecuación diferencial ordinaria de segundo orden. Un candidato para resolver esta ecuación es $\phi = e^{rx}$, entonces nos queda que:
+
+\[
+    \frac{\partial^2 \phi}{\partial x^2} = -\lambda \phi \implies r^2e^{rx} = -\lambda e^{rx} \implies r^2 + 1 = 0 \quad \footnotemark
+\]\footnotetext{Este es el polinomio característico asociado a la ecuación diferencial ordinaria de segundo orden.}
+
+En el caso $\lambda > 0$, entonces
+
+\[
+    \phi(x) = \pm e^{\sqrt{\lambda ix}}
+\]
+
+Por la fórmula de Euler, esto es
+
+\[
+    \phi(x) = c_1 \cos(\sqrt{\lambda} x) + c_2 \sin(\sqrt{\lambda} x) \quad c_1, c_2 \in \R
+\]
+
+Como $\phi(0) = \phi(L) = 0$, entonces al sustituir en la ecuación anterior
+
+\[
+    \begin{split}
+        &\phi(0) = 0 \implies c_1 = 0 \\
+        &\phi(L) = 0 \implies c_2\sin(\sqrt{\lambda} L) = 0 \implies \sin(\sqrt{\lambda} L) = 0 \implies \sqrt{\lambda} L = n\pi
+    \end{split}
+\]
+
+\noindent
+con $n \in \Z$.
+
+Así, $\lambda = (n\pi/L)^2$ y queda que
+
+\[
+    \displaystyle\phi(x) = c_2\sin\left( \frac{n \pi x}{L} \right)
+\]
+
+Si $\lambda = 0$ entonces
+
+\[
+    \phi(x) = 0
+\]
+
+Ahora, gracias al principio de la superposición, concluímos que cada solución va a tener la forma
+
+\[
+    \LaTeXunderbrace{B_n\sin\left( \frac{n\pi x}{L} \right)}_{\phi(x)} \cdot \LaTeXunderbrace{\vphantom{\left( \frac{n\pi x}{L} \right)}e^{-\kappa \left( \frac{n\pi}{L} \right)^2 }}_{G(t)}
+\]
+
+Finalmente, tendremos que
+
+\[
+    u(x,t) = \sum_{n = 1}^{\infty} B_n\sin\left( \frac{n\pi x}{L} \right) e^{-\kappa \left( \frac{n\pi}{L} \right)^2 t}
+\]
+
+\noindent
+como $u(x,0) = f(x)$ entonces
+
+\[
+    f(x) = \LaTeXunderbrace{\sum_{n = 1}^{\infty} B_n\sin\left( \frac{n\pi x}{L} \right)}_{\text{Serie de Fourier de senos de $f$}}
+\]
+
+\subsection{Sistema Trigonométrico}
+
+Queremos ahora calcular estos $B_n$. Primero consideremos en la familia de funciones
+
+\[
+    \left\{ \sin\left( \frac{n\pi x}{L} \right) \right\}^{\infty}_{n = 1}
+\]
+
+Diremos que esta familia es  \ul{ortogonal}.\footnote{Ortogonal quiere decir que
+
+\[
+    0 = <f, g>_{L^2} = \int_0^L f(t)g(t)dt
+\]} en el espacio $L^2[0, L].$\footnote{Son aquellas funciones tales que
+
+\[
+    \left\{ f: [0, L] \rightarrow \R \Bigg| \int_0^L |f(t)|^2 dt < \infty \right\}
+\]
+
+Y además
+
+\[
+    ||f||_2 = \left( \int_0^1 |f|^2 dy \right)^{1/2}
+\]} Pasemos a demostrar que en efecto, esta familia es ortogonal:
+
+%TODO: Copiar la demostración de ortogonalidad de esa familia de senos
+
+Como la familia es ortogonal, entonces si partimos de
+
+\[
+    f(x) = \sum_{n = 1}^{\infty} B_n\sin\left( \frac{n\pi x}{L} \right)
+\]
+
+Integrando ambos lados,
+
+%TODO: Copiar el desarrollo de f(x)
+
+Así, $B_k = \frac{2}{L} \int_0^L f(x) \sin(\frac{k\pi x}{L}) dx$. Y estos son los coeficientes de Fourier de $f$.
+
+
+
+
+
+
+
+
+
+
+
