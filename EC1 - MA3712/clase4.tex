@@ -1,0 +1,91 @@
+\section{Clase 4}
+\subsection{Reducción a Ecuaciones Homogéneas}
+
+Si tenemos una ecuación diferencial de la forma
+
+\[
+    \frac{dy}{dx} = f\left( \frac{a_1x + b_1y +c_1}{a_2x + b_2y + c_2} \right)
+\]
+
+Podemos asegurar que existen coordenadas locales $\xi$, $\eta$ tales que
+
+\[
+    \begin{cases*}
+        x = \xi  + x_0 \\
+        y = \eta + y_0
+    \end{cases*}
+\]
+
+\noindent
+con $(x_0, y_0) \in \R^2$.
+
+Luego, podemos asegurar que
+
+\[
+    \frac{a_1(\xi + x_0) + b_1(\eta + y_0) + c_1}{a_2(\xi + x_0) + b_2(\eta + y_0) + c_2} = \frac{a_1 \xi + b_1 \eta}{a_2 \xi + b_2 \eta}
+\]
+
+De donde
+
+\[
+    \begin{cases*}
+        a_1x_0 + b_1y_0 = -c_1 \\
+        a_2x_0 + b_2y_0 = -c_2
+    \end{cases*}\iff
+    \begin{vmatrix}
+        a_1 & b_1 \\
+        a_2 & b_2
+    \end{vmatrix} \neq 0
+\]
+
+%TODO: Copiar ejemplo
+
+Ahora, si tenemos 
+
+\[
+    \begin{vmatrix}
+        a_1 & b_1 \\
+        a_2 & b_2
+    \end{vmatrix} = 0
+\]
+
+Entonces tendremos rectas paralelas, y la ecuación es de la forma
+
+\[
+    \frac{dy}{dx} = f\left( \frac{a_1x + b_1y + c_1}{a_2x + b_2y + c_2} \right) = f\left( \frac{a_1x + b_1y + c_1}{\lambda(a_1x + b_1y) + c_2} \right)
+\]
+
+Y haremos cambio de variable $z = a_1x + b_1y$.
+
+%TODO: Copiar ejemplo
+
+\subsection{Reducción a una Ecuación Diferencial Exacta}
+
+Esto es para casos donde tendremos ecuaciones de la forma $Mdx + Ndy = 0$ pero $\partial M / \partial y \neq \partial N / \partial x$.
+
+Si la ecuación cumple que
+
+\[
+    \displaystyle\frac{\displaystyle\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N} = \phi(x)
+\]
+
+Entonces existe una función $\mu(x)$ tal que
+
+\begin{enumerate}
+    \item $\displaystyle\frac{d}{dx}\left( \ln |\mu| \right) = \phi(x)$.
+    \item $\displaystyle\frac{\partial}{\partial y} (\mu M) = \frac{\partial}{\partial x} (\mu N)$
+\end{enumerate}
+
+Equivalentemente, si la ecuación cumple que
+
+\[
+    \displaystyle\frac{\displaystyle\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N} = \psi(y)
+\]
+
+Entonces existe una función $\mu(y)$ tal que
+
+\begin{enumerate}
+    \item $\displaystyle\frac{d}{dx}\left( \ln |\mu| \right) = \psi(y)$.
+    \item $\displaystyle\frac{\partial}{\partial y} (\mu M) = \frac{\partial}{\partial x} (\mu N)$
+\end{enumerate}
+

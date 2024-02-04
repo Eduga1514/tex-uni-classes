@@ -1,31 +1,18 @@
-% Plantilla, paquetes, macros, etc. para los proyectos en latex realizados por Eduardo Gavazut, Universidad Simón Bolívar
-% Este .tex se deriva directamente del utilizado de las notas, así que probablemente hayan muchos paquetes y macros sin utilizar
-
-\documentclass{article}
+\documentclass{tufte-handout}
 \usepackage[utf8]{inputenc}
-\usepackage{parskip}
-\usepackage{amssymb, amsthm, amsmath, mathtools} % Varios paquetes para símbolos y fuentes
-\usepackage{tikz, pgfplots} % Para dibujar
-\usepackage{tkz-graph, tkz-berge} % Para dibujar grafos
-\usepackage[linguistics]{forest} % Para dibujar árboles
+\usepackage{amssymb, mathtools, amsthm, amsmath, physics} % Varios paquetes de símbolos
 \usepackage{titling} % Para estilizar el título
-\usepackage{scrextend} % Añade márgenes para hacer bloques de texto
-\usepackage{enumitem} % Para enumerar sin sangría
-\usepackage{graphicx, subcaption, wrapfig} % Para colocar figuras e imágenes
 \usepackage{lastpage}
 \usepackage{fancyhdr} % Para hacer encabezados y pie de página más estilizados
+\usepackage{graphicx} % Maneja las imágenes
+\usepackage{wrapfig, subcaption} % Para centrar las figuras y colocar subcaptions
+\usepackage{float}
 \usepackage{color} % Para usar colores en el texto
 \usepackage{soul} % Para subrayar con colores
-\usepackage{geometry}
-\usepackage{hyperref}
-\usepackage{booktabs} % Para hacer tablas un poco más estilizadas
-\usepackage{multirow}
+\usepackage{cancel} % Para tachar expresiones
 
-% Cambia el tamaño de los captions
-\usepackage[font={footnotesize}]{caption}
-
-% Establece los enviroments para teoremas, ejemplos, definiciones, etc
-
+% Redefinimos los ambientes de teoremas, definiciones, etc.
+\theoremstyle{plain}
 \newtheorem{teo}{Teorema}
 \newtheorem{cor}[teo]{Corolario}
 \newtheorem{lem}[teo]{Lema}
@@ -49,52 +36,13 @@
 \renewcommand{\contentsname}{Contenido}
 \renewcommand*{\proofname}{Demostración}
 \renewcommand{\figurename}{Fig.}
-
-% Cambia los márgenes
-\geometry{
-    left=20mm,
-    right=20mm,
-}
+\renewcommand{\refname}{Referencias}
 
 % Resetea el contador de ecuaciones en cada sección
 \newcounter{sec}
 \setcounter{sec}{0}
 \counterwithin*{equation}{sec}
 \counterwithin*{ejer}{sec}
-
-% Establecemos cómo será el encabezado y el pie de página
-\fancyhf{}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{MA3712}
-\fancyhead[C]{Eduardo José Gavazut Pinto}
-\fancyhead[R]{13-10524}
-\fancyfoot[L]{Sección 1}
-\fancyfoot[R]{Profesor: Daniel Morales}
-\fancyfoot[C]{\thepage\ de \pageref{LastPage}}
-\renewcommand{\headrulewidth}{2pt} 
-\renewcommand{\footrulewidth}{2pt}
-
-% Añade color a los lados de los grafos tikz
-\tikzset{
-    EdgeStyle/.append style = {blue}
-}
-
-% Permite agregar etiquetas a los niveles de un árbol
-\forestset{%
-  label tree/.style={
-    for tree={tier/.option=level},
-    level label/.style={
-      before typesetting nodes={
-        for nodewalk={current,tempcounta/.option=level,group={root,tree breadth-first},ancestors}{if={>OR={level}{tempcounta}}{before drawing tree={label me=##1}}{}},
-      }
-    },
-    before drawing tree={
-      tikz+={\coordinate (a) at (current bounding box.east);},
-    },
-  },
-  label me/.style={tikz+={\node [anchor=base north] at (.parent |- a) {#1};}},
-}
 
 % Establece el subrayado de color rojo
 \definecolor{ferrari}{rgb}{1,0.17,0}
@@ -107,31 +55,48 @@
 % Define el espaciado entre párrafos
 \setlength{\parskip}{1.5em}
 
-% Definimos nuestro título
+% Establecemos cómo será el encabezado y el pie de página
+\fancyhf{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MA-3172}
+\fancyhead[C]{Eduardo José Gavazut Pinto}
+\fancyhead[R]{13-10524}
+\fancyfoot[L]{Sección 1}
+\fancyfoot[R]{Profesor: Daniel Morales}
+\fancyfoot[C]{\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{2pt} 
+\renewcommand{\footrulewidth}{2pt}
+
+% Definir el título
 \pretitle{\begin{flushleft}\LARGE\sffamily}
 \title{
-Ecuaciones Diferenciales 1\\
-Universidad Simón Bolívar
+Notas de Análisis VI, Universidad Simón Bolívar
 }
 \posttitle{\par\end{flushleft}\vskip 0.5em}
 \preauthor{\begin{flushleft}\large\scshape}
-\author{
-Eduardo Gavazut \\
-Carnet: 13-10524}
+\author{Eduardo Gavazut, Carnet: 13-10524}
 \postauthor{\par\end{flushleft}}
 \predate{\begin{flushleft}\large\scshape}
-\date{Enero - Marzo 2024}
+\date{Enero-Marzo 2024}
 \postdate{\par\end{flushleft}}
 
 % Aquí empieza el documento
-\pgfplotsset{compat=1.18}
 \begin{document}
 
 \maketitle
 \thispagestyle{fancy}
+\tableofcontents
 
+\newpage
 \input{clase1}
 \input{clase2}
-\input{clase3.tex}
+\input{clase3}
+\input{clase4}
+
+\newpage
+\nocite{*}
+\bibliography{main}
+\bibliographystyle{plainnat}
 
 \end{document}
