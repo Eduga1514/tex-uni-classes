@@ -1,0 +1,144 @@
+\section{Clase 6}
+\subsection{Completitud del Sistema Trigonométrico}
+
+Vimos antes que cualquier $L^2(Q)$ es completo sii se cumple la desigualdad de Riesz-Fischer. A continuación, veremos también que el sistema trigonométrico, definido como
+
+\[
+    \phi_K (x) = \begin{cases*}
+                      \sin(kx) \\
+                      \cos(kx)
+                  \end{cases*}
+    , \quad \text{con $k \in \N \cup \{0\}$ y $x \in [- \pi, \pi]$}
+\]
+
+es completo.
+
+\begin{teo}
+    El sistema trigonométrico es completo.\footnote{Recordemos la definición de Completitud: \begin{defn} Una familia de funciones $\{Q_k\}$ ortonormales es \ul{completa} cuando $<f, Q_k> = 0 \forall k \geq 0$ implica que $f \equiv 0$ casi siempre.\end{defn}}
+\end{teo}
+
+\begin{proof}
+    Supongamos que $f$ es real y continua. Supongamos también que
+
+    \begin{itemize}
+        \item $f: [-\pi, \pi]$.
+        \item $f \not\equiv 0$.
+        \item $a_k = b_k = 0, \forall k$.
+    \end{itemize}
+
+    Considérese ahora la siguiente suma
+
+    \[
+        T_N(x) = \sum_{k=0}^{N} \alpha_k \cos(kx) + \beta_k\sin(kx)
+    \]
+
+    Y calculando su integral,
+
+    \begin{equation*}
+        \begin{split}
+            \int_{-\pi}^{\pi} T_N(x)dx &= \sum_{k=0}^{N} \int_{-\pi}^{\pi} \left( \alpha_k \cos(kx) + \beta_k \sin(kx) \right) dx \\
+            &= \sum_{k=0}^{N} \alpha_k <cos(k), f> + \beta_k <\sin(k), f> = \sum_{k=0}^{N} \alpha_k a_k + \beta_k b_k \\
+            &= 0
+        \end{split}
+    \end{equation*}
+    % TODO: Terminar la demostración
+\end{proof}
+
+\subsection*{Principio de Identidad}
+
+\begin{teo}
+    Si $f \in L'[-\pi, \pi]$ tal que si para todo $k \in \N \cup \{ 0 \}$ se cumple que
+
+    \[
+        \int_{-\pi}^{\pi} f(t)dt = \int_{-\pi}^{\pi} f(t)\cos(kt)dt = \int_{-\pi}^{\pi} f(t)\sin(kt)dt = 0
+    \]
+
+    En otras palabras,
+
+    \[
+        a_k = b_k = 0, \quad \forall k \geq 0
+    \]
+
+    implica que $f \equiv 0$ casi siempre.
+\end{teo}
+
+\begin{proof}
+    Por hipótesis, si $P(x) = \sum_{k = 1}^{N} \alpha_k\cos(kx) + \beta_k\sin(kx)$ es un polinomio trigonométrico cualquiera, entonces
+
+    \[
+        \int_{-\pi}^{\pi} f(t)P(t)dt = \sum_{k=1}^{N} a_k\alpha_k + b_k\beta_k = 0
+    \]
+
+    Ahora, sea $g$ continua tal que
+
+    \[
+        g(0) = g(\pi)
+    \]
+
+    Por el teorema de Weierstrass, existe una sucesión $\{P_n\}_{n \in \N}$ de polinomios trigonométricos acotados uniformemente tales que
+
+    \[
+        \lim_{n \to \infty} P_n(x) = g(x) \quad \text{casi siempre}
+    \]
+
+    Luego, por el teorema de la convergencia dominada de Lebesgue, podemos escribir
+
+    \begin{equation*}
+        \begin{split}
+            \int_{-\pi}^{\pi} f(x)g(x)dx &= \int_{-\pi}^{\pi} f(x) \left[ \lim_{n \to \infty} P_n(x) \right] dx \\
+            &= \lim_{n \to \infty} \int_{-\pi}^{\pi} f(x)P_n(x) dx \\
+            &= 0
+        \end{split}
+    \end{equation*}
+
+    Pero esto implica que $\int_{-\pi}^{\pi} f(x)g(x) = 0$ para toda $g$ continua. Ahora construyamos una sucesión $\{g_n\}$ continuas en $[-\pi, \pi]$ que se aproximen a una función escalera, y volvemos a aplicar el teorema de la convergencia dominada.
+
+    \[
+        \int_{-\pi}^{\pi} g(x)f(x)dx = \lim_{n \to \infty} \int_{-\pi}^{\pi} g_n(x)f(x)dx = 0
+    \]
+
+    Pero, las funciones escalera son acotadas casi siempre. Esto implica que $g$ es acotada casi siempre. En lo particular, si consideramos a $g(x)$ como
+
+    \[
+        g(x) = \begin{cases}
+            f(x) / |f(x)|, &\text{si } |f(x)| \neq 0 \\
+            0, &\text{si no}
+        \end{cases}
+    \]
+
+    Podemos expresar
+
+    \[
+        g(x) = \lim_{n \to \infty} \frac{f(x)}{|f(x)| + 1/n} \quad \footnotemark
+    \]\footnotetext{Esta es la que se conoce como la función signo:
+    
+    \[
+        \operatorname*{Signo}(f) = \frac{f}{|f|}
+    \]
+    
+    si $|f| \neq 0$.}
+
+    Las cuales son acotadas casi siempre para cada $n$ y aproximan a $g$.
+
+    Esto implica lo siguiente:
+
+    \begin{equation*}
+        \begin{split}
+            \int_{-\pi}^{\pi} |f(x)|dx &= \int_{-\pi}^{\pi} f(x)\operatorname*{Signo}(f)(x)dx \\
+            &= \lim_{n \to \infty} \int_{-\pi}^{\pi} f(x) \left[ \frac{f(x)}{|f(x)| + 1/n} \right]dx \\
+            &= 0
+        \end{split}
+    \end{equation*}
+
+    Finalmente, por propiedades de la integral de Lebesgue, esto implica que $f \equiv 0$ casi siempre.
+\end{proof}
+
+\begin{cor}
+    El sistema $\{ e^{ikx} \}_{k \in \Z}$, $x \in [-\pi, \pi]$\footnote{No es necesario que esté en este intervalo, el argumento se puede extender a cualquier intervalo de logitud $2\pi$ como vimos en el teorema anterior.} es completo.
+\end{cor}
+
+\begin{cor}
+    Sean $f, g$ dos funciones en $L'[-\pi, \pi]$. Sean $\{c_k^f\}_{k \in \Z}$, $\{c_k^g\}_{k \in \Z}$ lo coeficientes de Fourier de $f, g$.
+
+    Si $c_k^f = c_k^g$ para todo $k \in \Z$ entonces $f \equiv g$ casi siempre.
+\end{cor}

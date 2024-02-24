@@ -1,0 +1,139 @@
+\section{Clase 4}
+\subsection{Estudio de los Coeficientes de Fourier}
+
+En esta clase nos enfocaremos en el estudio de los Coeficientes de Fourier $\{a_n\}$, $\{b_n\}$ y $\{c_n\}$ de una función $f$ cuando estudiamos su desarrollo de Fourier. Veremos a continuación unas definiciones previas que nos serán necesarias para este estudio.
+
+De antemano, recordemos que $Q \subset \R$ con $\mathrm{long}(Q) = 2\pi$ \footnote{Aunque podemos considerar cualquier intervalo finito, solo tomaremos en cuenta aquellos de longitud $2\pi$.}. En particular, $Q = (-\pi, \pi)$.
+
+\begin{defn}
+    Definiremos
+
+    \[
+        L^p(Q) = \left\{ f: Q \rightarrow \C \bigg| \int_Q |f(x)|^p dx < \infty \right\}  
+    \]
+
+    \noindent 
+    con $1 \leq p < \infty$. Estas se conocen como las \ul{funciones p-integrables} y el caso más importante es cuando $p = 2$.
+\end{defn}
+
+\begin{defn}
+    Dada $f$ continua y $2\pi$ - periódica, definiremos también \ul{el módulo de continuidad de $f$}.
+
+    \[
+        \omega (\delta, f) = \sup\{ |f(x + h) - f(x)| : |h| < \delta \wedge x \in Q \}
+    \]
+
+    Si la función $f \in L^p(Q)$, entonces el módulo de continuidad queda como
+
+    \[
+        \omega(\delta, f) = \sup_{|h| < \delta} \left( \displaystyle\frac{1}{2\pi} \int_Q |f(x+h) - f(x)|^p dx \right)
+    \]
+
+    Esto se conoce como el \ul{p-módulo de continuidad de $f$}.
+\end{defn}
+
+\begin{defn}
+    Sea $\Gamma = \{x_0, \dots, x_n\} \in \Parts(Q)$ una partición de $Q$. Y consideremos por
+
+    \[
+        S_{\Gamma}(f, Q) = \sum_{i=1}^n \left|f(x_i) - f(x_{i-1})\right|
+    \]
+
+    Entonces la \ul{variación de $f$ sobre el intervalo $Q$} estará dada por
+
+    \[
+        V(f, Q) = \sup_{\substack{\Gamma \in \Parts(Q)}} (S_{\Gamma})
+    \]
+
+    Si $V(f, Q)$ es finita, entonces se dice que $f$ es de \ul{variación acotada}\footnote{En otras palabras, lo que quiere decir esto es que la función oscila de forma controlada}.
+\end{defn}
+
+\begin{defn}
+    Una función continua, $2\pi$-periódica es de \ul{Lipzchitz de orden $\alpha$} con $0 < alpha \leq 1$ si $\omega(\delta, f) = O(\delta^{\alpha})$; es decir, $\exists M > 0 : f(x+h) - f(x)| \leq M|h|^{\alpha}$
+\end{defn}
+
+\begin{defn}
+    $f$ es \ul{absolutamente continua} en $Q$ si dado $\varepsilon > 0$, existe $\delta > 0$ y $\Gamma = \{ x_0, \dots, x_n \}$ en $Q$ tal que
+
+    \[
+        \sum_{i=1}^n \left| f(x_i) - f(x_{i-1}) \right| < \varepsilon
+    \]
+
+    \noindent
+    si $\sum_{i=1}^n |x_i - x_{i-1}| < \delta$.
+\end{defn}
+
+De esta definición podemos aseverar lo siguiente:
+
+\begin{nota}
+    Si $f$ es absolutamente continua entonces es de $f$ es de variación acotada.
+
+    Y si $f$ es de variación finita, entonces $f \in L^1(Q)$ (es Lebesgue-integrable).
+\end{nota}
+
+\begin{teo}[Derivación Término a Término]
+    Sea $f$, $2 \pi$-periódica y absolutamente continua. Si $S[f](x) = \sum_{k \in \Z} c_k e^{ikx}$ entonces
+
+    \[
+        S[f'](x) = \sum_{k \in \Z} c_k ike^{ikx} 
+    \]
+
+    Es decir, que la serie de Fourier de la derivada equivale a la derivada de la serie de Fourier.
+\end{teo}
+
+\begin{teo}[Integración Término a Término]
+    Sea $f$, $2\pi$-periódica y absolutamente continua y $F$ su ingral indefinida. Si $S[f](x) = \sum_{k \in \Z} c_k e^{ikx}$ y converge uniformemente, entonces
+
+    \[
+        F(x) - c_0x 
+    \]
+
+    \noindent
+    es $2\pi$-periódica y su serie de Fourier es dada por
+
+    \[
+        \alpha_0 + \sum_{k \in \Z - \{0\}} \frac{c_k}{ik} e^{ikx}
+    \]
+\end{teo}
+
+%TODO: Copiar las demostraciones de ambos teoremas término a término
+
+\subsection{Teorema de Riemann - Lebesgue}
+
+\begin{teo}[Riemann-Lebesgue]
+    Sea $f \in L'(Q)$. Consi deremos su serie de Fourier,
+
+    \[
+        S[f] = \sum_{z \in \Z} c_k e^{ik}
+    \]
+
+    Entonces los coeficientes de Fourier de $f$, denotados por $c_k$ (ó $a_k$ y $b_k$) tienden a $0$ si $|k| \to \infty$.
+
+    Es decir, que
+
+    \[
+    \lim_{|k| \to \infty} |c_k| = 0
+    \]
+\end{teo}
+
+\begin{teo}
+    Si $f \in L^p(Q)$, $1 \leq p < \infty$ entonces $\omega_p (f, \delta) \to 0$ cuando $\delta \to 0$.
+\end{teo}
+
+\begin{cor}
+    Si $f \in L'(Q)$, entonces
+
+    \[
+        \lim_{|k| \to \infty} c_k = 0
+    \]
+\end{cor}
+
+\begin{cor}
+    Si $f$ es de Lipschitz de orden $\alpha \in (0,1)$, Entonces
+
+    \[
+        |c_k|  = O(|k|^{-\alpha})
+    \]
+\end{cor}
+
+%TODO: Copiar las demostraciones de estos 4 teoremas
