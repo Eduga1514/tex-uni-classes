@@ -1,0 +1,160 @@
+\section{Clase 7}
+\subsection{Introducción a Ecuaciones diferenciales de Orden Superior}
+
+Una EDO de orden $n$ es una ecuación de la forma
+
+\[
+    P_0(t)\frac{d^ny}{dt^n} + \dots + P_{n-1}(t)\frac{dy}{dt} + P_n(t)y = G(t)
+\]
+
+Donde las funciones $P_0, \dots, P_n, G$  son reales y continuas en algún intervalo $I: \alpha < t < \beta$ y $P_0 \neq 0$ en este intervalo. Dividir esta ecuación por $P_0(t)$ da como resultado
+
+\begin{equation}\label{eq:edon1}
+    L[y] = \frac{d^ny}{dt^n} + \dots + p_{n-1}(t)\frac{dy}{dt} + p_n(t)y = g(t)
+\end{equation}
+
+Donde $L[y]$ es un operador diferencial lineal\footnote{Un \ul{operador diferencial lineal} es una notación que ahorra escribir las ecuaciones diferenciales una y otra vez. Se define de esta manera: Para cualquier función $\phi$ que es $n$ diferenciable en un intervalo $I$, el operador diferencial $L$ es una ecuación:
+
+\[
+    L[\phi] = \phi'' +  p\phi + q\phi
+\]
+
+El valor de $L$ en un punto $t$ es
+
+\[
+    L[\phi](t) = \phi''(t) +  p(t)\phi(t) + q(t)\phi(t)
+\]}
+
+\begin{teo}
+    Sean $p_0, p_1, \dots, p_n \in C(I \subset \R)$ y $x_0 \in I$. Si se tienen $y_0, y_0', \dots, y_0^{(n-1)} \in \R$ dados, entonces
+
+    \[
+        \sum_{i=0}^{n} p_i(x) y^{(n-i)} = f(x)
+    \]
+
+    \noindent admite una única solución en $I$ que satisface
+
+    \[
+        y(x_0) = y_0, \quad y'(x_0) = y_0', \quad \dots, \quad y^{(n-1)} = y_0^{(n-1)} \quad \footnotemark
+    \]\footnotetext{Estas serán las $n$ conciciones iniciales de la ecuación.}
+\end{teo}
+
+Al igual que la demostración de la existencia y unicidad de la solución para EDOs de primer orden, esta demostración es bastante larga y requiere de muchos resultados previos.
+
+\begin{defn}
+    Diremos que \refeq{eq:edon1} es \ul{homogénea} si $f(x) \equiv 0$. En otro caso diremos que es \ul{no homogénea}.
+\end{defn}
+
+\begin{pro}
+    Sean $y_1, \dots, y_n$ soluciones de \refeq{eq:edon1} con $f(x) \equiv 0$. Entonces
+
+    \begin{equation}\label{eq:combinacionl}
+        \sum_{i=1}^{n} c_i y_i(x) = y(x)
+    \end{equation}
+
+    \noindent es también solución de dicha EDO.
+\end{pro}
+
+\begin{proof}
+    \textbf{(!!!!!!)} Leer la demostración de Daniel subida al classroom, hay un par de cosas medio chungas y que vale la pena preguntar.
+
+    Cada $y_i(x)$ es solución de \refeq{eq:edon1}, con $f(x) = 0$. Entonces
+
+    \begin{equation*}
+        \begin{aligned}
+            L[y_1] = \frac{d^ny_1}{dt^n} + \dots + p_{n-1}(t)\frac{dy_1}{dt} + p_n(t)y_1 &= 0 \\
+            L[y_2] = \frac{d^ny_1}{dt^n} + \dots + p_{n-1}(t)\frac{dy_2}{dt} + p_n(t)y_2 &= 0 \\
+            &\vdots \\
+            L[y_n] = \frac{d^ny_n}{dt^n} + \dots + p_{n-1}(t)\frac{dy_n}{dt} + p_n(t)y_n &= 0
+        \end{aligned}
+    \end{equation*}
+
+    Ahora, sea una combinación lineal de estas soluciones:
+
+    \[
+        \phi = c_1y_1 + c_2y_2 + \dots + c_ny_n
+    \]
+
+    Luego,
+
+    \[
+        L[y] = L[c_1y_1 + c_2y_2 + \dots c_ny_n] = c_1L[y_1] + c_2L[y_2] + \dots + c_nL[y_n]\footnotemark
+    \]\footnotetext{Esto es así ya que los operadores diferenciales son lineales.}
+
+    Como sabemos que $L[y_i] = 0$ (para $i=1,\dots,n$) entonces nos queda que
+
+    \[
+        L[y] = 0
+    \]
+
+    Y esto implica que $y$ es también solución.
+\end{proof}
+
+Ahora vale la pena preguntarse: ¿Toda solución de \refeq{eq:edon1} se puede escribir como una combinación lineal de $y_1, \dots, y_n$? A continuación veremos que seremos capaces de encontrar $c_1, \dots, c_n$ de tal forma que \refeq{eq:combinacionl} satisface las ecuaciones
+
+\begin{equation*}
+    \begin{aligned}
+        c_1y_1(t_0) + \dots + c_ny_n(t_0) &= y_0 \\
+        c_1y_1'(t_0) + \dots + c_ny_n'(t_0) &= y_0' \\
+        &\vdots \\
+        c_1y_1^{(n-1)}(t_0) + \dots + c_ny_n^{(n-1)}(t_0) &= y_0^{(n-1)} \\
+    \end{aligned}
+\end{equation*}
+
+\begin{defn}
+    El \ul{Wronskiano} de las funciones $\{y_1, \dots, y_n\} \subset C^{(n-1)}(\R)$ es el determinante
+
+    \[
+        W(y_1, \dots, y_n) =
+        \begin{vmatrix}
+            y_1  & y_2  & \dots & y_n \\
+            y_1' & y_2' & \dots &' y_n \\
+            \vdots&     &     \\
+            y_1^{(n-1)} & y_2^{(n-1)} & \dots & y_n^{(n-1)} \\
+        \end{vmatrix}
+    \]
+\end{defn}
+
+\begin{teo}
+    Sean $\{y_1, \dots, y_n\}$ soluciones de
+
+    \begin{equation}\label{eq:homog}
+        y^{(n)} + p_1(x)y^{(n-1)} + \dots + p_ny = 0
+    \end{equation}
+
+    \noindent en $I \subset \R$. Entonces $\{y_1, \dots, y_n\}$ es un conjunto L.I en $I$ sii $W(y_1, \dots, y_n) \neq 0$ para todo $x \in I$.
+\end{teo}
+
+\begin{teo}
+    Si $\{y_1, \dots, y_n\}$ es un conjunto L.I de soluciones de \refeq{eq:homog}, entonces cualquier otra solución de \refeq{eq:homog} puede ser escrita como
+
+    \[
+        y(x) = c_1y_1(x) + \dots + c_ny_n(x)
+    \]
+
+    \noindent donde $c_1, \dots, c_n$ son constantes.
+\end{teo}
+
+\subsection{Solución de ecuación de orden 2 homogénea}
+
+Si $p_0, p_1, p_2$ son constantes entonces
+
+\[
+    p_0y'' + p_1y' + p_2y = 0 \implies y'' + \tilde{p_1}y' + \tilde{p_2}y = 0
+\]
+
+\noindent y si $y(x) = e^{rx}$ es solución, entonces
+
+\[
+    p(r) = \LaTeXoverbrace{(r^2 + \tilde{p_1}r + \tilde{p_2})e^{rx}}^{\mathclap{\text{Ecuación característica de la EDO}}} = 0
+\]
+
+Varias consideraciones:
+
+\begin{enumerate}
+    \item Si $p(r) = 0$ posee dos raíces distintas y reales, $y(x) = c_1e^{r_1x} + c_2e^{r_2x}$.
+    \item Si $p(r) = 0$ posee una raíz doble real, $y(x) = c_1e^{r_1x} + c_2xe^{r_2x}$.
+    \item Si $p(r) = 0$ posee raíces complejas $r_1 = \alpha + i\beta$, $r_2 = \overline{r_1}$, entonces $y(x) = c_1e^{\alpha x}\cos(\beta x) + c_2e^{\alpha x}\sin(\beta x)$.
+\end{enumerate}
+
+\textbf{TAREA: Realizar el problema 4.1.20 del Boyce y realizar los problemas resueltos de la sección 3.1 y los problemas 1 al 8.}
