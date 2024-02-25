@@ -1,0 +1,185 @@
+\section{Clase 8}
+\subsection{Métodos de Sumabilidad}
+
+La teoría muestra que incluso las funciones continuas, al ser desarrolladas en series de Fourier, pueden no ser representadas por dichas series en términos de convergencia puntual. Esta situación puede remediarse al considerar sumas \textit{generalizadas} de la serie. Este es un vasto tema de estudio y solo se estudiarán algunos hechos importantes para aplicarse al estudio de las series de Fourier.
+
+En primer lugar, consideremos una matriz infinita de números reales o complejos\footnote{La matriz está compuesta por una familia de números $\{ \alpha_{kj} \}_{kj \in I}$, donde $I$ es una familia de subíndices.}:
+
+\[
+    \mathcal{M} =
+    \begin{pmatrix}
+        \alpha_{00} & \alpha_{01} & \alpha_{02} & \dots & \alpha_{0n} & \dots \\
+        \alpha_{10} & \alpha_{11} & \alpha_{12} & \dots & \alpha_{1n} & \dots \\
+                    &             & \vdots      &       &             &       \\
+        \alpha_{n0} & \alpha_{n1} & \alpha_{n2} & \dots & \alpha_{nn} & \dots \\
+        &             & \vdots      &       &             &
+    \end{pmatrix}
+\]
+
+Consideraremos también $S = (S_j)^{\infty}_{j=0}$ una sucesión cualquiera de elementos reales o complejos, y denotemos
+
+\[
+    \sigma_m = \alpha_{m0}S_0 + \alpha_{m1}S_1 + \dots + \alpha_{mn}S_n + \dots
+\]
+
+Es decir, que $\sigma = M \cdot S$ (en términos matriciales). Nos preguntamos: Si asumimos que la serie que define a los $\sigma_m$ converge, ¿Qué condiciones sobre $\mathcal{M}$ debemos exigir para garantizar que si $\lim_{j \to \infty} S_j = S$ implique que $\lim_{m \to \infty} \sigma_m = S$?\footnote{Lo que conseguiremos es que a pesar de que tendremos una serie o sucesión $\{S_j\}_j$ divergente, podremos construir una matriz $\mathcal{M}$ tal que al construir los $\sigma_m$, estos convergen.}
+
+\begin{teo}
+    Si $\mathcal{M}$ es tal que satisface las siguientes condiciones:
+
+    \begin{enumerate}
+        \item $\sum_{n} |\alpha_{mn}| \leq A$ (para todo $m$, con $A$ independiente de $m$)
+        \item $\lim_{n \to \infty} \sum_{n} \alpha_{mn} = 1$
+        \item $\lim_{n \to \infty} \alpha_{mn} = 0$ para cada $n$
+    \end{enumerate}
+
+    Entonces cada $(S_n)_n$ convergente a $S$ (con $S < \infty$) satisface que $\lim_{n \to \infty} \sigma_m = S$.
+\end{teo}
+
+\begin{proof}
+    En un principio, la sucesion $(S_m)_m$ converge, entonces también es acotada. Es decir, $\exists M_1 > 0$ tal que $|S_n| \leq M_1 \forall n$.
+
+    Ahora, sean
+
+    \[
+        \sigma_m = \alpha_{m0}S_0 + \alpha_{m1}S_1 + \dots + \alpha_{mn}S_n + \dots
+    \]
+
+    Tenemos que, gracias a lo dicho anteriormente y la condición 1 de la hipótesis que $|\sigma_m| \leq M_1 \big( \sum_n |\alpha_{mn}| \big) \leq M_1A$.
+
+    Ahora, $\sigma_m$ existen para cada $m$ y por el criterio de Cauchy, tenemos que $S_n = S + \varepsilon_n$ con $\varepsilon_n \to 0$ cuando $n \to \infty$\footnote{Aplicando Cauchy, podemos hacer las diferencias entre elementos de una suceción tan pequeñas como queramos. En este caso, $|S_n - \varepsilon_n| < \delta$ para cualquier $\delta > 0$, por lo que se cumple la igualdad.}. Entonces,
+
+    \[
+        \sigma_m = \sum_{n} \alpha_{mn}S_n = \sum_{n} \alpha_{mn}(S + \varepsilon_n) = S\sum_{n} \alpha_{mn} + \sum_{n} \alpha_{mn} \varepsilon_n
+    \]
+
+    Y por la condición 2 de la hipótesis,
+
+    \begin{equation}\label{eq:811}
+        S\sum_{n} \alpha_{mn} \xrightarrow[n \to \infty]{} S
+    \end{equation}
+
+    Por otra parte, sea $\delta > 0$, entonces existe un $n_0 \in \N$ tal que para todo $n > n_0$ tenemos que $|\varepsilon_n| < \delta$ (esto por definición de los $\varepsilon_n$), entonces tendremos que
+
+    \[
+          \rho_m = \sum_{n} \alpha_{mn} \varepsilon_n = \LaTeXunderbrace{\sum_{n \leq n_0} \alpha_{mn} \varepsilon_n}_{=\rho_m'} + \LaTeXunderbrace{\sum_{n > n_0} \alpha_{mn} \varepsilon_n}_{=\rho_m''}
+    \]
+
+    Ahora acotemos ambos términos. Usando nuevamente la propiedad 1, tendremos que
+
+    \[
+        |\rho_m''| \leq \sum \sum_{n > n_0} |\alpha_{mn}| |\varepsilon_n| \leq A\delta
+    \]
+
+    Por otro lado, como $\rho_m'$ tiene una cantidad finita de valores, escogemos el mayor $|\alpha_{mn}|$, denotado por $|\alpha|$ y acotamos los demás:
+
+    \[
+        |\rho_m'| \leq A\delta'
+    \]
+
+    Con $\delta'$ tan pequeño como haga falta. En conclusión,
+
+    \begin{equation}\label{eq:812}
+        \rho_m = \sum_m \alpha_{mn}\varepsilon_n \rightarrow 0
+    \end{equation}
+
+    Luego, como 
+
+    \[
+        \sigma_m = S\sum_{n} \alpha_{mn} + \sum_{n} \alpha_{mn} \varepsilon_n
+    \]
+
+    Entonces, por \refeq{eq:811} y \refeq{eq:812} cuando $m \to \infty$ tenemos que $\sigma_m \to S$.
+\end{proof}
+
+Dos métodos de sumabilidad son de especial importancia para las series de Fourier. El primero de ellos es el de las sumas aritméticas
+
+\subsection{Método de sumas aritméticas}
+
+Sea una sucesión $(S_n)_{n=0}^{\infty}$ y consideremos los promedios aritméticos de $\sigma_m$ definidos por
+
+\[
+    \sigma_m = \frac{S_0 + S_1 + \dots + S_m}{m + 1}
+\]
+
+\noindent para $n = 0, 1, 2, \dots$. Nótese que para cada $m$, $\alpha_{mn} = 1 / m+1$ para un solo índice $mn$ (recordemos que la $n$ es la no fija) y es igual a $1$ para todos los demás.
+
+Cabe acotar que si $S_n = \sum_{k = 0}^{N}$, es decir, que son las sumas parciales de una serie $\sum_{k=0}^{\infty} u_k$, Entonces
+
+\begin{equation*}
+    \begin{aligned}
+        \sigma_m &= \frac{S_0 + \dots + S_m}{m+1} = \frac{u_0 + (u_0 + u_1) + \dots + (u_0 + \dots + u_k)}{m+1} \\
+            &= \frac{1}{m+1} \sum_{k=0}^{m} (m+1-k)u_k
+    \end{aligned}
+\end{equation*}
+
+\subsection{Método de sumabilidad de Abel}
+
+Dada una serie $\sum_{k \geq 0} u_k$. Para $r \in [0,1)$ consideremos
+
+\[
+    f(r) = \sum_{k=0}^{\infty} r^x u_k
+\]
+
+Y asumiremos que converges para $r \in [0,1)$. Si $\lim_{r \to 1} f(r) = l$ cuando $r \to 1$ entonces tenemos que $\sum_k u_k$ es sumable en el sentido de Abel (o Abel sumable).
+
+En resumen, tendremos un par de definiciones:
+
+
+\begin{defn}
+    Sea $\sum_{k} u_k$ una serie de valores, y además unos coeficientes $(\alpha_{mn})$. Entonces
+
+    \begin{itemize}
+        \item Si $\lim_{n \to \infty} \sigma_m = l$, decimos que la serie es \ul{Césaro sumable}.
+        \item Si $\lim_{r \to 1} f(r) = l$, decimos que la serie es \ul{Abel sumable}.
+    \end{itemize}
+\end{defn}
+
+\subsection{Otras consideraciones importantes}
+
+Consideremos dos teoremas importantes:
+
+\begin{teo}[Abel]
+    Si $\sum_n u_n$ converge a $S$ entonces la serie es Abel sumable a S.
+\end{teo}
+
+\begin{teo}
+    Si $\sum_n u_n$ es sumable por el método de las sumas aritméticas a $S$, entonces también es Abel sumable.
+\end{teo}
+
+Recordemos que nuestro objetivo es aplicar estos métodos a las series de Fourier. Por lo que no nos centraremos en estudiar estos métodos ni a seguir estudiando como tal sus propiedades.
+
+\begin{aco}
+    Bajo este contexto de series de Fourier, las sumas Césaro las denotaremos como $\theta_N f(x)$. La idea es la siguiente: Sean $N \in \N$, y $f: [-\pi, \pi] \rightarrow \R$ una función $2\pi$-periódica. Pasemos a construir su serie de Fourier y concentrémonos en las sumas parciales:
+
+    \[
+        S_N(f) = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x-t) D_N(t)dt
+    \]
+
+    Su suma Césaro es
+
+    \begin{equation*}
+        \begin{aligned}
+            \theta_Nf(x) &= \frac{S_0f(x) + S_1f(x) + \dots + S_Nf(x)}{N+1} \\
+                &= \frac{1}{\pi} \int_{-\pi}^{\pi} f(x-t) \LaTeXunderbrace{\left( \frac{D_0(t) + \dots D_N(t)}{N+1} \right)}_{K_N(t)}dt
+        \end{aligned}
+    \end{equation*}
+
+    Estos $K_N(t)$ son conocidos como núcleos de Fejér y los esudiaremos más adelante.
+\end{aco}
+
+\begin{aco}
+    Ahora, para la sumabilidad de Abel, consideremos primero para $r \in [0,1)$
+
+    \[
+        f_r(x) = \frac{a_0}{2} + \sum_{n \geq 1} r^n (a_n \cos(nx) + b_n \sin(nx))
+    \]
+
+    Y estos se conocen como los promedios de Abel de $f$. También podemos considerar, en el caso de trabajar en el contexto complejo
+
+    \[
+        f_r(x) = \sum_{n \in \Z} r^{|n|} C_n e^{inx}
+    \]
+
+    Y estos también son promedios de Abel.
+\end{aco}
