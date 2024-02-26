@@ -1,0 +1,93 @@
+\section{Clase 8}
+\subsection{Resolución de Ecuaciones no homogéneas: Método de Variación de Parámetros}
+
+Antes de pasar a explicar este método, hacen falta un par de teoremas\footnote{La demostración de estos dos teoremas puede encontrarse en el capítulo 3 del Boyce, y son necesarios para los resultados que se establecerán a continuación.} previos:
+
+\begin{teo}
+    Si $Y_1$, $Y_2$ son soluciones de la ecuación no homogénea \refeq{eq:edon1}, entonces la diferencia $Y_1 - Y_2$ es una solución a la ecuación homogénea asociada. Más aún, si $y_1$, $y_2$ conforman un conjunto fundamental de soluciones\footnote{Es decir, que $y_1(x)$ y $y_2(x)$ son soluciones a la ecuación y su Wronskiano es distinto de cero.} Entonces
+
+    \[
+        Y_1(x) - Y_2(x) = c_1y_1(x) + c_2y_2(x)
+    \]
+
+    \noindent con $c_1, c_2$ constantes.
+\end{teo}
+
+\begin{teo}
+    La solución general de \ref{eq:edon1} puede escribirse en la forma
+
+    \[
+        y = \phi(x) = c_1y_1(x) + c_2y_2(x) + Y
+    \]
+
+    \noindent donde $y_1, y_2$ conforman un conjunto fundamental de soluciones de la ecuación homogénea asociada, $c_1, c_2$ son constantes, e $Y$ es una solución en específico de \ref{eq:edon1}.
+\end{teo}
+
+Recordemos que una ecuación diferencial no homogénea es aquella de la forma \refeq{eq:edon1}. La idea del método de Variación de Parámetros, es encontrar primero una solución a la ecuación homogénea asociada
+
+\[
+    y_c(x) = c_1y_1 + c_2y_2 = 0
+\]
+
+La idea básica es reemplazar las constantes $c_1$ y $c_2$ por funciones $u_1(x)$, $u_2(x)$ respectivamente, y hallar estas funciones de tal forma que la expresión
+
+\[
+    y = u_1y_1 + u_2y_2
+\]
+
+Es una solución de \ref{eq:edon1}.
+
+\textbf{(!!!!) Toda esta charla que viene de $y'$ y $y''$ no la entendí muy bien, y tampoco entiendo muy bien qué es lo que se concluye. PREGUNTAR.}
+
+Desarrollando esta idea, derivemos $y$ para hallar $u_1$ y $u_2$ en el proceso:
+
+\begin{equation*}
+    \begin{aligned}
+        y' &= u_1'y_1 + u_2'y_2 + u_2y_2' + u_1y_1' \\
+        y'' &= u_1''y_1 + u_1'y_1' + u_2''y_2 + u_2'y_2' + u_2'y_2' + u_2y_2'' + u_1'y_1' + u_1y_1''
+    \end{aligned}
+\end{equation*}
+
+Como $y_1$, $y_2$ son soluciones de la ecuación homogénea asociada, Entonces
+
+\[
+    u_1'y_1 + u_2'y_2 = 0
+\]
+
+Y esto implica que
+
+\begin{equation*}
+    \begin{aligned}
+        y' &= u_2y_2' + u_1y_1' \\
+        y'' &=  u_1'y_1' + u_2'y_2' + u_2y_2'' + u_1y_1''
+    \end{aligned}
+\end{equation*}
+
+Luego, gracias a los teoremas visto al inicio de la sección, sabemos que
+
+\[
+    f(x) = \LaTeXunderbrace{u_1(y_1'' + py_1' + qy_1) + u_2(y_2'' + py_2' + qy_2)}_{\text{Solución a la ecuación homogénea asociada}} + \LaTeXoverbrace{u_1'y_1' + u_2'y_2'}^{\mathclap{\text{Solución específica de la ecuación no homogénea}}}\footnotemark
+\]\footnotetext{Como $y_1, y_2$ conforman un conjunto fundamental de soluciones, entonces también $y_1', y_2'$ también conforman uno.}
+
+Como $W(y_1, y_2) \neq 0$, todo esto nos da como resultado el sistema
+
+\begin{equation}
+    \begin{cases*}
+        u_1'y_1 + u_2'y_2 = 0 \\
+        u_1'y_1' + u_2'y_2' = f(x)
+    \end{cases*}
+\end{equation}
+
+De donde
+
+\[
+    u_1' = -\frac{y_2f(x)}{W(y_1, y_2)} \qquad u_2' = \frac{y_1f(x)}{W(y_1, y_2)}
+\]
+
+Todo esto nos quiere decir que para resolver EDO de este tipo, basta con seguir los siguientes pasos:
+
+\begin{enumerate}
+    \item Calcular $y_c$.
+    \item Calcular $W(y_1, y_2)$.
+    \item Aplicar $u_1', u_2'$ y calcular sus integrales.
+\end{enumerate}
