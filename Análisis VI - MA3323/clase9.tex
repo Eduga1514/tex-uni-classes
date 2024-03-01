@@ -1,0 +1,119 @@
+\section{Clase 9}
+\subsection{Núcleo de Féjer}
+
+Haciendo uso de la fórmula explícita del núcleo de Dirichlet, desarrollemos el término $K_N(t)$ que vimos al final de la clase pasada cuando hablamos de sumas Césaro:
+
+\begin{equation*}
+    \begin{aligned}
+        K_N(t) &= \frac{1}{N+1} \sum_{j=0}^{N} D_j(t) \\
+        &= \frac{1}{2(N+1)\sin^2(t/2)} \left( \sum_{j=0}^{N} 2\LaTeXunderbrace{\sin( (2j + 1)t/2 ) \sin(t/2)}_{\cos(jt)-\cos((j+1)t)} \right) \\
+        &= \frac{1 - \cos((N+1)t)}{2(N+1)\sin^2(t/2)} \\
+        &= \frac{2}{N+1}  \left[ \frac{\sin((N+1)t/2)}{2\sin(t/2)} \right]^2
+    \end{aligned}
+\end{equation*}
+
+Así, tenemos la fórmula explícita del núcleo de Féjer. Tenemos varias propiedades:
+
+\begin{aco}
+    Recordemos que el núcleo de Dirichlet podemos expresarlo como
+
+    \[
+        D_j(t) = \frac{1}{2} + \sum_{m=0}^{j} \cos(mt)
+    \]
+
+    Esto va a implicar que $K_N(t)$ nos queda como
+
+    \begin{equation*}
+        \begin{aligned}
+            K_N(t) &= \frac{1}{N+1} \sum_{j=0}^{j=0} \left( \frac{1}{2} \sum_{m=0}^{j} \cos(mt) \right) \\
+            &= \frac{\frac{1}{2} + \left(\frac{1}{2} + \cos(t)\right) + \dots + \left(\frac{1}{2} + \cos(t) + \dots + \cos(mt)\right)}{N+1} \\
+            &= \frac{1}{2} + \frac{1}{N+1} \sum_{k=1}^{n} (n+1-k)\cos(kt)
+        \end{aligned}
+    \end{equation*}
+
+    Por la fórmula de Euler, sabemos que $\cos(kt) = \frac{1}{2} (e^{ikt} + e^{-ikt})$ para cada $k$. Luego
+
+    \[
+        K_n(t) = \frac{1}{2} + \sum_{k=-n}^{n} \left( 1 - \frac{|k|}{n+1} \right)e^{ikt}
+    \]
+\end{aco}
+
+\begin{aco}
+    Se cumplen las siguientes propiedades:
+
+    \begin{enumerate}
+        \item $K_n(t) \geq 0$ para todo $t \in [-\pi, \pi]$.
+        \item $K_n(t) = K_N(-t)$.
+        \item $\frac{1}{\pi} \int_{-\pi}^{\pi} K_n(t)dt = 1$.
+        \item $K_n(t) \leq (n+1) / 2$ con $t \in [-\pi,\pi]$.
+        \item Existe $A$ constante tal que $K_n(t) \leq \frac{A}{(n+1)t^2}$ con $t \in (0,\pi]$.
+        \item Para cada $\delta > 0$ fijo y arbitrario tal que $\delta \in (0, \pi]$, se tiene que $\int_{\delta}^{\pi} K_n(t)dt \to 0$ cuando $n \to \infty$.
+    \end{enumerate}
+\end{aco}
+
+Ahora, pensemos en la familia $\{ K_n(t) \}_{n=0}^{\infty}$ tal que se cumplen las propiedades del párrafo anterior. Entonces diremos que esta es una \ul{familia de aproximaciones de la identidad}. Esto usualmente se estudia de una forma general, pero únicamente nos va a interesar aplicarlo a las series de Fourier.
+
+\begin{teo}
+    Si $f \in [-\pi, \pi]$ entonces
+
+    \[
+        \lim_{n \to \infty} \theta_n f(x) = f(x)
+    \]
+
+    en cada punto de continuidad de $f$.
+\end{teo}
+
+\begin{proof}
+    Sea $x_0$ un punto de continuidad de la función $f$, fijo y arbitrario. Así, dado $\eta > 0$, escogemos un $\delta > 0$ tal que
+
+    \[
+        |f(x-t) - f(x)| < \eta \quad \text{si,} \quad |t| < \delta
+    \]
+
+    Por otro lado,
+
+    \begin{equation*}
+        \begin{aligned}
+            |\theta_n f(x) - f(x)| &= \left| \frac{1}{\pi} \int_{-\pi}^{\pi} f(x-t) K_n(t)dt - f(x) - \int_{-\pi}^{\pi} f(x) K_n(t)dt - f(x) \right| \\
+            &\leq \frac{1}{\pi} \int_{\pi}^{\pi} |f(x-t) - f(x)| K_n(t) dt \\
+            &= \frac{1}{\pi} \int_{|t|<\delta} |f(x-t) - f(x)| K_n(t) dt \\
+            &+ \frac{1}{\pi} \int_{|t|>\delta} |f(x-t) - f(x)| K_n(t) dt
+        \end{aligned}
+    \end{equation*}
+
+    Como $x$ es un punto de continuidad, entonces
+
+    \[
+        \frac{1}{\pi} \int_{|t|<\delta} |f(x-t) - f(x)| K_n(t) dt \leq \frac{\eta}{\pi} \int_{|t|<\delta} K_n(t)dt
+    \]
+
+    Como el núcleo es par, y por desigualdad triangular,
+
+    \[
+        \frac{1}{\pi} \int_{|t|>\delta} |f(x-t) - f(x)| K_n(t) dt \leq \frac{2|f(x)|}{\pi} \int_{\delta}^{\pi} K_n(t)dt + \frac{1}{\pi} \int_{|t|>\delta} |f(x-t)| K_n(t) dt
+    \]
+
+    Acotando cada término,
+
+    \[
+        \frac{\eta}{\pi} \int_{|t|<\delta} K_n(t)dt \leq \eta
+    \]
+
+    \[
+        \frac{2|f(x)|}{\pi} \int_{\delta}^{\pi} K_n(t)dt \leq \frac{2A}{(n+1)\delta^2}
+    \]
+
+    \[
+        \frac{1}{\pi} \int_{|t|>\delta} |f(x-t)| K_n(t) dt \leq \frac{A||f||}{\delta^2(n+1)}
+    \]
+
+    Finalmente, para $\eta$ también existe un $n_0 \in \N$ tal que
+
+    \[
+        |\theta_n f(x) - f(x)| < \eta
+    \]
+
+    Finalmente, hemos demostrado la convergencia puntual.
+\end{proof}
+
+Gracias a este teorema, ya vemos una característica de las sumas Césaro que no cumplen las sumas parciales.
