@@ -1,0 +1,101 @@
+\documentclass{tufte-handout}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb, mathtools, amsthm, amsmath, physics} % Varios paquetes de símbolos
+\usepackage{titling} % Para estilizar el título
+\usepackage{lastpage}
+\usepackage{fancyhdr} % Para hacer encabezados y pie de página más estilizados
+\usepackage{graphicx} % Maneja las imágenes
+\usepackage{wrapfig, subcaption} % Para centrar las figuras y colocar subcaptions
+\usepackage{float}
+\usepackage{color} % Para usar colores en el texto
+\usepackage{soul} % Para subrayar con colores
+\usepackage{cancel} % Para tachar expresiones
+
+% Redefinimos los ambientes de teoremas, definiciones, etc.
+\theoremstyle{plain}
+\newtheorem{teo}{Teorema}
+\newtheorem{cor}[teo]{Corolario}
+\newtheorem{lem}[teo]{Lema}
+\newtheorem{pro}[teo]{Proposición}
+\newtheorem{pre}{Pregunta}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definición}
+\newtheorem{ejem}{Ejemplo}
+\newtheorem{ejer}{Ejercicio}
+\newtheorem{notn}{Notación}
+\newtheorem{nota}{Nota}
+\newtheorem{prob}{Problema}
+
+% Comandos para símbolos
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Parts}{\mathcal{P}}
+
+% Cambia el nombre de varios comandos
+\renewcommand{\contentsname}{Contenido}
+\renewcommand*{\proofname}{Demostración}
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\refname}{Referencias}
+
+% Resetea el contador de ecuaciones en cada sección
+\newcounter{sec}
+\setcounter{sec}{0}
+\counterwithin*{equation}{sec}
+\counterwithin*{ejer}{sec}
+
+% Establece el subrayado de color rojo
+\definecolor{ferrari}{rgb}{1,0.17,0}
+\setulcolor{ferrari}
+
+% Reduce el espacio entre el título y el header
+\setlength{\droptitle}{-5.5em}
+\renewcommand\maketitlehookc{\vspace{-3ex}}
+
+% Define el espaciado entre párrafos
+\setlength{\parskip}{1.5em}
+
+% Establecemos cómo será el encabezado y el pie de página
+\fancyhf{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CO-6612}
+\fancyhead[C]{Eduardo José Gavazut Pinto}
+\fancyhead[R]{13-10524}
+\fancyfoot[L]{Sección 1}
+\fancyfoot[R]{Profesora: Miyana Villasana}
+\fancyfoot[C]{\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{2pt} 
+\renewcommand{\footrulewidth}{2pt}
+
+% Definir el título
+\pretitle{\begin{flushleft}\LARGE\sffamily}
+\title{
+Notas de Introducción a las Redes Neuronales Artificiales, Universidad Simón Bolívar
+}
+\posttitle{\par\end{flushleft}\vskip 0.5em}
+\preauthor{\begin{flushleft}\large\scshape}
+\author{Eduardo Gavazut, Carnet: 13-10524}
+\postauthor{\par\end{flushleft}}
+\predate{\begin{flushleft}\large\scshape}
+\date{Enero-Marzo 2025}
+\postdate{\par\end{flushleft}}
+
+% Aquí empieza el documento
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+\tableofcontents
+
+\newpage
+\input{clase1}
+
+\newpage
+\nocite{*}
+\bibliography{main}
+\bibliographystyle{plainnat}
+
+\end{document}
